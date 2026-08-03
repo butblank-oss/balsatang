@@ -1,6 +1,6 @@
 {
-  "builtAt": "2026-08-03T13:22:45.038Z",
-  "live": false,
+  "builtAt": "2026-08-03T13:22:59.330Z",
+  "live": true,
   "batches": [
     {
       "file": "manual-2026-08-03.json",
