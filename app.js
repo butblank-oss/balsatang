@@ -629,7 +629,9 @@ function renderDetail() {
   ].filter(Boolean);
 
   return `
-  <div style="background:${pend ? 'var(--ink70)' : 'var(--purple900)'};color:#fff;padding:14px 18px 30px">
+  <!-- 상태바 밑까지 색이 차야 자연스럽다. 위 여백만 safe-area 만큼 더 준다. -->
+  <div style="background:${pend ? 'var(--ink70)' : 'var(--purple900)'};color:#fff;
+       padding:calc(14px + env(safe-area-inset-top)) 18px 30px">
     <div style="display:flex;align-items:center">
       <button class="iconbtn press" data-back style="color:#fff">${icon('chevronRight', 24, 'ui')}</button>
       <div style="flex:1"></div>
@@ -1012,7 +1014,7 @@ function renderCompare() {
   const sameBrand = A.brand === B.brand;
 
   return `
-  <div class="top" style="padding-top:18px">
+  <div class="top lg">
     <h1 class="t-page">두 사료, 이렇게 달라요</h1>
     <div style="flex:1"></div>
     <button class="sec-more press" data-reset-compare>초기화</button>
@@ -1088,7 +1090,7 @@ function renderCompare() {
 function renderCompareEmpty(one) {
   const recent = state.recent.map(id => FOODS.find(f => f.id === id)).filter(Boolean).filter(f => !state.compare.includes(f.id)).slice(0, 3);
   return `
-  <div class="top" style="padding-top:18px"><h1 class="t-page">비교하기</h1></div>
+  <div class="top lg"><h1 class="t-page">비교하기</h1></div>
   ${one ? `<div style="display:flex;align-items:center;gap:9px;padding:20px var(--screenX) 0">
     ${slotView(one, 'A')}
     <span style="width:30px;height:30px;border-radius:50%;background:var(--purple900);color:#fff;font-size:11px;font-weight:800;display:grid;place-items:center;flex-shrink:0">VS</span>
@@ -1221,7 +1223,7 @@ function renderResult() {
   const reasons = matchReasons(top.f, pet);
 
   return `
-  <div class="top" style="padding-top:18px;align-items:center;gap:11px">
+  <div class="top lg" style="align-items:center;gap:11px">
     <div style="width:44px;height:44px;border-radius:50%;background:var(--surface);display:grid;place-items:center;color:var(--ink25)">${icon('dog', 22)}</div>
     <div style="flex:1;min-width:0">
       <div class="t-item">${esc(pet.name || '우리 아이')}</div>
@@ -1309,7 +1311,7 @@ function nextReason(f, top) {
 }
 /* E6 */
 function renderProfileEmpty() {
-  return `<div class="top" style="padding-top:18px"><h1 class="t-page">맞춤 추천</h1></div>
+  return `<div class="top lg"><h1 class="t-page">맞춤 추천</h1></div>
   <div class="empty">
     <div class="orb">${icon('dog', 38)}</div>
     <h2>우리 아이를 아직\n모르고 있어요</h2>
@@ -1337,7 +1339,7 @@ function renderContent() {
   const chips = [`<button class="chip press${cur ? '' : ' on'}" data-acat="">전체<em>${list.length}</em></button>`,
   ...cats.map(c => `<button class="chip press${cur === c ? ' on' : ''}" data-acat="${esc(c)}">${esc(c)}</button>`)].join('');
 
-  return `<div class="top" style="padding-top:18px"><h1 class="t-page">사료, 제대로 알기</h1></div>
+  return `<div class="top lg"><h1 class="t-page">사료, 제대로 알기</h1></div>
   <p class="t-bodySm c-sub" style="padding:6px var(--screenX) 0">헷갈렸던 것들을 쉽게 풀어드려요</p>
   <div class="chiprow" style="margin-top:16px">${chips}</div>
   <div class="sec">
@@ -1407,7 +1409,7 @@ function renderArticle() {
     <button class="iconbtn press" data-back>${icon('chevronRight', 24, 'ui')}</button>
     <h1 class="t-item" style="flex:1">콘텐츠</h1>
   </div>
-  <div style="padding:14px var(--screenX) 0">
+  <div style="padding:calc(14px + env(safe-area-inset-top)) var(--screenX) 0">
     <div class="t-micro" style="color:var(--purple700);font-weight:800">${esc(a.cat || '읽을거리')} · 약 ${readMin(a)}분</div>
     <h2 class="t-product" style="margin-top:8px">${esc(a.title)}</h2>
     ${a.excerpt ? `<p class="t-bodySm c-sub" style="margin-top:10px">${esc(a.excerpt)}</p>` : ''}

@@ -92,7 +92,14 @@ img{display:block;max-width:100%}
 @keyframes fadeIn{from{opacity:.4}to{opacity:1}}
 
 /* ── 상단바 ─────────────────────────────────────────── */
-.top{display:flex;align-items:center;gap:10px;padding:14px var(--screenX) 0}
+/* viewport-fit=cover 라 본문이 상태바 밑까지 올라간다. 아래쪽은 전부
+   safe-area-inset-bottom 을 쓰는데 위쪽만 빠져 있어서, 로고와 제목이 시계·배터리에
+   붙어 있었다. 노치 없는 기기에서는 inset 이 0 이라 예전 그대로다. */
+.top{display:flex;align-items:center;gap:10px;
+  padding:calc(14px + env(safe-area-inset-top)) var(--screenX) 0}
+/* 조금 더 띄우는 화면들(비교·콘텐츠·맞춤·검색결과). 예전엔 인라인으로 18px 을
+   덮어써서 safe-area 를 같이 못 받았다. */
+.top.lg{padding-top:calc(18px + env(safe-area-inset-top))}
 .top.icons{padding-left:18px;padding-right:18px}
 .logo{font-size:22px;font-weight:800;letter-spacing:-.04em}
 .logo b{color:var(--purple700);font-weight:800}
