@@ -95,7 +95,11 @@ await pg.waitForSelector('.app');
 
 /* TC-F06 비교담기 → 비교 화면 */
 {
-  const id = await pg.evaluate(() => FOODS[0].id);
+  /* 분석 준비 중 사료는 설계상 하단 독이 없다(E7 — 알림 받기·비슷한 사료로 안내).
+     비교담기를 시험하려면 분석이 끝난 사료를 잡아야 한다. FOODS[0] 을 그냥 집으면
+     목록 맨 앞이 준비 중인 날에만 빨갛게 뜬다. */
+  const id = await pg.evaluate(() =>
+    (FOODS.find(f => DETAIL[f.id]?.ingr?.length) ?? FOODS[0]).id);
   await pg.evaluate(i => { state.compare = []; save(); go('detail', { id: i }); }, id);
   await pg.waitForTimeout(200);
   const btn = pg.locator('[data-compare],[data-add-compare]');

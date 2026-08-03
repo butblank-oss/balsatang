@@ -640,7 +640,10 @@ function renderDetail() {
     <div style="display:flex;align-items:flex-start;gap:14px;margin-top:10px;padding:0 4px">
       ${well(f, 64)}
       <div style="flex:1;min-width:0">
-        <div style="font-size:13px;font-weight:600;color:var(--purple300)">${esc(f.brand)} · ${esc(ageLabel(f))}</div>
+        <!-- 분석 준비 중이면 헤더 배경이 회색(ink70)이다. 그 위에서 purple300 은
+             4.06:1 로 떨어진다(보라 배경에선 7.72:1). 배경만 바꾸고 글자색을 안 바꿔서
+             생긴 일이다. 회색 위에서는 line 을 쓴다 — 7.28:1. -->
+        <div style="font-size:13px;font-weight:600;color:var(--${pend ? 'line' : 'purple300'})">${esc(f.brand)} · ${esc(ageLabel(f))}</div>
         <h1 class="t-product" style="margin-top:4px">${esc(f.name)}</h1>
       </div>
       <div class="cbadge-lg ${s.k}">${s.k === 'none' ? icon('check', 22) : s.k === 'has' ? '!' : '·'}</div>

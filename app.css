@@ -161,7 +161,10 @@ img{display:block;max-width:100%}
 .cbadge-lg svg{width:22px;height:22px;stroke:#fff;stroke-width:2.6}
 .cbadge-lg.none{background:var(--safe)}
 .cbadge-lg.has{background:var(--caution);color:#fff;font-size:22px;font-weight:900}
-.cbadge-lg.pending{background:var(--ink20);color:#fff;font-size:20px;font-weight:900}
+/* 흰 글자를 ink20 위에 얹어 1.77:1 이었다 — 점이 거의 안 보였다.
+   '분석 준비 중'은 눈에 덜 띄어야 맞지만, 안 보이는 것과는 다르다.
+   배경은 그대로 두고 글자를 ink70 으로 내린다 — 5.23:1. */
+.cbadge-lg.pending{background:var(--ink20);color:var(--ink70);font-size:20px;font-weight:900}
 
 /* ── 제품 이미지 웰 ─────────────────────────────────────
    카탈로그 이미지는 투명 PNG 가 아니라 흰 배경 JPG 다.
