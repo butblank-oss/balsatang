@@ -59,7 +59,9 @@ for (const file of files) {
 
     /* 발행 후보 = 게이트 1 통과 + 심사 AI 대조 일치(또는 사람 입력).
        게이트 3 경고는 막지 않는다. 가격을 못 구한 항목은 총점을 낼 수 없어 후보가 아니다. */
-    const ready = g1r.gate1 === 'pass' && (byHuman || g2 === 'match');
+    /* 자료 수집 중(draft)은 절대 발행 후보가 아니다. 라벨을 봐야 풀린다. */
+    const draft = g1r.gate1 === 'draft';
+    const ready = !draft && g1r.gate1 === 'pass' && (byHuman || g2 === 'match');
     review.summary.total++;
     ready ? review.summary.ready++ : review.summary.blocked++;
     if (g1r.pricePending) review.summary.pricePending++;
@@ -71,8 +73,9 @@ for (const file of files) {
       evidence: item.evidence ?? {},
       audit: item.audit ?? null,
       pricePending: g1r.pricePending === true,
+      draft,
       gates: {
-        g1: g1r.gate1, g1fail: g1r.fail ?? [], g1warn: g1r.warn ?? [],
+        g1: g1r.gate1, g1fail: g1r.fail ?? [], g1warn: g1r.warn ?? [], todo: g1r.todo ?? [],
         g2, g2diff: item.audit?.diff ?? [],
         g3warn: g3w
       },

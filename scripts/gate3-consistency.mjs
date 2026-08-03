@@ -74,6 +74,13 @@ for (const file of files) {
   const batch = JSON.parse(await readFile(join(STAGING, file), 'utf-8'));
   console.log(`\n[${file}]`);
   for (const item of batch.items ?? []) {
+    /* 자료 수집 중은 아직 채점값이 없다. '첨가물 점수가 null 인데…' 같은 경고는
+       고장이 아니라 안 채운 것이라, 여기서 내면 진짜 경고가 묻힌다. */
+    if (item.proposed?.draft === true) {
+      report.items[item.stagingId] = [];
+      console.log(`  📝 ${item.proposed?.brand} ${item.proposed?.name}  (자료 수집 중 — 검사 보류)`);
+      continue;
+    }
     const warn = check(item.proposed ?? {});
     report.items[item.stagingId] = warn;
     total += warn.length;

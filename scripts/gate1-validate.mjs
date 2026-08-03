@@ -29,6 +29,22 @@ const LIVE = process.argv.includes('--live');
 const jsonAt = process.argv.indexOf('--json');
 
 
+/* 아직 라벨을 못 본 항목 — 카탈로그에서 기본 정보만 긁어 온 상태다.
+   검사해 봐야 '원료가 없다 · 탄수가 없다 · 별점이 없다' 가 열 줄씩 나오는데,
+   그건 고장이 아니라 아직 안 채운 것이다. 둘을 섞으면 심사 화면이 빨간 벽이 되고
+   진짜 문제가 묻힌다. 무엇을 채워야 하는지만 짚어 준다.
+   발행 경로는 그대로 막혀 있다 — draft 는 결코 발행 후보가 되지 않는다. */
+function draftTodo(item) {
+  const p = item.proposed ?? {};
+  const todo = [];
+  if (!(p.ingredients ?? []).length) todo.push('원료 표기 전체 (표기 순서대로)');
+  if (p.ga?.fiber == null || p.ga?.moisture == null) todo.push('조섬유·수분 (건물기준 탄수 계산에 필요)');
+  if (p.ga?.protein == null) todo.push('조단백');
+  if (p.pricePending) todo.push('쿠팡 상품 링크와 가격');
+  if (!p.thumb) todo.push('제품 사진');
+  return todo;
+}
+
 function checkItem(item, published, seen) {
   const fail = [];
   const warn = [];
@@ -325,13 +341,24 @@ for (const file of files) {
   const batch = JSON.parse(await readFile(join(STAGING, file), 'utf-8'));
   const out = { file, batchId: batch.batchId ?? null, items: [] };
   for (const item of batch.items ?? []) {
+    const label = `${item.proposed?.brand ?? '?'} ${item.proposed?.name ?? '?'}`;
+    const pending = item.proposed?.pricePending === true;
+
+    /* 자료 수집 중인 항목은 채점 검사를 걸지 않는다. 아직 검사할 단계가 아니다. */
+    if (item.proposed?.draft === true) {
+      out.items.push({
+        stagingId: item.stagingId, label, gate1: 'draft', pricePending: pending,
+        fail: [], warn: [], todo: draftTodo(item)
+      });
+      report.draft = (report.draft ?? 0) + 1;
+      continue;
+    }
+
     const { fail, warn } = checkItem(item, published, seen);
     if (LIVE && fail.length === 0) fail.push(...await checkLive(item));
     const ok = fail.length === 0;
-    const pending = item.proposed?.pricePending === true;
     out.items.push({
-      stagingId: item.stagingId,
-      label: `${item.proposed?.brand ?? '?'} ${item.proposed?.name ?? '?'}`,
+      stagingId: item.stagingId, label,
       gate1: ok ? (pending ? 'pending' : 'pass') : 'fail',
       pricePending: pending,
       fail, warn
@@ -349,13 +376,17 @@ if (!report.batches.length) console.log('검사할 스테이징 파일이 없습
 for (const b of report.batches) {
   console.log(`\n[${b.file}]`);
   for (const it of b.items) {
-    const mark = it.gate1 === 'pass' ? '✅' : it.gate1 === 'pending' ? '⏸' : '❌';
-    console.log(`  ${mark} ${it.label}${it.gate1 === 'pending' ? '  (가격 대기)' : ''}`);
+    const mark = it.gate1 === 'pass' ? '✅' : it.gate1 === 'pending' ? '⏸'
+      : it.gate1 === 'draft' ? '📝' : '❌';
+    const tag = it.gate1 === 'pending' ? '  (가격 대기)' : it.gate1 === 'draft' ? '  (자료 수집 중)' : '';
+    console.log(`  ${mark} ${it.label}${tag}`);
+    for (const t of it.todo ?? []) console.log(`       · 채울 것: ${t}`);
     for (const f of it.fail) console.log(`       ✗ ${f.msg}`);
     for (const w of it.warn) console.log(`       ⚠ ${w.msg}`);
   }
 }
-console.log(`\n${line}\n통과 ${report.pass} · 탈락 ${report.failCount}\n`);
+console.log(`\n${line}\n통과 ${report.pass} · 탈락 ${report.failCount}` +
+  (report.draft ? ` · 자료 수집 중 ${report.draft}` : '') + '\n');
 
 if (jsonAt > -1 && process.argv[jsonAt + 1]) {
   await writeFile(process.argv[jsonAt + 1], JSON.stringify(report, null, 2));

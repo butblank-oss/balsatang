@@ -717,8 +717,12 @@ const FUNC_ROWS = [
 function funcBars(d) {
   const fi = d.funcIngr || {};
   const rows = FUNC_ROWS.map(r => {
-    const items = r.fn.flatMap(k => fi[k] || []);
-    return { ...r, n: items.length, names: items.map(x => x.n) };
+    /* funcIngr 는 {n: 이름} 만 담는다. 판정은 원료 목록에서 찾아 붙인다 —
+       '청어' 가 관련 원료라는 것만 알려주고 그게 양호한지 안 보여주면 반쪽이다. */
+    const byName = new Map((d.ingr || []).map(x => [x.name, x]));
+    const items = r.fn.flatMap(k => fi[k] || [])
+      .map(x => ({ name: x.n, safe: byName.get(x.n)?.safe ?? 'safe' }));
+    return { ...r, n: items.length, items };
   });
   /* 핸드오프 규칙 — 바 길이는 점수가 아니라 '찾은 관련 원료 개수'를 최대 4종 기준으로 환산한다.
      기준을 데이터에 따라 움직이면 사료마다 같은 1종이 다른 길이로 보인다. */
@@ -737,8 +741,19 @@ function funcBars(d) {
       <div style="height:6px;border-radius:99px;background:var(--lineSoft);margin-top:7px;overflow:hidden">
         <div style="height:100%;border-radius:99px;background:var(--purple700);width:${r.n / max * 100}%;transition:width .6s ease-out"></div>
       </div>
-      ${r.names.length ? `<div class="t-micro c-mute" style="margin-top:5px">${esc(r.names.join(', '))}</div>` : ''}
+      ${r.items.length ? `<div class="tags" style="margin-top:6px">${r.items.map(ingrTag).join('')}</div>` : ''}
     </div>`).join('')}</div>`;
+}
+
+/* 원료 하나를 판정과 함께 칩으로.
+   safe 는 초록, caution 과 danger 는 앰버다 — 팔레트에 빨강이 없다.
+   주의성분이 있다고 그 사료가 나쁜 게 아니라, 알고 고르라는 뜻이기 때문이다.
+   danger 는 같은 앰버를 쓰되 '!' 를 붙여 한 단계 세게 말한다. */
+function ingrTag(i) {
+  const s = i.safe;
+  const cls = s === 'safe' ? 'safe' : (s === 'caution' || s === 'danger') ? 'caution' : 'pending';
+  const mark = s === 'danger' ? '! ' : '';
+  return `<span class="tag ${cls}">${mark}${esc(i.name ?? i.n ?? '')}</span>`;
 }
 
 /* 03 성분 분석 */
@@ -786,7 +801,21 @@ function renderNutritionTab(f, d) {
     ${ingr.length ? `<div style="display:flex;align-items:center;justify-content:space-between;margin-top:30px">
       <h2 class="t-section">원료 전체</h2>
       <button class="sec-more press" data-ingr-sheet>${ingr.length}개 모두 보기</button></div>
-    <p class="t-bodySm c-sub" style="margin-top:10px;line-height:1.75">${ingr.slice(0, 10).map(i => esc(i.name)).join(', ')}${ingr.length > 10 ? '…' : ''}</p>` : ''}
+    <!-- 예전엔 원료 이름만 쉼표로 늘어놨다. 어느 게 양호하고 어느 게 주의인지는
+         '모두 보기' 시트에 들어가야만 볼 수 있었는데, 그건 이 서비스가 하는 일
+         자체다. 여기서 바로 보이게 한다. 빨강은 안 쓴다 — 주의는 앰버다. -->
+    <div class="tags" style="margin-top:11px">${ingr.slice(0, 12).map(ingrTag).join('')}
+      ${ingr.length > 12 ? `<span class="tag">그 외 ${ingr.length - 12}개</span>` : ''}</div>
+    ${(() => {
+      const c = { safe: 0, caution: 0, danger: 0, unknown: 0 };
+      for (const i of ingr) c[i.safe === 'unknown' || !i.safe ? 'unknown' : i.safe]++;
+      const bits = [];
+      if (c.safe) bits.push(`양호 ${c.safe}`);
+      if (c.caution) bits.push(`주의 ${c.caution}`);
+      if (c.danger) bits.push(`특히 주의 ${c.danger}`);
+      if (c.unknown) bits.push(`분류 전 ${c.unknown}`);
+      return `<p class="t-micro c-mute" style="margin-top:9px;font-weight:500">${bits.join(' · ')}</p>`;
+    })()}` : ''}
 
     <p class="note" style="padding:0">모든 분석은 라벨 표기 성분 기준의 참고용이에요.
 건강 문제는 수의사와 상담해주세요.</p>
