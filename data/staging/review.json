@@ -1,6 +1,6 @@
 {
-  "builtAt": "2026-08-03T13:12:22.500Z",
-  "live": true,
+  "builtAt": "2026-08-03T13:22:45.038Z",
+  "live": false,
   "batches": [
     {
       "file": "manual-2026-08-03.json",
@@ -86,7 +86,17 @@
               ],
               "buyUrl": "https://link.coupang.com/a/fUQtmMhJLw"
             },
-            "thumb": "https://img.danuri.io/catalog-image/694/634/001/7437b261e68545369083165850f237d3.jpg?shrink=360:360"
+            "thumb": "https://img.danuri.io/catalog-image/694/634/001/7437b261e68545369083165850f237d3.jpg?shrink=360:360",
+            "kcalPerKg": 3400,
+            "prices": [
+              {
+                "wg": 1000,
+                "shop": "coupang",
+                "price": 8500,
+                "pKg": 8500,
+                "url": "https://link.coupang.com/a/fUQtmMhJLw"
+              }
+            ]
           },
           "sources": [
             {
