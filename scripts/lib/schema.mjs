@@ -13,7 +13,7 @@ export const ENUM = {
   ico: ['beef', 'bird', 'cross', 'dog', 'drumstick', 'fish', 'leaf'],
   status: ['draft', 'review', 'published', 'rejected', 'stale'],
   specOrigin: ['domestic', 'overseas'],
-  sourceRole: ['official', 'importer', 'retail', 'authority']
+  sourceRole: ['official', 'importer', 'label', 'retail', 'authority']
 };
 
 /* 가격 출처로 인정하는 도메인 — DATA-POLICY 3.2. 쿠팡만 인정한다. */
@@ -47,7 +47,11 @@ export function isCoupangProductUrl(url) {
 
 /* 출처 등급 — DATA-POLICY 3.1 */
 export const SOURCE_GRADE = {
-  official: 'A', importer: 'A', authority: 'A', retail: 'B'
+  /* label — 제품 봉지·상세이미지의 성분분석표를 사람이 눈으로 판독한 것.
+     사료관리법이 표기를 강제하는 원본이라 제조사 홈페이지보다 오히려 1차 자료다.
+     수입 사료는 국내 공식 페이지가 아예 없는 경우가 많아, 이걸 B로 두면
+     사람이 라벨을 보고 등록하는 흐름 자체가 영영 통과하지 못한다. */
+  official: 'A', importer: 'A', authority: 'A', label: 'A', retail: 'B'
 };
 
 /* 점수 가중치 — DATA-POLICY 4. 합이 1이 되어야 한다. */

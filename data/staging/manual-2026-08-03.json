@@ -1,0 +1,143 @@
+{
+  "batchId": "manual-2026-08-03",
+  "collectedAt": "2026-08-03T12:50:53.956Z",
+  "collector": {
+    "agent": "사람",
+    "model": null
+  },
+  "items": [
+    {
+      "stagingId": "stg_cesar_msd89gg4",
+      "proposed": {
+        "brand": "시저",
+        "brandSlug": "cesar",
+        "country": "AU",
+        "name": "어덜트 쇠고기·연어",
+        "type": "dry",
+        "rx": false,
+        "ages": [
+          "adult"
+        ],
+        "sizes": [
+          "all"
+        ],
+        "ratings": {
+          "quality": 3,
+          "carb": 1,
+          "additive": 2,
+          "value": 5
+        },
+        "score": 4.9,
+        "func": [
+          "digestive",
+          "eye_tear"
+        ],
+        "warnN": 12,
+        "concerns": [
+          "digestive",
+          "eye_tear"
+        ],
+        "facts": {
+          "protein": 22,
+          "dmCarb": 59.6,
+          "firstIngrCat": "grain",
+          "cautionN": 9,
+          "dangerN": 3,
+          "pKg": 8500
+        },
+        "specOrigin": "domestic",
+        "ga": {
+          "protein": 22,
+          "fat": 9,
+          "fiber": 5,
+          "moisture": 11,
+          "ash": 8.5
+        },
+        "ingredients": [
+          "곡물(밀, 수수, 옥수수, 쌀)",
+          "육류 및 육류부산물(닭, 쇠고기)",
+          "천연향료",
+          "글리세롤",
+          "사탕무박",
+          "소금",
+          "미네랄합제",
+          "야채(완두콩, 당근, 토마토, 호박)",
+          "해바라기유",
+          "BHA",
+          "BHT",
+          "소르빈산칼륨",
+          "DL-메티오닌",
+          "연어분말",
+          "비타민합제",
+          "식용색소적색 제102호",
+          "식용색소황색 제4호",
+          "식용색소황색 제5호",
+          "식용색소청색 제2호"
+        ],
+        "price": {
+          "p": 8500,
+          "wg": 1000,
+          "shop": "coupang",
+          "pKg": 8500,
+          "wgOptions": [
+            1000
+          ],
+          "buyUrl": "https://link.coupang.com/a/fUQtmMhJLw"
+        }
+      },
+      "sources": [
+        {
+          "role": "label",
+          "url": "https://www.coupang.com/vp/products/8596103075?itemId=48878020",
+          "fetchedAt": "2026-08-03T12:50:53.956Z",
+          "title": "제품 라벨 성분분석표 (상세이미지, 사람이 사진으로 판독)"
+        },
+        {
+          "role": "retail",
+          "url": "https://www.coupang.com/vp/products/8596103075?itemId=48878020",
+          "fetchedAt": "2026-08-03T12:50:53.956Z",
+          "title": "쿠팡 상품 페이지 — 가격·용량"
+        }
+      ],
+      "evidence": {
+        "facts.protein": {
+          "src": 0,
+          "quote": "성분분석 — 조단백질 22% 이상"
+        },
+        "facts.dmCarb": {
+          "src": 0,
+          "quote": "조단백 22 + 조지방 9 + 조섬유 5 + 수분 11 → 건물기준 탄수 59.6% (조회분 8.5% 제외, 기존 55종과 같은 방식)"
+        },
+        "facts.firstIngrCat": {
+          "src": 0,
+          "quote": "사용원료 1번 = 곡물(밀, 수수, 옥수수, 쌀)"
+        },
+        "facts.cautionN": {
+          "src": 0,
+          "quote": "곡물 묶음표기, 천연향료, 글리세롤, 소금, 소르빈산칼륨, 착색료 4종 = 9건"
+        },
+        "facts.dangerN": {
+          "src": 0,
+          "quote": "산화방지제(BHA, BHT) 2건 + 육류 및 육류부산물(닭, 쇠고기) 부위 미표기 1건 = 3건"
+        },
+        "price.p": {
+          "src": 1,
+          "quote": "8,500원 / 1kg · 100g당 850원 (2026-08-03 확인)"
+        },
+        "kcal": {
+          "src": 0,
+          "quote": "칼로리 100g당 340kcal (라벨 표기) = 3,400kcal/kg"
+        },
+        "country": {
+          "src": 0,
+          "quote": "MADE WITH HIGH QUALITY AUSTRALIAN MEAT (봉지) · 판매처 상품정보제공고시 원산지 호주"
+        }
+      },
+      "collector": {
+        "agent": "사람",
+        "via": "claude(사진 판독)",
+        "at": "2026-08-03T12:50:53.956Z"
+      }
+    }
+  ]
+}

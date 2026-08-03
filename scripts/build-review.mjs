@@ -49,11 +49,17 @@ for (const file of files) {
   const batch = JSON.parse(await readFile(join(STAGING, file), 'utf-8'));
   const items = (batch.items ?? []).map(item => {
     const g1r = g1By[item.stagingId] ?? { gate1: 'unknown', fail: [], warn: [] };
-    const g2 = item.audit?.verdict ?? 'none';
     const g3w = g3.items?.[item.stagingId] ?? [];
-    /* 발행 후보 = 게이트 1 통과 + 심사 AI 대조 일치. 게이트 3 경고는 막지 않는다.
-       가격을 못 구한 항목(pending)은 총점을 낼 수 없어 발행 후보가 아니다. */
-    const ready = g1r.gate1 === 'pass' && g2 === 'match';
+    /* 게이트 2 는 AI 가 수집한 값을 다른 AI 가 백지에서 다시 조사해 대조하는 장치다.
+       사람이 라벨 원본을 보고 직접 넣은 값에는 걸 수 없다 — AI 가 웹에서 다시
+       찾아본 값이 라벨 실물보다 정확할 리 없고, 못 찾으면 영영 보류로 쌓인다.
+       그래서 면제하되 숨기지는 않는다: g2='사람' 으로 남겨 심사 화면에 표시한다. */
+    const byHuman = item.collector?.agent === '사람';
+    const g2 = byHuman ? '사람' : (item.audit?.verdict ?? 'none');
+
+    /* 발행 후보 = 게이트 1 통과 + 심사 AI 대조 일치(또는 사람 입력).
+       게이트 3 경고는 막지 않는다. 가격을 못 구한 항목은 총점을 낼 수 없어 후보가 아니다. */
+    const ready = g1r.gate1 === 'pass' && (byHuman || g2 === 'match');
     review.summary.total++;
     ready ? review.summary.ready++ : review.summary.blocked++;
     if (g1r.pricePending) review.summary.pricePending++;
