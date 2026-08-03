@@ -41,3 +41,6 @@ data/staging/_review.json
 
 # QA 실행 결과 캡처
 .qa-out/
+
+# node_modules 는 심링크로 붙일 때도 있다
+node_modules

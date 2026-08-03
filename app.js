@@ -89,6 +89,10 @@ function per100g(f) {
 }
 function buyUrlOf(f) {
   if (f.price?.buyUrl) return f.price.buyUrl;
+  /* 대표 가격에 링크가 없어도 판매처별 가격에는 있는 경우가 있다. 그걸 안 보면
+     화면 위에는 '구매' 버튼이 둘인데 하단 고정 버튼만 '구매 링크 준비 중' 이 된다. */
+  const p = (DETAIL[f.id]?.prices || []).find(x => x.url);
+  if (p) return p.url;
   const r = (f.src?.sources || []).find(s => s.role === 'retail');
   return r ? r.url : null;
 }
@@ -405,7 +409,8 @@ function renderHome() {
         <div style="margin-top:7px;font-size:19px;font-weight:800;letter-spacing:-.035em;line-height:1.36">몸무게·나이·고민만<br>알려주시면 돼요</div>
         <span style="display:inline-flex;align-items:center;gap:4px;margin-top:13px;height:32px;padding:0 14px;border-radius:999px;background:#fff;color:var(--purple900);font-size:13px;font-weight:700">1분이면 끝나요 ›</span>
       </div>
-      <div style="width:76px;height:76px;border-radius:var(--rThumbLg);background:#4A0A66;display:grid;place-items:center;color:var(--purple300);font-size:11px;font-weight:700;text-align:center;line-height:1.4">우리아이<br>사진</div>
+      <!-- 팔레트에 없는 색을 임의로 만들지 않는다. purple900 위의 슬롯은 purple700 로 띄운다. -->
+      <div style="width:76px;height:76px;border-radius:var(--rThumbLg);background:var(--purple700);display:grid;place-items:center;color:var(--purple300);font-size:11px;font-weight:700;letter-spacing:-.02em;text-align:center;line-height:1.4">우리아이<br>사진</div>
     </button>
   </div>
 
@@ -637,7 +642,9 @@ function funcBars(d) {
     const items = r.fn.flatMap(k => fi[k] || []);
     return { ...r, n: items.length, names: items.map(x => x.n) };
   });
-  const max = Math.max(3, ...rows.map(r => r.n));
+  /* 핸드오프 규칙 — 바 길이는 점수가 아니라 '찾은 관련 원료 개수'를 최대 4종 기준으로 환산한다.
+     기준을 데이터에 따라 움직이면 사료마다 같은 1종이 다른 길이로 보인다. */
+  const max = Math.max(4, ...rows.map(r => r.n));
   return `
   <h2 class="t-section" style="margin-top:30px">고민별 관련 원료</h2>
   <p class="t-caption c-sub" style="margin-top:4px">원료 목록에서 찾은 관련 원료 종류 수예요</p>
@@ -817,7 +824,7 @@ function renderFeedingTab(f, d) {
         <div style="font-size:30px;font-weight:800;letter-spacing:-.04em">${feed.days}<span style="font-size:17px;margin-left:1px">일</span></div>
       </div>
 
-      <p class="t-micro" style="margin-top:14px;color:#A8A2B0;font-weight:500;line-height:1.6">성견 유지 기준(RER×1.6) 계산값이에요. 활동량·나이에 따라 달라져요.${feed.kcal.est ? `<br>이 사료는 칼로리 표기가 없어 영양성분으로 추정한 값(약 ${won(feed.kcal.v)}kcal/kg)을 썼어요.` : ''}</p>
+      <p class="t-micro" style="margin-top:14px;color:var(--footnote);font-weight:500;line-height:1.6">성견 유지 기준(RER×1.6) 계산값이에요. 활동량·나이에 따라 달라져요.${feed.kcal.est ? `<br>이 사료는 칼로리 표기가 없어 영양성분으로 추정한 값(약 ${won(feed.kcal.v)}kcal/kg)을 썼어요.` : ''}</p>
     </div>
 
     <button class="card dark press" style="width:100%;margin-top:22px;display:flex;align-items:center;gap:12px;padding:18px;border-radius:var(--rCard);text-align:left" data-go="compare">
@@ -868,8 +875,9 @@ function slotView(f, side) {
     <span style="align-self:flex-start;height:22px;padding:0 9px;border-radius:999px;background:${chipBg};color:${color};font-size:11px;font-weight:800;display:inline-flex;align-items:center">${side} · ${esc(label)}</span>
     <button class="press" data-pick-slot="${slot}" style="position:relative;display:block" aria-label="다른 사료로 바꾸기">
       ${well(f, 88)}
-      <span style="position:absolute;right:-3px;bottom:-3px;width:28px;height:28px;border-radius:50%;
-        background:${color};color:#fff;display:grid;place-items:center;box-shadow:0 0 0 3px #fff">
+      <!-- 썸네일에서 떼어내는 흰 테두리다. 그림자로 흉내내지 않는다 — 앱 안에 그림자를 안 쓴다. -->
+      <span style="position:absolute;right:-4px;bottom:-4px;width:30px;height:30px;border-radius:50%;border:3px solid #fff;
+        background:${color};color:#fff;display:grid;place-items:center">
         ${icon('compare', 14)}</span>
     </button>
     <div style="width:100%;text-align:center">
@@ -964,8 +972,9 @@ function renderCompare() {
 
   <div class="sec lg">
     <h2 class="t-section">숫자로 자세히 비교하기</h2>
-    <div style="margin-top:13px;border-radius:var(--rInput);box-shadow:inset 0 0 0 1px var(--line);overflow:hidden">
-      <div style="display:flex;background:#FAF9FB">
+    <!-- overflow:hidden 이면 스크롤 컨테이너가 생겨 sticky 가 죽는다. clip 은 자르기만 한다. -->
+    <div style="margin-top:13px;border-radius:var(--rInput);box-shadow:inset 0 0 0 1px var(--line);overflow:clip">
+      <div style="display:flex;position:sticky;top:0;z-index:2;background:var(--cmpHead)">
         <div style="flex:1;padding:12px 14px;font-size:12px;font-weight:800;color:var(--purple700)">Ⓐ ${esc(la)}</div>
         <div style="width:88px;text-align:center;padding:12px 4px;font-size:12px;font-weight:600;color:var(--ink50)">항목</div>
         <div style="flex:1;padding:12px 14px;text-align:right;font-size:12px;font-weight:800;color:var(--blue700)">${esc(lb)} Ⓑ</div>
@@ -1182,7 +1191,8 @@ function renderResult() {
       ${rest.slice(0, 2).map(({ f, m }) => `<button class="row press" data-go-detail="${f.id}">
         ${well(f, 44)}
         <span class="row-b"><span class="row-name" style="display:block">${esc(f.brand)} ${esc(f.name)}</span>
-        <span class="row-meta">매칭 ${m}% · ${esc(nextReason(f, top.f))}</span></span>
+        <!-- 퍼센트에는 반드시 아이 이름을 붙인다. 이름이 없으면 제품 점수처럼 읽힌다. -->
+        <span class="row-meta">${esc(pet.name || '우리 아이')} 매칭 ${m}% · ${esc(nextReason(f, top.f))}</span></span>
         ${icon('chevronRight', 16, 'chev')}</button>`).join('')}
     </div>
   </div>

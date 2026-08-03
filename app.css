@@ -15,6 +15,9 @@
   --caution:#E8A33D; --cautionBg:#FEF7EC; --cautionChip:#B87514;
   --cautionText:#8A5A14; --cautionBody:#8A7455;
   /* 빨강은 팔레트에 없다. 실패·에러·주의 전부 앰버로 표현한다. */
+  /* 팔레트 밖이지만 핸드오프가 값을 못박아 둔 것들 —
+     비교표 머리(compareTable.headerBackground), 빈 별 아웃라인, 각주 회색. */
+  --cmpHead:#FAF9FB; --starOff:#DDD7E3; --footnote:#A8A2B0;
 
   /* shape */
   --rChip:999px; --rThumbSm:13px; --rThumbMd:16px; --rThumbLg:20px;
@@ -42,7 +45,10 @@ body{
   -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
 }
-button,input,select,textarea{font-family:inherit;font-size:inherit;color:inherit;border:0;background:none}
+/* 브라우저 기본 스타일이 button·input 의 자간을 normal 로 되돌린다. 한글은 자간 -2~-4.5%
+   가 필수라(핸드오프 $typeRule) 버튼 안 글자만 헐거워 보였다. 물려받게 한다. */
+button,input,select,textarea{font-family:inherit;font-size:inherit;color:inherit;
+  letter-spacing:inherit;border:0;background:none}
 button{cursor:pointer}
 a{color:var(--purple700);text-decoration:none}
 ul,ol{list-style:none}
@@ -272,7 +278,7 @@ img{display:block;max-width:100%}
   letter-spacing:-.02em;line-height:1.6;white-space:pre-line}
 .empty .acts{margin-top:24px;width:100%;display:flex;flex-direction:column;gap:9px}
 .empty .acts .btn{height:52px}
-.empty .code{margin-top:18px;font-size:12px;color:#A8A2B0}
+.empty .code{margin-top:18px;font-size:12px;color:var(--footnote)}
 
 /* ── 스켈레톤 ───────────────────────────────────────── */
 .sk{background:var(--lineSoft);border-radius:8px;position:relative;overflow:hidden}
@@ -291,7 +297,7 @@ img{display:block;max-width:100%}
   transform:translateY(100%);transition:transform .3s ease-out;
   max-height:82dvh;display:flex;flex-direction:column}
 .sheet.on{transform:none}
-.sheet .grab{width:36px;height:4px;border-radius:2px;background:#DDD7E3;margin:10px auto 4px}
+.sheet .grab{width:36px;height:4px;border-radius:2px;background:var(--starOff);margin:10px auto 4px}
 .sheet .sh-h{padding:12px var(--screenX) 10px;font-size:17px;font-weight:800;letter-spacing:-.03em}
 .sheet .sh-b{overflow-y:auto;padding:0 var(--screenX) calc(24px + env(safe-area-inset-bottom))}
 

@@ -17,6 +17,7 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, '../..');
 
 const SUITES = [
+  ['design.mjs', '디자인 규칙'],
   ['front.mjs', '소비자 · 프론트'],
   ['foods.mjs', '운영자 · 사료 관리'],
   ['admin.mjs', '운영자 · 통합 어드민'],
