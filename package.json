@@ -1,0 +1,31 @@
+{
+  "name": "balsatang-data",
+  "version": "1.0.0",
+  "private": true,
+  "description": "발사탕 사료 데이터 파이프라인 — 수집·검증·발행",
+  "type": "module",
+  "scripts": {
+    "gate1": "node scripts/gate1-validate.mjs",
+    "gate1:live": "NODE_USE_ENV_PROXY=1 node scripts/gate1-validate.mjs --live",
+    "gate3": "node scripts/gate3-consistency.mjs",
+    "review": "node scripts/build-review.mjs",
+    "edits": "node scripts/apply-edits.mjs",
+    "review:live": "NODE_USE_ENV_PROXY=1 node scripts/build-review.mjs --live",
+    "publish": "node scripts/merge-approved.mjs",
+    "verify": "node scripts/verify-data.mjs",
+    "check": "npm run verify && npm run surfaces && npm run gate1 && npm run gate3",
+    "surfaces": "node scripts/verify-surfaces.mjs",
+    "strength": "node scripts/compute-func-strength.mjs",
+    "ranking": "node scripts/collect-ranking.mjs",
+    "lookup": "node scripts/danawa-product.mjs",
+    "buylinks": "node scripts/buy-links.mjs",
+    "backfill": "node scripts/backfill-detail.mjs",
+    "partners": "node scripts/coupang-partners.mjs",
+    "thumbs": "node scripts/find-thumbs.mjs",
+    "registry": "node scripts/feed-registry.mjs",
+    "qa": "node scripts/qa/all.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.49.0"
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "collectedAt": "2026-08-01T01:18:47.699Z",
+  "note": "사용자가 제공한 쿠팡 제휴 단축링크를 상품 URL 로 변환했다. 가격과 썸네일 이미지 URL 은 상품 페이지가 403 이라 확보하지 못했다.",
+  "needed": [
+    "price (원)",
+    "wg (g)",
+    "thumb (쿠팡 상품 이미지 URL)"
+  ],
+  "items": [
+    {
+      "short": "fQJvHO7IYu",
+      "pid": "9345788421",
+      "item": "115324503",
+      "vendor": "88564689102",
+      "label": "뉴트리나 퍼피 1세이하 장 기능성",
+      "match": "stg_nutrena_puppy",
+      "url": "https://www.coupang.com/vp/products/9345788421?itemId=115324503&vendorItemId=88564689102",
+      "affiliate": "https://link.coupang.com/a/fQJvHO7IYu",
+      "price": null,
+      "wg": null,
+      "thumb": null
+    },
+    {
+      "short": "fQJxP22AlE",
+      "pid": "26291212",
+      "item": "17884839",
+      "vendor": "92327928356",
+      "label": "뉴트리나 어덜트 치킨",
+      "match": "stg_nutrena_adult_chicken",
+      "url": "https://www.coupang.com/vp/products/26291212?itemId=17884839&vendorItemId=92327928356",
+      "affiliate": "https://link.coupang.com/a/fQJxP22AlE",
+      "price": null,
+      "wg": null,
+      "thumb": null
+    },
+    {
+      "short": "fQJzzcqHUy",
+      "pid": "26291212",
+      "item": "888404543",
+      "vendor": "72731278921",
+      "label": "뉴트리나 어덜트 치킨 (다른 옵션)",
+      "match": "stg_nutrena_adult_chicken",
+      "url": "https://www.coupang.com/vp/products/26291212?itemId=888404543&vendorItemId=72731278921",
+      "affiliate": "https://link.coupang.com/a/fQJzzcqHUy",
+      "price": null,
+      "wg": null,
+      "thumb": null
+    },
+    {
+      "short": "fQJDzVwhqK",
+      "pid": "1463183",
+      "item": "115194110",
+      "vendor": "72730488969",
+      "label": "뉴트리나 어덜트 곡물 다이어트",
+      "match": null,
+      "url": "https://www.coupang.com/vp/products/1463183?itemId=115194110&vendorItemId=72730488969",
+      "affiliate": "https://link.coupang.com/a/fQJDzVwhqK",
+      "price": null,
+      "wg": null,
+      "thumb": null
+    },
+    {
+      "short": "fQJENHlzdk",
+      "pid": "392378",
+      "item": "205429278",
+      "vendor": "71387938756",
+      "label": "뉴트리나 건강백서 전연령 기능성",
+      "match": null,
+      "url": "https://www.coupang.com/vp/products/392378?itemId=205429278&vendorItemId=71387938756",
+      "affiliate": "https://link.coupang.com/a/fQJENHlzdk",
+      "price": null,
+      "wg": null,
+      "thumb": null
+    },
+    {
+      "short": "fQJG5QplIq",
+      "pid": "8428440540",
+      "item": "28188930251",
+      "vendor": "95143404413",
+      "label": "뉴트리나 울트라 액티브 플러스 15kg",
+      "match": null,
+      "url": "https://www.coupang.com/vp/products/8428440540?itemId=28188930251&vendorItemId=95143404413",
+      "affiliate": "https://link.coupang.com/a/fQJG5QplIq",
+      "price": null,
+      "wg": null,
+      "thumb": null
+    },
+    {
+      "short": "fQJIfdzEdg",
+      "pid": "8428440540",
+      "item": "2325124889",
+      "vendor": "93543817829",
+      "label": "뉴트리나 울트라 액티브 (전연령)",
+      "match": null,
+      "url": "https://www.coupang.com/vp/products/8428440540?itemId=2325124889&vendorItemId=93543817829",
+      "affiliate": "https://link.coupang.com/a/fQJIfdzEdg",
+      "price": null,
+      "wg": null,
+      "thumb": null
+    }
+  ]
+}

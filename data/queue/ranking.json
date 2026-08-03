@@ -1,0 +1,729 @@
+{
+  "source": "danawa",
+  "query": "강아지 사료",
+  "collectedAt": "2026-07-31T15:33:05.777Z",
+  "note": "순위·상품명·가격·용량·쿠팡링크만 수집했다. 성분은 제조사 페이지에서 따로 확보해야 한다.",
+  "total": 30,
+  "items": [
+    {
+      "name": "뉴트리나 독 프라임 밸런스 15kg",
+      "price": 13910,
+      "wg": 15000,
+      "pcode": "3222973",
+      "onCoupang": false,
+      "searchUrl": "https://search.danawa.com/dsearch.php?query=%EA%B0%95%EC%95%84%EC%A7%80%20%EC%82%AC%EB%A3%8C&page=1",
+      "rank": 1,
+      "pKg": 927,
+      "coupangUrl": null,
+      "spec": {
+        "ga": {
+          "protein": 14,
+          "fat": 3,
+          "fiber": 6,
+          "ash": 10,
+          "moisture": 12
+        },
+        "summary": "강아지 전용 / 사료 / 전연령 / 건식 / 미디움(~13mm) / 주 단백질원 : 과일·야채 , 닭고기 / 무색소 / 대용량 /",
+        "url": "https://prod.danawa.com/info/?pcode=3222973"
+      },
+      "alreadyRegistered": false,
+      "matchedWith": null
+    },
+    {
+      "name": "로얄캐닌 독 미니 인도어 어덜트 3kg",
+      "price": 35090,
+      "wg": 3000,
+      "pcode": "3497027",
+      "onCoupang": false,
+      "searchUrl": "https://search.danawa.com/dsearch.php?query=%EA%B0%95%EC%95%84%EC%A7%80%20%EC%82%AC%EB%A3%8C&page=1",
+      "rank": 2,
+      "pKg": 11697,
+      "coupangUrl": null,
+      "spec": {
+        "ga": {
+          "protein": 19,
+          "fat": 12,
+          "fiber": 2.9,
+          "ash": 6.8,
+          "moisture": 11
+        },
+        "summary": "강아지 전용 / 사료 / 어덜트 / 건식 / 미디움(~13mm) / 주 단백질원 : 칠면조고기 , 과일·야채 , 닭고기 , 곡물 / 가수분해 / 기능 : 소화·장건강 , 체중관리 / 주요성분 : L-카르니틴 , 프리바이오틱스 /",
+        "url": "https://prod.danawa.com/info/?pcode=3497027"
+      },
+      "alreadyRegistered": true,
+      "matchedWith": "로얄캐닌 미니 인도어 어덜트"
+    },
+    {
+      "name": "로얄캐닌 독 하이포알러제닉 스몰독 3.5kg",
+      "price": 71240,
+      "wg": 3500,
+      "pcode": "6381743",
+      "onCoupang": false,
+      "searchUrl": "https://search.danawa.com/dsearch.php?query=%EA%B0%95%EC%95%84%EC%A7%80%20%EC%82%AC%EB%A3%8C&page=1",
+      "rank": 3,
+      "pKg": 20354,
+      "coupangUrl": null,
+      "spec": {
+        "ga": {
+          "protein": 22,
+          "fat": 14,
+          "fiber": 1.7,
+          "ash": 9.5,
+          "moisture": 10.5
+        },
+        "summary": "강아지 전용 / 사료 / 어덜트 / 건식 / 주 단백질원 : 돼지고기 , 닭고기 , 오리고기 , 과일·야채 / 가수분해 / 기능 : 치석예방·제거 , 소화·장건강 , 피부·모질개선 , 신장·요로건강 / GMOFree / 처방식 /",
+        "url": "https://prod.danawa.com/info/?pcode=6381743"
+      },
+      "alreadyRegistered": true,
+      "matchedWith": "로얄캐닌 하이포알러제닉"
+    },
+    {
+      "name": "로얄캐닌 독 유리너리 S/O 스몰독 4kg",
+      "price": 57330,
+      "wg": 4000,
+      "pcode": "6710611",
+      "onCoupang": false,
+      "searchUrl": "https://search.danawa.com/dsearch.php?query=%EA%B0%95%EC%95%84%EC%A7%80%20%EC%82%AC%EB%A3%8C&page=1",
+      "rank": 4,
+      "pKg": 14333,
+      "coupangUrl": null,
+      "spec": {
+        "ga": {
+          "protein": 18,
+          "fat": 15,
+          "fiber": 3.4,
+          "ash": 8.1,
+          "moisture": 10.5
+        },
+        "summary": "강아지 전용 / 사료 / 어덜트 / 건식 / 주 단백질원 : 칠면조고기 , 닭고기 / 기능 : 치석예방·제거 , 신장·요로건강 / 처방식 /",
+        "url": "https://prod.danawa.com/info/?pcode=6710611"
+      },
+      "alreadyRegistered": true,
+      "matchedWith": "로얄캐닌 유리너리 S/O"
+    },
+    {
+      "name": "로얄캐닌 독 미니 인도어 어덜트 8.7kg",
+      "price": 78290,
+      "wg": 8700,
+      "pcode": "6927844",
+      "onCoupang": false,
+      "searchUrl": "https://search.danawa.com/dsearch.php?query=%EA%B0%95%EC%95%84%EC%A7%80%20%EC%82%AC%EB%A3%8C&page=1",
+      "rank": 5,
+      "pKg": 8999,
+      "coupangUrl": null,
+      "spec": {
+        "ga": {
+          "protein": 19,
+          "fat": 12,
+          "fiber": 2.9,
+          "ash": 6.8,
+          "moisture": 11
+        },
+        "summary": "강아지 전용 / 사료 / 어덜트 / 건식 / 미디움(~13mm) / 주 단백질원 : 곡물 , 닭고기 , 칠면조고기 , 과일·야채 / 가수분해 / 기능 : 소화·장건강 , 체중관리 / 주요성분 : 프리바이오틱스 , L-카르니틴 /",
+        "url": "https://prod.danawa.com/info/?pcode=6927844"
+      },
+      "alreadyRegistered": true,
+      "matchedWith": "로얄캐닌 미니 인도어 어덜트"
+    },
+    {
+      "name": "힐스 사이언스 다이어트 독 어덜트 7+ 스몰바이트 12kg",
+      "price": 150440,
+      "wg": 12000,
+      "pcode": "4241008",
+      "onCoupang": false,
+      "searchUrl": "https://search.danawa.com/dsearch.php?query=%EA%B0%95%EC%95%84%EC%A7%80%20%EC%82%AC%EB%A3%8C&page=1",
+      "rank": 6,
+      "pKg": 12537,
+      "coupangUrl": null,
+      "spec": {
+        "ga": {
+          "protein": 15.5,
+          "fat": 10.5,
+          "fiber": 4,
+          "ash": 7.5,
+          "moisture": 10
+        },
+        "summary": "강아지 전용 / 사료 / 시니어 / 건식 / 미디움(~13mm) / 주 단백질원 : 과일·야채 , 닭고기 / 기능 : 심장건강 , 소화·장건강 , 피부·모질개선 , 신장·요로건강 /",
+        "url": "https://prod.danawa.com/info/?pcode=4241008"
+      },
+      "alreadyRegistered": false,
+      "matchedWith": null
+    },
+    {
+      "name": "로얄캐닌 독 미니 인도어 시니어 3kg",
+      "price": 37660,
+      "wg": 3000,
+      "pcode": "17539541",
+      "onCoupang": false,
+      "searchUrl": "https://search.danawa.com/dsearch.php?query=%EA%B0%95%EC%95%84%EC%A7%80%20%EC%82%AC%EB%A3%8C&page=1",
+      "rank": 7,
+      "pKg": 12553,
+      "coupangUrl": null,
+      "spec": {
+        "ga": {
+          "protein": 22,
+          "fat": 12,
+          "fiber": 2.8,
+          "ash": 6,
+          "moisture": 10.5
+        },
+        "summary": "강아지 전용 / 사료 / 시니어 / 건식 / 미디움(~13mm) / 주 단백질원 : 곡물 , 닭고기 , 오리고기 , 과일·야채 / 기능 : 체중관리 / 주요성분 : L-카르니틴 / GMOFree /",
+        "url": "https://prod.danawa.com/info/?pcode=17539541"
+      },
+      "alreadyRegistered": false,
+      "matchedWith": null
+    },
+    {
+      "name": "내추럴발란스 독 L.I 야채 레시피 큰알 10.9kg",
+      "price": 120960,
+      "wg": 10900,
+      "pcode": "104049854",
+      "onCoupang": false,
+      "searchUrl": "https://search.danawa.com/dsearch.php?query=%EA%B0%95%EC%95%84%EC%A7%80%20%EC%82%AC%EB%A3%8C&page=1",
+      "rank": 8,
+      "pKg": 11097,
+      "coupangUrl": null,
+      "spec": {
+        "ga": {
+          "protein": 18,
+          "fat": 8,
+          "fiber": 5,
+          "ash": 9,
+          "moisture": 10
+        },
+        "summary": "강아지 전용 / 사료 / 전연령 / 건식 / 라지(14mm~) / 주 단백질원 : 과일·야채 , 곡물 / 기능 : 체중관리 , 관절·뼈건강 / 주요성분 : L-카르니틴 , 글루코사민 , 크랜베리 , L-라이신 , 오메가3 /",
+        "url": "https://prod.danawa.com/info/?pcode=104049854"
+      },
+      "alreadyRegistered": false,
+      "matchedWith": null
+    },
+    {
+      "name": "밥이보약 독 튼튼한 관절 3.4kg",
+      "price": 34100,
+      "wg": 3400,
+      "pcode": "12388373",
+      "onCoupang": false,
+      "searchUrl": "https://search.danawa.com/dsearch.php?query=%EA%B0%95%EC%95%84%EC%A7%80%20%EC%82%AC%EB%A3%8C&page=1",
+      "rank": 9,
+      "pKg": 10029,
+      "coupangUrl": null,
+      "spec": {
+        "ga": {
+          "protein": 24,
+          "fat": 12,
+          "fiber": null,
+          "ash": null,
+          "moisture": null
+        },
+        "summary": "강아지 전용 / 사료 / 전연령 / 건식 / 스몰(~8mm) / 기능 : 관절·뼈건강 , 피부·모질개선 / 무방부제 /",
+        "url": "https://prod.danawa.com/info/?pcode=12388373"
+      },
+      "alreadyRegistered": false,
+      "matchedWith": null
+    },
+    {
+      "name": "이즈칸 독 퍼포먼스 어덜트 15kg",
+      "price": 64500,
+      "wg": 15000,
+      "pcode": "19533416",
+      "onCoupang": false,
+      "searchUrl": "https://search.danawa.com/dsearch.php?query=%EA%B0%95%EC%95%84%EC%A7%80%20%EC%82%AC%EB%A3%8C&page=1",
+      "rank": 10,
+      "pKg": 4300,
+      "coupangUrl": null,
+      "spec": {
+        "ga": {
+          "protein": 26,
+          "fat": 16,
+          "fiber": 3,
+          "ash": 9,
+          "moisture": 12
+        },
+        "summary": "강아지 전용 / 사료 / 어덜트 / 건식 / 미디움(~13mm) / 주 단백질원 : 닭고기 , 과일·야채 / 가수분해 / 그레인프리 / 기능 : 관절·뼈건강 , 소화·장건강 , 피부·모질개선 , 체중관리 / GMOFree / 대용량 / 무합성보존제 / 무방부제 / 인증 : HACCP /",
+        "url": "https://prod.danawa.com/info/?pcode=19533416"
+      },
+      "alreadyRegistered": false,
+      "matchedWith": null
+    },
+    {
+      "name": "ANF 독 소프트 치킨 5.4kg",
+      "price": 38090,
+      "wg": 5400,
+      "pcode": "14422481",
+      "onCoupang": false,
+      "searchUrl": "https://search.danawa.com/dsearch.php?query=%EA%B0%95%EC%95%84%EC%A7%80%20%EC%82%AC%EB%A3%8C&page=1",
+      "rank": 11,
+      "pKg": 7054,
+      "coupangUrl": null,
+      "spec": {
+        "ga": {
+          "protein": 21,
+          "fat": 9,
+          "fiber": 3,
+          "ash": 9,
+          "moisture": 25
+        },
+        "summary": "강아지 전용 / 사료 / 전연령 / 소프트(반건조) / 주 단백질원 : 닭고기 / 기능 : 관절·뼈건강 , 소화·장건강 , 치석예방·제거 /",
+        "url": "https://prod.danawa.com/info/?pcode=14422481"
+      },
+      "alreadyRegistered": false,
+      "matchedWith": null
+    },
+    {
+      "name": "뉴트리나 독 건강백서 비숑 10.2kg",
+      "price": 60750,
+      "wg": 10200,
+      "pcode": "30216692",
+      "onCoupang": false,
+      "searchUrl": "https://search.danawa.com/dsearch.php?query=%EA%B0%95%EC%95%84%EC%A7%80%20%EC%82%AC%EB%A3%8C&page=1",
+      "rank": 12,
+      "pKg": 5956,
+      "coupangUrl": null,
+      "spec": {
+        "ga": {
+          "protein": 28,
+          "fat": 13,
+          "fiber": 3,
+          "ash": 8,
+          "moisture": 14
+        },
+        "summary": "강아지 전용 / 사료 / 전연령 / 건식 / 미디움(~13mm) / 주 단백질원 : 닭고기 , 연어 / 가수분해 / 기능 : 관절·뼈건강 , 소화·장건강 , 피부·모질개선 , 눈건강·눈물 /",
+        "url": "https://prod.danawa.com/info/?pcode=30216692"
+      },
+      "alreadyRegistered": false,
+      "matchedWith": null
+    },
+    {
+      "name": "ANF 독 식스프리 플러스 인도어 오리고기&연어 5.6kg",
+      "price": 48620,
+      "wg": 5600,
+      "pcode": "6665440",
+      "onCoupang": false,
+      "searchUrl": "https://search.danawa.com/dsearch.php?query=%EA%B0%95%EC%95%84%EC%A7%80%20%EC%82%AC%EB%A3%8C&page=1",
+      "rank": 13,
+      "pKg": 8682,
+      "coupangUrl": null,
+      "spec": {
+        "ga": {
+          "protein": 27,
+          "fat": 10,
+          "fiber": 6,
+          "ash": 8,
+          "moisture": 11
+        },
+        "summary": "강아지 전용 / 사료 / 전연령 / 건식 / 스몰(~8mm) / 주 단백질원 : 연어 , 오리고기 / 기능 : 소화·장건강 , 피부·모질개선 / GMOFree / 무합성보존제 / 무방부제 /",
+        "url": "https://prod.danawa.com/info/?pcode=6665440"
+      },
+      "alreadyRegistered": false,
+      "matchedWith": null
+    },
+    {
+      "name": "뉴트리나 독 건강백서 건강한 관절 10.2kg",
+      "price": 47340,
+      "wg": 10200,
+      "pcode": "4235118",
+      "onCoupang": false,
+      "searchUrl": "https://search.danawa.com/dsearch.php?query=%EA%B0%95%EC%95%84%EC%A7%80%20%EC%82%AC%EB%A3%8C&page=1",
+      "rank": 14,
+      "pKg": 4641,
+      "coupangUrl": null,
+      "spec": {
+        "ga": {
+          "protein": 27,
+          "fat": 15,
+          "fiber": 5,
+          "ash": 9.5,
+          "moisture": 12
+        },
+        "summary": "강아지 전용 / 사료 / 전연령 / 건식 / 스몰(~8mm) / 주 단백질원 : 기타생선류 , 과일·야채 , 곡물 , 유제품 / 기능 : 관절·뼈건강 / 주요성분 : 글루코사민 , 콘드로이틴 /",
+        "url": "https://prod.danawa.com/info/?pcode=4235118"
+      },
+      "alreadyRegistered": false,
+      "matchedWith": null
+    },
+    {
+      "name": "도그라인 아지피아 20kg",
+      "price": 40010,
+      "wg": 20000,
+      "pcode": "1632693",
+      "onCoupang": false,
+      "searchUrl": "https://search.danawa.com/dsearch.php?query=%EA%B0%95%EC%95%84%EC%A7%80%20%EC%82%AC%EB%A3%8C&page=1",
+      "rank": 15,
+      "pKg": 2001,
+      "coupangUrl": null,
+      "spec": {
+        "ga": {
+          "protein": 32,
+          "fat": 20,
+          "fiber": 3,
+          "ash": 13,
+          "moisture": 14
+        },
+        "summary": "강아지 전용 / 사료 / 퍼피 / 건식 / 스몰(~8mm) / 주 단백질원 : 닭고기 , 과일·야채 / 대용량 /",
+        "url": "https://prod.danawa.com/info/?pcode=1632693"
+      },
+      "alreadyRegistered": false,
+      "matchedWith": null
+    },
+    {
+      "name": "커클랜드 시그니처 네이처스 도메인 살몬 15.87kg",
+      "price": 65240,
+      "wg": 15870,
+      "pcode": "4905882",
+      "onCoupang": false,
+      "searchUrl": "https://search.danawa.com/dsearch.php?query=%EA%B0%95%EC%95%84%EC%A7%80%20%EC%82%AC%EB%A3%8C&page=1",
+      "rank": 16,
+      "pKg": 4111,
+      "coupangUrl": null,
+      "spec": {
+        "ga": {
+          "protein": 23,
+          "fat": 11,
+          "fiber": 6.35,
+          "ash": 9,
+          "moisture": 10
+        },
+        "summary": "강아지 전용 / 사료 / 전연령 / 건식 / 주 단백질원 : 연어 , 과일·야채 / 그레인프리 / 기능 : 소화·장건강 / 주요성분 : 프리바이오틱스 / 대용량 / 인증 : AAFCO /",
+        "url": "https://prod.danawa.com/info/?pcode=4905882"
+      },
+      "alreadyRegistered": false,
+      "matchedWith": null
+    },
+    {
+      "name": "로얄캐닌 독 푸들 어덜트 8+ 1.5kg",
+      "price": 20870,
+      "wg": 1500,
+      "pcode": "77054711",
+      "onCoupang": false,
+      "searchUrl": "https://search.danawa.com/dsearch.php?query=%EA%B0%95%EC%95%84%EC%A7%80%20%EC%82%AC%EB%A3%8C&page=1",
+      "rank": 17,
+      "pKg": 13913,
+      "coupangUrl": null,
+      "spec": {
+        "ga": {
+          "protein": 26,
+          "fat": 17,
+          "fiber": null,
+          "ash": 5.7,
+          "moisture": 10.5
+        },
+        "summary": "강아지 전용 / 사료 / 시니어 / 건식 / 스몰(~8mm) / 주 단백질원 : 닭고기 , 오리고기 , 과일·야채 / 가수분해 / 기능 : 치석예방·제거 , 관절·뼈건강 , 피부·모질개선 , 심장건강 / GMOFree / 조단백 : 26% / 조지방 : 17% / 조섬유 : 2.8 / ",
+        "url": "https://prod.danawa.com/info/?pcode=77054711"
+      },
+      "alreadyRegistered": true,
+      "matchedWith": "로얄캐닌 푸들 어덜트"
+    },
+    {
+      "name": "뉴트리나 독 울트라 초이스 15kg",
+      "price": 21000,
+      "wg": 15000,
+      "pcode": "4233985",
+      "onCoupang": false,
+      "searchUrl": "https://search.danawa.com/dsearch.php?query=%EA%B0%95%EC%95%84%EC%A7%80%20%EC%82%AC%EB%A3%8C&page=1",
+      "rank": 18,
+      "pKg": 1400,
+      "coupangUrl": null,
+      "spec": {
+        "ga": {
+          "protein": 20,
+          "fat": 7,
+          "fiber": 5.5,
+          "ash": 10,
+          "moisture": 12
+        },
+        "summary": "강아지 전용 / 사료 / 어덜트 / 건식 / 주 단백질원 : 닭고기 , 과일·야채 / 기능 : 소화·장건강 / 대용량 / 인증 : AAFCO /",
+        "url": "https://prod.danawa.com/info/?pcode=4233985"
+      },
+      "alreadyRegistered": false,
+      "matchedWith": null
+    },
+    {
+      "name": "프로베스트 독 진도 10kg",
+      "price": 20400,
+      "wg": 10000,
+      "pcode": "1639366",
+      "onCoupang": false,
+      "searchUrl": "https://search.danawa.com/dsearch.php?query=%EA%B0%95%EC%95%84%EC%A7%80%20%EC%82%AC%EB%A3%8C&page=1",
+      "rank": 19,
+      "pKg": 2040,
+      "coupangUrl": null,
+      "spec": {
+        "ga": {
+          "protein": 20,
+          "fat": 9,
+          "fiber": 4,
+          "ash": 10,
+          "moisture": 12
+        },
+        "summary": "강아지 전용 / 사료 / 어덜트 / 건식 / 미디움(~13mm) / 주 단백질원 : 과일·야채 / 기능 : 관절·뼈건강 / 대용량 /",
+        "url": "https://prod.danawa.com/info/?pcode=1639366"
+      },
+      "alreadyRegistered": false,
+      "matchedWith": null
+    },
+    {
+      "name": "뉴트리나 독 건강백서 건강한 피부 10.2kg",
+      "price": 55460,
+      "wg": 10200,
+      "pcode": "14118419",
+      "onCoupang": false,
+      "searchUrl": "https://search.danawa.com/dsearch.php?query=%EA%B0%95%EC%95%84%EC%A7%80%20%EC%82%AC%EB%A3%8C&page=1",
+      "rank": 20,
+      "pKg": 5437,
+      "coupangUrl": null,
+      "spec": {
+        "ga": {
+          "protein": 27,
+          "fat": 15,
+          "fiber": 5,
+          "ash": 9,
+          "moisture": 12
+        },
+        "summary": "강아지 전용 / 사료 / 전연령 / 건식 / 스몰(~8mm) / 주 단백질원 : 연어 / 가수분해 / 기능 : 피부·모질개선 / 대용량 /",
+        "url": "https://prod.danawa.com/info/?pcode=14118419"
+      },
+      "alreadyRegistered": false,
+      "matchedWith": null
+    },
+    {
+      "name": "로얄캐닌 독 미니 인도어 퍼피 3kg",
+      "price": 35540,
+      "wg": 3000,
+      "pcode": "7497052",
+      "onCoupang": false,
+      "searchUrl": "https://search.danawa.com/dsearch.php?query=%EA%B0%95%EC%95%84%EC%A7%80%20%EC%82%AC%EB%A3%8C&page=1",
+      "rank": 21,
+      "pKg": 11847,
+      "coupangUrl": null,
+      "spec": {
+        "ga": {
+          "protein": 25,
+          "fat": 16,
+          "fiber": 2.5,
+          "ash": 8.8,
+          "moisture": 11
+        },
+        "summary": "강아지 전용 / 사료 / 퍼피 / 건식 / 주 단백질원 : 닭고기 , 칠면조고기 , 돼지고기 / 가수분해 / 기능 : 소화·장건강 , 피부·모질개선 /",
+        "url": "https://prod.danawa.com/info/?pcode=7497052"
+      },
+      "alreadyRegistered": true,
+      "matchedWith": "로얄캐닌 미니 퍼피"
+    },
+    {
+      "name": "아카나 독 라이트앤피트 6kg",
+      "price": 58900,
+      "wg": 6000,
+      "pcode": "11250735",
+      "onCoupang": false,
+      "searchUrl": "https://search.danawa.com/dsearch.php?query=%EA%B0%95%EC%95%84%EC%A7%80%20%EC%82%AC%EB%A3%8C&page=1",
+      "rank": 22,
+      "pKg": 9817,
+      "coupangUrl": null,
+      "spec": {
+        "ga": {
+          "protein": 35,
+          "fat": 11,
+          "fiber": null,
+          "ash": null,
+          "moisture": null
+        },
+        "summary": "강아지 전용 / 사료 / 전연령 / 건식 / 주 단백질원 : 과일·야채 , 닭고기 / 그레인프리 / 저탄수화물 / 무합성보존제 / 무색소 / 조단백 : 35% / 조지방 : 11% 관심 공유 공유하기 레이어 닫기 카카오톡 라인 페이스북 X 밴드 https://prod.danawa.com",
+        "url": "https://prod.danawa.com/info/?pcode=11250735"
+      },
+      "alreadyRegistered": true,
+      "matchedWith": "아카나 라이트 앤 핏"
+    },
+    {
+      "name": "로얄캐닌 독 미디움 어덜트 10kg",
+      "price": 80350,
+      "wg": 10000,
+      "pcode": "4225349",
+      "onCoupang": false,
+      "searchUrl": "https://search.danawa.com/dsearch.php?query=%EA%B0%95%EC%95%84%EC%A7%80%20%EC%82%AC%EB%A3%8C&page=1",
+      "rank": 23,
+      "pKg": 8035,
+      "coupangUrl": null,
+      "spec": {
+        "ga": {
+          "protein": 23,
+          "fat": 12,
+          "fiber": 2.3,
+          "ash": 6.6,
+          "moisture": 10.5
+        },
+        "summary": "강아지 전용 / 사료 / 어덜트 / 건식 / 미디움(~13mm) / 주 단백질원 : 과일·야채 / 가수분해 / 기능 : 소화·장건강 , 피부·모질개선 / 대용량 / GMOFree / 조단백 : 23% / 조지방 : 12% / 조섬유 : 2.3% / 조회분 : 6.6% / 칼슘 : 0.9",
+        "url": "https://prod.danawa.com/info/?pcode=4225349"
+      },
+      "alreadyRegistered": false,
+      "matchedWith": null
+    },
+    {
+      "name": "로얄캐닌 독 하이포알러제닉 모더레이트 칼로리 1.5kg",
+      "price": 32950,
+      "wg": 1500,
+      "pcode": "6381658",
+      "onCoupang": false,
+      "searchUrl": "https://search.danawa.com/dsearch.php?query=%EA%B0%95%EC%95%84%EC%A7%80%20%EC%82%AC%EB%A3%8C&page=1",
+      "rank": 24,
+      "pKg": 21967,
+      "coupangUrl": null,
+      "spec": {
+        "ga": {
+          "protein": 21,
+          "fat": 10,
+          "fiber": 2.1,
+          "ash": 7.7,
+          "moisture": 10.5
+        },
+        "summary": "강아지 전용 / 사료 / 어덜트 / 건식 / 주 단백질원 : 곡물 / 가수분해 / 기능 : 신장·요로건강 , 피부·모질개선 , 체중관리 / 주요성분 : 프리바이오틱스 / 처방식 /",
+        "url": "https://prod.danawa.com/info/?pcode=6381658"
+      },
+      "alreadyRegistered": true,
+      "matchedWith": "로얄캐닌 하이포알러제닉"
+    },
+    {
+      "name": "오리젠 독 퍼피 11.4kg",
+      "price": 121400,
+      "wg": 11400,
+      "pcode": "99804548",
+      "onCoupang": false,
+      "searchUrl": "https://search.danawa.com/dsearch.php?query=%EA%B0%95%EC%95%84%EC%A7%80%20%EC%82%AC%EB%A3%8C&page=1",
+      "rank": 25,
+      "pKg": 10649,
+      "coupangUrl": null,
+      "spec": {
+        "ga": {
+          "protein": 38,
+          "fat": 20,
+          "fiber": null,
+          "ash": null,
+          "moisture": null
+        },
+        "summary": "강아지 전용 / 사료 / 퍼피 / 건식 / 미디움(~13mm) / 주 단백질원 : 기타생선류 , 닭고기 , 칠면조고기 , 과일·야채 / 그레인프리 / 글루텐프리 / 기능 : 면역력강화 / 무합성보존제 / 저탄수화물 / 무색소 / 대용량 / 인증 : AAFCO / 조단백 : 38% / 조",
+        "url": "https://prod.danawa.com/info/?pcode=99804548"
+      },
+      "alreadyRegistered": true,
+      "matchedWith": "오리젠 퍼피"
+    },
+    {
+      "name": "이즈칸 독 어덜트 라지바이트 15kg",
+      "price": 50450,
+      "wg": 15000,
+      "pcode": "4222172",
+      "onCoupang": false,
+      "searchUrl": "https://search.danawa.com/dsearch.php?query=%EA%B0%95%EC%95%84%EC%A7%80%20%EC%82%AC%EB%A3%8C&page=1",
+      "rank": 26,
+      "pKg": 3363,
+      "coupangUrl": null,
+      "spec": {
+        "ga": {
+          "protein": 26,
+          "fat": 16,
+          "fiber": 3,
+          "ash": 9,
+          "moisture": 12
+        },
+        "summary": "강아지 전용 / 사료 / 어덜트 / 건식 / 라지(14mm~) / 주 단백질원 : 닭고기 / 대용량 /",
+        "url": "https://prod.danawa.com/info/?pcode=4222172"
+      },
+      "alreadyRegistered": false,
+      "matchedWith": null
+    },
+    {
+      "name": "도그랑 클래식 5kg",
+      "price": 8910,
+      "wg": 5000,
+      "pcode": "4233564",
+      "onCoupang": false,
+      "searchUrl": "https://search.danawa.com/dsearch.php?query=%EA%B0%95%EC%95%84%EC%A7%80%20%EC%82%AC%EB%A3%8C&page=1",
+      "rank": 27,
+      "pKg": 1782,
+      "coupangUrl": null,
+      "spec": {
+        "ga": {
+          "protein": 25,
+          "fat": 10,
+          "fiber": null,
+          "ash": null,
+          "moisture": null
+        },
+        "summary": "강아지 전용 / 사료 / 전연령 / 건식 / 주 단백질원 : 닭고기 / 기능 : 피부·모질개선 , 소화·장건강 , 면역력강화 , 관절·뼈건강 / 인증 : HACCP / 조단백 : 25% / 조지방 : 10% 관심 공유 공유하기 레이어 닫기 카카오톡 라인 페이스북 X 밴드 https://",
+        "url": "https://prod.danawa.com/info/?pcode=4233564"
+      },
+      "alreadyRegistered": false,
+      "matchedWith": null
+    },
+    {
+      "name": "로얄캐닌 독 미니 어덜트 15kg",
+      "price": 93660,
+      "wg": 15000,
+      "pcode": "4224666",
+      "onCoupang": false,
+      "searchUrl": "https://search.danawa.com/dsearch.php?query=%EA%B0%95%EC%95%84%EC%A7%80%20%EC%82%AC%EB%A3%8C&page=1",
+      "rank": 28,
+      "pKg": 6244,
+      "coupangUrl": null,
+      "spec": {
+        "ga": {
+          "protein": 19,
+          "fat": 12,
+          "fiber": 2.9,
+          "ash": 6.7,
+          "moisture": 11
+        },
+        "summary": "강아지 전용 / 사료 / 어덜트 / 건식 / 미디움(~13mm) / 주 단백질원 : 닭고기 , 칠면조고기 , 오리고기 , 과일·야채 / 가수분해 / 대용량 /",
+        "url": "https://prod.danawa.com/info/?pcode=4224666"
+      },
+      "alreadyRegistered": true,
+      "matchedWith": "로얄캐닌 미니 어덜트"
+    },
+    {
+      "name": "ANF 독 식스프리 골드 소고기&연어 10kg",
+      "price": 62800,
+      "wg": 10000,
+      "pcode": "47922836",
+      "onCoupang": false,
+      "searchUrl": "https://search.danawa.com/dsearch.php?query=%EA%B0%95%EC%95%84%EC%A7%80%20%EC%82%AC%EB%A3%8C&page=1",
+      "rank": 29,
+      "pKg": 6280,
+      "coupangUrl": null,
+      "spec": {
+        "ga": {
+          "protein": 27.5,
+          "fat": 9.5,
+          "fiber": 6,
+          "ash": 8,
+          "moisture": 11
+        },
+        "summary": "강아지 전용 / 사료 / 전연령 / 건식 / 스몰(~8mm) / 주 단백질원 : 연어 , 소고기 / 기능 : 체중관리 , 면역력강화 , 소화·장건강 , 피부·모질개선 , 눈건강·눈물 / 인증 : HACCP / 조단백 : 27.5% / 조지방 : 9.5% / 조섬유 : 6% / 조회분 :",
+        "url": "https://prod.danawa.com/info/?pcode=47922836"
+      },
+      "alreadyRegistered": false,
+      "matchedWith": null
+    },
+    {
+      "name": "로얄캐닌 독 포메라니안 어덜트 3kg",
+      "price": 37890,
+      "wg": 3000,
+      "pcode": "12847991",
+      "onCoupang": false,
+      "searchUrl": "https://search.danawa.com/dsearch.php?query=%EA%B0%95%EC%95%84%EC%A7%80%20%EC%82%AC%EB%A3%8C&page=1",
+      "rank": 30,
+      "pKg": 12630,
+      "coupangUrl": null,
+      "spec": {
+        "ga": {
+          "protein": 24,
+          "fat": 14,
+          "fiber": 2.6,
+          "ash": 5.9,
+          "moisture": 10.5
+        },
+        "summary": "강아지 전용 / 사료 / 어덜트 / 건식 / 주 단백질원 : 오리고기 , 칠면조고기 , 닭고기 / 기능 : 치석예방·제거 , 관절·뼈건강 , 소화·장건강 , 피부·모질개선 / 조단백 : 24% / 조지방 : 14% / 조섬유 : 2.6% / 조회분 : 5.9% / 칼슘 : 0.6% / ",
+        "url": "https://prod.danawa.com/info/?pcode=12847991"
+      },
+      "alreadyRegistered": false,
+      "matchedWith": null
+    }
+  ]
+}

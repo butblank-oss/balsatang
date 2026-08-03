@@ -1,0 +1,146 @@
+{
+  "batchId": "example",
+  "note": "형식 설명용 예시입니다. 파일명이 _ 로 시작하면 게이트가 건너뜁니다. 실제 데이터가 아닙니다. 이 파일은 지금 게이트를 그대로 통과하는 상태로 유지합니다 — 여기 없는 필드는 게이트가 요구하지 않습니다.",
+  "collectedAt": "2026-08-03T01:00:00Z",
+  "collector": {
+    "agent": "사료-수집",
+    "model": "claude-sonnet-5"
+  },
+  "items": [
+    {
+      "stagingId": "stg_example_0001",
+      "proposed": {
+        "brand": "예시브랜드",
+        "brandSlug": "example",
+        "country": "CA",
+        "name": "예시 제품명",
+        "type": "dry",
+        "rx": false,
+        "ages": [
+          "adult"
+        ],
+        "sizes": [
+          "all"
+        ],
+        "ico": "drumstick",
+        "score": 8.4,
+        "ratings": {
+          "quality": 5,
+          "carb": 3,
+          "additive": 4,
+          "value": 3
+        },
+        "func": [
+          "immune"
+        ],
+        "warnN": 2,
+        "concerns": [
+          "healthy"
+        ],
+        "price": {
+          "p": 60000,
+          "wg": 3000,
+          "shop": "coupang",
+          "pKg": 20000,
+          "wgOptions": [
+            3000,
+            6000
+          ],
+          "buyUrl": "https://link.coupang.com/a/EXAMPLE"
+        },
+        "facts": {
+          "dmCarb": 40,
+          "protein": 35,
+          "firstIngrCat": "meat",
+          "cautionN": 2,
+          "dangerN": 0,
+          "pKg": 20000
+        },
+        "specOrigin": "overseas",
+        "ga": {
+          "protein": 35,
+          "fat": 15,
+          "fiber": 4,
+          "moisture": 10,
+          "ash": 8
+        },
+        "ingredients": [
+          "닭고기",
+          "닭고기분말",
+          "고구마",
+          "완두콩",
+          "아마씨",
+          "건조 치커리 뿌리"
+        ]
+      },
+      "sources": [
+        {
+          "role": "official",
+          "url": "https://example.com/products/sample",
+          "fetchedAt": "2026-08-03T01:02:00Z",
+          "title": "제조사 공식 제품 페이지"
+        },
+        {
+          "role": "retail",
+          "url": "https://www.coupang.com/vp/products/0000000",
+          "fetchedAt": "2026-08-03T01:03:00Z",
+          "title": "쿠팡 상품 상세"
+        }
+      ],
+      "evidence": {
+        "facts.protein": {
+          "src": 0,
+          "quote": "Crude protein (min) 35.0%"
+        },
+        "facts.dmCarb": {
+          "src": 0,
+          "quote": "보장성분표 기준 건물기준 탄수 30% (조단백35+조지방16+조섬유3+조회분8, 수분10 환산)"
+        },
+        "facts.firstIngrCat": {
+          "src": 0,
+          "quote": "Ingredients: Fresh chicken, ... (1번 원료 육류)"
+        },
+        "facts.cautionN": {
+          "src": 0,
+          "quote": "천연 향미제, 효모 추출물 2종 표기"
+        },
+        "facts.dangerN": {
+          "src": 0,
+          "quote": "BHA/BHT/에톡시퀸 등 위험 성분 표기 없음"
+        },
+        "price.p": {
+          "src": 1,
+          "quote": "판매가 60,000원 / 3kg (2026-08-03 확인)"
+        }
+      },
+      "audit": {
+        "auditor": {
+          "agent": "사료-심사",
+          "model": "claude-opus-5"
+        },
+        "method": "blind-recollect",
+        "independent": {
+          "facts": {
+            "dmCarb": 30,
+            "protein": 35,
+            "firstIngrCat": "meat",
+            "cautionN": 2,
+            "dangerN": 0
+          },
+          "price": {
+            "p": 60000,
+            "wg": 3000
+          }
+        },
+        "verdict": "match",
+        "diff": []
+      },
+      "gates": {
+        "g1": null,
+        "g2": "pass",
+        "g3": null
+      },
+      "status": "draft"
+    }
+  ]
+}

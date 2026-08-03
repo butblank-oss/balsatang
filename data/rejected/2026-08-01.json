@@ -1,0 +1,102 @@
+[
+  {
+    "stagingId": "stg_nutrena_phytolab_light",
+    "proposed": {
+      "brand": "뉴트리나",
+      "brandSlug": "nutrena",
+      "country": "KR",
+      "name": "원데이케어 파이토 랩 라이트 웨이트",
+      "type": "dry",
+      "rx": false,
+      "ages": [
+        "all"
+      ],
+      "sizes": [
+        "all"
+      ],
+      "ico": "leaf",
+      "thumb": null,
+      "score": null,
+      "ratings": {
+        "quality": 4,
+        "carb": 2,
+        "additive": 2,
+        "value": null
+      },
+      "facts": {
+        "dmCarb": 53.9,
+        "protein": 25,
+        "firstIngrCat": "meat",
+        "cautionN": 5,
+        "dangerN": 0
+      },
+      "func": [
+        "weight"
+      ],
+      "warnN": 5,
+      "concerns": [
+        "weight"
+      ],
+      "pricePending": true,
+      "specOrigin": "domestic"
+    },
+    "sources": [
+      {
+        "role": "official",
+        "url": "https://www.nutrenaworld.co.kr/images/product/ondaycare_phytolab_lightweight.jpg",
+        "fetchedAt": "2026-08-01T01:20:00Z",
+        "title": "뉴트리나 공식몰 제품 상세 이미지 — 사용한 원료의 명칭 · 등록성분량"
+      }
+    ],
+    "evidence": {
+      "facts.protein": {
+        "src": 0,
+        "quote": "등록성분량 조단백질 25.0% 이상"
+      },
+      "facts.dmCarb": {
+        "src": 0,
+        "quote": "조단백 25 / 조지방 8 / 조섬유 8 / 조회분 10 / 수분 11 → 건물기준 탄수 53.9% (칼로리 3,350kcal 표기)"
+      },
+      "facts.firstIngrCat": {
+        "src": 0,
+        "quote": "사용한 원료의 명칭 첫 항목: 가수분해 오리고기분 (육류). 이어서 유기농 현미, 귀리, 보리"
+      },
+      "facts.cautionN": {
+        "src": 0,
+        "quote": "주의 성분 5종: 유기농 비트 펄프, 유기농 옥수수글루텐, 천연향미제, 맥주효모, 소금"
+      },
+      "facts.dangerN": {
+        "src": 0,
+        "quote": "BHA·BHT·에톡시퀸 등 위험 성분 표기 없음. 총유기원료함량 70.9%"
+      }
+    },
+    "audit": {
+      "auditor": {
+        "agent": "수동 판독",
+        "model": "claude-opus-5"
+      },
+      "method": "official-image",
+      "limitation": "제조사 공식 이미지 URL 을 직접 받아 판독했다. 이미지 자체는 공식 출처이나 텍스트가 아니라 재현 검증이 어렵다.",
+      "independent": {
+        "facts": {
+          "dmCarb": 53.9,
+          "protein": 25,
+          "firstIngrCat": "meat",
+          "cautionN": 5,
+          "dangerN": 0
+        }
+      },
+      "verdict": "match",
+      "diff": []
+    },
+    "gates": {
+      "g1": null,
+      "g2": "match",
+      "g3": null
+    },
+    "status": "draft",
+    "todo": "쿠팡 상품 URL 과 최소 용량(1.2kg) 가격 확보 후 pricePending 해제",
+    "rejectedAt": "2026-08-01T09:23:16.119Z",
+    "batchFile": "2026-07-31-nutrena.json"
+  }
+]

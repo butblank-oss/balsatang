@@ -1,0 +1,323 @@
+/* 발사탕 디자인 토큰 + 공통 컴포넌트
+   design_handoff_balsatang_renewal/tokens.json 을 그대로 옮긴 것이다.
+   값을 임의로 반올림하거나 근사값으로 바꾸지 않는다. */
+
+:root{
+  /* color */
+  --purple900:#2E0040; --purple700:#5F0080; --purple500:#8B2FB8;
+  --purple300:#C79BE0; --purple100:#F3E8FA; --purple50:#FBF8FD;
+  --blue700:#1D3A8A;  --blue100:#E6EDFB;  --blue50:#F5F8FE;
+  --ink:#17151A; --ink70:#4A4552; --ink50:#6B6470; --ink40:#8A8494;
+  --ink35:#9A93A3; --ink25:#B4AEBC; --ink20:#C6C0CE;
+  --line:#E7E2EC; --lineSoft:#F0EDF3; --lineHair:#EDEAF0;
+  --surface:#F7F5F9; --surfaceInput:#F5F2F7; --chipNeutral:#F3F1F6;
+  --safe:#1FA97C; --safeBg:#F1FAF6; --safeText:#0F6B4E; --safeBody:#3E7A65; --safeOnDark:#7FE0BC;
+  --caution:#E8A33D; --cautionBg:#FEF7EC; --cautionChip:#B87514;
+  --cautionText:#8A5A14; --cautionBody:#8A7455;
+  /* 빨강은 팔레트에 없다. 실패·에러·주의 전부 앰버로 표현한다. */
+
+  /* shape */
+  --rChip:999px; --rThumbSm:13px; --rThumbMd:16px; --rThumbLg:20px;
+  --rCard:20px; --rCardLg:24px; --rSheet:28px; --rInput:18px; --rButton:16px; --rSegment:13px;
+
+  /* spacing */
+  --screenX:22px;
+
+  /* border — border 대신 inset shadow 를 쓴다. 레이아웃이 밀리지 않는다. */
+  --outline:inset 0 0 0 1.5px var(--line);
+  --imageWell:inset 0 0 0 1px var(--lineHair);
+  --divider:1px solid var(--lineSoft);
+
+  /* motion */
+  --ePush:cubic-bezier(.32,.72,0,1);
+  --ePop:cubic-bezier(.34,1.56,.64,1);
+}
+
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:#fff; color:var(--ink);
+  font-family:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,sans-serif;
+  font-size:15px; letter-spacing:-.02em; line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+button,input,select,textarea{font-family:inherit;font-size:inherit;color:inherit;border:0;background:none}
+button{cursor:pointer}
+a{color:var(--purple700);text-decoration:none}
+ul,ol{list-style:none}
+img{display:block;max-width:100%}
+::-webkit-scrollbar{width:0;height:0}
+.noscroll{overflow:hidden}
+
+/* 390pt 기준. 768pt 이상은 480px 로 묶어 가운데 정렬한다. */
+.app{max-width:480px;margin:0 auto;min-height:100dvh;position:relative;background:#fff}
+/* 탭바와 독이 fixed 라 본문 끝이 그 아래로 들어간다. 그만큼 아래를 비워 둔다.
+   두 개가 같이 뜨는 화면은 없다 — 상세는 독, 나머지는 탭바다. */
+#view{padding-bottom:calc(26px + env(safe-area-inset-bottom))}
+#view.has-tabbar{padding-bottom:calc(96px + env(safe-area-inset-bottom))}
+#view.has-dock{padding-bottom:calc(104px + env(safe-area-inset-bottom))}
+
+/* ── 타이포 ─────────────────────────────────────────── */
+.t-hero{font-size:29px;font-weight:800;letter-spacing:-.045em;line-height:1.32;text-wrap:pretty}
+.t-question{font-size:26px;font-weight:800;letter-spacing:-.045em;line-height:1.36}
+.t-product{font-size:24px;font-weight:800;letter-spacing:-.04em;line-height:1.32}
+.t-page{font-size:22px;font-weight:800;letter-spacing:-.04em}
+.t-empty{font-size:20px;font-weight:800;letter-spacing:-.035em;line-height:1.4}
+.t-section{font-size:19px;font-weight:800;letter-spacing:-.03em}
+.t-sub{font-size:17px;font-weight:800;letter-spacing:-.03em}
+.t-item{font-size:16px;font-weight:700;letter-spacing:-.035em;line-height:1.35}
+.t-body{font-size:15px;font-weight:500;letter-spacing:-.02em;line-height:1.55}
+.t-bodySm{font-size:14px;font-weight:500;letter-spacing:-.02em;line-height:1.6}
+.t-caption{font-size:13px;font-weight:600;letter-spacing:-.02em}
+.t-micro{font-size:12px;font-weight:700;letter-spacing:-.02em}
+.t-tag{font-size:11px;font-weight:700;letter-spacing:-.02em}
+/* 작은 글자에 쓰는 회색. ink40 은 흰 배경에서 3.6:1, ink35 는 3:1 이라
+   본문 기준(4.5:1)에 못 미친다. 글자에는 ink50(5.7:1)까지만 쓴다.
+   ink40 이하는 선·마크·비활성처럼 읽지 않아도 되는 곳에 남긴다. */
+.c-sub{color:var(--ink50)} .c-mute{color:var(--ink50)} .c-cap{color:var(--ink50)}
+
+/* ── 화면 전환 ──────────────────────────────────────── */
+.screen{display:none;padding-bottom:calc(84px + env(safe-area-inset-bottom))}
+.screen.on{display:block}
+.screen.push{animation:pushIn .35s var(--ePush)}
+@keyframes pushIn{from{transform:translateX(14%);opacity:.4}to{transform:none;opacity:1}}
+.screen.fade{animation:fadeIn .12s ease}
+@keyframes fadeIn{from{opacity:.4}to{opacity:1}}
+
+/* ── 상단바 ─────────────────────────────────────────── */
+.top{display:flex;align-items:center;gap:10px;padding:14px var(--screenX) 0}
+.top.icons{padding-left:18px;padding-right:18px}
+.logo{font-size:22px;font-weight:800;letter-spacing:-.04em}
+.logo b{color:var(--purple700);font-weight:800}
+.adfree{display:inline-flex;align-items:center;height:30px;padding:0 12px;border-radius:var(--rChip);
+  background:var(--purple100);color:var(--purple700);font-size:12px;font-weight:700;letter-spacing:-.01em}
+.iconbtn{width:44px;height:44px;display:grid;place-items:center;flex-shrink:0;margin:-10px}
+.iconbtn svg{width:24px;height:24px}
+
+/* ── 아이콘 ─────────────────────────────────────────── */
+.i{display:inline-block;vertical-align:-.16em;flex-shrink:0}
+.i svg{width:100%;height:100%;display:block;fill:none;stroke:currentColor;
+  stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.i.ui svg{stroke-width:2.2}
+
+/* ── 검색 인풋 ──────────────────────────────────────── */
+.searchbox{display:flex;align-items:center;gap:9px;height:56px;padding:0 16px;
+  border-radius:var(--rInput);background:var(--surfaceInput);color:var(--ink50);width:100%;text-align:left}
+.searchbox.sm{height:46px;border-radius:15px}
+.searchbox .i{color:var(--ink50);width:20px;height:20px}
+.searchbox input{flex:1;min-width:0;color:var(--ink);font-size:15px;letter-spacing:-.02em;font-weight:500}
+.searchbox input::placeholder{color:var(--ink50);font-weight:500}
+
+/* ── 칩 ─────────────────────────────────────────────── */
+.chiprow{display:flex;gap:7px;overflow-x:auto;padding:0 var(--screenX);scrollbar-width:none}
+.chip{display:inline-flex;align-items:center;gap:5px;height:34px;padding:0 14px;flex-shrink:0;
+  border-radius:var(--rChip);background:#fff;box-shadow:inset 0 0 0 1px var(--line);
+  font-size:13px;font-weight:700;letter-spacing:-.02em;color:var(--ink70)}
+.chip.on{background:var(--purple900);color:#fff;box-shadow:none}
+.chip.on em{font-style:normal;opacity:.6;margin-left:3px}
+.chip.neutral{background:var(--chipNeutral);box-shadow:none;color:var(--ink50)}
+
+/* 태그 칩 — 리스트 행에 붙는 작은 것 */
+.tags{display:flex;flex-wrap:wrap;gap:5px}
+.tag{display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 8px;border-radius:8px;
+  background:var(--chipNeutral);color:var(--ink50);font-size:11px;font-weight:700;letter-spacing:-.02em}
+.tag.safe{background:var(--safeBg);color:var(--safeText)}
+.tag.caution{background:var(--cautionBg);color:var(--cautionText)}
+.tag.pending{background:var(--surface);color:var(--ink50)}
+
+/* ── 주의성분 배지 (3상태) ──────────────────────────────
+   '없음' 상태에서도 반드시 표시한다. 배지를 숨기면 '확인 안 함'과 구분되지 않는다. */
+.cbadge{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px 0 6px;
+  border-radius:var(--rChip);background:#fff;box-shadow:0 1px 4px rgba(23,21,26,.08);
+  font-size:11px;font-weight:700;letter-spacing:-.02em;white-space:nowrap}
+.cbadge .dot{width:12px;height:12px;border-radius:50%;display:grid;place-items:center;flex-shrink:0}
+.cbadge .dot svg{width:9px;height:9px;stroke:#fff;stroke-width:3}
+.cbadge.none{color:var(--safe)}
+.cbadge.none .dot{background:var(--safe)}
+.cbadge.has{color:var(--cautionChip)}
+.cbadge.has .dot{background:var(--cautionText);color:#fff;font-size:8px;font-weight:900;line-height:1}
+.cbadge.pending{color:var(--ink40)}
+.cbadge.pending .dot{background:var(--ink20)}
+
+/* 원형 큰 배지 — 상세 헤더 */
+.cbadge-lg{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;flex-shrink:0}
+.cbadge-lg svg{width:22px;height:22px;stroke:#fff;stroke-width:2.6}
+.cbadge-lg.none{background:var(--safe)}
+.cbadge-lg.has{background:var(--caution);color:#fff;font-size:22px;font-weight:900}
+.cbadge-lg.pending{background:var(--ink20);color:#fff;font-size:20px;font-weight:900}
+
+/* ── 제품 이미지 웰 ─────────────────────────────────────
+   카탈로그 이미지는 투명 PNG 가 아니라 흰 배경 JPG 다.
+   틴트 배경 위에 얹으면 흰 사각형 경계가 그대로 보인다. 그래서 웰은 항상 흰색이다. */
+.well{background:#fff;box-shadow:var(--imageWell);display:grid;place-items:center;
+  flex-shrink:0;overflow:hidden;position:relative}
+.well img{width:100%;height:100%;object-fit:contain}
+.well.pending img{opacity:.4;filter:grayscale(1)}
+.well .initial{font-weight:800;color:var(--ink40);letter-spacing:-.04em}
+.well-168{width:168px;height:168px;border-radius:var(--rThumbLg);padding:20px}
+.well-88{width:88px;height:88px;border-radius:14px;padding:8px}
+.well-82{width:82px;height:82px;border-radius:var(--rThumbLg);padding:7px}
+.well-64{width:64px;height:64px;border-radius:var(--rInput);padding:5px}
+.well-56{width:56px;height:56px;border-radius:var(--rThumbMd);padding:5px}
+.well-44{width:44px;height:44px;border-radius:var(--rThumbSm);padding:4px}
+
+/* 고민 칩 — 큰 박스 그리드는 화면을 너무 잡아먹었다.
+   아이콘 없이 글자만 두고 줄바꿈으로 흘린다. 칩 톤은 필터 칩과 같다. */
+.concerns{display:flex;flex-wrap:wrap;gap:7px}
+.concerns .chip{height:36px;font-size:13.5px;font-weight:700;color:var(--ink70)}
+/* .chip.on 과 특정도가 같아 여기가 뒤에 오면 흰 글자를 덮어쓴다.
+   보라 배경에 회색 글자가 남아 아무것도 안 보였다. */
+.concerns .chip.on{color:#fff}
+.concerns .chip:active{background:var(--purple100);color:var(--purple700);box-shadow:none}
+.concerns .chip.on:active{background:var(--purple900);color:#fff}
+
+/* ── 섹션 ───────────────────────────────────────────── */
+.sec{margin-top:30px;padding:0 var(--screenX)}
+.sec.lg{margin-top:34px}
+.sec.sm{margin-top:26px}
+.sec-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.sec-more{font-size:13px;font-weight:700;color:var(--purple700)}
+
+/* ── 리스트 행 ──────────────────────────────────────── */
+.row{display:flex;align-items:center;gap:13px;padding:11px 0;width:100%;text-align:left;min-height:80px}
+.row + .row{border-top:var(--divider)}
+.row-b{flex:1;min-width:0}
+.row-brand{font-size:12px;font-weight:600;color:var(--ink50);letter-spacing:-.02em;
+  display:flex;align-items:center;gap:5px}
+.row-brand i{width:2px;height:2px;border-radius:50%;background:var(--ink20);display:inline-block;font-style:normal}
+.row-name{font-size:16px;font-weight:700;letter-spacing:-.035em;line-height:1.35;margin:2px 0 5px}
+.row-meta{font-size:13px;font-weight:500;color:var(--ink50);letter-spacing:-.02em}
+.row .chev{color:var(--ink20);flex-shrink:0;width:16px;height:16px}
+
+/* ── 버튼 ───────────────────────────────────────────── */
+.btn{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;height:56px;
+  border-radius:var(--rButton);font-size:16px;font-weight:700;letter-spacing:-.03em;
+  transition:transform .12s ease-out,opacity .12s ease-out}
+.btn:active{transform:scale(.98);opacity:.92}
+.btn.pri{background:var(--purple700);color:#fff}
+.btn.dark{background:var(--purple900);color:#fff}
+.btn.ghost{background:#fff;color:var(--ink70);box-shadow:var(--outline)}
+.btn.md{height:52px;font-size:15px}
+.btn:disabled{background:#EFEDF2;color:var(--ink25);transform:none}
+
+/* ── 하단 고정 액션 ─────────────────────────────────── */
+.dock{position:fixed;left:0;right:0;bottom:0;z-index:40;max-width:480px;margin:0 auto;
+  background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-top:var(--divider);
+  padding:10px var(--screenX) calc(12px + env(safe-area-inset-bottom));display:flex;gap:9px}
+.dock .btn{flex:1}
+/* 세로로 쌓는 독. flex-direction 만 바꾸면 .dock .btn 의 flex:1 이 이번엔
+   '높이'를 나눠 갖는 뜻이 돼서 버튼이 21px 로 찌그러진다. */
+.dock.col{flex-direction:column;gap:8px}
+.dock.col .btn{flex:0 0 auto;width:100%}
+.dock .btn.icon{width:56px;flex:0 0 56px;flex-direction:column;gap:2px;font-size:10px}
+
+/* ── 탭바 ───────────────────────────────────────────── */
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:50;max-width:480px;margin:0 auto;
+  background:#fff;border-top:var(--divider);
+  padding:10px 12px calc(26px + env(safe-area-inset-bottom));
+  display:grid;grid-template-columns:repeat(4,1fr)}
+/* display 를 명시한 요소는 hidden 속성이 안 먹는다. 명시적으로 눌러준다. */
+.tabbar[hidden]{display:none}
+.tabbar button{display:flex;flex-direction:column;align-items:center;gap:4px;padding:4px 0;
+  color:var(--ink50);font-size:11px;font-weight:600;letter-spacing:-.02em}
+.tabbar button .i{width:22px;height:22px}
+.tabbar button.on{color:var(--purple700);font-weight:700}
+
+/* ── 카드 ───────────────────────────────────────────── */
+.card{border-radius:var(--rCard);box-shadow:var(--outline);padding:16px}
+.card.soft{background:var(--surface);box-shadow:none}
+.card.dark{background:var(--purple900);color:#fff;box-shadow:none;border-radius:var(--rCardLg)}
+
+/* 근거 카드 */
+.reason{display:flex;gap:10px;border-radius:var(--rThumbMd);padding:13px 14px}
+.reason + .reason{margin-top:9px}
+.reason .i{width:18px;height:18px;margin-top:1px}
+.reason.pos{background:var(--safeBg)}
+.reason.pos .i{color:var(--safe)}
+.reason.pos b{color:var(--safeText)}
+.reason.pos p{color:var(--safeBody)}
+.reason.cau{background:var(--cautionBg)}
+.reason.cau .i{color:var(--caution)}
+.reason.cau b{color:var(--cautionText)}
+.reason.cau p{color:var(--cautionBody)}
+.reason b{display:block;font-size:15px;font-weight:700;letter-spacing:-.03em;line-height:1.4}
+.reason p{margin-top:4px;font-size:13px;font-weight:500;letter-spacing:-.02em;line-height:1.55}
+
+/* ── 면책·고지 ──────────────────────────────────────── */
+.note{margin-top:26px;padding:0 var(--screenX);font-size:12px;font-weight:500;
+  color:var(--ink50);letter-spacing:-.02em;line-height:1.6;white-space:pre-line}
+.partners{margin-top:12px;border-radius:14px;background:var(--surface);padding:12px 14px;
+  font-size:12px;font-weight:500;color:var(--ink50);letter-spacing:-.02em;line-height:1.6}
+
+/* ── 토스트 ─────────────────────────────────────────── */
+.toast{position:fixed;left:50%;transform:translateX(-50%) translateY(8px);
+  bottom:calc(84px + env(safe-area-inset-bottom));z-index:80;
+  display:flex;align-items:center;gap:12px;max-width:calc(100% - 44px);
+  padding:13px 16px;border-radius:var(--rThumbMd);background:var(--purple900);color:#fff;
+  font-size:14px;font-weight:600;letter-spacing:-.02em;
+  opacity:0;pointer-events:none;transition:opacity .2s ease,transform .2s ease}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto}
+.toast button{color:var(--purple300);font-size:14px;font-weight:700;white-space:nowrap}
+
+/* ── 빈 화면 ────────────────────────────────────────── */
+.empty{padding:56px 30px 30px;text-align:center;display:flex;flex-direction:column;align-items:center}
+.empty .orb{width:88px;height:88px;border-radius:50%;display:grid;place-items:center;
+  background:var(--purple100);color:var(--purple700);margin-bottom:20px}
+.empty .orb.neutral{background:var(--surface);color:var(--ink25)}
+.empty .orb.caution{background:var(--cautionBg);color:var(--caution)}
+.empty .orb .i{width:38px;height:38px}
+.empty h2{font-size:20px;font-weight:800;letter-spacing:-.035em;line-height:1.4;white-space:pre-line}
+.empty p{margin-top:9px;font-size:14px;font-weight:500;color:var(--ink50);
+  letter-spacing:-.02em;line-height:1.6;white-space:pre-line}
+.empty .acts{margin-top:24px;width:100%;display:flex;flex-direction:column;gap:9px}
+.empty .acts .btn{height:52px}
+.empty .code{margin-top:18px;font-size:12px;color:#A8A2B0}
+
+/* ── 스켈레톤 ───────────────────────────────────────── */
+.sk{background:var(--lineSoft);border-radius:8px;position:relative;overflow:hidden}
+.sk.lite{background:var(--surfaceInput)}
+.sk::after{content:'';position:absolute;inset:0;transform:translateX(-100%);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.6),transparent);
+  animation:shimmer 1.4s infinite}
+@keyframes shimmer{100%{transform:translateX(100%)}}
+
+/* ── 바텀시트 ───────────────────────────────────────── */
+.dim{position:fixed;inset:0;z-index:60;background:rgba(23,21,26,.4);opacity:0;pointer-events:none;
+  transition:opacity .3s ease-out}
+.dim.on{opacity:1;pointer-events:auto}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:70;max-width:480px;margin:0 auto;
+  background:#fff;border-radius:var(--rSheet) var(--rSheet) 0 0;
+  transform:translateY(100%);transition:transform .3s ease-out;
+  max-height:82dvh;display:flex;flex-direction:column}
+.sheet.on{transform:none}
+.sheet .grab{width:36px;height:4px;border-radius:2px;background:#DDD7E3;margin:10px auto 4px}
+.sheet .sh-h{padding:12px var(--screenX) 10px;font-size:17px;font-weight:800;letter-spacing:-.03em}
+.sheet .sh-b{overflow-y:auto;padding:0 var(--screenX) calc(24px + env(safe-area-inset-bottom))}
+
+/* ── 눌림 피드백 ────────────────────────────────────── */
+.press{transition:transform .12s ease-out,opacity .12s ease-out}
+.press:active{transform:scale(.98);opacity:.92}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;
+    transition-duration:.12s!important}
+  .press:active,.btn:active{transform:none}
+  .screen.push{animation:fadeIn .12s ease}
+}
+
+/* ── 콘텐츠 본문 ─────────────────────────────────────
+   글에서 쓰는 마크다운은 제목·목록·인용·강조뿐이다. 그만큼만 스타일을 준다. */
+.sec.md{margin-top:22px}
+.md-p{font-size:15px;line-height:1.75;letter-spacing:-.02em;color:var(--ink70);margin:12px 0}
+.md-p b{color:var(--ink);font-weight:800}
+.md-list{margin:12px 0;padding-left:20px}
+.md-list li{font-size:15px;line-height:1.75;letter-spacing:-.02em;color:var(--ink70);margin:6px 0}
+.md-list li::marker{color:var(--purple500)}
+.md-list li b{color:var(--ink);font-weight:800}
+.md-quote{margin:16px 0;padding:14px 16px;border-radius:var(--rCard);
+  background:var(--purple50);box-shadow:inset 3px 0 0 var(--purple300);
+  font-size:14.5px;line-height:1.7;letter-spacing:-.02em;color:var(--ink70)}
+.md-quote b{color:var(--purple700);font-weight:800}
+.sec.md code{padding:1px 5px;border-radius:6px;background:var(--purple100);
+  color:var(--purple700);font-size:13.5px;font-weight:700}

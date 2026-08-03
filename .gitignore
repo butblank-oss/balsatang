@@ -1,0 +1,43 @@
+# Built things
+_Debug/
+Compiled/
+
+# AudioCache can be rebuilt from sources
+AudioCache/
+
+# Lockfile
+_OpenInEditor.lock
+
+# User settings
+Game.agf.user
+*.crm.user
+
+# Backups
+Game.agf.bak
+backup_acsprset.spr
+
+# Memory dumps
+*.dmp
+
+# Temporary files
+# temporarily created during sprite or room background compression
+~aclzw.tmp
+# temporary, main game data, before getting packed into exe
+game28.dta
+# temporary build of the game before being moved to Compiled/ folder
+*.exe
+
+# Log files
+warnings.log
+
+# 검증용 스크린샷 — 리포지터리에 남기지 않는다
+/.*.png
+
+# npm
+node_modules/
+
+# 심사 데이터 로컬 산출물 — 배포본은 review.json 만 커밋한다
+data/staging/_review.json
+
+# QA 실행 결과 캡처
+.qa-out/

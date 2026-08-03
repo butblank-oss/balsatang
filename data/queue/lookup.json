@@ -1,0 +1,556 @@
+{
+  "collectedAt": "2026-08-01T02:04:43.502Z",
+  "note": "danawa-product 파이프라인 결과. 영양정보·가격·썸네일·쿠팡URL 은 자동 확보됐다. 원재료만 상세 이미지 판독이 필요하다.",
+  "automated": [
+    "ga (국내 등록 영양정보)",
+    "coupang.price",
+    "coupang.url",
+    "thumb",
+    "descImages"
+  ],
+  "manual": [
+    "원재료 목록 — 상세 이미지에서 판독"
+  ],
+  "total": 20,
+  "items": [
+    {
+      "rank": 1,
+      "pcode": "3222973",
+      "name": "[다나와] 뉴트리나 독 프라임 밸런스 15kg (1개)",
+      "ga": {
+        "protein": 14,
+        "fat": 3,
+        "fiber": 6,
+        "ash": 10,
+        "moisture": 12
+      },
+      "thumb": "https://img.danuri.io/catalog-image/973/222/003/e2a7fb8bf1a242d7a7a752adf6e2fe82.jpg?shrink=360:360",
+      "coupang": {
+        "price": 21890,
+        "url": "https://www.coupang.com/vp/products/8291916628?itemId=25682972099&vendorItemId=93926827728"
+      },
+      "descImages": [
+        "https://img.danuri.io/catalog-content/images/c66/3769242_49e045f04d364ffca63f3e1721cd0b8f.jpg",
+        "https://img.danuri.io/catalog-content/images/30c/3769243_ab9a958ac469410e9ebb82cf94f5352d.png",
+        "https://img.danuri.io/catalog-content/images/789/3769245_2bf5f693598e4141954cf95d372a0867.jpg",
+        "https://img.danuri.io/catalog-content/images/789/3769245_a91d975533cc40fa8eba00179a17ff7b.jpg"
+      ],
+      "danawa": "https://prod.danawa.com/info/?pcode=3222973",
+      "spec": "강아지 전용 / 사료 / 전연령 / 건식 / 미디움(~13mm) / 주 단백질원 : 과일·야채 , 닭고기 / 무색소 / 대용량 /",
+      "ingredientsFound": true
+    },
+    {
+      "rank": 6,
+      "pcode": "4241008",
+      "name": "[다나와] 힐스 사이언스 다이어트 독 어덜트 7+ 스몰바이트 12kg (1개)",
+      "ga": {
+        "protein": 15.5,
+        "fat": 10.5,
+        "fiber": 4,
+        "ash": 7.5,
+        "moisture": 10
+      },
+      "thumb": "https://img.danuri.io/catalog-image/008/241/004/ed4eca5ab256403db9b0f45798dde506.jpg?shrink=360:360",
+      "coupang": {
+        "price": 149790,
+        "url": "https://www.coupang.com/vp/products/310254082?itemId=22433391566&vendorItemId=86327216993"
+      },
+      "descImages": [
+        "https://img.danuri.io/catalog-content/images/f25/2554043_ff2df24dbbc34e79a5f4de2165c9e930.jpg",
+        "https://img.danuri.io/catalog-content/images/f25/2554043_6be24259265c4317b955dfe7e39b67ad.jpg",
+        "https://img.danuri.io/catalog-content/images/f25/2554043_411365f559024f9bb2104053963d9ed2.jpg",
+        "https://img.danuri.io/catalog-content/images/f25/2554043_21f0103706f541df84943ce772cf5673.jpg",
+        "https://img.danuri.io/catalog-content/images/f25/2554043_dbf5490664814bd2ab6c7855a36f4153.jpg",
+        "https://img.danuri.io/catalog-content/images/f25/2554043_f679bb57b0c84d5c892e43859d5f3fb4.jpg",
+        "https://img.danuri.io/catalog-content/images/f25/2554043_2f635d91cc1d4b129bd2951b5ff82ec0.jpg",
+        "https://img.danuri.io/catalog-content/images/f25/2554043_c5fb2c54d5304d4db878868bf173290f.jpg",
+        "https://img.danuri.io/catalog-content/images/f25/2554043_4572f2fa5fd747c5afb3d336583c110f.jpg",
+        "https://img.danuri.io/catalog-content/images/f25/2554043_89b78a1b4c624b7c906d05f8bb979721.jpg",
+        "https://img.danuri.io/catalog-content/images/f25/2554043_4c221d9a040c488d8b8bff3e4a7617f7.jpg",
+        "https://img.danuri.io/catalog-content/images/f25/2554043_d6fa9af39baf4aa79ba35ceda6bc2c24.jpg",
+        "https://img.danuri.io/catalog-content/images/f25/2554043_fe42a7f6dbb24221a1c596cb564d8111.jpg",
+        "https://img.danuri.io/catalog-content/images/f25/2554043_caba5a5421134e03a920a3a7ebf6aef8.jpg",
+        "https://img.danuri.io/catalog-content/images/f25/2554043_c2c245c27f3d498cbb8984b9ec6257df.jpg",
+        "https://img.danuri.io/catalog-content/images/f25/2554043_16138c06707b42999614b7fc13cd735d.jpg",
+        "https://img.danuri.io/catalog-content/images/f25/2554043_615f26afcdde44358f490b67dcf17bbd.jpg",
+        "https://img.danuri.io/catalog-content/images/f25/2554043_73f19b767e8c4834b27756defcd8c4f0.jpg",
+        "https://img.danuri.io/catalog-content/images/f25/2554043_17a11aade09a44ea8a24bb60b37b9f68.jpg",
+        "https://img.danuri.io/catalog-content/images/f25/2554043_e270cc07ac9b42fda400f46ecd9c3519.jpg",
+        "https://img.danuri.io/catalog-content/images/f25/2554043_ba0404d3225e4f9ab1dc3a5dc1de7413.jpg",
+        "https://img.danuri.io/catalog-content/images/f5b/2554045_fb304e767ca94d44878224a1252735de.jpg",
+        "https://img.danuri.io/catalog-content/images/f5b/2554045_1448a37b65fe4e068e9ab9e4d5578347.jpg"
+      ],
+      "danawa": "https://prod.danawa.com/info/?pcode=4241008",
+      "spec": "강아지 전용 / 사료 / 시니어 / 건식 / 미디움(~13mm) / 주 단백질원 : 과일·야채 , 닭고기 / 기능 : 심장건강 , 소화·장건강 , 피부·모질개선 , 신장·요로건강 /",
+      "ingredientsFound": false
+    },
+    {
+      "rank": 7,
+      "pcode": "17539541",
+      "name": "[다나와] 로얄캐닌 독 미니 인도어 시니어 3kg (1개)",
+      "ga": {
+        "protein": 22,
+        "fat": 12,
+        "fiber": 2.8,
+        "ash": 6,
+        "moisture": 10.5
+      },
+      "thumb": "https://img.danuri.io/catalog-image/541/539/017/160e4036b6e2430daf464399d20c756d.jpg?shrink=360:360",
+      "coupang": {
+        "price": 39060,
+        "url": "https://www.coupang.com/vp/products/6337017532?itemId=28257883635&vendorItemId=92902897372"
+      },
+      "descImages": [
+        "https://img.danuri.io/catalog-content/images/6d9/1011146_2a62077f2539465696429bfbe4ace8c5.jpg",
+        "https://photo3.enuri.info/data/images/service/shop/89359505/16200143967/0.jpg",
+        "https://img.danuri.io/catalog-content/images/95e/1011147_0edc92b93fda40369d50359ebb870795.jpg",
+        "https://img.danuri.io/catalog-content/images/95e/1011147_ee236c4bbb8741698fcc440c335c2b51.jpg",
+        "https://img.danuri.io/catalog-content/images/95e/1011147_c9aeaea96f854a619699c2e24e2a0856.jpg",
+        "https://img.danuri.io/catalog-content/images/95e/1011147_d33dbb7fcfc74b2fbbc4fe841ad5c1a8.jpg",
+        "https://img.danuri.io/catalog-content/images/95e/1011147_5a82f71e8a7d4abfa9032c8a92b5a50c.jpg",
+        "https://img.danuri.io/catalog-content/images/95e/1011147_4cc8fa0eb9ed49c9b3844101241a6763.jpg",
+        "https://img.danuri.io/catalog-content/images/95e/1011147_00d623b029a14d87acc88e86908546a4.jpg",
+        "https://img.danuri.io/catalog-content/images/95e/1011147_73908cd008574b48a0fea74d66eeb3f9.jpg",
+        "https://img.danuri.io/catalog-content/images/95e/1011147_58dc8bd135064249bcaa0185e919ca11.jpg",
+        "https://img.danuri.io/catalog-content/images/1cd/1011149_74a4c966ac444c858c99decaee2538cc.jpg",
+        "https://img.danuri.io/catalog-content/images/1cd/1011149_ee829533bb8e4c1aabf60d505e0ae2bc.jpg"
+      ],
+      "danawa": "https://prod.danawa.com/info/?pcode=17539541",
+      "spec": "강아지 전용 / 사료 / 시니어 / 건식 / 미디움(~13mm) / 주 단백질원 : 곡물 , 닭고기 , 오리고기 , 과일·야채 / 기능 : 체중관리 / 주요성분 : L-카르니틴 / GMOFree /",
+      "ingredientsFound": false
+    },
+    {
+      "rank": 8,
+      "pcode": "104049854",
+      "name": "[다나와] 내추럴발란스 독 L.I 야채 레시피 큰알 10.9kg (1개)",
+      "ga": {
+        "protein": 18,
+        "fat": 8,
+        "fiber": 5,
+        "ash": 9,
+        "moisture": 10
+      },
+      "thumb": "https://img.danuri.io/catalog-image/854/049/104/80e0a334c9514603866f99f18555781a.png?shrink=360:360",
+      "coupang": {
+        "price": 120960,
+        "url": "https://www.coupang.com/vp/products/7359371209?itemId=17671490367&vendorItemId=84836861210"
+      },
+      "descImages": [],
+      "danawa": "https://prod.danawa.com/info/?pcode=104049854",
+      "spec": "강아지 전용 / 사료 / 전연령 / 건식 / 라지(14mm~) / 주 단백질원 : 과일·야채 , 곡물 / 기능 : 체중관리 , 관절·뼈건강 / 주요성분 : L-카르니틴 , 글루코사민 , 크랜베리 , L-라이신 , 오메가3 /",
+      "ingredientsFound": false
+    },
+    {
+      "rank": 9,
+      "pcode": "12388373",
+      "name": "[다나와] 밥이보약 독 튼튼한 관절 3.4kg (1개)",
+      "ga": {
+        "protein": 24,
+        "fat": 12,
+        "fiber": null,
+        "ash": null,
+        "moisture": null
+      },
+      "thumb": "https://img.danuri.io/catalog-image/373/388/012/0ca84471b88e4e2bb618b1d155cc0233.jpg?shrink=360:360",
+      "coupang": {
+        "price": 32100,
+        "url": "https://www.coupang.com/vp/products/8204719419?itemId=23530943079&vendorItemId=88767406598"
+      },
+      "descImages": [
+        "https://img.danuri.io/catalog-content/images/42a/4181558_3ee3748bd14e449ba6c83ea447568b9c.jpg",
+        "https://img.danuri.io/catalog-content/images/42a/4181558_565b7a50ca04472d8815f11b787e4393.jpg",
+        "https://img.danuri.io/catalog-content/images/42a/4181558_eca20e0fbb61401fafc96328266619da.jpg",
+        "https://img.danuri.io/catalog-content/images/42a/4181558_6909728420ed4fb38fe5d6e13258434b.jpg",
+        "https://img.danuri.io/catalog-content/images/6a7/4181560_81fb5daa3e8e433da85180036ba41027.jpg",
+        "https://img.danuri.io/catalog-content/images/6a7/4181560_5543d744d62d4b63ae9c75de8c11363b.jpg"
+      ],
+      "danawa": "https://prod.danawa.com/info/?pcode=12388373",
+      "spec": "강아지 전용 / 사료 / 전연령 / 건식 / 스몰(~8mm) / 기능 : 관절·뼈건강 , 피부·모질개선 / 무방부제 /",
+      "ingredientsFound": false
+    },
+    {
+      "rank": 10,
+      "pcode": "19533416",
+      "name": "[다나와] 이즈칸 독 퍼포먼스 어덜트 15kg (1개)",
+      "ga": {
+        "protein": 26,
+        "fat": 16,
+        "fiber": 3,
+        "ash": 9,
+        "moisture": 12
+      },
+      "thumb": "https://img.danuri.io/catalog-image/416/533/019/e80e8ec3addf41ac9beae4af53dc2ee2.jpg?shrink=360:360",
+      "coupang": {
+        "price": 69720,
+        "url": "https://www.coupang.com/vp/products/8596837510?itemId=17906673694&vendorItemId=93941010177"
+      },
+      "descImages": [
+        "https://img.danuri.io/catalog-content/images/4b0/5835089_3db5aa44a024454fa0407b9528813a98.png",
+        "http://www.dogsee.co.kr/openmarket/notice_event_dogsee.jpg",
+        "http://www.dogsee.co.kr/openmarket/dog/food/meal/iskhan/perfor-mance_de.jpg",
+        "https://img.danuri.io/catalog-content/images/742/5835090_8f138f249d934b9191f9dfee49bd830e.jpg"
+      ],
+      "danawa": "https://prod.danawa.com/info/?pcode=19533416",
+      "spec": "강아지 전용 / 사료 / 어덜트 / 건식 / 미디움(~13mm) / 주 단백질원 : 닭고기 , 과일·야채 / 가수분해 / 그레인프리 / 기능 : 관절·뼈건강 , 소화·장건강 , 피부·모질개선 , 체중관리 / GMOFree / 대용량 / 무합성보존제 / 무방부제 / 인증 : HACCP /",
+      "ingredientsFound": false
+    },
+    {
+      "rank": 11,
+      "pcode": "14422481",
+      "name": "[다나와] ANF 독 소프트 치킨 5.4kg (1개)",
+      "ga": {
+        "protein": 21,
+        "fat": 9,
+        "fiber": 3,
+        "ash": 9,
+        "moisture": 25
+      },
+      "thumb": "https://img.danuri.io/catalog-image/481/422/014/9d47e94fff394de79d9622c368406e8a.jpg?shrink=360:360",
+      "coupang": {
+        "price": 38090,
+        "url": "https://www.coupang.com/vp/products/1831882833?itemId=19000836484&vendorItemId=86125826778"
+      },
+      "descImages": [
+        "https://img.danuri.io/catalog-content/images/46f/3459064_93da3a78485e44a892ce3a77a41eca51.jpg",
+        "https://img.danuri.io/catalog-content/images/46f/3459064_aa3c634df57848dfade4f5ba263b1a6b.jpg"
+      ],
+      "danawa": "https://prod.danawa.com/info/?pcode=14422481",
+      "spec": "강아지 전용 / 사료 / 전연령 / 소프트(반건조) / 주 단백질원 : 닭고기 / 기능 : 관절·뼈건강 , 소화·장건강 , 치석예방·제거 /",
+      "ingredientsFound": false
+    },
+    {
+      "rank": 12,
+      "pcode": "30216692",
+      "name": "[다나와] 뉴트리나 독 건강백서 비숑 10.2kg (1개)",
+      "ga": {
+        "protein": 28,
+        "fat": 13,
+        "fiber": 3,
+        "ash": 8,
+        "moisture": 14
+      },
+      "thumb": "https://img.danuri.io/catalog-image/692/216/030/816b3654aeae48479b533dd3ab3c1e29.jpg?shrink=360:360",
+      "coupang": {
+        "price": 62900,
+        "url": "https://www.coupang.com/vp/products/7335581800?itemId=17857465827&vendorItemId=92580362583"
+      },
+      "descImages": [
+        "https://img.danuri.io/catalog-content/images/301/1009873_674c6c1d3982485899b44ea07c923aac.png"
+      ],
+      "danawa": "https://prod.danawa.com/info/?pcode=30216692",
+      "spec": "강아지 전용 / 사료 / 전연령 / 건식 / 미디움(~13mm) / 주 단백질원 : 닭고기 , 연어 / 가수분해 / 기능 : 관절·뼈건강 , 소화·장건강 , 피부·모질개선 , 눈건강·눈물 /",
+      "ingredientsFound": false
+    },
+    {
+      "rank": 13,
+      "pcode": "6665440",
+      "name": "[다나와] ANF 독 식스프리 플러스 인도어 오리고기&연어 5.6kg (1개)",
+      "ga": {
+        "protein": 27,
+        "fat": 10,
+        "fiber": 6,
+        "ash": 8,
+        "moisture": 11
+      },
+      "thumb": "https://img.danuri.io/catalog-image/440/665/006/b84039417bc54154b448595f9601beee.png?shrink=360:360",
+      "coupang": {
+        "price": 48750,
+        "url": "https://www.coupang.com/vp/products/8181555076?itemId=23423117813&vendorItemId=90450140373"
+      },
+      "descImages": [
+        "https://img.danuri.io/catalog-content/images/8af/7147341_25ff095141b84561ac2ca2a6917deeff.png",
+        "https://img.danuri.io/catalog-content/images/9bf/7147343_0fa606903ef14188bbdad6914446aa6f.jpg",
+        "https://img.danuri.io/catalog-content/images/9bf/7147343_7239dceec0a34791972549e8e18a2e81.jpg"
+      ],
+      "danawa": "https://prod.danawa.com/info/?pcode=6665440",
+      "spec": "강아지 전용 / 사료 / 전연령 / 건식 / 스몰(~8mm) / 주 단백질원 : 연어 , 오리고기 / 기능 : 소화·장건강 , 피부·모질개선 / GMOFree / 무합성보존제 / 무방부제 /",
+      "ingredientsFound": false
+    },
+    {
+      "rank": 14,
+      "pcode": "4235118",
+      "name": "[다나와] 뉴트리나 독 건강백서 건강한 관절 10.2kg (1개)",
+      "ga": {
+        "protein": 27,
+        "fat": 15,
+        "fiber": 5,
+        "ash": 9.5,
+        "moisture": 12
+      },
+      "thumb": "https://img.danuri.io/catalog-image/118/235/004/442b3d9bf4864573b7a5d316401116ff.jpg?shrink=360:360",
+      "coupang": {
+        "price": 59900,
+        "url": "https://www.coupang.com/vp/products/8514025516?itemId=26243134531&vendorItemId=95204018774"
+      },
+      "descImages": [
+        "https://img.danuri.io/catalog-content/images/b8a/3271490_e5fb6b1447bd48bfa7443e88634885f3.jpg",
+        "https://img.danuri.io/catalog-content/images/711/3271493_f0531b01f87f46ac9484624d5c8eca31.jpg",
+        "https://img.danuri.io/catalog-content/images/711/3271493_0402856afa3a4a0cbf4c5a06b4d02f84.jpg"
+      ],
+      "danawa": "https://prod.danawa.com/info/?pcode=4235118",
+      "spec": "강아지 전용 / 사료 / 전연령 / 건식 / 스몰(~8mm) / 주 단백질원 : 기타생선류 , 과일·야채 , 곡물 , 유제품 / 기능 : 관절·뼈건강 / 주요성분 : 글루코사민 , 콘드로이틴 /",
+      "ingredientsFound": false
+    },
+    {
+      "rank": 15,
+      "pcode": "1632693",
+      "name": "[다나와] 도그라인 아지피아 20kg (1개)",
+      "ga": {
+        "protein": 32,
+        "fat": 20,
+        "fiber": 3,
+        "ash": 13,
+        "moisture": 14
+      },
+      "thumb": "https://img.danuri.io/catalog-image/693/632/001/62ca714ed29c42f088df5479b92d1143.jpg?shrink=360:360",
+      "coupang": {
+        "price": 47190,
+        "url": "https://www.coupang.com/vp/products/3617615?itemId=19872619002&vendorItemId=86973305422"
+      },
+      "descImages": [
+        "https://img.danuri.io/catalog-content/images/8d5/2373086_fa9765629b6745e4a0f0c673bbc42833.jpeg",
+        "https://img.danuri.io/catalog-content/images/c00/2373089_25aaf6a8fd7c49f893101208b0b070c9.jpg",
+        "https://img.danuri.io/catalog-content/images/c00/2373089_003205524d584f06b927d4abfc64a1b0.jpg"
+      ],
+      "danawa": "https://prod.danawa.com/info/?pcode=1632693",
+      "spec": "강아지 전용 / 사료 / 퍼피 / 건식 / 스몰(~8mm) / 주 단백질원 : 닭고기 , 과일·야채 / 대용량 /",
+      "ingredientsFound": false
+    },
+    {
+      "rank": 16,
+      "pcode": "4905882",
+      "name": "[다나와] 커클랜드 시그니처 네이처스 도메인 살몬 15.87kg (1개)",
+      "ga": {
+        "protein": 23,
+        "fat": 11,
+        "fiber": 6.35,
+        "ash": 9,
+        "moisture": 10
+      },
+      "thumb": "https://img.danuri.io/catalog-image/882/905/004/ab89152c1b2746ad887c95f69c3cd891.jpg?shrink=360:360",
+      "coupang": {
+        "price": 70970,
+        "url": "https://www.coupang.com/vp/products/6372298188?itemId=20984585998&vendorItemId=73534926467"
+      },
+      "descImages": [
+        "https://img.danuri.io/catalog-content/images/064/5074119_e243ee7f98234367969ad85ee460f41a.jpg",
+        "https://img.danuri.io/catalog-content/images/064/5074119_8f4bfdd183cc40449c68284b0caf8686.jpg"
+      ],
+      "danawa": "https://prod.danawa.com/info/?pcode=4905882",
+      "spec": "강아지 전용 / 사료 / 전연령 / 건식 / 주 단백질원 : 연어 , 과일·야채 / 그레인프리 / 기능 : 소화·장건강 / 주요성분 : 프리바이오틱스 / 대용량 / 인증 : AAFCO /",
+      "ingredientsFound": false
+    },
+    {
+      "rank": 18,
+      "pcode": "4233985",
+      "name": "[다나와] 뉴트리나 독 울트라 초이스 15kg (1개)",
+      "ga": {
+        "protein": 20,
+        "fat": 7,
+        "fiber": 5.5,
+        "ash": 10,
+        "moisture": 12
+      },
+      "thumb": "https://img.danuri.io/catalog-image/985/233/004/749441274a36407490210b2da4b34421.jpg?shrink=360:360",
+      "coupang": {
+        "price": 21000,
+        "url": "https://www.coupang.com/vp/products/119335?itemId=222993&vendorItemId=94474377495"
+      },
+      "descImages": [
+        "https://img.danuri.io/catalog-content/images/dc3/3226266_702f62c4e3604c26820a7be0d3ac02d5.jpg",
+        "https://red.lotteon.com/_m2_/_rsc_/LO2157033122/?sref=http://fiximage.10x10.co.kr/web2008/etc/top_notice_lotteon.jpg",
+        "https://img.danuri.io/catalog-content/images/8c8/3226267_14a1f61b16cc4881abb4ca65a215c4d0.png",
+        "https://red.lotteon.com/_m2_/_rsc_/LO2157033122/?sref=http://fiximage.10x10.co.kr/web2008/etc/gs_pdt_nametit.png",
+        "https://red.lotteon.com/_m2_/_rsc_/LO2157033122/?sref=http://fiximage.10x10.co.kr/web2008/etc/cs_info_lotteon.jpg",
+        "https://img.danuri.io/catalog-content/images/deb/3226269_2ea73c189b2c4beaa122603976a7fac0.jpg",
+        "https://img.danuri.io/catalog-content/images/deb/3226269_1d79504c99024c36be5f6c6bb9ca254d.jpg"
+      ],
+      "danawa": "https://prod.danawa.com/info/?pcode=4233985",
+      "spec": "강아지 전용 / 사료 / 어덜트 / 건식 / 주 단백질원 : 닭고기 , 과일·야채 / 기능 : 소화·장건강 / 대용량 / 인증 : AAFCO /",
+      "ingredientsFound": false
+    },
+    {
+      "rank": 19,
+      "pcode": "1639366",
+      "name": "[다나와] 프로베스트 독 진도 10kg (1개)",
+      "ga": {
+        "protein": 20,
+        "fat": 9,
+        "fiber": 4,
+        "ash": 10,
+        "moisture": 12
+      },
+      "thumb": "https://img.danuri.io/catalog-image/366/639/001/3d7d37e78b184669a6b33521e4e60c1b.jpg?shrink=360:360",
+      "coupang": {
+        "price": 20400,
+        "url": "https://www.coupang.com/vp/products/5579301306?itemId=13973777&vendorItemId=90053000151"
+      },
+      "descImages": [
+        "https://img.danuri.io/catalog-content/images/bf4/4147939_6fb72078a2034957b30e9d821634a37e.jpg",
+        "https://img.danuri.io/catalog-content/images/bf4/4147939_025c9e5289ee4b7c868526e2cb621411.jpg"
+      ],
+      "danawa": "https://prod.danawa.com/info/?pcode=1639366",
+      "spec": "강아지 전용 / 사료 / 어덜트 / 건식 / 미디움(~13mm) / 주 단백질원 : 과일·야채 / 기능 : 관절·뼈건강 / 대용량 /",
+      "ingredientsFound": false
+    },
+    {
+      "rank": 20,
+      "pcode": "14118419",
+      "name": "[다나와] 뉴트리나 독 건강백서 건강한 피부 10.2kg (1개)",
+      "ga": {
+        "protein": 27,
+        "fat": 15,
+        "fiber": 5,
+        "ash": 9,
+        "moisture": 12
+      },
+      "thumb": "https://img.danuri.io/catalog-image/419/118/014/e4db5ac2b3984314b9918a48d4d0569e.jpeg?shrink=360:360",
+      "coupang": {
+        "price": 59890,
+        "url": "https://www.coupang.com/vp/products/8763368209?itemId=23445617769&vendorItemId=92580176785"
+      },
+      "descImages": [
+        "https://img.danuri.io/catalog-content/images/982/3630343_de6e5069aa094a2da940fa0135bd2f72.jpg",
+        "https://img.danuri.io/catalog-content/images/1d6/3630344_d2f2d2e6f40c492488130e21449c5643.jpeg",
+        "https://img.danuri.io/catalog-content/images/1d6/3630344_93fe791564e44d33b1beb7a89c2c83e4.jpg",
+        "https://img.danuri.io/catalog-content/images/e23/3630346_1ec0e3df70e947ad83d066815fad7fba.jpg",
+        "https://img.danuri.io/catalog-content/images/e23/3630346_7660ae0ef3e040629475f11b892a6e49.jpg"
+      ],
+      "danawa": "https://prod.danawa.com/info/?pcode=14118419",
+      "spec": "강아지 전용 / 사료 / 전연령 / 건식 / 스몰(~8mm) / 주 단백질원 : 연어 / 가수분해 / 기능 : 피부·모질개선 / 대용량 /",
+      "ingredientsFound": false
+    },
+    {
+      "rank": 23,
+      "pcode": "4225349",
+      "name": "[다나와] 로얄캐닌 독 미디움 어덜트 10kg (1개)",
+      "ga": {
+        "protein": 23,
+        "fat": 12,
+        "fiber": 2.3,
+        "ash": 6.6,
+        "moisture": 10.5
+      },
+      "thumb": "https://img.danuri.io/catalog-image/349/225/004/fe4422c579f94c918f59923c4cfbe482.jpg?shrink=360:360",
+      "coupang": {
+        "price": 85020,
+        "url": "https://www.coupang.com/vp/products/6714055947?itemId=15596626200&vendorItemId=91710631712"
+      },
+      "descImages": [
+        "https://red.lotteon.com/_m2_/_rsc_/LO2272605643/?sref=http://store.img11.co.kr/72203664/af989768-f2c2-452f-b12a-021a403506ad_1709470845709.jpg",
+        "https://red.lotteon.com/_m2_/_rsc_/LO2272605643/?sref=http://store.img11.co.kr/72203664/0221de14-9ae5-4d25-ad35-43e44b965491_1686270960245.jpg",
+        "https://img.danuri.io/catalog-content/images/055/7985299_2b647e6a1b5444cf84e56ea4d13d82ff.jpg",
+        "https://img.danuri.io/catalog-content/images/055/7985299_fd5d4ea9685b4739af267b210a306c1d.jpg"
+      ],
+      "danawa": "https://prod.danawa.com/info/?pcode=4225349",
+      "spec": "강아지 전용 / 사료 / 어덜트 / 건식 / 미디움(~13mm) / 주 단백질원 : 과일·야채 / 가수분해 / 기능 : 소화·장건강 , 피부·모질개선 / 대용량 / GMOFree / 조단백 : 23% / 조지방 : 12% / 조섬유 : 2.3% / 조회분 : 6.6% / 칼슘 : 0.9",
+      "ingredientsFound": false
+    },
+    {
+      "rank": 26,
+      "pcode": "4222172",
+      "name": "[다나와] 이즈칸 독 어덜트 라지바이트 15kg (1개)",
+      "ga": {
+        "protein": 26,
+        "fat": 16,
+        "fiber": 3,
+        "ash": 9,
+        "moisture": 12
+      },
+      "thumb": "https://img.danuri.io/catalog-image/172/222/004/7d84255d0f1343b1907063e4d4ed31e4.jpg?shrink=360:360",
+      "coupang": {
+        "price": 64850,
+        "url": "https://www.coupang.com/vp/products/3592362?itemId=17247682&vendorItemId=84376380774"
+      },
+      "descImages": [
+        "https://img.danuri.io/catalog-content/images/c23/5836053_8596e91646bb4aa580a2948c97c51f87.jpg",
+        "https://img.danuri.io/catalog-content/images/c3b/5836055_ec7b820729a345e198fb3daeceda5fe5.jpg",
+        "https://img.danuri.io/catalog-content/images/c3b/5836055_2676bf87482540c8b802014bbec112c7.jpg"
+      ],
+      "danawa": "https://prod.danawa.com/info/?pcode=4222172",
+      "spec": "강아지 전용 / 사료 / 어덜트 / 건식 / 라지(14mm~) / 주 단백질원 : 닭고기 / 대용량 /",
+      "ingredientsFound": false
+    },
+    {
+      "rank": 27,
+      "pcode": "4233564",
+      "name": "[다나와] 도그랑 클래식 5kg (1개)",
+      "ga": {
+        "protein": 25,
+        "fat": 10,
+        "fiber": null,
+        "ash": null,
+        "moisture": null
+      },
+      "thumb": "https://img.danuri.io/catalog-image/564/233/004/45ac41105f28414ea814c98d245fdf60.jpg?shrink=360:360",
+      "coupang": {
+        "price": 9400,
+        "url": "https://www.coupang.com/vp/products/7170134497?itemId=26575764776&vendorItemId=90828399872"
+      },
+      "descImages": [
+        "https://img.danuri.io/catalog-content/images/635/1442875_548f6ed5a5944f1bb26b3debe4346f32.jpg",
+        "http://image.babosarang.co.kr/banner/2017/07/28/coupang_l_event.jpg",
+        "http://image.bom.co.kr/product/detail/ACE/1612200112377128/148229415923.jpg",
+        "https://img.danuri.io/catalog-content/images/942/1442878_5019d7ad97894ebcb80064bf1866a482.jpg",
+        "https://img.danuri.io/catalog-content/images/942/1442878_7be8295cea524a3fa515c0a91dd5f79f.jpg"
+      ],
+      "danawa": "https://prod.danawa.com/info/?pcode=4233564",
+      "spec": "강아지 전용 / 사료 / 전연령 / 건식 / 주 단백질원 : 닭고기 / 기능 : 피부·모질개선 , 소화·장건강 , 면역력강화 , 관절·뼈건강 / 인증 : HACCP / 조단백 : 25% / 조지방 : 10% 관심 공유 공유하기 레이어 닫기 카카오톡 라인 페이스북 X 밴드 https://",
+      "ingredientsFound": false
+    },
+    {
+      "rank": 29,
+      "pcode": "47922836",
+      "name": "[다나와] ANF 독 식스프리 골드 소고기&연어 10kg (1개)",
+      "ga": {
+        "protein": 27.5,
+        "fat": 9.5,
+        "fiber": 6,
+        "ash": 8,
+        "moisture": 11
+      },
+      "thumb": "https://img.danuri.io/catalog-image/836/922/047/f312e5de5953489abbef494d08db56e0.jpg?shrink=360:360",
+      "coupang": {
+        "price": 67850,
+        "url": "https://www.coupang.com/vp/products/7047760132?itemId=28893595693&vendorItemId=95856519877"
+      },
+      "descImages": [
+        "https://img.danuri.io/catalog-content/images/4b1/4169407_ca43c52a4a72400c9cd70b29ef858031.jpg",
+        "https://img.danuri.io/catalog-content/images/4b1/4169407_1da4a34c9e1741d59cd6d517965c0ee7.jpg",
+        "https://img.danuri.io/catalog-content/images/4b1/4169407_c82d2e4bbfad4dc28d8d74032cbbe271.jpg",
+        "https://img.danuri.io/catalog-content/images/4b1/4169407_3aacc25b8443416f96dd10b3f7a02752.jpg",
+        "https://img.danuri.io/catalog-content/images/4b1/4169407_c178d244dbd14e048740c466bdb30fa6.png",
+        "https://img.danuri.io/catalog-content/images/4b1/4169407_58e1eaf369b9435ba93f0c15b9796721.png"
+      ],
+      "danawa": "https://prod.danawa.com/info/?pcode=47922836",
+      "spec": "강아지 전용 / 사료 / 전연령 / 건식 / 스몰(~8mm) / 주 단백질원 : 연어 , 소고기 / 기능 : 체중관리 , 면역력강화 , 소화·장건강 , 피부·모질개선 , 눈건강·눈물 / 인증 : HACCP / 조단백 : 27.5% / 조지방 : 9.5% / 조섬유 : 6% / 조회분 :",
+      "ingredientsFound": false
+    },
+    {
+      "rank": 30,
+      "pcode": "12847991",
+      "name": "[다나와] 로얄캐닌 독 포메라니안 어덜트 3kg (1개)",
+      "ga": {
+        "protein": 24,
+        "fat": 14,
+        "fiber": 2.6,
+        "ash": 5.9,
+        "moisture": 10.5
+      },
+      "thumb": "https://img.danuri.io/catalog-image/991/847/012/dc0fc0df12dd44fe81f7c4e4c49824e9.jpg?shrink=360:360",
+      "coupang": {
+        "price": 42780,
+        "url": "https://www.coupang.com/vp/products/2070709235?itemId=3518368586&vendorItemId=94677327732"
+      },
+      "descImages": [
+        "https://img.danuri.io/catalog-content/images/7c7/2288921_6ac765b6827440fdb7dcbfcee7d91132.jpeg",
+        "https://img.danuri.io/catalog-content/images/7c7/2288921_fc8374ce88324fcfbbfd09fdf1eac1f4.jpeg",
+        "https://img.danuri.io/catalog-content/images/2c8/2288923_39df0d99432d4ac0aac61de92650b5cb.jpg",
+        "https://img.danuri.io/catalog-content/images/2c8/2288923_c3c3cfcc352e41ad997cbfb482429b48.jpg"
+      ],
+      "danawa": "https://prod.danawa.com/info/?pcode=12847991",
+      "spec": "강아지 전용 / 사료 / 어덜트 / 건식 / 주 단백질원 : 오리고기 , 칠면조고기 , 닭고기 / 기능 : 치석예방·제거 , 관절·뼈건강 , 소화·장건강 , 피부·모질개선 / 조단백 : 24% / 조지방 : 14% / 조섬유 : 2.6% / 조회분 : 5.9% / 칼슘 : 0.6% / ",
+      "ingredientsFound": false
+    }
+  ]
+}
