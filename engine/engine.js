@@ -359,8 +359,12 @@ function deriveFit({ nutrient, ingr, dist, funcIngr }) {
 }
 
 /* ── 한 번에 ───────────────────────────────────────────── */
-function deriveDetail({ ga, ingredients, facts, price, weightOptions, rxInfo }) {
-  const nutrient = deriveNutrient(ga ?? {});
+function deriveDetail({ ga, ingredients, facts, price, weightOptions, rxInfo,
+                       kcalPerKg, meatRatio, prices }) {
+  /* 라벨에 칼로리가 적혀 있으면 그 값을 쓴다. 없을 때만 화면이 영양성분으로 추정하는데,
+     지방이 높은 사료일수록 추정이 벌어져 급여량이 그만큼 어긋난다. */
+  const nutrient = deriveNutrient({ ...(ga ?? {}), kcalPerKg: kcalPerKg ?? ga?.kcalPerKg ?? null },
+                                  { meatRatio: meatRatio ?? null });
   const ingr = deriveIngredients(ingredients ?? []);
   const dist = deriveDist(ingr);
   const funcIngr = deriveFuncIngr(ingredients ?? []);
@@ -376,10 +380,16 @@ function deriveDetail({ ga, ingredients, facts, price, weightOptions, rxInfo }) 
     weightOpts: opts,
     verdict, nutrient, ingr, funcIngr, dist,
     fit, fitCaution,
-    prices: price?.p > 0
-      ? [{ wg: price.wg, shop: price.shop, price: price.p, pKg: price.pKg,
-           url: price.buyUrl ?? null, avail: true }]
-      : [],
+    /* 용량별 가격을 받았으면 그걸 쓴다. 없으면 대표 가격 한 줄로 대신한다 —
+       예전엔 무조건 한 줄이라 1kg·6kg 을 같이 파는 사료도 하나만 보였다. */
+    prices: (prices?.length)
+      ? prices.map(x => ({ wg: x.wg, shop: x.shop ?? price?.shop ?? 'coupang',
+          price: x.price, pKg: x.pKg ?? Math.round(x.price / x.wg * 1000),
+          url: x.url ?? null, avail: true }))
+      : price?.p > 0
+        ? [{ wg: price.wg, shop: price.shop, price: price.p, pKg: price.pKg,
+             url: price.buyUrl ?? null, avail: true }]
+        : [],
     recall: null
   };
 }
@@ -435,7 +445,9 @@ function publishRecord(item, uuid, now) {
   const detail = (p.ga || p.ingredients)
     ? deriveDetail({
         ga: p.ga, ingredients: p.ingredients, facts: p.facts,
-        price: p.price, weightOptions: p.price?.wgOptions, rxInfo: p.rxInfo ?? null
+        price: p.price, weightOptions: p.price?.wgOptions, rxInfo: p.rxInfo ?? null,
+        /* 등록 폼이 라벨에서 받아 온 값들. 여기서 안 넘기면 발행할 때 조용히 사라진다. */
+        kcalPerKg: p.kcalPerKg ?? null, meatRatio: p.meatRatio ?? null, prices: p.prices ?? null
       })
     : null;
   const food = {

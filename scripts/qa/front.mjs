@@ -6,7 +6,7 @@ const srv = await serve(9101);
 const b = await launch();
 const pg = await b.newPage({ viewport: { width: 390, height: 844 } });
 const log = watch(pg, 'front');
-const U = 'http://localhost:9101/balsatang/index.html';
+const U = 'http://localhost:9101/index.html';
 const shot = n => pg.screenshot({ path: `${OUT}/shot-front-${n}.png`, fullPage: true });
 
 console.log('\n═══ QA-1 소비자 · 프론트 ═══');

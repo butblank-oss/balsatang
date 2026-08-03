@@ -16,13 +16,16 @@ import fs from 'node:fs';
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, '../..');
 
+/* needs — 그 묶음이 열어 보는 화면. 어드민이 balsatang-admin 저장소로 옮겨가서
+   여기엔 파일이 없다. 없는 걸 돌리면 빨갛게 실패하는데, 그건 고장이 아니라
+   '여기서 볼 수 없다' 는 뜻이다. 그 둘을 섞으면 QA 결과를 아무도 안 믿게 된다. */
 const SUITES = [
   ['design.mjs', '디자인 규칙'],
   ['front.mjs', '소비자 · 프론트'],
-  ['foods.mjs', '운영자 · 사료 관리'],
-  ['admin.mjs', '운영자 · 통합 어드민'],
-  ['hangul.mjs', '한글 입력'],
-  ['review.mjs', '심사자 · 발행 심사']
+  ['foods.mjs', '운영자 · 사료 관리', 'balsatang/admin/foods.html'],
+  ['admin.mjs', '운영자 · 통합 어드민', 'balsatang/admin/index.html'],
+  ['hangul.mjs', '한글 입력', 'balsatang/admin/foods.html'],
+  ['review.mjs', '심사자 · 발행 심사', 'balsatang/admin/review.html']
 ];
 
 /* 심사 화면은 대기 건이 없으면 볼 게 없다 */
@@ -37,14 +40,16 @@ const run = file => new Promise(res => {
   p.on('close', code => res(code));
 });
 
-let failed = 0, skipped = [];
-for (const [file, name] of SUITES) {
+let failed = 0, skipped = [], moved = [];
+for (const [file, name, needs] of SUITES) {
+  if (needs && !fs.existsSync(path.join(root, needs))) { moved.push(name); continue; }
   if (file === 'review.mjs' && !hasQueue) { skipped.push(name); continue; }
   const code = await run(file);
   if (code !== 0) { console.log(`\n⚠ ${name} 실행이 도중에 멈췄습니다 (종료코드 ${code})`); failed++; }
 }
 
 console.log('\n' + '═'.repeat(60));
+if (moved.length) console.log(`여기 없음: ${moved.join(', ')} — 어드민은 balsatang-admin 저장소로 옮겼습니다`);
 if (skipped.length) console.log(`건너뜀: ${skipped.join(', ')} — 심사 대기 0건 (npm run review 로 만든 뒤 다시 돌리세요)`);
 console.log(failed ? `❌ ${failed}개 묶음이 끝까지 돌지 못했습니다` : '✅ 모든 묶음이 끝까지 돌았습니다');
 console.log('발견 사항은 위 목록의 🔴 P1 / 🟠 P2 / 🟡 P3 표시를 보세요.');
