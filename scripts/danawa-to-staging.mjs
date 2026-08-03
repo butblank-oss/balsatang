@@ -30,7 +30,26 @@ if (!fs.existsSync(src)) {
   console.log('_danawa.json 이 없습니다. 먼저 collect-danawa.mjs --write 를 돌리세요.');
   process.exit(1);
 }
-const rows = JSON.parse(fs.readFileSync(src, 'utf8'));
+const raw = JSON.parse(fs.readFileSync(src, 'utf8'));
+const rows = Array.isArray(raw) ? raw : (raw.items ?? []);
+
+/* ── 오염 검사 ──
+   collect-danawa 가 0건을 찾으면 예전 결과 파일이 그대로 남아 있었다. 그걸 읽으면
+   직전 브랜드 제품이 이번 브랜드 이름으로 등록된다 — 실제로 로얄캐닌·더리얼 자리에
+   아카나 18종이 들어갔다. 제품명이 이 브랜드로 시작하는지 확인하고, 아니면 멈춘다. */
+if (!rows.length) {
+  console.log(`\n${BRAND} — 다나와에서 찾은 상품이 없습니다. 검색어를 확인하세요.\n`);
+  process.exit(0);
+}
+const nospace = s => String(s ?? '').replace(/\s+/g, '');
+const alien = rows.filter(r => !nospace(r.base).startsWith(nospace(BRAND)));
+if (alien.length) {
+  console.log(`\n❌ 수집 결과가 ${BRAND} 것이 아닙니다 — 다른 브랜드가 섞여 있습니다.`);
+  console.log(`   수집 검색어: ${raw.query ?? '(모름)'}`);
+  for (const a of alien.slice(0, 5)) console.log(`   · ${a.base}`);
+  console.log(`   collect-danawa.mjs "${BRAND} 독" --write 를 먼저 돌리세요.\n`);
+  process.exit(1);
+}
 
 /* 이미 발행됐거나 이미 스테이징에 있는 건 다시 올리지 않는다 */
 const { FOODS_ALL } = new Function(fs.readFileSync(path.join(ROOT, 'data.js'), 'utf8')
@@ -55,7 +74,10 @@ const items = [];
 let skipped = 0;
 
 for (const r of rows) {
-  const name = r.base.replace(new RegExp('^' + BRAND + '\\s*독?\\s*'), '').trim() || r.base;
+  /* '로얄 캐닌 독 미니 인도어 어덜트' → '미니 인도어 어덜트'.
+     브랜드가 띄어 쓰여 있을 수 있으니 글자 사이 공백을 허용해 지운다. */
+  const brandRe = new RegExp('^' + BRAND.split('').map(c => c.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('\\s*') + '\\s*(독)?\\s*');
+  const name = r.base.replace(brandRe, '').trim() || r.base;
   if (known.has(norm(BRAND + name))) { skipped++; continue; }
 
   items.push({

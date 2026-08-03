@@ -41,10 +41,15 @@ async function findCodes(q) {
   const html = await curl('https://search.danawa.com/dsearch.php?limit=90&query=' + encodeURIComponent(q));
   const out = new Map();
   const re = /<p class="prod_name">[\s\S]*?<a[^>]*pcode=(\d+)[^>]*>([\s\S]*?)<\/a>/g;
+  /* 다나와는 브랜드를 띄어 쓰는 경우가 있다 — '로얄 캐닌 독', '더 리얼 독'.
+     '로얄캐닌 독' 으로 물으면 결과는 40건 오는데 접두 일치는 0건이 된다.
+     공백을 지우고 견준다. */
+  const key = s => s.replace(/\s+/g, '');
+  const qk = key(q);
   let m;
   while ((m = re.exec(html))) {
     const name = strip(m[2]);
-    if (name.startsWith(q) && !out.has(name)) out.set(name, m[1]);
+    if (key(name).startsWith(qk) && !out.has(name)) out.set(name, m[1]);
   }
   return [...out].map(([name, pcode]) => ({ name, pcode }));
 }
@@ -100,7 +105,15 @@ const baseName = t => t.replace(/\s*[\d.]+\s*(kg|g)\s*$/i, '').trim();
 /* ── 실행 ── */
 const codes = await findCodes(QUERY);
 console.log(`\n다나와 "${QUERY}" — 상품 ${codes.length}건`);
-if (!codes.length) { console.log('  없습니다.'); process.exit(0); }
+if (!codes.length) {
+  /* 0건이어도 결과 파일을 비워서 남긴다. 안 그러면 직전 브랜드 결과가 그대로
+     남아, 다음 단계가 그걸 읽어 엉뚱한 브랜드 이름으로 등록해 버린다.
+     실제로 로얄캐닌·더리얼 자리에 아카나 제품이 들어갔다. */
+  if (WRITE) fs.writeFileSync(path.join(ROOT, 'data/staging/_danawa.json'),
+    JSON.stringify({ query: QUERY, items: [] }, null, 2) + '\n');
+  console.log('  없습니다.');
+  process.exit(0);
+}
 
 const rows = [];
 for (const c of codes) {
@@ -119,9 +132,26 @@ for (const r of rows) {
   g.rows.push(r);
 }
 
+/* ── 걸러낼 것 ──
+   검색 결과에는 고양이 사료·간식·껌이 섞여 들어온다. 실제로 '지위픽' 23종 중
+   고양이 12종과 구강간식 1종이 있었다. 이름만 비슷하다고 개 사료로 등록하면
+   사용자가 엉뚱한 제품을 본다. 습식은 사장님이 빼기로 했다. */
+const SKIP_NAME = /(^|\s)(캣|고양이)|간식|껌|뼈|스틱|트릿|파우치|토퍼|영양제/;
+const isDogFood = g => {
+  const best = g.rows[0];
+  if (SKIP_NAME.test(g.key)) return { ok: false, why: '고양이용·간식' };
+  if (/고양이|캣/.test(best.spec ?? '')) return { ok: false, why: '고양이용' };
+  if (best.type === 'wet') return { ok: false, why: '습식' };
+  if (!/사료/.test(best.spec ?? '')) return { ok: false, why: '사료가 아님' };
+  return { ok: true };
+};
+
 console.log('─'.repeat(64));
 const items = [];
+const dropped = [];
 for (const g of [...groups.values()].sort((a, b) => a.key.localeCompare(b.key, 'ko'))) {
+  const v = isDogFood(g);
+  if (!v.ok) { dropped.push(`${g.key} (${v.why})`); continue; }
   const best = g.rows.find(r => r.protein != null) ?? g.rows[0];
   const sizes = [...new Set(g.sizes)].sort((a, b) => a - b);
   const low = g.rows.map(r => r.lowPrice).filter(Boolean).sort((a, b) => a - b)[0] ?? null;
@@ -132,9 +162,15 @@ for (const g of [...groups.values()].sort((a, b) => a.key.localeCompare(b.key, '
   items.push({ ...best, base: g.key, sizes, low });
 }
 console.log('\n' + '─'.repeat(64));
+if (dropped.length) {
+  console.log(`걸러낸 것 ${dropped.length}종`);
+  for (const d of dropped) console.log('   · ' + d);
+}
 console.log(`제품 ${items.length}종 · 원료는 다나와에 없습니다 — 라벨을 봐야 채워집니다.\n`);
 
 if (WRITE) {
-  fs.writeFileSync(path.join(ROOT, 'data/staging/_danawa.json'), JSON.stringify(items, null, 2) + '\n');
+  /* 어떤 검색어로 긁은 건지 같이 적는다. 다음 단계가 이걸 대조해 오염을 막는다. */
+  fs.writeFileSync(path.join(ROOT, 'data/staging/_danawa.json'),
+    JSON.stringify({ query: QUERY, items }, null, 2) + '\n');
   console.log('→ data/staging/_danawa.json (스테이징 변환은 build-staging 이 한다)\n');
 }
