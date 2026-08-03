@@ -1,6 +1,6 @@
 {
-  "builtAt": "2026-08-03T12:57:10.520Z",
-  "live": true,
+  "builtAt": "2026-08-03T13:12:06.800Z",
+  "live": false,
   "batches": [
     {
       "file": "manual-2026-08-03.json",
@@ -85,7 +85,8 @@
                 1000
               ],
               "buyUrl": "https://link.coupang.com/a/fUQtmMhJLw"
-            }
+            },
+            "thumb": "https://img.danuri.io/catalog-image/694/634/001/7437b261e68545369083165850f237d3.jpg?shrink=360:360"
           },
           "sources": [
             {
@@ -133,6 +134,10 @@
             "country": {
               "src": 0,
               "quote": "MADE WITH HIGH QUALITY AUSTRALIAN MEAT (봉지) · 판매처 상품정보제공고시 원산지 호주"
+            },
+            "thumb": {
+              "src": 0,
+              "quote": "제품 사진은 다나와 카탈로그(img.danuri.io/catalog-image/694/634/001/…)에서 가져왔습니다. 봉지가 WITH GOURMET BEEF AND SALMON FLAVOR · 1kg 로 라벨 사진과 같은 것을 눈으로 확인했습니다."
             }
           },
           "audit": null,
