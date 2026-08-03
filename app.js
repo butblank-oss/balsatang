@@ -887,9 +887,23 @@ function renderFeedingTab(f, d) {
         </div>
       </div>
 
-      ${opts.length ? `<div class="t-caption c-sub" style="margin-top:18px">봉지 용량</div>
-      <div style="display:flex;gap:7px;margin-top:8px;flex-wrap:wrap">
-        ${opts.map(g => `<button class="press" data-bag="${g}" style="flex:1;min-width:88px;height:44px;border-radius:var(--rSegment);font-size:14px;font-weight:700;${feed.bagG === g ? 'background:var(--purple900);color:#fff' : 'box-shadow:var(--outline);color:var(--ink70)'}">${gLabel(g)}</button>`).join('')}
+      <!-- 봉지 용량은 사람이 직접 적는다.
+           예전엔 우리가 등록해 둔 용량만 버튼으로 줬다. 파는 용량이 하나뿐인 사료는
+           버튼이 하나만 덩그러니 떠서 고를 것도 없었고, 같은 사료라도 대용량을 따로
+           사 오는 사람은 자기 봉지를 넣을 방법이 없었다.
+           우리가 아는 용량은 아래에 눌러 넣는 지름길로만 남긴다. -->
+      <div class="t-caption c-sub" style="margin-top:18px">봉지 용량</div>
+      <div style="display:flex;align-items:center;gap:10px;margin-top:8px">
+        <div style="width:110px;height:52px;border-radius:14px;background:var(--surfaceInput);display:grid;place-items:center">
+          <input id="bagkg" type="number" inputmode="decimal" min="0.1" max="30" step="0.1"
+            value="${Math.round(feed.bagG / 100) / 10}"
+            style="width:100%;text-align:center;font-size:22px;font-weight:800;letter-spacing:-.04em">
+        </div>
+        <span class="t-caption c-sub">kg</span>
+        <span class="t-micro c-mute" style="flex:1;font-weight:500;line-height:1.5">집에 있는 봉지<br>크기로 적어주세요</span>
+      </div>
+      ${opts.length ? `<div style="display:flex;gap:6px;margin-top:9px;flex-wrap:wrap">
+        ${opts.map(g => `<button class="press" data-bag="${g}" style="height:32px;padding:0 13px;border-radius:var(--rChip);font-size:12.5px;font-weight:700;letter-spacing:-.02em;${feed.bagG === g ? 'background:var(--purple900);color:#fff' : 'box-shadow:var(--outline);color:var(--ink70)'}">${gLabel(g)}</button>`).join('')}
       </div>` : ''}
       <div style="display:flex;align-items:center;gap:12px;margin-top:14px;padding:16px 18px;
                   border-radius:var(--rInput);background:var(--purple900);color:#fff">
@@ -1555,6 +1569,17 @@ function wire() {
   if (fwr) fwr.addEventListener('change', () => setW(fwr.value));
   on('[data-meals]', 'click', e => { state.feeding.meals = +e.currentTarget.dataset.meals; save(); render(); });
   on('[data-bag]', 'click', e => { state.feeding.bagG = +e.currentTarget.dataset.bag; save(); render(); });
+
+  /* 봉지 용량 — 사람이 kg 로 적고, 안에서는 g 로 센다.
+     change 로만 받는다. 글자마다 다시 그리면 '1.2' 를 치는 도중 '1' 에서 화면이
+     통째로 갈아엎어져 칸이 비워진다. */
+  const bag = $('#bagkg', v);
+  if (bag) bag.addEventListener('change', () => {
+    const kg = Number(bag.value);
+    if (!Number.isFinite(kg) || kg <= 0) { bag.value = Math.round((state.feeding.bagG || 2000) / 100) / 10; return; }
+    state.feeding.bagG = Math.round(Math.max(0.1, Math.min(30, kg)) * 1000);
+    save(); render();
+  });
 
   /* 맞춤 입력 — 한 화면이라 값이 바뀔 때마다 draft 에 담고, 제출할 때 확정한다 */
   const keepText = () => {
