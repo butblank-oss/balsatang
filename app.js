@@ -279,8 +279,10 @@ function openPicker(slotIndex) {
       .filter(f => !q || `${f.brand} ${f.name}`.toLowerCase().replace(/\s/g, '').includes(q.toLowerCase().replace(/\s/g, '')))
       .slice(0, 40);
     return `
-      <div class="searchbox sm" style="margin-bottom:6px">
-        ${icon('search', 18)}<input id="pk-q" value="${esc(q)}" placeholder="사료 이름으로 찾기" autocomplete="off">
+      <div class="stick">
+        <div class="searchbox sm">
+          ${icon('search', 18)}<input id="pk-q" value="${esc(q)}" placeholder="사료 이름으로 찾기" autocomplete="off">
+        </div>
       </div>
       <div id="pk-list">${pickerGroups(list, q)}</div>`;
   };
@@ -306,7 +308,7 @@ function openPicker(slotIndex) {
       }, 200);
     });
     setTimeout(() => q.focus(), 80);
-  });
+  }, { fixed: true });
 }
 /* 검색어가 없으면 최근 본 사료를 앞에 따로 묶는다.
    대개 그중 하나를 고른다. 다만 최근 본 게 실제로 있을 때만 머리말을 붙인다 —
@@ -1594,15 +1596,19 @@ function wire() {
 }
 
 /* ═══ 바텀시트 ═══ */
-function sheet(title, bodyHtml, onWire) {
+/* fixed=true 면 시트 높이를 고정한다. 안에서 검색해 걸러내는 시트가 그렇다 —
+   내용에 맞춰 줄어들면 검색칸이 화면 아래로 따라 내려가 손가락 밑에서 도망간다. */
+function sheet(title, bodyHtml, onWire, opt = {}) {
   const dim = $('#dim'), sh = $('#sheet');
   $('.sh-h', sh).textContent = title;
   $('.sh-b', sh).innerHTML = bodyHtml;
+  sh.classList.toggle('fixed', !!opt.fixed);
   dim.classList.add('on'); sh.classList.add('on'); document.body.classList.add('noscroll');
   onWire?.($('.sh-b', sh));
 }
 function closeSheet() {
-  $('#dim').classList.remove('on'); $('#sheet').classList.remove('on');
+  $('#dim').classList.remove('on');
+  $('#sheet').classList.remove('on', 'fixed');
   document.body.classList.remove('noscroll');
 }
 function openSortSheet() {
