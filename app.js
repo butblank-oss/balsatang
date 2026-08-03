@@ -722,7 +722,7 @@ const STAR_PATH = 'M12 2.6l2.9 5.9 6.5.95-4.7 4.6 1.1 6.5L12 17.5l-5.8 3.05 1.1-
 function stars(v) {
   return [1, 2, 3, 4, 5].map(i => `<svg width="15" height="15" viewBox="0 0 24 24" style="display:block">
     <path d="${STAR_PATH}" fill="${i <= v ? 'var(--purple700)' : 'none'}"
-      stroke="${i <= v ? 'none' : 'var(--ink20)'}" stroke-width="1.6" stroke-linejoin="round"></path></svg>`).join('');
+      stroke="${i <= v ? 'none' : 'var(--starOff)'}" stroke-width="1.6" stroke-linejoin="round"></path></svg>`).join('');
 }
 function ratingCards(f) {
   const r = f.ratings;
