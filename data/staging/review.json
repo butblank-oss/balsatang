@@ -1,11 +1,632 @@
 {
-  "builtAt": "2026-08-03T14:44:51.932Z",
-  "live": true,
-  "batches": [],
+  "builtAt": "2026-08-03T14:59:12.944Z",
+  "live": false,
+  "batches": [
+    {
+      "file": "danawa-orijen-2026-08-03.json",
+      "batchId": "danawa-orijen-2026-08-03",
+      "collectedAt": "2026-08-03T14:52:02.864Z",
+      "items": [
+        {
+          "stagingId": "stg_orijen_15418451",
+          "label": "오리젠 6 피쉬",
+          "proposed": {
+            "brand": "오리젠",
+            "brandSlug": "orijen",
+            "country": "CA",
+            "name": "6 피쉬",
+            "type": "dry",
+            "rx": false,
+            "ages": [
+              "all"
+            ],
+            "sizes": [
+              "all"
+            ],
+            "ratings": {
+              "quality": null,
+              "carb": null,
+              "additive": null,
+              "value": null
+            },
+            "score": null,
+            "func": [],
+            "warnN": 0,
+            "concerns": [],
+            "facts": {
+              "protein": 38,
+              "dmCarb": null,
+              "firstIngrCat": null,
+              "cautionN": null,
+              "dangerN": null,
+              "pKg": null
+            },
+            "specOrigin": "domestic",
+            "ga": {
+              "protein": 38,
+              "fat": 18,
+              "fiber": null,
+              "moisture": null,
+              "ash": null
+            },
+            "ingredients": [],
+            "thumb": "https://img.danuri.io/catalog-image/451/418/015/d62c321823934f1583447f3e46d810cb.jpg?shrink=360:360",
+            "pricePending": true,
+            "wgOptionsHint": [
+              1000,
+              2000,
+              6000,
+              11400
+            ],
+            "draft": true
+          },
+          "sources": [
+            {
+              "role": "retail",
+              "url": "https://prod.danawa.com/info/?pcode=15418451",
+              "fetchedAt": "2026-08-03T14:52:02.864Z",
+              "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
+            }
+          ],
+          "evidence": {
+            "facts.protein": {
+              "src": 0,
+              "quote": "다나와 스펙 — 조단백 38%"
+            },
+            "_남은일": {
+              "src": 0,
+              "quote": "라벨을 봐야 채워집니다 — 원료 표기 전체, 조섬유·수분(건물기준 탄수 계산용), 칼로리. 쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 25,990원 · 주단백질원 기타생선류 · 판매 용량 1kg, 2kg, 6kg, 11.4kg"
+            }
+          },
+          "audit": null,
+          "pricePending": true,
+          "draft": true,
+          "gates": {
+            "g1": "draft",
+            "g1fail": [],
+            "g1warn": [],
+            "todo": [
+              "원료 표기 전체 (표기 순서대로)",
+              "조섬유·수분 (건물기준 탄수 계산에 필요)",
+              "쿠팡 상품 링크와 가격"
+            ],
+            "g2": "none",
+            "g2diff": [],
+            "g3warn": []
+          },
+          "ready": false
+        },
+        {
+          "stagingId": "stg_orijen_123682871",
+          "label": "오리젠 스몰 브리드 마린 피쉬",
+          "proposed": {
+            "brand": "오리젠",
+            "brandSlug": "orijen",
+            "country": "CA",
+            "name": "스몰 브리드 마린 피쉬",
+            "type": "dry",
+            "rx": false,
+            "ages": [
+              "all"
+            ],
+            "sizes": [
+              "all"
+            ],
+            "ratings": {
+              "quality": null,
+              "carb": null,
+              "additive": null,
+              "value": null
+            },
+            "score": null,
+            "func": [],
+            "warnN": 0,
+            "concerns": [],
+            "facts": {
+              "protein": 40,
+              "dmCarb": null,
+              "firstIngrCat": null,
+              "cautionN": null,
+              "dangerN": null,
+              "pKg": null
+            },
+            "specOrigin": "domestic",
+            "ga": {
+              "protein": 40,
+              "fat": 15,
+              "fiber": null,
+              "moisture": null,
+              "ash": null
+            },
+            "ingredients": [],
+            "thumb": "https://img.danuri.io/catalog-image/871/682/123/3e49027246774caf9a620359dc8fe482.webp?shrink=360:360",
+            "pricePending": true,
+            "wgOptionsHint": [
+              1800,
+              4500
+            ],
+            "draft": true
+          },
+          "sources": [
+            {
+              "role": "retail",
+              "url": "https://prod.danawa.com/info/?pcode=123682871",
+              "fetchedAt": "2026-08-03T14:52:02.864Z",
+              "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
+            }
+          ],
+          "evidence": {
+            "facts.protein": {
+              "src": 0,
+              "quote": "다나와 스펙 — 조단백 40%"
+            },
+            "_남은일": {
+              "src": 0,
+              "quote": "라벨을 봐야 채워집니다 — 원료 표기 전체, 조섬유·수분(건물기준 탄수 계산용), 칼로리. 쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 32,510원 · 주단백질원 연어, 기타생선류, 과일·야채 · 판매 용량 1.8kg, 4.5kg"
+            }
+          },
+          "audit": null,
+          "pricePending": true,
+          "draft": true,
+          "gates": {
+            "g1": "draft",
+            "g1fail": [],
+            "g1warn": [],
+            "todo": [
+              "원료 표기 전체 (표기 순서대로)",
+              "조섬유·수분 (건물기준 탄수 계산에 필요)",
+              "쿠팡 상품 링크와 가격"
+            ],
+            "g2": "none",
+            "g2diff": [],
+            "g3warn": []
+          },
+          "ready": false
+        },
+        {
+          "stagingId": "stg_orijen_99815189",
+          "label": "오리젠 스몰브리드",
+          "proposed": {
+            "brand": "오리젠",
+            "brandSlug": "orijen",
+            "country": "CA",
+            "name": "스몰브리드",
+            "type": "dry",
+            "rx": false,
+            "ages": [
+              "all"
+            ],
+            "sizes": [
+              "all"
+            ],
+            "ratings": {
+              "quality": null,
+              "carb": null,
+              "additive": null,
+              "value": null
+            },
+            "score": null,
+            "func": [],
+            "warnN": 0,
+            "concerns": [],
+            "facts": {
+              "protein": 38,
+              "dmCarb": null,
+              "firstIngrCat": null,
+              "cautionN": null,
+              "dangerN": null,
+              "pKg": null
+            },
+            "specOrigin": "domestic",
+            "ga": {
+              "protein": 38,
+              "fat": 18,
+              "fiber": null,
+              "moisture": null,
+              "ash": null
+            },
+            "ingredients": [],
+            "thumb": "https://img.danuri.io/catalog-image/189/815/099/afb076c267e94531985f37d40fde3eae.jpg?shrink=360:360",
+            "pricePending": true,
+            "wgOptionsHint": [
+              1800,
+              4500
+            ],
+            "draft": true
+          },
+          "sources": [
+            {
+              "role": "retail",
+              "url": "https://prod.danawa.com/info/?pcode=99815189",
+              "fetchedAt": "2026-08-03T14:52:02.864Z",
+              "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
+            }
+          ],
+          "evidence": {
+            "facts.protein": {
+              "src": 0,
+              "quote": "다나와 스펙 — 조단백 38%"
+            },
+            "_남은일": {
+              "src": 0,
+              "quote": "라벨을 봐야 채워집니다 — 원료 표기 전체, 조섬유·수분(건물기준 탄수 계산용), 칼로리. 쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 32,980원 · 주단백질원 기타생선류, 닭고기, 칠면조고기, 과일·야채 · 판매 용량 1.8kg, 4.5kg"
+            }
+          },
+          "audit": null,
+          "pricePending": true,
+          "draft": true,
+          "gates": {
+            "g1": "draft",
+            "g1fail": [],
+            "g1warn": [],
+            "todo": [
+              "원료 표기 전체 (표기 순서대로)",
+              "조섬유·수분 (건물기준 탄수 계산에 필요)",
+              "쿠팡 상품 링크와 가격"
+            ],
+            "g2": "none",
+            "g2diff": [],
+            "g3warn": []
+          },
+          "ready": false
+        },
+        {
+          "stagingId": "stg_orijen_4266771",
+          "label": "오리젠 오리지널",
+          "proposed": {
+            "brand": "오리젠",
+            "brandSlug": "orijen",
+            "country": "CA",
+            "name": "오리지널",
+            "type": "dry",
+            "rx": false,
+            "ages": [
+              "all"
+            ],
+            "sizes": [
+              "all"
+            ],
+            "ratings": {
+              "quality": null,
+              "carb": null,
+              "additive": null,
+              "value": null
+            },
+            "score": null,
+            "func": [],
+            "warnN": 0,
+            "concerns": [],
+            "facts": {
+              "protein": 38,
+              "dmCarb": null,
+              "firstIngrCat": null,
+              "cautionN": null,
+              "dangerN": null,
+              "pKg": null
+            },
+            "specOrigin": "domestic",
+            "ga": {
+              "protein": 38,
+              "fat": 18,
+              "fiber": null,
+              "moisture": null,
+              "ash": null
+            },
+            "ingredients": [],
+            "thumb": "https://img.danuri.io/catalog-image/771/266/004/dc3cc54522d74a30bd6d6e44f76a963f.jpg?shrink=360:360",
+            "pricePending": true,
+            "wgOptionsHint": [
+              340,
+              2000,
+              6000,
+              11400
+            ],
+            "draft": true
+          },
+          "sources": [
+            {
+              "role": "retail",
+              "url": "https://prod.danawa.com/info/?pcode=4266771",
+              "fetchedAt": "2026-08-03T14:52:02.864Z",
+              "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
+            }
+          ],
+          "evidence": {
+            "facts.protein": {
+              "src": 0,
+              "quote": "다나와 스펙 — 조단백 38%"
+            },
+            "_남은일": {
+              "src": 0,
+              "quote": "라벨을 봐야 채워집니다 — 원료 표기 전체, 조섬유·수분(건물기준 탄수 계산용), 칼로리. 쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 5,960원 · 주단백질원 칠면조고기, 과일·야채, 닭고기, 기타생선류 · 판매 용량 340g, 2kg, 6kg, 11.4kg"
+            }
+          },
+          "audit": null,
+          "pricePending": true,
+          "draft": true,
+          "gates": {
+            "g1": "draft",
+            "g1fail": [],
+            "g1warn": [],
+            "todo": [
+              "원료 표기 전체 (표기 순서대로)",
+              "조섬유·수분 (건물기준 탄수 계산에 필요)",
+              "쿠팡 상품 링크와 가격"
+            ],
+            "g2": "none",
+            "g2diff": [],
+            "g3warn": []
+          },
+          "ready": false
+        },
+        {
+          "stagingId": "stg_orijen_5195134",
+          "label": "오리젠 퍼피 라지브리드",
+          "proposed": {
+            "brand": "오리젠",
+            "brandSlug": "orijen",
+            "country": "CA",
+            "name": "퍼피 라지브리드",
+            "type": "dry",
+            "rx": false,
+            "ages": [
+              "puppy"
+            ],
+            "sizes": [
+              "all"
+            ],
+            "ratings": {
+              "quality": null,
+              "carb": null,
+              "additive": null,
+              "value": null
+            },
+            "score": null,
+            "func": [],
+            "warnN": 0,
+            "concerns": [],
+            "facts": {
+              "protein": 38,
+              "dmCarb": null,
+              "firstIngrCat": null,
+              "cautionN": null,
+              "dangerN": null,
+              "pKg": null
+            },
+            "specOrigin": "domestic",
+            "ga": {
+              "protein": 38,
+              "fat": 20,
+              "fiber": null,
+              "moisture": null,
+              "ash": null
+            },
+            "ingredients": [],
+            "thumb": "https://img.danuri.io/catalog-image/134/195/005/b0683500353841f28ed44bec9a5f0bae.jpg?shrink=360:360",
+            "pricePending": true,
+            "wgOptionsHint": [
+              6000,
+              11400
+            ],
+            "draft": true
+          },
+          "sources": [
+            {
+              "role": "retail",
+              "url": "https://prod.danawa.com/info/?pcode=5195134",
+              "fetchedAt": "2026-08-03T14:52:02.864Z",
+              "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
+            }
+          ],
+          "evidence": {
+            "facts.protein": {
+              "src": 0,
+              "quote": "다나와 스펙 — 조단백 38%"
+            },
+            "_남은일": {
+              "src": 0,
+              "quote": "라벨을 봐야 채워집니다 — 원료 표기 전체, 조섬유·수분(건물기준 탄수 계산용), 칼로리. 쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 78,900원 · 주단백질원 기타생선류, 닭고기, 칠면조고기, 과일·야채 · 판매 용량 6kg, 11.4kg"
+            }
+          },
+          "audit": null,
+          "pricePending": true,
+          "draft": true,
+          "gates": {
+            "g1": "draft",
+            "g1fail": [],
+            "g1warn": [],
+            "todo": [
+              "원료 표기 전체 (표기 순서대로)",
+              "조섬유·수분 (건물기준 탄수 계산에 필요)",
+              "쿠팡 상품 링크와 가격"
+            ],
+            "g2": "none",
+            "g2diff": [],
+            "g3warn": []
+          },
+          "ready": false
+        },
+        {
+          "stagingId": "stg_orijen_69052223",
+          "label": "오리젠 퍼피 스몰브리드",
+          "proposed": {
+            "brand": "오리젠",
+            "brandSlug": "orijen",
+            "country": "CA",
+            "name": "퍼피 스몰브리드",
+            "type": "dry",
+            "rx": false,
+            "ages": [
+              "puppy"
+            ],
+            "sizes": [
+              "all"
+            ],
+            "ratings": {
+              "quality": null,
+              "carb": null,
+              "additive": null,
+              "value": null
+            },
+            "score": null,
+            "func": [],
+            "warnN": 0,
+            "concerns": [],
+            "facts": {
+              "protein": 38,
+              "dmCarb": null,
+              "firstIngrCat": null,
+              "cautionN": null,
+              "dangerN": null,
+              "pKg": null
+            },
+            "specOrigin": "domestic",
+            "ga": {
+              "protein": 38,
+              "fat": 18,
+              "fiber": null,
+              "moisture": null,
+              "ash": null
+            },
+            "ingredients": [],
+            "thumb": "https://img.danuri.io/catalog-image/223/052/069/418372b3c41b47949f538e2399438473.jpg?shrink=360:360",
+            "pricePending": true,
+            "wgOptionsHint": [
+              1800
+            ],
+            "draft": true
+          },
+          "sources": [
+            {
+              "role": "retail",
+              "url": "https://prod.danawa.com/info/?pcode=69052223",
+              "fetchedAt": "2026-08-03T14:52:02.864Z",
+              "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
+            }
+          ],
+          "evidence": {
+            "facts.protein": {
+              "src": 0,
+              "quote": "다나와 스펙 — 조단백 38%"
+            },
+            "_남은일": {
+              "src": 0,
+              "quote": "라벨을 봐야 채워집니다 — 원료 표기 전체, 조섬유·수분(건물기준 탄수 계산용), 칼로리. 쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 32,230원 · 주단백질원 기타생선류, 닭고기, 칠면조고기, 과일·야채 · 판매 용량 1.8kg"
+            }
+          },
+          "audit": null,
+          "pricePending": true,
+          "draft": true,
+          "gates": {
+            "g1": "draft",
+            "g1fail": [],
+            "g1warn": [],
+            "todo": [
+              "원료 표기 전체 (표기 순서대로)",
+              "조섬유·수분 (건물기준 탄수 계산에 필요)",
+              "쿠팡 상품 링크와 가격"
+            ],
+            "g2": "none",
+            "g2diff": [],
+            "g3warn": []
+          },
+          "ready": false
+        },
+        {
+          "stagingId": "stg_orijen_13068368",
+          "label": "오리젠 피트앤트림",
+          "proposed": {
+            "brand": "오리젠",
+            "brandSlug": "orijen",
+            "country": "CA",
+            "name": "피트앤트림",
+            "type": "dry",
+            "rx": false,
+            "ages": [
+              "all"
+            ],
+            "sizes": [
+              "all"
+            ],
+            "ratings": {
+              "quality": null,
+              "carb": null,
+              "additive": null,
+              "value": null
+            },
+            "score": null,
+            "func": [],
+            "warnN": 0,
+            "concerns": [],
+            "facts": {
+              "protein": 42,
+              "dmCarb": null,
+              "firstIngrCat": null,
+              "cautionN": null,
+              "dangerN": null,
+              "pKg": null
+            },
+            "specOrigin": "domestic",
+            "ga": {
+              "protein": 42,
+              "fat": 13,
+              "fiber": null,
+              "moisture": null,
+              "ash": null
+            },
+            "ingredients": [],
+            "thumb": "https://img.danuri.io/catalog-image/368/068/013/bc2c0b5ce53e49168591c47f1579e8a9.jpg?shrink=360:360",
+            "pricePending": true,
+            "wgOptionsHint": [
+              2000,
+              6000,
+              11400
+            ],
+            "draft": true
+          },
+          "sources": [
+            {
+              "role": "retail",
+              "url": "https://prod.danawa.com/info/?pcode=13068368",
+              "fetchedAt": "2026-08-03T14:52:02.864Z",
+              "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
+            }
+          ],
+          "evidence": {
+            "facts.protein": {
+              "src": 0,
+              "quote": "다나와 스펙 — 조단백 42%"
+            },
+            "_남은일": {
+              "src": 0,
+              "quote": "라벨을 봐야 채워집니다 — 원료 표기 전체, 조섬유·수분(건물기준 탄수 계산용), 칼로리. 쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 32,900원 · 판매 용량 2kg, 6kg, 11.4kg"
+            }
+          },
+          "audit": null,
+          "pricePending": true,
+          "draft": true,
+          "gates": {
+            "g1": "draft",
+            "g1fail": [],
+            "g1warn": [],
+            "todo": [
+              "원료 표기 전체 (표기 순서대로)",
+              "조섬유·수분 (건물기준 탄수 계산에 필요)",
+              "쿠팡 상품 링크와 가격"
+            ],
+            "g2": "none",
+            "g2diff": [],
+            "g3warn": []
+          },
+          "ready": false
+        }
+      ]
+    }
+  ],
   "summary": {
-    "total": 0,
+    "total": 7,
     "ready": 0,
-    "blocked": 0,
-    "pricePending": 0
+    "blocked": 7,
+    "pricePending": 7
   }
 }
