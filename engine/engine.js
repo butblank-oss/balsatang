@@ -75,8 +75,13 @@ const REQUIRED_FACT_KEYS = ['dmCarb', 'protein', 'firstIngrCat', 'cautionN', 'da
 /* 건물기준 탄수 계산. 기존 41종이 쓰는 방식과 동일하게 조회분은 제외한다
    (41종 중 34종이 조회분 미표기이고, 표기된 건도 계산에 반영되지 않았다).
    조회분을 빼면 dmCarb 가 약 9%p 낮아져 루브릭 경계가 어긋난다. */
-function computeDmCarb({ protein, fat, fiber, moisture }) {
-  if ([protein, fat, fiber, moisture].some(v => v == null)) return null;
+function computeDmCarb(ga = {}) {
+  /* 입력칸에서 곧장 넘어오면 값이 문자열이다. 그대로 더하면 "22"+"9"+"5"+"11" 이
+     "229511" 로 이어붙어 -257765% 같은 값이 조용히 나온다. 실제로 심사 화면의
+     '탄수 채우기' 가 그래서 쓸 수 없는 상태였다. 여기서 한 번 숫자로 만든다. */
+  const n = v => (v === '' || v == null ? null : Number(v));
+  const protein = n(ga.protein), fat = n(ga.fat), fiber = n(ga.fiber), moisture = n(ga.moisture);
+  if ([protein, fat, fiber, moisture].some(v => v == null || Number.isNaN(v))) return null;
   const carb = 100 - (protein + fat + fiber + moisture);
   return Math.round((carb / (100 - moisture)) * 1000) / 10;
 }
