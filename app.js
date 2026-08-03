@@ -57,13 +57,27 @@ function foodTags(f) {
   const names = (d.ingr || []).map(i => i.name);
   if (names.length && !names.some(x => GRAIN_WORDS.test(x))) out.push('그레인프리');
   if (n.protein >= 30) out.push(`조단백 ${n.protein}%`);
+  /* 첫 원료는 고기든 곡물이든 사실이다. 예전엔 고기일 때만 적어서, 곡물로 시작하는
+     사료는 태그가 하나도 없이 남았다 — 자랑거리가 없다고 사실을 감추면 안 된다. */
   const first = (d.ingr || [])[0];
-  if (first && ['meat', 'fish', 'organ'].includes(first.cat)) {
-    out.push(`첫 원료 ${first.name.replace(/\s*\(.*$/, '').slice(0, 10)}`);
-  }
+  if (first) out.push(`첫 원료 ${first.name.replace(/\s*\(.*$/, '').slice(0, 10)}`);
   if (f.sizes?.includes('small')) out.push('소형견');
   if (f.rx) out.push('처방식');
   return out.slice(0, 3);
+}
+
+/* 카드 한 줄 설명.
+   예전엔 태그가 없으면 '분석 준비 중' 을 적었다. 그런데 그건 "아직 확인 못 했다" 는
+   뜻이고, 태그가 없는 건 "내세울 특징이 없다" 는 뜻이다. 시저처럼 분석이 다 끝난
+   사료가 '분석 준비 중' 으로 뜨는 사고가 실제로 났다. 이 서비스에서 그 둘을 섞는
+   건 가장 하면 안 되는 일이라, 진짜 미확보일 때만 그렇게 적는다. */
+function cardSub(f) {
+  if (analysisState(f) === 'pending') return '분석 준비 중';
+  const t = foodTags(f)[0];
+  if (t) return t;
+  const n = (DETAIL[f.id] || {}).nutrient || {};
+  if (n.protein != null) return `조단백 ${n.protein}%`;
+  return [typeKo(f.type), COUNTRY_KO[f.country]].filter(Boolean).join(' · ') || '성분 분석 완료';
 }
 function tagRow(f) {
   return `<div class="tags">${cautionTag(f)}${foodTags(f).slice(0, 2)
@@ -223,9 +237,31 @@ function toast(msg, action) {
 function addCompare(id, goCompare = true) {
   if (state.compare.includes(id)) { toast('이미 담긴 사료예요'); return; }
   if (state.compare.length >= 2) {
-    toast('두 개까지 담을 수 있어요', {
-      label: '바꾸기', run: () => { state.compare = [state.compare[1], id]; save(); goCompare ? go('compare') : render(); }
-    });
+    /* 예전엔 '바꾸기' 를 토스트에 달았다. 토스트는 2.4초면 사라진다 — 그 안에 못
+       누르면 아무 일도 안 일어나고, 보던 사료는 안 담긴 채 원래 둘이 그대로 남는다.
+       "담기를 눌렀는데 그대로다" 는 말이 그래서 나왔다.
+       꽉 찼을 때는 어느 쪽을 밀어낼지 눌러서 고르게 한다. */
+    const f = FOODS.find(x => x.id === id);
+    const slot = (i, mark) => {
+      const cur = FOODS.find(x => x.id === state.compare[i]);
+      if (!cur) return '';
+      return `<button class="row press" data-swap="${i}">
+        ${well(cur, 44)}
+        <span class="row-b">
+          <span class="row-name" style="display:block">${mark} ${esc(cur.brand)} ${esc(cur.name)}</span>
+          <span class="row-meta">이 자리를 <b>${esc(f.name)}</b> 로 바꿔요</span></span>
+        ${icon('refresh', 18, 'chev')}</button>`;
+    };
+    sheet('비교함이 꽉 찼어요',
+      `<p class="t-bodySm c-sub" style="padding:2px 0 10px">두 개까지 담을 수 있어요.
+         <b>${esc(f.brand)} ${esc(f.name)}</b> 를 넣으려면 어느 쪽을 뺄까요?</p>
+       ${slot(0, 'Ⓐ')}${slot(1, 'Ⓑ')}`,
+      el => $$('[data-swap]', el).forEach(b => b.onclick = () => {
+        state.compare[Number(b.dataset.swap)] = id;
+        save(); closeSheet();
+        goCompare ? go('compare') : render();
+        toast(`${f.name} 로 바꿨어요`);
+      }));
     return;
   }
   state.compare.push(id); save();
@@ -307,8 +343,45 @@ function submitRequest(type, payload) {
   toast('접수 창구를 준비 중이에요');
 }
 
-/* ═══ 화면 이동 ═══ */
+/* ═══ 화면 이동 ═══
+
+   주소에 지금 화면을 적는다. 예전에는 pushState 에 상태만 넣고 주소는 그대로 뒀다.
+   그래서 검색하다 새로고침하면 홈으로 튕겼고, 사료 상세를 남에게 링크로 보낼 수도
+   없었다. 주소가 화면을 담고 있어야 새로고침·뒤로가기·공유가 전부 맞아떨어진다. */
 const TABS = ['home', 'compare', 'content', 'custom'];
+
+function hashFor(screen, opt = {}) {
+  switch (screen) {
+    case 'home': return '#/';
+    case 'search': return '#/search' + (state.query ? '?q=' + encodeURIComponent(state.query) : '');
+    case 'detail': return '#/food/' + encodeURIComponent(opt.id ?? state.detailId ?? '');
+    case 'article': return '#/글/' + encodeURIComponent(opt.articleId ?? state.articleId ?? '');
+    default: return '#/' + screen;
+  }
+}
+
+/* 주소를 읽어 화면 상태로 되돌린다. 모르는 주소면 홈. */
+function applyHash(h = location.hash) {
+  const [pathPart, queryPart] = String(h).replace(/^#\/?/, '').split('?');
+  const seg = pathPart.split('/').filter(Boolean).map(decodeURIComponent);
+  const q = new URLSearchParams(queryPart || '');
+
+  if (!seg.length) { state.screen = state.tab = 'home'; return; }
+  const [head, arg] = seg;
+
+  if (head === 'search') {
+    if (q.has('q')) state.query = q.get('q');
+    state.screen = 'search'; return;
+  }
+  if (head === 'food' && arg && FOODS_ALL.some(f => f.id === arg)) {
+    state.detailId = arg; state.detailTab = 'nutrition'; state.screen = 'detail'; return;
+  }
+  if (head === '글' && arg) { state.articleId = arg; state.screen = 'article'; return; }
+  if (TABS.includes(head)) { state.screen = state.tab = head; return; }
+  if (['wizard'].includes(head)) { state.screen = head; return; }
+  state.screen = state.tab = 'home';
+}
+
 function go(screen, opt = {}) {
   if (screen === 'detail' && opt.id) {
     state.detailId = opt.id;
@@ -321,19 +394,17 @@ function go(screen, opt = {}) {
   state.screen = screen;
   render();
   window.scrollTo(0, 0);
-  history.pushState({ screen, ...opt }, '');
+  history.pushState({ screen, ...opt }, '', hashFor(screen, opt));
 }
-window.addEventListener('popstate', e => {
-  const s = e.state?.screen;
-  if (!s) { state.screen = state.tab = 'home'; }
-  else {
-    state.screen = s;
-    if (s === 'detail') state.detailId = e.state.id ?? state.detailId;
-    if (s === 'article') state.articleId = e.state.articleId ?? state.articleId;
-    if (TABS.includes(s)) state.tab = s;
-  }
-  render();
-});
+
+/* 검색어는 화면을 옮기지 않고 주소만 갈아끼운다 — 글자마다 방문 기록이 쌓이면
+   뒤로가기를 스무 번 눌러야 빠져나온다. */
+function syncSearchUrl() {
+  if (state.screen !== 'search') return;
+  history.replaceState({ screen: 'search' }, '', hashFor('search'));
+}
+
+window.addEventListener('popstate', () => { applyHash(); render(); });
 
 /* ═══════════════════════════════════════════════════════
    01 홈
@@ -370,7 +441,7 @@ function homeCard(f) {
       <span style="position:absolute;top:9px;right:9px">${cautionBadge(f)}</span></div>
     <div style="margin-top:11px;font-size:12px;font-weight:600;color:var(--ink50)">${esc(f.brand)}</div>
     <div class="t-item" style="margin-top:2px">${esc(f.name)}</div>
-    <div class="t-caption c-sub" style="margin-top:5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(foodTags(f)[0] || '분석 준비 중')}</div>
+    <div class="t-caption c-sub" style="margin-top:5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(cardSub(f))}</div>
   </button>`;
 }
 
@@ -1463,7 +1534,7 @@ function wire() {
     let t;
     const apply = () => {
       clearTimeout(t);
-      t = setTimeout(() => { state.query = q.value; repaintSearchResults(); }, 220);
+      t = setTimeout(() => { state.query = q.value; repaintSearchResults(); syncSearchUrl(); }, 220);
     };
     q.addEventListener('input', apply);
     q.addEventListener('compositionend', apply);
@@ -1563,7 +1634,8 @@ function openRecentSheet() {
 
 /* ═══ 시작 ═══ */
 load();
-state.screen = 'home';
+/* 주소에 적힌 화면부터 되살린다. 새로고침해도 보던 곳에 그대로 있어야 한다. */
+applyHash();
 render();
-history.replaceState({ screen: 'home' }, '');
+history.replaceState({ screen: state.screen }, '', hashFor(state.screen));
 $('#dim').addEventListener('click', closeSheet);
