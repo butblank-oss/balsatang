@@ -411,3 +411,10 @@ img{display:block;max-width:100%}
 .fitcard-ic.care{background:var(--cautionBg);color:var(--cautionChip)}
 .fitcard-t{font-size:14px;font-weight:700;color:var(--ink);letter-spacing:-.02em}
 .fitcard-b{font-size:13px;color:var(--ink40);line-height:1.5;letter-spacing:-.01em}
+
+/* 원료 평문 — 표기 순서 그대로 읽는 줄.
+   예전엔 칩마다 양호·주의를 색으로 물려 뒀는데, 그 판단은 위쪽 '이런 아이에게
+   어떨까요?' 와 헤더 배지가 이미 한다. 같은 말을 세 번 하면 어느 것이 결론인지
+   흐려진다. 원료별 판정은 '모두 보기' 시트에서 근거와 함께 본다. */
+.ingrtext{margin-top:12px;font-size:14px;font-weight:500;color:var(--ink70);
+  line-height:1.75;letter-spacing:-.02em;word-break:keep-all}

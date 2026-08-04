@@ -775,21 +775,10 @@ function funcBars(d) {
       <span class="fbar-l${r.n ? '' : ' zero'}">${barLabel(r.label)}</span>
     </div>`).join('')}</div>
   ${/* 어떤 원료가 잡혔는지는 막대만으로는 알 수 없다. 있는 것만 아래에 적는다. */''}
-  ${rows.some(r => r.n) ? `<div style="margin-top:14px;display:flex;flex-direction:column;gap:7px">${
-    rows.filter(r => r.n).map(r => `<div style="display:flex;gap:8px;align-items:flex-start">
-      <span style="font-size:12px;font-weight:700;letter-spacing:-.02em;color:var(--ink35);flex:none;padding-top:4px;min-width:62px">${r.label}</span>
-      <span class="tags" style="flex:1">${r.items.map(ingrTag).join('')}</span></div>`).join('')}</div>` : ''}`;
-}
-
-/* 원료 하나를 판정과 함께 칩으로.
-   safe 는 초록, caution 과 danger 는 앰버다 — 팔레트에 빨강이 없다.
-   주의성분이 있다고 그 사료가 나쁜 게 아니라, 알고 고르라는 뜻이기 때문이다.
-   danger 는 같은 앰버를 쓰되 '!' 를 붙여 한 단계 세게 말한다. */
-function ingrTag(i) {
-  const s = i.safe;
-  const cls = s === 'safe' ? 'safe' : (s === 'caution' || s === 'danger') ? 'caution' : 'pending';
-  const mark = s === 'danger' ? '! ' : '';
-  return `<span class="tag ${cls}">${mark}${esc(i.name ?? i.n ?? '')}</span>`;
+  ${rows.some(r => r.n) ? `<div style="margin-top:16px;display:flex;flex-direction:column;gap:6px">${
+    rows.filter(r => r.n).map(r => `<div style="display:flex;gap:10px;align-items:baseline">
+      <span style="font-size:12px;font-weight:700;letter-spacing:-.02em;color:var(--ink35);flex:none;min-width:62px">${r.label}</span>
+      <span class="ingrtext" style="margin:0;flex:1">${esc(r.items.map(x => x.name).join(', '))}</span></div>`).join('')}</div>` : ''}`;
 }
 
 /* ── 이런 아이에게 어떨까요 ──
@@ -893,24 +882,13 @@ function renderNutritionTab(f, d) {
 
     ${fitCards(d)}
 
+    ${/* 원료 칩에 양호·주의를 색으로 물려 뒀었다. 이제 그 판단은 위쪽
+         '이런 아이에게 어떨까요?' 와 헤더 배지가 맡는다. 같은 말을 세 번 하면
+         어느 것이 결론인지 흐려진다. 여기서는 표기 순서 그대로 읽히게만 둔다. */''}
     ${ingr.length ? `<div style="display:flex;align-items:baseline;justify-content:space-between;margin-top:30px">
       <h2 class="t-sub">원료 전체</h2>
       <button class="sec-more press" data-ingr-sheet>${ingr.length}개 모두 보기</button></div>
-    <!-- 예전엔 원료 이름만 쉼표로 늘어놨다. 어느 게 양호하고 어느 게 주의인지는
-         '모두 보기' 시트에 들어가야만 볼 수 있었는데, 그건 이 서비스가 하는 일
-         자체다. 여기서 바로 보이게 한다. 빨강은 안 쓴다 — 주의는 앰버다. -->
-    <div class="tags" style="margin-top:12px">${ingr.slice(0, 12).map(ingrTag).join('')}
-      ${ingr.length > 12 ? `<span class="tag">그 외 ${ingr.length - 12}개</span>` : ''}</div>
-    ${(() => {
-      const c = { safe: 0, caution: 0, danger: 0, unknown: 0 };
-      for (const i of ingr) c[i.safe === 'unknown' || !i.safe ? 'unknown' : i.safe]++;
-      const bits = [];
-      if (c.safe) bits.push(`양호 ${c.safe}`);
-      if (c.caution) bits.push(`주의 ${c.caution}`);
-      if (c.danger) bits.push(`특히 주의 ${c.danger}`);
-      if (c.unknown) bits.push(`분류 전 ${c.unknown}`);
-      return `<p class="t-micro c-mute" style="margin-top:9px;font-weight:500">${bits.join(' · ')}</p>`;
-    })()}` : ''}
+    <p class="ingrtext">${esc(ingr.slice(0, 12).map(i => i.name).join(', '))}${ingr.length > 12 ? '…' : ''}</p>` : ''}
 
     <p class="note" style="padding:0">모든 분석은 라벨 표기 성분 기준의 참고용이에요.
 건강 문제는 수의사와 상담해주세요.</p>
