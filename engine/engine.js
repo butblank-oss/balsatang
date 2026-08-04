@@ -126,6 +126,17 @@ function normalizeIngredient(raw) {
     if (DICT.alias[t]) return DICT.alias[t];
     if (DICT.ingredients[t]) return t;
   }
+
+  /* 띄어쓰기는 라벨마다 다르다 — '닭 지방' 과 '닭지방', '밀크 시슬' 과 '밀크시슬'.
+     사전에 두 벌씩 넣는 대신 공백을 지우고 한 번 더 찾는다. */
+  const tight = s => s.replace(/\s+/g, '');
+  const flat = new Map();
+  for (const k of Object.keys(DICT.alias)) flat.set(tight(k), DICT.alias[k]);
+  for (const k of Object.keys(DICT.ingredients)) flat.set(tight(k), k);
+  for (const cand of [t, noOrganic, bare]) {
+    const hit = flat.get(tight(cand));
+    if (hit) return hit;
+  }
   return s;
 }
 
