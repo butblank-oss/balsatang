@@ -196,7 +196,10 @@ function deriveNutrient(ga = {}, opts = {}) {
   return {
     protein, fat, fiber, moisture, ash, carb, dmCarb,
     meat: opts.meatRatio ?? null,
-    calKg: num(ga.kcalPerKg),
+    /* 들어올 때는 kcalPerKg(등록 폼·라벨 판독), 저장된 뒤에는 calKg 다.
+       calKg 를 안 보면 어드민에서 조단백만 고쳐도 칼로리가 통째로 날아간다 —
+       그 값으로 급여량을 계산하므로 상세 화면의 '하루 몇 g' 이 조용히 사라진다. */
+    calKg: num(ga.kcalPerKg ?? ga.calKg),
     src: opts.src ?? 'label'
   };
 }
