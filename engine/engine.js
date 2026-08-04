@@ -105,6 +105,27 @@ function normalizeIngredient(raw) {
   const noOrganic = bare.replace(/^유기농\s*/, '').trim();
   if (DICT.alias[noOrganic]) return DICT.alias[noOrganic];
   if (DICT.ingredients[noOrganic]) return noOrganic;
+
+  /* 라벨은 원료 앞뒤에 수식어를 붙인다 — '신선한 닭고기', '통 붉은 렌틸콩',
+     '건조된 치커리 뿌리'. 사전에 수식어까지 다 넣으면 조합이 끝없이 늘어난다.
+     아카나 라벨 40개 중 35개가 이것 때문에 '모름' 으로 떨어졌고, 모름이 많으면
+     주의·위험 성분을 셀 수 없어 별점 자체가 안 나온다.
+     수식어를 벗겨 다시 찾아본다. 벗겨도 없으면 그대로 모른다고 한다. */
+  const STRIP = [
+    /^(신선한|신선|생|날|통|건조된|건조|말린|탈수|자연산|자연방목|방목|국내산|수입산|무염|순수)\s+/,
+    /\s+(분말|가루|파우더|밀|미트밀|부산물)$/,
+    /^(붉은|녹색|노란|흰|검은)\s+/
+  ];
+  let t = noOrganic;
+  for (let i = 0; i < 4 && t; i++) {
+    let cut = t;
+    for (const re of STRIP) cut = cut.replace(re, ' ').trim();
+    cut = cut.replace(/\s+/g, ' ').trim();
+    if (cut === t || !cut) break;
+    t = cut;
+    if (DICT.alias[t]) return DICT.alias[t];
+    if (DICT.ingredients[t]) return t;
+  }
   return s;
 }
 

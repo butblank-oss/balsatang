@@ -17,9 +17,16 @@ const read = f => readFileSync(join(admin, f), 'utf8');
 
 /* 세 파일을 한 스코프에서 이어 붙여 실행한다. engine 은 dict·phrases 를 참조한다. */
 const scope = {};
+/* policy 와 gate1 은 engine 의 값을 참조하므로 순서가 중요하다.
+   dict → phrases → engine → policy → gate1. */
 new Function('globalThis', read('dict.js') + read('phrases.js') + read('engine.js') +
+  read('policy.js') + read('gate1.js') + read('label.js') +
   '\n;globalThis.DICT=DICT;globalThis.PHRASES=PHRASES;').call(scope, scope);
 
+export const POLICY = scope.POLICY;
+export const GATE1 = scope.GATE1;
+export const LABEL = scope.LABEL;
+export const { checkItem, draftTodo } = GATE1;
 export const DICT = scope.DICT;
 export const PHRASES = scope.PHRASES;
 export const ENGINE = scope.ENGINE;

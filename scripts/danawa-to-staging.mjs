@@ -119,7 +119,9 @@ for (const r of rows) {
       wgOptionsHint: r.sizes
     },
     sources: [
-      { role: 'retail', url: `https://prod.danawa.com/info/?pcode=${r.pcode}`, fetchedAt: now,
+      /* role 은 catalog 다. retail 로 적으면 '가격 출처는 쿠팡만' 규칙에 걸린다 —
+         다나와는 판매처가 아니라 카탈로그이고, 실제로 가격 근거로 쓰지도 않는다. */
+      { role: 'catalog', url: `https://prod.danawa.com/info/?pcode=${r.pcode}`, fetchedAt: now,
         title: '다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)' }
     ],
     evidence: {

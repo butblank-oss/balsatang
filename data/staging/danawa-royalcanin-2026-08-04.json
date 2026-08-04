@@ -57,7 +57,7 @@
       },
       "sources": [
         {
-          "role": "retail",
+          "role": "catalog",
           "url": "https://prod.danawa.com/info/?pcode=45991550",
           "fetchedAt": "2026-08-04T00:06:23.493Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
@@ -131,7 +131,7 @@
       },
       "sources": [
         {
-          "role": "retail",
+          "role": "catalog",
           "url": "https://prod.danawa.com/info/?pcode=17885090",
           "fetchedAt": "2026-08-04T00:06:23.493Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
@@ -204,7 +204,7 @@
       },
       "sources": [
         {
-          "role": "retail",
+          "role": "catalog",
           "url": "https://prod.danawa.com/info/?pcode=6709243",
           "fetchedAt": "2026-08-04T00:06:23.493Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
@@ -277,7 +277,7 @@
       },
       "sources": [
         {
-          "role": "retail",
+          "role": "catalog",
           "url": "https://prod.danawa.com/info/?pcode=17885009",
           "fetchedAt": "2026-08-04T00:06:23.493Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
@@ -350,7 +350,7 @@
       },
       "sources": [
         {
-          "role": "retail",
+          "role": "catalog",
           "url": "https://prod.danawa.com/info/?pcode=4982311",
           "fetchedAt": "2026-08-04T00:06:23.493Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
@@ -423,7 +423,7 @@
       },
       "sources": [
         {
-          "role": "retail",
+          "role": "catalog",
           "url": "https://prod.danawa.com/info/?pcode=3497290",
           "fetchedAt": "2026-08-04T00:06:23.493Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
@@ -496,7 +496,7 @@
       },
       "sources": [
         {
-          "role": "retail",
+          "role": "catalog",
           "url": "https://prod.danawa.com/info/?pcode=13095638",
           "fetchedAt": "2026-08-04T00:06:23.493Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
@@ -569,7 +569,7 @@
       },
       "sources": [
         {
-          "role": "retail",
+          "role": "catalog",
           "url": "https://prod.danawa.com/info/?pcode=4224666",
           "fetchedAt": "2026-08-04T00:06:23.493Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
@@ -642,7 +642,7 @@
       },
       "sources": [
         {
-          "role": "retail",
+          "role": "catalog",
           "url": "https://prod.danawa.com/info/?pcode=20297726",
           "fetchedAt": "2026-08-04T00:06:23.493Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
@@ -718,7 +718,7 @@
       },
       "sources": [
         {
-          "role": "retail",
+          "role": "catalog",
           "url": "https://prod.danawa.com/info/?pcode=6927844",
           "fetchedAt": "2026-08-04T00:06:23.493Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
@@ -791,7 +791,7 @@
       },
       "sources": [
         {
-          "role": "retail",
+          "role": "catalog",
           "url": "https://prod.danawa.com/info/?pcode=7497052",
           "fetchedAt": "2026-08-04T00:06:23.493Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
@@ -864,7 +864,7 @@
       },
       "sources": [
         {
-          "role": "retail",
+          "role": "catalog",
           "url": "https://prod.danawa.com/info/?pcode=4225349",
           "fetchedAt": "2026-08-04T00:06:23.493Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
@@ -937,7 +937,7 @@
       },
       "sources": [
         {
-          "role": "retail",
+          "role": "catalog",
           "url": "https://prod.danawa.com/info/?pcode=7553851",
           "fetchedAt": "2026-08-04T00:06:23.493Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
@@ -1010,7 +1010,7 @@
       },
       "sources": [
         {
-          "role": "retail",
+          "role": "catalog",
           "url": "https://prod.danawa.com/info/?pcode=45991514",
           "fetchedAt": "2026-08-04T00:06:23.493Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
@@ -1083,7 +1083,7 @@
       },
       "sources": [
         {
-          "role": "retail",
+          "role": "catalog",
           "url": "https://prod.danawa.com/info/?pcode=4599715",
           "fetchedAt": "2026-08-04T00:06:23.493Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
@@ -1156,7 +1156,7 @@
       },
       "sources": [
         {
-          "role": "retail",
+          "role": "catalog",
           "url": "https://prod.danawa.com/info/?pcode=4223265",
           "fetchedAt": "2026-08-04T00:06:23.493Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
@@ -1229,7 +1229,7 @@
       },
       "sources": [
         {
-          "role": "retail",
+          "role": "catalog",
           "url": "https://prod.danawa.com/info/?pcode=3497352",
           "fetchedAt": "2026-08-04T00:06:23.493Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
@@ -1302,7 +1302,7 @@
       },
       "sources": [
         {
-          "role": "retail",
+          "role": "catalog",
           "url": "https://prod.danawa.com/info/?pcode=6710407",
           "fetchedAt": "2026-08-04T00:06:23.493Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
@@ -1375,7 +1375,7 @@
       },
       "sources": [
         {
-          "role": "retail",
+          "role": "catalog",
           "url": "https://prod.danawa.com/info/?pcode=6710611",
           "fetchedAt": "2026-08-04T00:06:23.493Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
@@ -1448,7 +1448,7 @@
       },
       "sources": [
         {
-          "role": "retail",
+          "role": "catalog",
           "url": "https://prod.danawa.com/info/?pcode=8610800",
           "fetchedAt": "2026-08-04T00:06:23.493Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
@@ -1521,7 +1521,7 @@
       },
       "sources": [
         {
-          "role": "retail",
+          "role": "catalog",
           "url": "https://prod.danawa.com/info/?pcode=12847991",
           "fetchedAt": "2026-08-04T00:06:23.493Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
@@ -1594,7 +1594,7 @@
       },
       "sources": [
         {
-          "role": "retail",
+          "role": "catalog",
           "url": "https://prod.danawa.com/info/?pcode=12588677",
           "fetchedAt": "2026-08-04T00:06:23.493Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
@@ -1667,7 +1667,7 @@
       },
       "sources": [
         {
-          "role": "retail",
+          "role": "catalog",
           "url": "https://prod.danawa.com/info/?pcode=77054711",
           "fetchedAt": "2026-08-04T00:06:23.493Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
@@ -1741,7 +1741,7 @@
       },
       "sources": [
         {
-          "role": "retail",
+          "role": "catalog",
           "url": "https://prod.danawa.com/info/?pcode=6381745",
           "fetchedAt": "2026-08-04T00:06:23.493Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
@@ -1814,7 +1814,7 @@
       },
       "sources": [
         {
-          "role": "retail",
+          "role": "catalog",
           "url": "https://prod.danawa.com/info/?pcode=6381658",
           "fetchedAt": "2026-08-04T00:06:23.493Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
@@ -1888,7 +1888,7 @@
       },
       "sources": [
         {
-          "role": "retail",
+          "role": "catalog",
           "url": "https://prod.danawa.com/info/?pcode=6381743",
           "fetchedAt": "2026-08-04T00:06:23.493Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
@@ -1961,7 +1961,7 @@
       },
       "sources": [
         {
-          "role": "retail",
+          "role": "catalog",
           "url": "https://prod.danawa.com/info/?pcode=99804779",
           "fetchedAt": "2026-08-04T00:06:23.493Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
