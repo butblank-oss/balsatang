@@ -212,6 +212,51 @@ await pg.waitForSelector('.app');
   pass('TC-F12', '탭 4개 전환');
 }
 
+/* TC-F13 푸터 — 파트너스 고지가 상시로 보이는가 */
+{
+  const bad = [];
+  for (const [h, name] of [['#/', '홈'], ['#/compare', '비교'], ['#/content', '콘텐츠'], ['#/custom', '맞춤']]) {
+    await pg.evaluate(x => { location.hash = x; }, h); await pg.waitForTimeout(300);
+    const r = await pg.evaluate(() => {
+      const f = document.querySelector('.foot');
+      return f ? { ad: /쿠팡 파트너스/.test(f.innerText), links: f.querySelectorAll('.foot-nav button').length } : null;
+    });
+    if (!r) bad.push(`${name} 푸터 없음`);
+    else if (!r.ad) bad.push(`${name} 파트너스 고지 없음`);
+    else if (r.links < 2) bad.push(`${name} 약관·방침 링크 ${r.links}개`);
+  }
+  /* 사업자정보는 값이 있을 때만 나와야 한다. 빈 값인데 '상호' 같은 글자가
+     보이면 없는 걸 있는 것처럼 적은 것이다. */
+  const fake = await pg.evaluate(() =>
+    !SITE.name && /상호|사업자등록번호|통신판매업/.test(document.querySelector('.foot')?.innerText || ''));
+  if (fake) bad.push('사업자정보가 비었는데 항목 이름이 화면에 나옴');
+  if (bad.length) bug('front', 'TC-F13', 'P1', bad.join(' / '));
+  else pass('TC-F13', '푸터 · 파트너스 고지 4화면 상시');
+}
+
+/* TC-F14 이용약관·개인정보처리방침 */
+{
+  const bad = [];
+  for (const [h, want] of [['#/terms', '이용약관'], ['#/privacy', '개인정보처리방침']]) {
+    await pg.evaluate(x => { location.hash = x; }, h); await pg.waitForTimeout(350);
+    const r = await pg.evaluate(() => ({
+      title: document.querySelector('h2.t-product')?.textContent ?? '',
+      paras: document.querySelectorAll('.sec.md .md-p').length
+    }));
+    if (r.title !== want) bad.push(`${h} 제목이 '${r.title}'`);
+    if (r.paras < 5) bad.push(`${h} 본문 ${r.paras}문단`);
+    const ov = await overflowX(pg);
+    if (ov > 0) bad.push(`${h} 가로 스크롤 ${ov}px`);
+  }
+  /* 푸터 링크가 실제로 그 화면을 여는가 */
+  await pg.evaluate(() => { location.hash = '#/'; }); await pg.waitForTimeout(300);
+  await pg.click('.foot-nav [data-go="terms"]'); await pg.waitForTimeout(350);
+  const hash = await pg.evaluate(() => location.hash);
+  if (hash !== '#/terms') bad.push(`푸터 이용약관 링크가 ${hash} 로 감`);
+  if (bad.length) bug('front', 'TC-F14', 'P2', bad.join(' / '));
+  else pass('TC-F14', '약관·방침 화면 · 푸터 링크');
+}
+
 /* 종합 */
 if (log.errors.length) bug('front', 'TC-F00', 'P1', `JS 오류 ${log.errors.length}건: ${[...new Set(log.errors)].slice(0, 3).join(' | ')}`);
 if (log.missing.length) bug('front', 'TC-F00', 'P2', `404 ${log.missing.length}건: ${[...new Set(log.missing)].slice(0, 3).join(' | ')}`);

@@ -407,7 +407,7 @@ function applyHash(h = location.hash) {
   }
   if (head === '글' && arg) { state.articleId = arg; state.screen = 'article'; return; }
   if (TABS.includes(head)) { state.screen = state.tab = head; return; }
-  if (['wizard'].includes(head)) { state.screen = head; return; }
+  if (['wizard', 'terms', 'privacy'].includes(head)) { state.screen = head; return; }
   state.screen = state.tab = 'home';
 }
 
@@ -542,8 +542,7 @@ function renderHome() {
     </button>`).join('')}
   </div>
 
-  <p class="note">모든 분석은 라벨 표기 성분 기준의 참고용이에요.
-건강 문제는 수의사와 상담해주세요.</p>`;
+  ${siteFooter()}`;
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -1205,8 +1204,7 @@ function renderCompare() {
         <div style="font-size:14px;font-weight:700;letter-spacing:-.03em;margin-top:3px">${esc(f.name)} ›</div></button>`).join('')}
     </div>
   </div>
-  <p class="note">비교 결과는 라벨 표기 성분 기준 참고용이에요.
-건강 문제는 수의사와 상담해주세요.</p>`;
+  ${siteFooter()}`;
 }
 
 /* E5 — 슬롯이 덜 찼을 때 */
@@ -1228,7 +1226,8 @@ function renderCompareEmpty(one) {
       <button class="btn pri press" data-pick-slot="${state.compare.length}">비교할 사료 고르기</button>
       ${recent.length ? `<button class="btn ghost press" data-recent-sheet>최근 본 사료에서 고르기</button>` : ''}
     </div>
-  </div>`;
+  </div>
+  ${siteFooter()}`;
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -1394,8 +1393,7 @@ function renderResult() {
         ${icon('chevronRight', 16, 'chev')}</button>`).join('')}
     </div>
   </div>
-  <p class="note">모든 분석은 라벨 표기 성분 기준의 참고용이에요.
-건강 문제는 수의사와 상담해주세요.</p>`;
+  ${siteFooter()}`;
 }
 function headline(pet) {
   const cs = (pet.concerns || []).filter(c => c !== 'none');
@@ -1444,7 +1442,8 @@ function renderProfileEmpty() {
       <button class="btn pri press" data-edit-pet>우리 아이 등록하기</button>
       <button class="btn ghost press" data-go="search">등록 없이 둘러보기</button>
     </div>
-  </div>`;
+  </div>
+  ${siteFooter()}`;
 }
 
 /* ═══ 콘텐츠 ═══ */
@@ -1476,7 +1475,8 @@ function renderContent() {
       </span></button>`).join('')
       : `<div class="empty"><div class="orb neutral">${icon('book', 38)}</div>
          <h2>준비 중이에요</h2><p>사료를 고를 때 도움되는 글을 쓰고 있어요.</p></div>`}
-  </div>`;
+  </div>
+  ${siteFooter()}`;
 }
 
 /* 본문은 마크다운의 아주 좁은 갈래만 쓴다 — ###, -, >, 1., **강조**.
@@ -1515,6 +1515,62 @@ function mdToHtml(src) {
   }
   closeList();
   return out.join('');
+}
+
+/* ═══ 푸터 ═══
+
+   쿠팡 파트너스 고지가 급여량·가격 탭 안쪽에만 있었다. 공정위 추천·보증
+   심사지침은 '소비자가 쉽게 인식할 수 있는 위치' 를 요구하는데, 탭 하나
+   안쪽은 그렇다고 보기 어렵다. 탭이 있는 화면 아래에 상시로 둔다.
+
+   사업자정보는 SITE 에 값이 있는 줄만 나온다. 비어 있으면 그 줄이 통째로
+   빠진다 — '준비 중' 같은 말을 대신 넣지 않는다. 없는 걸 있는 것처럼
+   보이게 하는 쪽이 비어 있는 것보다 나쁘다. */
+function siteFooter() {
+  const biz = [
+    SITE.name && ['상호', SITE.name],
+    SITE.owner && ['대표', SITE.owner],
+    SITE.bizNo && ['사업자등록번호', SITE.bizNo],
+    SITE.mailOrderNo && ['통신판매업 신고', SITE.mailOrderNo],
+    SITE.address && ['주소', SITE.address]
+  ].filter(Boolean);
+
+  return `<footer class="foot">
+    <p class="foot-ad">이 서비스의 구매 링크는 쿠팡 파트너스 활동의 일환이며,
+      이를 통해 일정액의 수수료를 받습니다. <b>수수료는 분석 결과에 영향을 주지 않습니다.</b></p>
+    <p class="foot-p">모든 분석은 라벨 표기 성분 기준의 참고 정보예요.
+      진단이나 처방이 아니며, 건강 문제는 수의사와 상담해주세요.</p>
+    <nav class="foot-nav">
+      <button class="press" data-go="terms">이용약관</button><span aria-hidden="true">·</span>
+      <button class="press" data-go="privacy"><b>개인정보처리방침</b></button>
+      ${SITE.email ? `<span aria-hidden="true">·</span>
+        <a href="mailto:${esc(SITE.email)}">문의</a>` : ''}
+    </nav>
+    ${biz.length ? `<p class="foot-p">${biz.map(([k, v]) => `${k} ${esc(v)}`).join(' · ')}</p>` : ''}
+    <p class="foot-p">© ${new Date().getFullYear()} 발사탕</p>
+  </footer>`;
+}
+
+/* 약관·방침 — 콘텐츠 상세와 같은 틀을 쓴다. 렌더러를 새로 만들지 않는다. */
+function renderLegal(key) {
+  const doc = LEGAL[key];
+  if (!doc) return renderHome();
+  return `
+  <div class="top icons">
+    <button class="iconbtn press" data-back>${icon('chevronRight', 24, 'ui')}</button>
+    <h1 class="t-item" style="flex:1">${esc(doc.title)}</h1>
+  </div>
+  <div style="padding:calc(14px + env(safe-area-inset-top)) var(--screenX) 0">
+    <h2 class="t-product">${esc(doc.title)}</h2>
+    <p class="t-caption c-sub" style="margin-top:8px">시행일 ${esc(doc.updatedAt)}</p>
+  </div>
+  <div class="sec md">${mdToHtml(doc.body)}</div>
+  ${/* 문의처는 문서에 적어 두지 않고 여기서 붙인다. 이메일이 없으면 이 칸도
+       없다 — 없는 연락처를 적으면 이의제기 경로가 있는 척하는 셈이다. */''}
+  ${SITE.email ? `<div class="sec"><h2 class="t-section">문의</h2>
+    <p class="md-p">틀린 내용을 발견하셨거나 궁금한 점이 있으면
+      <a href="mailto:${esc(SITE.email)}">${esc(SITE.email)}</a> 으로 알려주세요.</p></div>` : ''}
+  ${siteFooter()}`;
 }
 
 /* 03-1 콘텐츠 상세 */
@@ -1559,7 +1615,8 @@ function renderArticle() {
 const VIEW = {
   home: renderHome, search: renderSearch, detail: renderDetail,
   compare: renderCompare, custom: () => state.pet ? renderResult() : renderProfileEmpty(),
-  wizard: renderWizard, content: renderContent, article: renderArticle
+  wizard: renderWizard, content: renderContent, article: renderArticle,
+  terms: () => renderLegal('terms'), privacy: () => renderLegal('privacy')
 };
 const TAB_META = [['home', '홈', 'house'], ['compare', '비교', 'compare'], ['content', '콘텐츠', 'book'], ['custom', '맞춤', 'paw']];
 

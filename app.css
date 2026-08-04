@@ -422,3 +422,20 @@ img{display:block;max-width:100%}
    흐려진다. 원료별 판정은 '모두 보기' 시트에서 근거와 함께 본다. */
 .ingrtext{margin-top:12px;font-size:14px;font-weight:500;color:var(--ink70);
   line-height:1.75;letter-spacing:-.02em;word-break:keep-all}
+
+/* ── 푸터 ──────────────────────────────────────────────
+   탭이 있는 네 화면 아래에 상시로 둔다. 쿠팡 파트너스 고지가 급여량·가격 탭
+   안쪽에만 있어서, '소비자가 쉽게 인식할 수 있는 위치' 라 보기 어려웠다.
+   기존 .note 톤을 그대로 쓴다 — 새 색을 만들지 않았다. */
+.foot{margin-top:34px;padding:22px var(--screenX) 8px;border-top:var(--divider)}
+.foot-ad{font-size:12px;font-weight:500;color:var(--ink50);letter-spacing:-.02em;line-height:1.6}
+.foot-ad b{color:var(--ink70);font-weight:700}
+/* footnote(#A8A2B0)는 흰 배경에서 2.48:1 이다 — 차트 밑 각주라면 몰라도
+   사업자정보와 면책은 읽히라고 적는 글이다. 글자에 쓰는 하한인 ink50(5.7:1)로 올린다. */
+.foot-p{margin-top:10px;font-size:12px;font-weight:500;color:var(--ink50);
+  letter-spacing:-.02em;line-height:1.6}
+.foot-nav{margin-top:14px;display:flex;flex-wrap:wrap;align-items:center;gap:8px;
+  font-size:12.5px;font-weight:600;letter-spacing:-.02em}
+.foot-nav button,.foot-nav a{color:var(--ink70)}
+.foot-nav b{color:var(--purple700);font-weight:700}
+.foot-nav span{color:var(--ink20)}
