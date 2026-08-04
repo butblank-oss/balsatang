@@ -33,7 +33,9 @@ function cautionState(f) {
   if (analysisState(f) === 'pending') return { k: 'pending', n: 0, label: '분석 준비 중' };
   const n = f.warnN ?? 0;
   return n > 0
-    ? { k: 'has', n, label: `주의성분 ${n >= 3 ? '3종+' : n + '종'}` }
+    /* 핸드오프는 '주의성분 N종' 이다. 예전엔 3종 이상을 '3종+' 로 뭉갰는데,
+       7종인 사료와 3종인 사료가 같아 보였다. 실제 수를 적는다. */
+    ? { k: 'has', n, label: `주의성분 ${n}종` }
     : { k: 'none', n: 0, label: '주의성분 없음' };
 }
 function cautionBadge(f) {
@@ -42,6 +44,25 @@ function cautionBadge(f) {
     : s.k === 'has' ? `<span class="dot">!</span>` : `<span class="dot"></span>`;
   return `<span class="cbadge ${s.k}">${mark}${s.label}</span>`;
 }
+/* ── 상세 헤더의 큰 주의성분 배지 ──
+   아이콘과 텍스트 라벨은 반드시 한 세트다. 예전엔 원만 그리고 라벨을 안 붙여서,
+   '분석 준비 중' 은 아무 표시 없는 빈 회색 원으로만 보였다 — 무슨 뜻인지 알 길이
+   없었다. 세 상태 모두 라벨을 붙인다. */
+function cautionBadgeLg(f) {
+  const s = cautionState(f);
+  const mark = s.k === 'none' ? icon('check', 24)
+    : s.k === 'has' ? '!' : '·';
+  return `<div style="flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+    <span class="cbadge-lg ${s.k}">${mark}</span>
+    <span style="font-size:13px;font-weight:700;letter-spacing:-.02em;color:#fff;white-space:nowrap">${esc(s.label)}</span>
+  </div>`;
+}
+
+/* 찜 — 이 브라우저에만 남는다. 목록 화면은 아직 없다. */
+const isSaved = id => state.saved.includes(id);
+const heartIcon = on => `<span class="i ui" style="width:22px;height:22px">
+  <svg viewBox="0 0 24 24" style="fill:${on ? 'currentColor' : 'none'}">${ICONS.heartOutline}</svg></span>`;
+
 function cautionTag(f) {
   const s = cautionState(f);
   return `<span class="tag ${s.k === 'none' ? 'safe' : s.k === 'has' ? 'caution' : 'pending'}">${s.label}</span>`;
@@ -160,6 +181,7 @@ const state = {
   pet: null,
   feeding: { weightKg: 5, meals: 2, bagG: 0 },
   recent: [],
+  saved: [],                    /* 찜 — 상세 화면 하트 */
   detailId: null,
   detailTab: 'nutrition',
   articleId: null,
@@ -172,7 +194,8 @@ const LS = 'balsatang.v2';
 function save() {
   try {
     localStorage.setItem(LS, JSON.stringify({
-      pet: state.pet, feeding: state.feeding, compare: state.compare, recent: state.recent.slice(0, 12)
+      pet: state.pet, feeding: state.feeding, compare: state.compare,
+      recent: state.recent.slice(0, 12), saved: state.saved
     }));
   } catch { }
 }
@@ -183,7 +206,8 @@ function load() {
       pet: j.pet ?? null,
       feeding: j.feeding ?? state.feeding,
       compare: (j.compare ?? []).filter(id => FOODS.some(f => f.id === id)).slice(0, 2),
-      recent: (j.recent ?? []).filter(id => FOODS.some(f => f.id === id))
+      recent: (j.recent ?? []).filter(id => FOODS.some(f => f.id === id)),
+      saved: (j.saved ?? []).filter(id => FOODS.some(f => f.id === id))
     });
   } catch { }
 }
@@ -632,24 +656,29 @@ function renderDetail() {
   <!-- 상태바 밑까지 색이 차야 자연스럽다. 위 여백만 safe-area 만큼 더 준다. -->
   <div style="background:${pend ? 'var(--ink70)' : 'var(--purple900)'};color:#fff;
        padding:calc(14px + env(safe-area-inset-top)) 18px 30px">
+    <!-- 상단 내비게이션 — 뒤로가기(좌) + 찜·공유(우). 예전엔 새로고침 아이콘 하나였다. -->
     <div style="display:flex;align-items:center">
       <button class="iconbtn press" data-back style="color:#fff">${icon('chevronRight', 24, 'ui')}</button>
       <div style="flex:1"></div>
-      <button class="iconbtn press" style="color:#fff" data-share>${icon('refresh', 22, 'ui')}</button>
+      <div style="display:flex;gap:16px">
+        <button class="iconbtn press" style="color:#fff;margin:-10px 0" data-save="${f.id}"
+          aria-pressed="${isSaved(f.id)}" aria-label="찜">${heartIcon(isSaved(f.id))}</button>
+        <button class="iconbtn press" style="color:#fff;margin:-10px 0" data-share aria-label="공유">${icon('share', 22, 'ui')}</button>
+      </div>
     </div>
-    <div style="display:flex;align-items:flex-start;gap:14px;margin-top:10px;padding:0 4px">
+    <div style="display:flex;align-items:flex-end;gap:16px;margin-top:12px;padding:0 4px">
       ${well(f, 64)}
-      <div style="flex:1;min-width:0">
+      <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:8px">
         <!-- 분석 준비 중이면 헤더 배경이 회색(ink70)이다. 그 위에서 purple300 은
              4.06:1 로 떨어진다(보라 배경에선 7.72:1). 배경만 바꾸고 글자색을 안 바꿔서
              생긴 일이다. 회색 위에서는 line 을 쓴다 — 7.28:1. -->
-        <div style="font-size:13px;font-weight:600;color:var(--${pend ? 'line' : 'purple300'})">${esc(f.brand)} · ${esc(ageLabel(f))}</div>
-        <h1 class="t-product" style="margin-top:4px">${esc(f.name)}</h1>
+        <div style="font-size:13px;font-weight:600;letter-spacing:-.01em;color:var(--${pend ? 'line' : 'purple300'})">${esc(f.brand)} · ${esc(ageLabel(f))}</div>
+        <h1 class="t-product">${esc(f.name)}</h1>
       </div>
-      <div class="cbadge-lg ${s.k}">${s.k === 'none' ? icon('check', 22) : s.k === 'has' ? '!' : '·'}</div>
+      ${cautionBadgeLg(f)}
     </div>
-    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:14px;padding:0 4px">
-      ${attrs.map(a => `<span style="height:26px;padding:0 10px;border-radius:999px;background:rgba(255,255,255,.14);color:#fff;font-size:12px;font-weight:700;display:inline-flex;align-items:center">${esc(a)}</span>`).join('')}
+    <div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:18px;padding:0 4px">
+      ${attrs.map(a => `<span style="height:30px;padding:0 12px;border-radius:999px;background:rgba(255,255,255,.14);color:#fff;font-size:12px;font-weight:600;letter-spacing:-.02em;display:inline-flex;align-items:center">${esc(a)}</span>`).join('')}
     </div>
   </div>
 
@@ -706,13 +735,17 @@ function renderPending(f) {
    6종을 늘 같은 순서로 보여준다. 0종이면 회색으로 '없음' 이라고 말한다.
    해당되는 것만 보여주면 사료마다 항목이 달라져 비교가 안 된다. */
 const FUNC_ROWS = [
-  { k: 'skin', fn: ['skin'], icon: 'skin', label: '피부 · 알러지' },
+  { k: 'skin', fn: ['skin'], icon: 'skin', label: '피부·알러지' },
   { k: 'eye_tear', fn: ['eye_tear'], icon: 'tear', label: '눈물자국' },
   { k: 'joint', fn: ['joint'], icon: 'joint', label: '관절' },
-  { k: 'digestive', fn: ['digestive'], icon: 'gut', label: '장 · 소화' },
+  { k: 'digestive', fn: ['digestive'], icon: 'gut', label: '장·소화' },
   { k: 'heart', fn: ['heart'], icon: 'senior', label: '심장' },
-  { k: 'immune', fn: ['immune'], icon: 'picky', label: '면역 · 활력' }
+  { k: 'immune', fn: ['immune'], icon: 'picky', label: '면역·활력' }
 ];
+
+/* 세로 막대는 칸이 좁다. 한글은 아무 데서나 끊기므로 '피부·알러지' 가
+   '피부 · 알 / 러지' 로 갈라졌다. 가운뎃점 뒤에서만 끊게 한다. */
+const barLabel = l => esc(l).replace('·', '·<wbr>');
 
 function funcBars(d) {
   const fi = d.funcIngr || {};
@@ -724,25 +757,28 @@ function funcBars(d) {
       .map(x => ({ name: x.n, safe: byName.get(x.n)?.safe ?? 'safe' }));
     return { ...r, n: items.length, items };
   });
-  /* 핸드오프 규칙 — 바 길이는 점수가 아니라 '찾은 관련 원료 개수'를 최대 4종 기준으로 환산한다.
-     기준을 데이터에 따라 움직이면 사료마다 같은 1종이 다른 길이로 보인다. */
-  const max = Math.max(4, ...rows.map(r => r.n));
+  /* 핸드오프 규칙 — 트랙 높이는 88px 고정. 3종(최댓값 버킷) 이상이면 막대는 항상
+     트랙을 100% 채우고 숫자 라벨만 '4종','5종'… 으로 바뀐다. 막대가 트랙을 넘어
+     더 채워지거나 트랙 높이가 늘어나지 않는다. 기준을 데이터에 따라 움직이면
+     사료마다 같은 1종이 다른 길이로 보인다. */
+  const MAXBUCKET = 3;
+  const pct = n => n <= 0 ? 0 : Math.min(1, n / MAXBUCKET) * 100;
+
   return `
-  <h2 class="t-section" style="margin-top:30px">고민별 관련 원료</h2>
-  <p class="t-caption c-sub" style="margin-top:4px">원료 목록에서 찾은 관련 원료 종류 수예요</p>
-  <div style="margin-top:14px">${rows.map(r => `
-    <div style="margin-bottom:15px${r.n ? '' : ';opacity:.5'}">
-      <div style="display:flex;align-items:center;gap:7px">
-        ${cicon(r.icon, 17)}
-        <span style="font-size:13.5px;font-weight:700;letter-spacing:-.02em">${r.label}</span>
-        <span style="flex:1"></span>
-        <span class="t-caption ${r.n ? 'c-sub' : 'c-mute'}">${r.n ? `관련 원료 ${r.n}종` : '관련 원료 없음'}</span>
-      </div>
-      <div style="height:6px;border-radius:99px;background:var(--lineSoft);margin-top:7px;overflow:hidden">
-        <div style="height:100%;border-radius:99px;background:var(--purple700);width:${r.n / max * 100}%;transition:width .6s ease-out"></div>
-      </div>
-      ${r.items.length ? `<div class="tags" style="margin-top:6px">${r.items.map(ingrTag).join('')}</div>` : ''}
-    </div>`).join('')}</div>`;
+  <h2 class="t-sub" style="margin-top:30px">고민별 관련 원료</h2>
+  <p style="margin-top:2px;font-size:13px;color:var(--ink35);letter-spacing:-.02em">원료 목록에서 찾은 관련 원료 종류 수예요</p>
+  <div class="fbars">${rows.map(r => `
+    <div class="fbar">
+      <span class="fbar-n${r.n ? '' : ' zero'}">${r.n ? r.n + '종' : '없음'}</span>
+      <div class="fbar-track">${r.n ? `<div class="fbar-fill" style="height:${pct(r.n)}%"></div>` : ''}</div>
+      <span class="fbar-ic${r.n ? '' : ' zero'}">${cicon(r.icon, 14)}</span>
+      <span class="fbar-l${r.n ? '' : ' zero'}">${barLabel(r.label)}</span>
+    </div>`).join('')}</div>
+  ${/* 어떤 원료가 잡혔는지는 막대만으로는 알 수 없다. 있는 것만 아래에 적는다. */''}
+  ${rows.some(r => r.n) ? `<div style="margin-top:14px;display:flex;flex-direction:column;gap:7px">${
+    rows.filter(r => r.n).map(r => `<div style="display:flex;gap:8px;align-items:flex-start">
+      <span style="font-size:12px;font-weight:700;letter-spacing:-.02em;color:var(--ink35);flex:none;padding-top:4px;min-width:62px">${r.label}</span>
+      <span class="tags" style="flex:1">${r.items.map(ingrTag).join('')}</span></div>`).join('')}</div>` : ''}`;
 }
 
 /* 원료 하나를 판정과 함께 칩으로.
@@ -765,11 +801,11 @@ function ingrTag(i) {
    원료가 들어있어요' 와 '단백질과 나트륨이 있어 신장이 약한 아이는 상담이 필요해요'
    가 둘 다 맞다. 한쪽을 지우면 거짓이 되므로 둘 다 보인다. */
 const CONCERN_KO = {
-  healthy: '건강한 아이', picky_eater: '입맛 까다로운', weight: '체중 관리 중',
-  eye_tear: '눈물 많은 아이', allergy: '알러지 의심', digestive: '소화가 약한',
-  joint: '관절이 걱정', post_surgery: '수술·회복 중', senior: '시니어',
-  puppy: '어린 강아지', liver: '간 질환 아이', kidney: '신장 케어',
-  skin: '피부가 약한', dental: '치아 관리', immune: '면역·활력'
+  healthy: '건강한 아이', picky_eater: '입맛 까다로운 아이', weight: '체중 관리 중인 아이',
+  eye_tear: '눈물 많은 아이', allergy: '알러지가 있는 아이', digestive: '소화가 약한 아이',
+  joint: '관절이 걱정인 아이', post_surgery: '수술 · 회복 중인 아이', senior: '시니어',
+  puppy: '어린 강아지', liver: '간이 약한 아이', kidney: '신장이 약한 아이',
+  skin: '피부가 약한 아이', dental: '치아 관리', immune: '면역이 걱정인 아이'
 };
 /* 고민 코드를 화면에 이미 있는 아이콘으로 잇는다. 없으면 기본 아이콘으로 나간다. */
 const CONCERN_PIC = {
@@ -780,19 +816,30 @@ const CONCERN_PIC = {
 };
 
 function fitCards(d) {
-  const rows = [
-    ...(d.fit || []).map(x => ['pos', x]),
-    ...(d.fitCaution || []).map(x => ['cau', x])
-  ].filter(([, x]) => x && String(x.label || '').trim());
-  if (!rows.length) return '';
-  return `<h2 class="t-section" style="margin-top:30px">이런 아이에게 어떨까요?</h2>
-    <div style="margin-top:13px">${rows.map(([k, x]) => {
+  const good = (d.fit || []).filter(x => x && String(x.label || '').trim());
+  const care = (d.fitCaution || []).filter(x => x && String(x.label || '').trim());
+  if (!good.length && !care.length) return '';
+
+  const card = (x, kind) => {
     const pic = CONCERN_PIC[x.concernType];
-    return `<div class="reason ${k}">${pic ? cicon(pic, 18) : icon(k === 'pos' ? 'check' : 'alert', 18)}
-        <div style="flex:1;min-width:0">
-          <b>${esc(CONCERN_KO[x.concernType] || x.concernType || '')}</b>
-          <p>${esc(x.label)}</p></div></div>`;
-  }).join('')}</div>`;
+    return `<div class="fitcard">
+      <span class="fitcard-ic ${kind}">${pic ? cicon(pic, 15) : icon(kind === 'good' ? 'check' : 'alert', 15)}</span>
+      <div style="display:flex;flex-direction:column;gap:2px;min-width:0">
+        <span class="fitcard-t">${esc(CONCERN_KO[x.concernType] || x.concernType || '')}</span>
+        <span class="fitcard-b">${esc(x.label)}</span>
+      </div></div>`;
+  };
+
+  return `<div class="fitzone">
+    <h2 class="t-sub">이런 아이에게 어떨까요?</h2>
+    <p style="margin-top:2px;font-size:13px;color:var(--ink40);letter-spacing:-.02em">등록한 프로필과 원료를 맞춰봤어요</p>
+    ${good.length ? `<div class="fitgroup good">
+      <span class="fitdot good">${icon('check', 10)}</span>이런 아이들에게 좋아요</div>
+      <div class="fitlist">${good.map(x => card(x, 'good')).join('')}</div>` : ''}
+    ${care.length ? `<div class="fitgroup care">
+      <span class="fitdot care">!</span>이런 아이들은 주의가 필요해요</div>
+      <div class="fitlist">${care.map(x => card(x, 'care')).join('')}</div>` : ''}
+  </div>`;
 }
 
 /* 03 성분 분석 */
@@ -812,40 +859,47 @@ function renderNutritionTab(f, d) {
   const basic = [
     ['분류', (f.rx ? '처방식' : '일반식') + ' · ' + typeKo(f.type)],
     ['원산지', COUNTRY_KO[f.country] || f.country],
-    ['단백질 / 지방', `${n.protein ?? '—'}% / ${n.fat ?? '—'}%`],
+    ['단백질ㅣ지방', `${n.protein ?? '—'}% ㅣ ${n.fat ?? '—'}%`],
     ['탄수화물 (추정)', n.dmCarb != null ? n.dmCarb + '%' : '—'],
     ['조섬유', n.fiber != null ? n.fiber + '%' : '—'],
     ['수분', n.moisture != null ? n.moisture + '%' : '—']
   ];
 
-  return `<div style="padding:22px var(--screenX) 40px">
-    <h2 class="t-section">기본 정보</h2>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:13px">
+  return `<div style="padding:26px var(--screenX) 0">
+    <h2 class="t-sub">기본 정보</h2>
+    <div class="factgrid">
       ${basic.map(([k, val]) => `
-        <div style="border-radius:var(--rThumbMd);background:var(--surface);padding:13px 14px">
-          <div class="t-micro c-mute">${k}</div>
-          <div style="margin-top:4px;font-size:15px;font-weight:700;letter-spacing:-.03em">${esc(val)}</div>
+        <div class="factcard">
+          <span class="factcard-k">${k}</span>
+          <span class="factcard-v">${esc(val)}</span>
         </div>`).join('')}
     </div>
 
     ${ratingCards(f)}
 
-    ${cards.length ? `<h2 class="t-section" style="margin-top:30px">이 사료를 이렇게 봤어요</h2>
-    <div style="margin-top:13px">${cards.map(([k, c]) => `
-      <div class="reason ${k}">${icon(k === 'pos' ? 'check' : 'alert', 18)}
-        <div style="flex:1;min-width:0"><b>${esc(c.title)}</b><p>${esc(c.body)}</p></div></div>`).join('')}</div>` : ''}
-
-    ${fitCards(d)}
+    ${/* 판정 카드 — 카드마다 색 배경을 깔던 것을 테두리 하나로 묶은 목록으로 바꿨다.
+         색 덩어리가 다섯 개씩 쌓이면 무엇이 중요한지가 안 보인다. */''}
+    ${cards.length ? `<h2 class="t-sub" style="margin-top:30px">이 사료를 이렇게 봤어요</h2>
+    <p style="margin-top:2px;font-size:13px;color:var(--ink40);letter-spacing:-.02em">원료표에서 바로 확인한 사실이에요</p>
+    <div class="verlist">${cards.map(([k, c]) => `
+      <div class="verrow">
+        <span class="verrow-ic ${k}">${k === 'pos' ? icon('check', 15) : '!'}</span>
+        <div style="display:flex;flex-direction:column;gap:3px;min-width:0">
+          <span class="verrow-t">${esc(c.title)}</span>
+          <span class="verrow-b">${esc(c.body)}</span>
+        </div></div>`).join('')}</div>` : ''}
 
     ${funcBars(d)}
 
-    ${ingr.length ? `<div style="display:flex;align-items:center;justify-content:space-between;margin-top:30px">
-      <h2 class="t-section">원료 전체</h2>
+    ${fitCards(d)}
+
+    ${ingr.length ? `<div style="display:flex;align-items:baseline;justify-content:space-between;margin-top:30px">
+      <h2 class="t-sub">원료 전체</h2>
       <button class="sec-more press" data-ingr-sheet>${ingr.length}개 모두 보기</button></div>
     <!-- 예전엔 원료 이름만 쉼표로 늘어놨다. 어느 게 양호하고 어느 게 주의인지는
          '모두 보기' 시트에 들어가야만 볼 수 있었는데, 그건 이 서비스가 하는 일
          자체다. 여기서 바로 보이게 한다. 빨강은 안 쓴다 — 주의는 앰버다. -->
-    <div class="tags" style="margin-top:11px">${ingr.slice(0, 12).map(ingrTag).join('')}
+    <div class="tags" style="margin-top:12px">${ingr.slice(0, 12).map(ingrTag).join('')}
       ${ingr.length > 12 ? `<span class="tag">그 외 ${ingr.length - 12}개</span>` : ''}</div>
     ${(() => {
       const c = { safe: 0, caution: 0, danger: 0, unknown: 0 };
@@ -860,27 +914,28 @@ function renderNutritionTab(f, d) {
 
     <p class="note" style="padding:0">모든 분석은 라벨 표기 성분 기준의 참고용이에요.
 건강 문제는 수의사와 상담해주세요.</p>
+    <div style="height:26px"></div>
   </div>`;
 }
 
 /* 별점 4카드 — 종합 점수는 노출하지 않지만 항목별 판단 재료는 남긴다.
    동그라미로는 몇 점인지 한눈에 안 들어와서 별로 바꿨다.
    채운 별은 보라, 빈 별은 윤곽만 — 색 없이도 개수로 읽힌다. */
-const STAR_PATH = 'M12 2.6l2.9 5.9 6.5.95-4.7 4.6 1.1 6.5L12 17.5l-5.8 3.05 1.1-6.5-4.7-4.6 6.5-.95z';
+const STAR_PATH = 'M12 2.5l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2.5z';
 function stars(v) {
-  return [1, 2, 3, 4, 5].map(i => `<svg width="15" height="15" viewBox="0 0 24 24" style="display:block">
+  return [1, 2, 3, 4, 5].map(i => `<svg width="16" height="16" viewBox="0 0 24 24" style="display:block">
     <path d="${STAR_PATH}" fill="${i <= v ? 'var(--purple700)' : 'none'}"
       stroke="${i <= v ? 'none' : 'var(--starOff)'}" stroke-width="1.6" stroke-linejoin="round"></path></svg>`).join('');
 }
 function ratingCards(f) {
   const r = f.ratings;
   if (!r) return '';
-  return `<h2 class="t-section" style="margin-top:30px">항목별로 보면</h2>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:13px">
+  return `<h2 class="t-sub" style="margin-top:30px">항목별로 보면</h2>
+  <div class="factgrid">
     ${Object.entries(RATING_LABEL).map(([k, label]) => r[k] == null ? '' : `
-      <div style="border-radius:var(--rThumbMd);background:var(--surface);padding:13px 14px">
-        <div class="t-micro c-mute">${label}</div>
-        <div style="display:flex;gap:2px;margin-top:8px;align-items:center">${stars(r[k])}</div>
+      <div class="factcard">
+        <span class="factcard-k">${label}</span>
+        <span style="display:flex;gap:3px;margin-top:4px">${stars(r[k])}</span>
       </div>`).join('')}
   </div>`;
 }
@@ -1614,10 +1669,27 @@ function wire() {
   on('[data-ingr-sheet]', 'click', () => openIngrSheet());
   on('[data-recent-sheet]', 'click', () => openRecentSheet());
   on('[data-pick-slot]', 'click', e => openPicker(+e.currentTarget.dataset.pickSlot));
-  on('[data-share]', 'click', () => {
+  on('[data-share]', 'click', async () => {
     const f = FOODS.find(x => x.id === state.detailId);
-    if (navigator.share) navigator.share({ title: `${f.brand} ${f.name} — 발사탕`, url: location.href }).catch(() => { });
-    else toast('링크를 복사했어요');
+    const share = { title: `${f.brand} ${f.name} — 발사탕`, url: location.href };
+    /* 예전엔 navigator.share 가 없으면 복사하지도 않고 '복사했어요' 라고만 했다.
+       거짓말이다. 실제로 복사하고, 그것도 안 되면 안 됐다고 말한다. */
+    if (navigator.share) { try { await navigator.share(share); } catch { } return; }
+    try { await navigator.clipboard.writeText(location.href); toast('링크를 복사했어요'); }
+    catch { toast('링크를 복사하지 못했어요 — 주소창에서 복사해주세요'); }
+  });
+
+  /* 찜 — 이 브라우저에만 남는다. 화면을 다시 그리지 않고 버튼만 바꾼다:
+     통째로 그리면 보던 자리가 맨 위로 튄다. */
+  on('[data-save]', 'click', e => {
+    const btn = e.currentTarget, id = btn.dataset.save;
+    const i = state.saved.indexOf(id);
+    if (i < 0) state.saved.unshift(id); else state.saved.splice(i, 1);
+    save();
+    const on2 = isSaved(id);
+    btn.innerHTML = heartIcon(on2);
+    btn.setAttribute('aria-pressed', String(on2));
+    toast(on2 ? '찜했어요' : '찜을 해제했어요');
   });
 
   const q = $('#q', v);

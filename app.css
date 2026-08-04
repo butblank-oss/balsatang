@@ -157,8 +157,8 @@ img{display:block;max-width:100%}
 .cbadge.pending .dot{background:var(--ink20)}
 
 /* 원형 큰 배지 — 상세 헤더 */
-.cbadge-lg{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;flex-shrink:0}
-.cbadge-lg svg{width:22px;height:22px;stroke:#fff;stroke-width:2.6}
+.cbadge-lg{width:46px;height:46px;border-radius:999px;display:grid;place-items:center;flex-shrink:0}
+.cbadge-lg svg{width:24px;height:24px;stroke:#fff;stroke-width:3.4}
 .cbadge-lg.none{background:var(--safe)}
 .cbadge-lg.has{background:var(--caution);color:#fff;font-size:22px;font-weight:900}
 /* 흰 글자를 ink20 위에 얹어 1.77:1 이었다 — 점이 거의 안 보였다.
@@ -347,3 +347,67 @@ img{display:block;max-width:100%}
 .md-quote b{color:var(--purple700);font-weight:800}
 .sec.md code{padding:1px 5px;border-radius:6px;background:var(--purple100);
   color:var(--purple700);font-size:13.5px;font-weight:700}
+
+/* ══ 03 사료 상세 · 성분 분석 탭 ══════════════════════════
+   핸드오프 스크립트(03_성분분석상세)의 값을 그대로 옮긴 것이다.
+   hex 는 전부 위 토큰과 같은 값이라 var 로 적는다 — 숫자를 새로 만들지 않았다. */
+
+/* 사실 카드 2열 — 기본 정보와 별점이 같은 격자를 쓴다 */
+.factgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.factcard{border-radius:var(--rThumbMd);background:var(--surface);padding:14px 16px;
+  display:flex;flex-direction:column;gap:4px;min-width:0}
+.factcard-k{font-size:12px;font-weight:600;color:var(--ink35);letter-spacing:-.01em}
+.factcard-v{font-size:15px;font-weight:700;color:var(--ink);letter-spacing:-.03em}
+
+/* 판정 목록 — 카드마다 색을 깔지 않고 테두리 하나로 묶는다.
+   색 덩어리가 다섯 개 쌓이면 무엇이 중한지 안 보인다. 색은 아이콘에만 남긴다. */
+.verlist{margin-top:14px;border-radius:var(--rThumbLg);background:#fff;
+  box-shadow:inset 0 0 0 1px var(--lineHair);overflow:hidden}
+.verrow{padding:16px 18px;display:flex;gap:12px}
+.verrow + .verrow{border-top:var(--divider)}
+.verrow-ic{width:30px;height:30px;border-radius:999px;flex:none;
+  display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;line-height:1}
+.verrow-ic.pos{background:var(--safeBg);color:var(--safe)}
+.verrow-ic.pos .i svg{stroke-width:3.2}
+.verrow-ic.cau{background:var(--cautionBg);color:var(--cautionChip)}
+.verrow-t{font-size:15px;font-weight:700;color:var(--ink);letter-spacing:-.03em}
+.verrow-b{font-size:13px;color:var(--ink50);line-height:1.55;letter-spacing:-.02em}
+
+/* 고민별 관련 원료 — 세로 막대.
+   트랙 88px 고정. 3종 이상이면 100% 로 고정되고 숫자 라벨만 바뀐다.
+   숫자·아이콘·글자 라벨을 고정 높이로 감싸 1줄·2줄이 섞여도 트랙 상단이 어긋나지 않는다. */
+.fbars{margin-top:18px;display:flex;align-items:flex-start;gap:10px}
+.fbar{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:10px}
+.fbar-n{height:16px;display:flex;align-items:center;font-size:13px;font-weight:800;
+  color:var(--ink);letter-spacing:-.02em}
+.fbar-n.zero{color:var(--ink20)}
+.fbar-track{width:100%;max-width:44px;height:88px;border-radius:12px;background:var(--lineSoft);
+  display:flex;align-items:flex-end;overflow:hidden}
+.fbar-fill{width:100%;background:var(--purple700);border-radius:12px;transition:height .6s ease-out}
+.fbar-ic{width:26px;height:26px;border-radius:8px;background:var(--surface);flex:none;
+  display:flex;align-items:center;justify-content:center;color:var(--purple700)}
+.fbar-ic.zero{color:var(--ink20)}
+.fbar-l{height:32px;display:flex;align-items:flex-start;justify-content:center;font-size:12px;
+  font-weight:600;color:var(--ink70);letter-spacing:-.01em;text-align:center;line-height:1.3;
+  word-break:keep-all}
+.fbar-l.zero{color:var(--ink35)}
+
+/* 이런 아이에게 어떨까요 — 화면 폭 풀블리드 연보라 구역 */
+.fitzone{margin:32px calc(var(--screenX) * -1) 0;background:var(--purple50);padding:26px var(--screenX)}
+.fitgroup{margin-top:18px;display:flex;align-items:center;gap:7px;
+  font-size:13px;font-weight:700;letter-spacing:-.02em}
+.fitgroup.good{color:var(--safeText)}
+.fitgroup.care{color:var(--cautionText)}
+.fitdot{width:18px;height:18px;border-radius:999px;flex:none;display:flex;align-items:center;
+  justify-content:center;color:#fff;font-size:11px;font-weight:800;line-height:1}
+.fitdot.good{background:var(--safe)}
+.fitdot.good .i svg{stroke-width:3.6}
+.fitdot.care{background:var(--caution)}
+.fitlist{margin-top:10px;display:flex;flex-direction:column;gap:8px}
+.fitcard{border-radius:14px;background:#fff;padding:12px 14px;display:flex;gap:11px;align-items:flex-start}
+.fitcard-ic{width:26px;height:26px;border-radius:8px;flex:none;margin-top:1px;
+  display:flex;align-items:center;justify-content:center}
+.fitcard-ic.good{background:var(--safeBg);color:var(--safe)}
+.fitcard-ic.care{background:var(--cautionBg);color:var(--cautionChip)}
+.fitcard-t{font-size:14px;font-weight:700;color:var(--ink);letter-spacing:-.02em}
+.fitcard-b{font-size:13px;color:var(--ink40);line-height:1.5;letter-spacing:-.01em}
