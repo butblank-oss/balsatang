@@ -129,6 +129,39 @@ function sizesAndPrice(text) {
   return { wgOptions: [...new Set(wg)].sort((a, b) => a - b), price };
 }
 
+/* ── 이름과 라벨이 맞는지 ──
+   한 라인에 맛만 다른 제품이 여럿 있는 경우가 흔하다 — 더리얼은 21종 전부,
+   지위픽은 6종 전부가 그렇다. 이때 엉뚱한 카드에 라벨을 붙여넣어도 아무도
+   못 알아챈다. 사용자에게는 '닭고기 사료' 라고 적힌 소고기 사료가 나간다.
+
+   제품명에 주재료가 적혀 있으면, 라벨 앞쪽 원료에 그 고기가 실제로 있는지 본다.
+   없으면 경고한다 — 막지는 않는다. '프리런 덕' 처럼 이름이 레시피명인 경우도
+   있고, 제조사가 이름과 다르게 배합하는 경우도 있어 사람이 판단해야 한다. */
+const FLAVOR = [
+  ['닭고기',   /닭|치킨/,            ['닭', '치킨', '계육']],
+  ['오리고기', /오리|덕\b/,          ['오리']],
+  ['칠면조',   /칠면조|터키/,         ['칠면조']],
+  ['소고기',   /소고기|쇠고기|비프/,   ['소고기', '쇠고기', '우육']],
+  ['양고기',   /양고기|램\b/,        ['양고기', '양']],
+  ['돼지고기', /돼지|포크/,           ['돼지', '돈육']],
+  ['사슴고기', /사슴|벨리슨/,         ['사슴']],
+  ['연어',     /연어|새먼/,           ['연어']],
+  ['고등어',   /고등어/,              ['고등어']],
+  ['청어',     /청어/,                ['청어']],
+  ['생선',     /생선|피쉬|피시|해산물/, ['생선', '어', '연어', '청어', '고등어', '대구', '멸치', '메를루사']]
+];
+
+function flavorCheck(name, ingredients = []) {
+  const n = String(name ?? '');
+  const hit = FLAVOR.filter(([, re]) => re.test(n));
+  if (!hit.length) return null;                 /* 이름에 주재료가 없다 — 볼 게 없다 */
+  /* 앞쪽 원료가 그 사료의 정체다. 뒤쪽 향미제까지 세면 무엇이든 통과한다. */
+  const head = ingredients.slice(0, 8).join(' ');
+  const missing = hit.filter(([, , words]) => !words.some(w => head.includes(w)));
+  if (!missing.length) return null;
+  return { name: n, missing: missing.map(([label]) => label), head: ingredients.slice(0, 5) };
+}
+
 /* ── 전부 갈라내고, 원료로 낼 수 있는 사실까지 계산한다 ── */
 function parse(text) {
   const g = ga(text);
@@ -165,5 +198,5 @@ function parse(text) {
   };
 }
 
-globalThis.LABEL = { parse, ga, kcalPerKg, ingredients, links, sizesAndPrice };
+globalThis.LABEL = { parse, ga, kcalPerKg, ingredients, links, sizesAndPrice, flavorCheck };
 })();
