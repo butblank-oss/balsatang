@@ -1481,37 +1481,56 @@ function renderContent() {
 
 /* 본문은 마크다운의 아주 좁은 갈래만 쓴다 — ###, -, >, 1., **강조**.
    라이브러리를 붙이는 대신 쓰는 문법만 직접 옮긴다. 값을 먼저 이스케이프하고
-   그 다음에 태그를 만들기 때문에 본문에 태그를 적어도 그대로 글자로 나온다. */
+   그 다음에 태그를 만들기 때문에 본문에 태그를 적어도 그대로 글자로 나온다.
+
+   ── 줄바꿈은 문단을 끊지 않는다 ──
+   예전엔 줄 하나를 블록 하나로 봤다. 그래서 원고에서 보기 좋으라고 접어 쓴 줄이
+   화면에서 따로 떨어져 나왔다 — 목록 항목이 두 줄이면 둘째 줄이 목록 밖으로
+   튀어나와 들여쓰기가 어긋났다. 아티클 10편에 42군데, 약관·방침에 29군데였다.
+   빈 줄이 나올 때까지는 같은 블록으로 잇는다(마크다운의 원래 규칙이다). */
 function mdToHtml(src) {
   const inline = t => esc(t)
     .replace(/\*\*(.+?)\*\*/g, '<b>$1</b>')
     .replace(/`(.+?)`/g, '<code>$1</code>');
+
   const out = [];
-  let list = null;                       /* 'ul' | 'ol' | null */
-  const closeList = () => { if (list) { out.push(`</${list}>`); list = null; } };
+  let list = null;      /* 'ul' | 'ol' | null */
+  let buf = null;       /* 아직 안 닫은 블록 { kind, text } */
+
+  const flush = () => {
+    if (!buf) return;
+    const t = inline(buf.text);
+    out.push(buf.kind === 'li' ? `<li>${t}</li>`
+      : buf.kind === 'q' ? `<blockquote class="md-quote">${t}</blockquote>`
+        : `<p class="md-p">${t}</p>`);
+    buf = null;
+  };
+  const closeList = () => { flush(); if (list) { out.push(`</${list}>`); list = null; } };
+  const openList = kind => {
+    if (list === kind) flush(); else { closeList(); out.push(`<${kind} class="md-list">`); list = kind; }
+  };
 
   for (const raw of String(src || '').split('\n')) {
-    const line = raw.trimEnd();
-    if (!line.trim()) { closeList(); continue; }
+    const line = raw.trim();
+    if (!line) { closeList(); continue; }
 
-    const h = line.match(/^(#{2,4})\s+(.*)$/);
-    if (h) { closeList(); out.push(`<h3 class="t-section" style="margin:26px 0 10px">${inline(h[2])}</h3>`); continue; }
+    const h = line.match(/^#{2,4}\s+(.*)$/);
+    if (h) { closeList(); out.push(`<h3 class="t-section" style="margin:26px 0 10px">${inline(h[1])}</h3>`); continue; }
 
     const ul = line.match(/^[-*]\s+(.*)$/);
-    if (ul) {
-      if (list !== 'ul') { closeList(); out.push('<ul class="md-list">'); list = 'ul'; }
-      out.push(`<li>${inline(ul[1])}</li>`); continue;
-    }
-    const ol = line.match(/^\d+\.\s+(.*)$/);
-    if (ol) {
-      if (list !== 'ol') { closeList(); out.push('<ol class="md-list">'); list = 'ol'; }
-      out.push(`<li>${inline(ol[1])}</li>`); continue;
-    }
-    const q = line.match(/^>\s?(.*)$/);
-    if (q) { closeList(); out.push(`<blockquote class="md-quote">${inline(q[1])}</blockquote>`); continue; }
+    if (ul) { openList('ul'); buf = { kind: 'li', text: ul[1] }; continue; }
 
-    closeList();
-    out.push(`<p class="md-p">${inline(line)}</p>`);
+    const ol = line.match(/^\d+\.\s+(.*)$/);
+    if (ol) { openList('ol'); buf = { kind: 'li', text: ol[1] }; continue; }
+
+    const q = line.match(/^>\s?(.*)$/);
+    if (q) { closeList(); buf = { kind: 'q', text: q[1] }; continue; }
+
+    /* 표시가 없는 줄은 새 블록이 아니라 앞 블록의 이어지는 줄이다.
+       한글은 줄 끝에서 공백 없이 이어지는 게 자연스럽지만, 영문·숫자가 붙어
+       있으면 단어가 들러붙는다. 공백 하나로 잇고 브라우저가 접게 둔다. */
+    if (buf) { buf.text += ' ' + line; continue; }
+    buf = { kind: 'p', text: line };
   }
   closeList();
   return out.join('');

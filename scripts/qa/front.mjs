@@ -212,6 +212,27 @@ await pg.waitForSelector('.app');
   pass('TC-F12', '탭 4개 전환');
 }
 
+/* TC-F00b 병합 충돌 마커가 파일에 남아 있는가.
+
+   실제로 있었던 일이다. merge 실패를 삼키고 `git add -A` 로 커밋해서
+   index.html 에 충돌 마커가 그대로 올라갔고, data.js·articles.js 가 두 번
+   로드돼 라이브 사이트가 깨졌다. 사람이 눈으로 잡을 수 있는 종류가 아니다. */
+{
+  const files = ['index.html', 'app.js', 'app.css', 'data.js', 'articles.js', 'site.js', 'legal.js'];
+  const bad = [];
+  for (const f of files) {
+    let t; try { t = fs.readFileSync(new URL(`../../${f}`, import.meta.url), 'utf8'); } catch { continue; }
+    if (/^(<{7}|={7}|>{7})/m.test(t)) bad.push(f);
+  }
+  /* 같은 스크립트를 두 번 부르면 const 재선언으로 통째로 멈춘다 */
+  const html = fs.readFileSync(new URL('../../index.html', import.meta.url), 'utf8');
+  const srcs = [...html.matchAll(/<script src="([^"?]+)/g)].map(m => m[1]);
+  const dup = srcs.filter((v, i) => srcs.indexOf(v) !== i);
+  if (dup.length) bad.push(`중복 로드: ${[...new Set(dup)].join(', ')}`);
+  if (bad.length) bug('front', 'TC-F00b', 'P1', `병합 충돌 흔적: ${bad.join(' / ')}`);
+  else pass('TC-F00b', '충돌 마커 없음 · 스크립트 중복 없음');
+}
+
 /* TC-F13 푸터 — 파트너스 고지가 상시로 보이는가 */
 {
   const bad = [];
