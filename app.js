@@ -375,6 +375,9 @@ function submitRequest(type, payload) {
    그래서 검색하다 새로고침하면 홈으로 튕겼고, 사료 상세를 남에게 링크로 보낼 수도
    없었다. 주소가 화면을 담고 있어야 새로고침·뒤로가기·공유가 전부 맞아떨어진다. */
 const TABS = ['home', 'compare', 'content', 'custom'];
+/* 탭이 없는 화면은 어느 탭에서 들어온 것인지로 불을 켠다. 맞춤 입력은 맞춤,
+   글 상세는 콘텐츠다. 검색·사료 상세는 어디서든 들어오므로 직전 탭을 그대로 둔다. */
+const TAB_PARENT = { wizard: 'custom', article: 'content' };
 
 function hashFor(screen, opt = {}) {
   switch (screen) {
@@ -1598,14 +1601,32 @@ function render() {
   const view = $('#view');
   view.innerHTML = (VIEW[s] || renderHome)();
   const bar = $('#tabbar');
-  const showTabs = ['home', 'compare', 'content', 'custom'].includes(s);
-  bar.hidden = !showTabs;
-  /* 본문 끝이 고정 바 아래로 숨지 않게 그만큼 여백을 준다 */
-  view.classList.toggle('has-tabbar', showTabs);
-  view.classList.toggle('has-dock', !showTabs && !!$('.dock', view));
+  /* 하단 탭은 모든 화면에 있다. 예전엔 네 화면에만 뒀는데, 사료 상세나 글을
+     보다가 다른 곳으로 가려면 뒤로가기를 여러 번 눌러야 했다. */
+  bar.hidden = false;
+  const lit = TAB_PARENT[s] ?? state.tab;
   bar.innerHTML = TAB_META.map(([k, l, ic]) =>
-    `<button data-tab="${k}" class="${state.tab === k ? 'on' : ''}">${icon(ic, 22, 'ui')}<span>${l}</span></button>`).join('');
+    `<button data-tab="${k}" class="${lit === k ? 'on' : ''}">${icon(ic, 22, 'ui')}<span>${l}</span></button>`).join('');
+
+  /* 본문 끝이 고정 바 아래로 숨지 않게 그만큼 여백을 준다.
+     독이 있는 화면은 독이 탭 위에 얹히므로 둘을 합한 만큼 비운다. */
+  const dock = $('.dock', view);
+  view.classList.add('has-tabbar');
+  view.classList.toggle('has-dock', !!dock);
+  syncBars(dock);
   wire();
+}
+
+/* 고정 바 높이를 재서 CSS 에 넘긴다. 숫자를 코드에 박으면 라벨이나 글꼴이
+   바뀌는 순간 어긋난다 — 독이 탭 위에 얹히는 화면에서 특히 티가 난다. */
+function syncBars(dock) {
+  const bar = $('#tabbar');
+  const root = document.documentElement.style;
+  const h = bar.hidden ? 0 : Math.round(bar.getBoundingClientRect().height);
+  root.setProperty('--tabbarH', h + 'px');
+  /* 탭이 아래를 막고 있으면 독은 홈 인디케이터 여백을 또 줄 필요가 없다. */
+  root.setProperty('--dockSafe', bar.hidden ? 'env(safe-area-inset-bottom)' : '0px');
+  root.setProperty('--dockH', dock ? Math.round(dock.getBoundingClientRect().height) + 'px' : '0px');
 }
 
 function wire() {

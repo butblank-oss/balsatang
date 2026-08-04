@@ -61,8 +61,10 @@ img{display:block;max-width:100%}
 /* 탭바와 독이 fixed 라 본문 끝이 그 아래로 들어간다. 그만큼 아래를 비워 둔다.
    두 개가 같이 뜨는 화면은 없다 — 상세는 독, 나머지는 탭바다. */
 #view{padding-bottom:calc(26px + env(safe-area-inset-bottom))}
-#view.has-tabbar{padding-bottom:calc(96px + env(safe-area-inset-bottom))}
-#view.has-dock{padding-bottom:calc(104px + env(safe-area-inset-bottom))}
+/* 고정 바 높이는 render 가 재서 --tabbarH / --dockH 로 넘긴다.
+   숫자를 여기 박아 두면 라벨이나 글꼴이 바뀌는 순간 본문 끝이 바 아래로 숨는다. */
+#view.has-tabbar{padding-bottom:calc(var(--tabbarH,84px) + 12px)}
+#view.has-dock{padding-bottom:calc(var(--tabbarH,0px) + var(--dockH,76px) + 12px)}
 
 /* ── 타이포 ─────────────────────────────────────────── */
 .t-hero{font-size:29px;font-weight:800;letter-spacing:-.045em;line-height:1.32;text-wrap:pretty}
@@ -221,9 +223,11 @@ img{display:block;max-width:100%}
 .btn:disabled{background:#EFEDF2;color:var(--ink25);transform:none}
 
 /* ── 하단 고정 액션 ─────────────────────────────────── */
-.dock{position:fixed;left:0;right:0;bottom:0;z-index:40;max-width:480px;margin:0 auto;
+/* 독은 하단 탭 바로 위에 얹힌다. 탭이 없는 화면에선 --tabbarH 가 0 이라
+   예전과 똑같이 바닥에 붙는다. */
+.dock{position:fixed;left:0;right:0;bottom:var(--tabbarH,0px);z-index:40;max-width:480px;margin:0 auto;
   background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-top:var(--divider);
-  padding:10px var(--screenX) calc(12px + env(safe-area-inset-bottom));display:flex;gap:9px}
+  padding:10px var(--screenX) calc(12px + var(--dockSafe,env(safe-area-inset-bottom)));display:flex;gap:9px}
 .dock .btn{flex:1}
 /* 세로로 쌓는 독. flex-direction 만 바꾸면 .dock .btn 의 flex:1 이 이번엔
    '높이'를 나눠 갖는 뜻이 돼서 버튼이 21px 로 찌그러진다. */
