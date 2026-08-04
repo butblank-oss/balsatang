@@ -18,8 +18,10 @@ const ENUM = {
   ages: ['all', 'puppy', 'adult', 'senior'],
   sizes: ['all', 'small', 'medium', 'large'],
   func: ['digestive', 'eye_tear', 'heart', 'immune', 'joint', 'kidney', 'weight', 'skin', 'dental', 'liver'],
-  concerns: ['allergy', 'digestive', 'eye_tear', 'healthy', 'joint', 'kidney', 'liver',
-             'picky_eater', 'post_surgery', 'senior', 'weight', 'skin', 'dental'],
+  /* immune 은 예전 데이터에 이미 쓰이고 있었는데 목록에 없어서, 어드민과 앱이
+     둘 다 'immune' 이라는 코드를 그대로 화면에 뿌렸다. 실제 고민이므로 넣는다. */
+  concerns: ['allergy', 'digestive', 'eye_tear', 'healthy', 'immune', 'joint', 'kidney',
+             'liver', 'picky_eater', 'post_surgery', 'senior', 'weight', 'skin', 'dental'],
   shop: ['coupang', 'brand_official', 'naver', 'other'],
   ico: ['beef', 'bird', 'cross', 'dog', 'drumstick', 'fish', 'leaf'],
   status: ['draft', 'review', 'published', 'rejected', 'stale'],

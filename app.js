@@ -756,6 +756,45 @@ function ingrTag(i) {
   return `<span class="tag ${cls}">${mark}${esc(i.name ?? i.n ?? '')}</span>`;
 }
 
+/* ── 이런 아이에게 어떨까요 ──
+   어드민의 '맞춤 태그' 가 여기로 나온다. 지금까지 이 값(detail.fit·fitCaution)을
+   읽는 곳이 없어서, 심사자가 사료마다 문장을 채워 넣어도 사용자에게는 한 줄도
+   보이지 않았다.
+
+   같은 고민이 양쪽에 다 나올 수 있다 — 아카나 라이트앤피트는 '신장 케어에 쓰이는
+   원료가 들어있어요' 와 '단백질과 나트륨이 있어 신장이 약한 아이는 상담이 필요해요'
+   가 둘 다 맞다. 한쪽을 지우면 거짓이 되므로 둘 다 보인다. */
+const CONCERN_KO = {
+  healthy: '건강한 아이', picky_eater: '입맛 까다로운', weight: '체중 관리 중',
+  eye_tear: '눈물 많은 아이', allergy: '알러지 의심', digestive: '소화가 약한',
+  joint: '관절이 걱정', post_surgery: '수술·회복 중', senior: '시니어',
+  puppy: '어린 강아지', liver: '간 질환 아이', kidney: '신장 케어',
+  skin: '피부가 약한', dental: '치아 관리', immune: '면역·활력'
+};
+/* 고민 코드를 화면에 이미 있는 아이콘으로 잇는다. 없으면 기본 아이콘으로 나간다. */
+const CONCERN_PIC = {
+  eye_tear: 'tear', allergy: 'skin', skin: 'skin', digestive: 'gut',
+  joint: 'joint', weight: 'weight', senior: 'senior', picky_eater: 'picky',
+  liver: 'rx', kidney: 'rx', post_surgery: 'rx', puppy: 'senior', healthy: 'senior',
+  immune: 'senior', dental: 'picky'
+};
+
+function fitCards(d) {
+  const rows = [
+    ...(d.fit || []).map(x => ['pos', x]),
+    ...(d.fitCaution || []).map(x => ['cau', x])
+  ].filter(([, x]) => x && String(x.label || '').trim());
+  if (!rows.length) return '';
+  return `<h2 class="t-section" style="margin-top:30px">이런 아이에게 어떨까요?</h2>
+    <div style="margin-top:13px">${rows.map(([k, x]) => {
+    const pic = CONCERN_PIC[x.concernType];
+    return `<div class="reason ${k}">${pic ? cicon(pic, 18) : icon(k === 'pos' ? 'check' : 'alert', 18)}
+        <div style="flex:1;min-width:0">
+          <b>${esc(CONCERN_KO[x.concernType] || x.concernType || '')}</b>
+          <p>${esc(x.label)}</p></div></div>`;
+  }).join('')}</div>`;
+}
+
 /* 03 성분 분석 */
 function renderNutritionTab(f, d) {
   const v = d.verdict || {};
@@ -795,6 +834,8 @@ function renderNutritionTab(f, d) {
     <div style="margin-top:13px">${cards.map(([k, c]) => `
       <div class="reason ${k}">${icon(k === 'pos' ? 'check' : 'alert', 18)}
         <div style="flex:1;min-width:0"><b>${esc(c.title)}</b><p>${esc(c.body)}</p></div></div>`).join('')}</div>` : ''}
+
+    ${fitCards(d)}
 
     ${funcBars(d)}
 
