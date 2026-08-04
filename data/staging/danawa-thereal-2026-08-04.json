@@ -1,0 +1,1542 @@
+{
+  "batchId": "danawa-thereal-2026-08-04",
+  "collectedAt": "2026-08-04T00:07:46.246Z",
+  "collector": {
+    "agent": "다나와 수집",
+    "model": null
+  },
+  "items": [
+    {
+      "stagingId": "stg_thereal_99803321",
+      "proposed": {
+        "brand": "더리얼(하림)",
+        "brandSlug": "thereal",
+        "country": "KR",
+        "name": "그레인프리 오븐베이크드 닭고기 시니어",
+        "type": "dry",
+        "rx": false,
+        "ages": [
+          "senior"
+        ],
+        "sizes": [
+          "all"
+        ],
+        "ratings": {
+          "quality": null,
+          "carb": null,
+          "additive": null,
+          "value": null
+        },
+        "score": null,
+        "func": [],
+        "warnN": 0,
+        "concerns": [],
+        "facts": {
+          "protein": 24,
+          "dmCarb": null,
+          "firstIngrCat": null,
+          "cautionN": null,
+          "dangerN": null,
+          "pKg": null
+        },
+        "specOrigin": "domestic",
+        "ga": {
+          "protein": 24,
+          "fat": null,
+          "fiber": null,
+          "moisture": null,
+          "ash": null
+        },
+        "ingredients": [],
+        "thumb": "https://img.danuri.io/catalog-image/321/803/099/59f58f7662c640cfb78fa5d8b15e414b.jpg?shrink=360:360",
+        "draft": true,
+        "pricePending": true,
+        "wgOptionsHint": [
+          1600,
+          5800
+        ]
+      },
+      "sources": [
+        {
+          "role": "retail",
+          "url": "https://prod.danawa.com/info/?pcode=99803321",
+          "fetchedAt": "2026-08-04T00:07:46.246Z",
+          "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
+        }
+      ],
+      "evidence": {
+        "facts.protein": {
+          "src": 0,
+          "quote": "다나와 스펙 — 조단백 24%"
+        },
+        "_남은일": {
+          "src": 0,
+          "quote": "라벨을 봐야 채워집니다 — 원료 표기 전체, 조섬유·수분(건물기준 탄수 계산용), 칼로리. 쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 32,000원 · 주단백질원 닭고기 · 판매 용량 1.6kg, 5.8kg"
+        }
+      },
+      "collector": {
+        "agent": "다나와 수집",
+        "via": "scripts/collect-danawa.mjs",
+        "at": "2026-08-04T00:07:46.246Z"
+      }
+    },
+    {
+      "stagingId": "stg_thereal_16685057",
+      "proposed": {
+        "brand": "더리얼(하림)",
+        "brandSlug": "thereal",
+        "country": "KR",
+        "name": "그레인프리 오븐베이크드 닭고기 어덜트",
+        "type": "dry",
+        "rx": false,
+        "ages": [
+          "all"
+        ],
+        "sizes": [
+          "all"
+        ],
+        "ratings": {
+          "quality": null,
+          "carb": null,
+          "additive": null,
+          "value": null
+        },
+        "score": null,
+        "func": [],
+        "warnN": 0,
+        "concerns": [],
+        "facts": {
+          "protein": 25,
+          "dmCarb": null,
+          "firstIngrCat": null,
+          "cautionN": null,
+          "dangerN": null,
+          "pKg": null
+        },
+        "specOrigin": "domestic",
+        "ga": {
+          "protein": 25,
+          "fat": 15,
+          "fiber": null,
+          "moisture": null,
+          "ash": null
+        },
+        "ingredients": [],
+        "thumb": "https://img.danuri.io/catalog-image/057/685/016/5b6e466db70f4e69af7b96737464476b.jpg?shrink=360:360",
+        "draft": true,
+        "pricePending": true,
+        "wgOptionsHint": [
+          1000,
+          5200,
+          5800
+        ]
+      },
+      "sources": [
+        {
+          "role": "retail",
+          "url": "https://prod.danawa.com/info/?pcode=16685057",
+          "fetchedAt": "2026-08-04T00:07:46.246Z",
+          "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
+        }
+      ],
+      "evidence": {
+        "facts.protein": {
+          "src": 0,
+          "quote": "다나와 스펙 — 조단백 25%"
+        },
+        "_남은일": {
+          "src": 0,
+          "quote": "라벨을 봐야 채워집니다 — 원료 표기 전체, 조섬유·수분(건물기준 탄수 계산용), 칼로리. 쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 22,000원 · 주단백질원 닭고기 · 판매 용량 1kg, 5.2kg, 5.8kg"
+        }
+      },
+      "collector": {
+        "agent": "다나와 수집",
+        "via": "scripts/collect-danawa.mjs",
+        "at": "2026-08-04T00:07:46.246Z"
+      }
+    },
+    {
+      "stagingId": "stg_thereal_99807872",
+      "proposed": {
+        "brand": "더리얼(하림)",
+        "brandSlug": "thereal",
+        "country": "KR",
+        "name": "그레인프리 오븐베이크드 소고기 시니어",
+        "type": "dry",
+        "rx": false,
+        "ages": [
+          "senior"
+        ],
+        "sizes": [
+          "all"
+        ],
+        "ratings": {
+          "quality": null,
+          "carb": null,
+          "additive": null,
+          "value": null
+        },
+        "score": null,
+        "func": [],
+        "warnN": 0,
+        "concerns": [],
+        "facts": {
+          "protein": 24,
+          "dmCarb": null,
+          "firstIngrCat": null,
+          "cautionN": null,
+          "dangerN": null,
+          "pKg": null
+        },
+        "specOrigin": "domestic",
+        "ga": {
+          "protein": 24,
+          "fat": 14,
+          "fiber": null,
+          "moisture": null,
+          "ash": null
+        },
+        "ingredients": [],
+        "thumb": "https://img.danuri.io/catalog-image/872/807/099/73a756eb5a954b368fa414754d12b8be.jpg?shrink=360:360",
+        "draft": true,
+        "pricePending": true,
+        "wgOptionsHint": [
+          1600,
+          5800
+        ]
+      },
+      "sources": [
+        {
+          "role": "retail",
+          "url": "https://prod.danawa.com/info/?pcode=99807872",
+          "fetchedAt": "2026-08-04T00:07:46.246Z",
+          "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
+        }
+      ],
+      "evidence": {
+        "facts.protein": {
+          "src": 0,
+          "quote": "다나와 스펙 — 조단백 24%"
+        },
+        "_남은일": {
+          "src": 0,
+          "quote": "라벨을 봐야 채워집니다 — 원료 표기 전체, 조섬유·수분(건물기준 탄수 계산용), 칼로리. 쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 36,000원 · 주단백질원 소고기 · 판매 용량 1.6kg, 5.8kg"
+        }
+      },
+      "collector": {
+        "agent": "다나와 수집",
+        "via": "scripts/collect-danawa.mjs",
+        "at": "2026-08-04T00:07:46.246Z"
+      }
+    },
+    {
+      "stagingId": "stg_thereal_16690958",
+      "proposed": {
+        "brand": "더리얼(하림)",
+        "brandSlug": "thereal",
+        "country": "KR",
+        "name": "그레인프리 오븐베이크드 소고기 어덜트",
+        "type": "dry",
+        "rx": false,
+        "ages": [
+          "all"
+        ],
+        "sizes": [
+          "all"
+        ],
+        "ratings": {
+          "quality": null,
+          "carb": null,
+          "additive": null,
+          "value": null
+        },
+        "score": null,
+        "func": [],
+        "warnN": 0,
+        "concerns": [],
+        "facts": {
+          "protein": 25,
+          "dmCarb": null,
+          "firstIngrCat": null,
+          "cautionN": null,
+          "dangerN": null,
+          "pKg": null
+        },
+        "specOrigin": "domestic",
+        "ga": {
+          "protein": 25,
+          "fat": 15,
+          "fiber": null,
+          "moisture": null,
+          "ash": null
+        },
+        "ingredients": [],
+        "thumb": "https://img.danuri.io/catalog-image/958/690/016/5e7ce767421c4572873e8f9bfce0f305.jpg?shrink=360:360",
+        "draft": true,
+        "pricePending": true,
+        "wgOptionsHint": [
+          1600,
+          5800
+        ]
+      },
+      "sources": [
+        {
+          "role": "retail",
+          "url": "https://prod.danawa.com/info/?pcode=16690958",
+          "fetchedAt": "2026-08-04T00:07:46.246Z",
+          "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
+        }
+      ],
+      "evidence": {
+        "facts.protein": {
+          "src": 0,
+          "quote": "다나와 스펙 — 조단백 25%"
+        },
+        "_남은일": {
+          "src": 0,
+          "quote": "라벨을 봐야 채워집니다 — 원료 표기 전체, 조섬유·수분(건물기준 탄수 계산용), 칼로리. 쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 36,000원 · 주단백질원 소고기 · 판매 용량 1.6kg, 5.8kg"
+        }
+      },
+      "collector": {
+        "agent": "다나와 수집",
+        "via": "scripts/collect-danawa.mjs",
+        "at": "2026-08-04T00:07:46.246Z"
+      }
+    },
+    {
+      "stagingId": "stg_thereal_67401470",
+      "proposed": {
+        "brand": "더리얼(하림)",
+        "brandSlug": "thereal",
+        "country": "KR",
+        "name": "그레인프리 오븐베이크드 양고기 어덜트",
+        "type": "dry",
+        "rx": false,
+        "ages": [
+          "all"
+        ],
+        "sizes": [
+          "all"
+        ],
+        "ratings": {
+          "quality": null,
+          "carb": null,
+          "additive": null,
+          "value": null
+        },
+        "score": null,
+        "func": [],
+        "warnN": 0,
+        "concerns": [],
+        "facts": {
+          "protein": 25,
+          "dmCarb": null,
+          "firstIngrCat": null,
+          "cautionN": null,
+          "dangerN": null,
+          "pKg": null
+        },
+        "specOrigin": "domestic",
+        "ga": {
+          "protein": 25,
+          "fat": 15,
+          "fiber": null,
+          "moisture": null,
+          "ash": null
+        },
+        "ingredients": [],
+        "thumb": "https://img.danuri.io/catalog-image/470/401/067/5bb34925a90541b2810b27d106617dc4.jpg?shrink=360:360",
+        "draft": true,
+        "pricePending": true,
+        "wgOptionsHint": [
+          1000,
+          1600
+        ]
+      },
+      "sources": [
+        {
+          "role": "retail",
+          "url": "https://prod.danawa.com/info/?pcode=67401470",
+          "fetchedAt": "2026-08-04T00:07:46.246Z",
+          "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
+        }
+      ],
+      "evidence": {
+        "facts.protein": {
+          "src": 0,
+          "quote": "다나와 스펙 — 조단백 25%"
+        },
+        "_남은일": {
+          "src": 0,
+          "quote": "라벨을 봐야 채워집니다 — 원료 표기 전체, 조섬유·수분(건물기준 탄수 계산용), 칼로리. 쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 5,000원 · 주단백질원 양고기 · 판매 용량 1kg, 1.6kg"
+        }
+      },
+      "collector": {
+        "agent": "다나와 수집",
+        "via": "scripts/collect-danawa.mjs",
+        "at": "2026-08-04T00:07:46.246Z"
+      }
+    },
+    {
+      "stagingId": "stg_thereal_33138791",
+      "proposed": {
+        "brand": "더리얼(하림)",
+        "brandSlug": "thereal",
+        "country": "KR",
+        "name": "그레인프리 오븐베이크드 연어 어덜트",
+        "type": "dry",
+        "rx": false,
+        "ages": [
+          "all"
+        ],
+        "sizes": [
+          "all"
+        ],
+        "ratings": {
+          "quality": null,
+          "carb": null,
+          "additive": null,
+          "value": null
+        },
+        "score": null,
+        "func": [],
+        "warnN": 0,
+        "concerns": [],
+        "facts": {
+          "protein": 25,
+          "dmCarb": null,
+          "firstIngrCat": null,
+          "cautionN": null,
+          "dangerN": null,
+          "pKg": null
+        },
+        "specOrigin": "domestic",
+        "ga": {
+          "protein": 25,
+          "fat": 15,
+          "fiber": null,
+          "moisture": null,
+          "ash": null
+        },
+        "ingredients": [],
+        "thumb": "https://img.danuri.io/catalog-image/791/138/033/97ade2fcd1824db6b2450cce24041863.jpg?shrink=360:360",
+        "draft": true,
+        "pricePending": true,
+        "wgOptionsHint": [
+          1600,
+          3600,
+          5800
+        ]
+      },
+      "sources": [
+        {
+          "role": "retail",
+          "url": "https://prod.danawa.com/info/?pcode=33138791",
+          "fetchedAt": "2026-08-04T00:07:46.246Z",
+          "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
+        }
+      ],
+      "evidence": {
+        "facts.protein": {
+          "src": 0,
+          "quote": "다나와 스펙 — 조단백 25%"
+        },
+        "_남은일": {
+          "src": 0,
+          "quote": "라벨을 봐야 채워집니다 — 원료 표기 전체, 조섬유·수분(건물기준 탄수 계산용), 칼로리. 쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 4,550원 · 주단백질원 연어 · 판매 용량 1.6kg, 3.6kg, 5.8kg"
+        }
+      },
+      "collector": {
+        "agent": "다나와 수집",
+        "via": "scripts/collect-danawa.mjs",
+        "at": "2026-08-04T00:07:46.246Z"
+      }
+    },
+    {
+      "stagingId": "stg_thereal_70092713",
+      "proposed": {
+        "brand": "더리얼(하림)",
+        "brandSlug": "thereal",
+        "country": "KR",
+        "name": "그레인프리 크런치 닭고기 시니어",
+        "type": "dry",
+        "rx": false,
+        "ages": [
+          "senior"
+        ],
+        "sizes": [
+          "all"
+        ],
+        "ratings": {
+          "quality": null,
+          "carb": null,
+          "additive": null,
+          "value": null
+        },
+        "score": null,
+        "func": [],
+        "warnN": 0,
+        "concerns": [],
+        "facts": {
+          "protein": 24,
+          "dmCarb": null,
+          "firstIngrCat": null,
+          "cautionN": null,
+          "dangerN": null,
+          "pKg": null
+        },
+        "specOrigin": "domestic",
+        "ga": {
+          "protein": 24,
+          "fat": 14,
+          "fiber": null,
+          "moisture": null,
+          "ash": null
+        },
+        "ingredients": [],
+        "thumb": "https://img.danuri.io/catalog-image/713/092/070/4410d38ec84f44aab008ffc448031532.jpg?shrink=360:360",
+        "draft": true,
+        "pricePending": true,
+        "wgOptionsHint": [
+          1000
+        ]
+      },
+      "sources": [
+        {
+          "role": "retail",
+          "url": "https://prod.danawa.com/info/?pcode=70092713",
+          "fetchedAt": "2026-08-04T00:07:46.246Z",
+          "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
+        }
+      ],
+      "evidence": {
+        "facts.protein": {
+          "src": 0,
+          "quote": "다나와 스펙 — 조단백 24%"
+        },
+        "_남은일": {
+          "src": 0,
+          "quote": "라벨을 봐야 채워집니다 — 원료 표기 전체, 조섬유·수분(건물기준 탄수 계산용), 칼로리. 쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 16,800원 · 주단백질원 닭고기 · 판매 용량 1kg"
+        }
+      },
+      "collector": {
+        "agent": "다나와 수집",
+        "via": "scripts/collect-danawa.mjs",
+        "at": "2026-08-04T00:07:46.246Z"
+      }
+    },
+    {
+      "stagingId": "stg_thereal_96822989",
+      "proposed": {
+        "brand": "더리얼(하림)",
+        "brandSlug": "thereal",
+        "country": "KR",
+        "name": "그레인프리 크런치 닭고기 퍼피",
+        "type": "dry",
+        "rx": false,
+        "ages": [
+          "puppy"
+        ],
+        "sizes": [
+          "all"
+        ],
+        "ratings": {
+          "quality": null,
+          "carb": null,
+          "additive": null,
+          "value": null
+        },
+        "score": null,
+        "func": [],
+        "warnN": 0,
+        "concerns": [],
+        "facts": {
+          "protein": 27,
+          "dmCarb": null,
+          "firstIngrCat": null,
+          "cautionN": null,
+          "dangerN": null,
+          "pKg": null
+        },
+        "specOrigin": "domestic",
+        "ga": {
+          "protein": 27,
+          "fat": 17,
+          "fiber": null,
+          "moisture": null,
+          "ash": null
+        },
+        "ingredients": [],
+        "thumb": "https://img.danuri.io/catalog-image/989/822/096/99bcc831d2144a51bb05accf44979ee3.jpg?shrink=360:360",
+        "draft": true,
+        "pricePending": true,
+        "wgOptionsHint": [
+          1600
+        ]
+      },
+      "sources": [
+        {
+          "role": "retail",
+          "url": "https://prod.danawa.com/info/?pcode=96822989",
+          "fetchedAt": "2026-08-04T00:07:46.246Z",
+          "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
+        }
+      ],
+      "evidence": {
+        "facts.protein": {
+          "src": 0,
+          "quote": "다나와 스펙 — 조단백 27%"
+        },
+        "_남은일": {
+          "src": 0,
+          "quote": "라벨을 봐야 채워집니다 — 원료 표기 전체, 조섬유·수분(건물기준 탄수 계산용), 칼로리. 쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 31,000원 · 주단백질원 닭고기 · 판매 용량 1.6kg"
+        }
+      },
+      "collector": {
+        "agent": "다나와 수집",
+        "via": "scripts/collect-danawa.mjs",
+        "at": "2026-08-04T00:07:46.246Z"
+      }
+    },
+    {
+      "stagingId": "stg_thereal_99802634",
+      "proposed": {
+        "brand": "더리얼(하림)",
+        "brandSlug": "thereal",
+        "country": "KR",
+        "name": "그레인프리 크런치 돼지고기 어덜트",
+        "type": "dry",
+        "rx": false,
+        "ages": [
+          "all"
+        ],
+        "sizes": [
+          "all"
+        ],
+        "ratings": {
+          "quality": null,
+          "carb": null,
+          "additive": null,
+          "value": null
+        },
+        "score": null,
+        "func": [],
+        "warnN": 0,
+        "concerns": [],
+        "facts": {
+          "protein": 25,
+          "dmCarb": null,
+          "firstIngrCat": null,
+          "cautionN": null,
+          "dangerN": null,
+          "pKg": null
+        },
+        "specOrigin": "domestic",
+        "ga": {
+          "protein": 25,
+          "fat": 15,
+          "fiber": null,
+          "moisture": null,
+          "ash": null
+        },
+        "ingredients": [],
+        "thumb": "https://img.danuri.io/catalog-image/634/802/099/f9e71b75179241c9b66d0643d4daa5aa.jpg?shrink=360:360",
+        "draft": true,
+        "pricePending": true,
+        "wgOptionsHint": [
+          1600,
+          5800
+        ]
+      },
+      "sources": [
+        {
+          "role": "retail",
+          "url": "https://prod.danawa.com/info/?pcode=99802634",
+          "fetchedAt": "2026-08-04T00:07:46.246Z",
+          "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
+        }
+      ],
+      "evidence": {
+        "facts.protein": {
+          "src": 0,
+          "quote": "다나와 스펙 — 조단백 25%"
+        },
+        "_남은일": {
+          "src": 0,
+          "quote": "라벨을 봐야 채워집니다 — 원료 표기 전체, 조섬유·수분(건물기준 탄수 계산용), 칼로리. 쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 31,850원 · 주단백질원 돼지고기 · 판매 용량 1.6kg, 5.8kg"
+        }
+      },
+      "collector": {
+        "agent": "다나와 수집",
+        "via": "scripts/collect-danawa.mjs",
+        "at": "2026-08-04T00:07:46.246Z"
+      }
+    },
+    {
+      "stagingId": "stg_thereal_99823166",
+      "proposed": {
+        "brand": "더리얼(하림)",
+        "brandSlug": "thereal",
+        "country": "KR",
+        "name": "그레인프리 크런치 소고기 시니어",
+        "type": "dry",
+        "rx": false,
+        "ages": [
+          "senior"
+        ],
+        "sizes": [
+          "all"
+        ],
+        "ratings": {
+          "quality": null,
+          "carb": null,
+          "additive": null,
+          "value": null
+        },
+        "score": null,
+        "func": [],
+        "warnN": 0,
+        "concerns": [],
+        "facts": {
+          "protein": null,
+          "dmCarb": null,
+          "firstIngrCat": null,
+          "cautionN": null,
+          "dangerN": null,
+          "pKg": null
+        },
+        "specOrigin": "domestic",
+        "ga": {
+          "protein": null,
+          "fat": null,
+          "fiber": null,
+          "moisture": null,
+          "ash": null
+        },
+        "ingredients": [],
+        "thumb": "https://img.danuri.io/catalog-image/166/823/099/1f6fa047f9fb4e82ab2a070a8bf14327.jpg?shrink=360:360",
+        "draft": true,
+        "pricePending": true,
+        "wgOptionsHint": []
+      },
+      "sources": [
+        {
+          "role": "retail",
+          "url": "https://prod.danawa.com/info/?pcode=99823166",
+          "fetchedAt": "2026-08-04T00:07:46.246Z",
+          "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
+        }
+      ],
+      "evidence": {
+        "_남은일": {
+          "src": 0,
+          "quote": "라벨을 봐야 채워집니다 — 원료 표기 전체, 조섬유·수분(건물기준 탄수 계산용), 칼로리. 쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 102,000원"
+        }
+      },
+      "collector": {
+        "agent": "다나와 수집",
+        "via": "scripts/collect-danawa.mjs",
+        "at": "2026-08-04T00:07:46.246Z"
+      }
+    },
+    {
+      "stagingId": "stg_thereal_99875642",
+      "proposed": {
+        "brand": "더리얼(하림)",
+        "brandSlug": "thereal",
+        "country": "KR",
+        "name": "그레인프리 크런치 양고기 어덜트",
+        "type": "dry",
+        "rx": false,
+        "ages": [
+          "all"
+        ],
+        "sizes": [
+          "all"
+        ],
+        "ratings": {
+          "quality": null,
+          "carb": null,
+          "additive": null,
+          "value": null
+        },
+        "score": null,
+        "func": [],
+        "warnN": 0,
+        "concerns": [],
+        "facts": {
+          "protein": 25,
+          "dmCarb": null,
+          "firstIngrCat": null,
+          "cautionN": null,
+          "dangerN": null,
+          "pKg": null
+        },
+        "specOrigin": "domestic",
+        "ga": {
+          "protein": 25,
+          "fat": 15,
+          "fiber": null,
+          "moisture": null,
+          "ash": null
+        },
+        "ingredients": [],
+        "thumb": "https://img.danuri.io/catalog-image/642/875/099/dee7b80685a84c7c90c1478d6a43dfb6.jpg?shrink=360:360",
+        "draft": true,
+        "pricePending": true,
+        "wgOptionsHint": []
+      },
+      "sources": [
+        {
+          "role": "retail",
+          "url": "https://prod.danawa.com/info/?pcode=99875642",
+          "fetchedAt": "2026-08-04T00:07:46.246Z",
+          "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
+        }
+      ],
+      "evidence": {
+        "facts.protein": {
+          "src": 0,
+          "quote": "다나와 스펙 — 조단백 25%"
+        },
+        "_남은일": {
+          "src": 0,
+          "quote": "라벨을 봐야 채워집니다 — 원료 표기 전체, 조섬유·수분(건물기준 탄수 계산용), 칼로리. 쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 5,000원 · 주단백질원 양고기"
+        }
+      },
+      "collector": {
+        "agent": "다나와 수집",
+        "via": "scripts/collect-danawa.mjs",
+        "at": "2026-08-04T00:07:46.246Z"
+      }
+    },
+    {
+      "stagingId": "stg_thereal_12926414",
+      "proposed": {
+        "brand": "더리얼(하림)",
+        "brandSlug": "thereal",
+        "country": "KR",
+        "name": "그레인프리 크런치 연어 어덜트",
+        "type": "dry",
+        "rx": false,
+        "ages": [
+          "all"
+        ],
+        "sizes": [
+          "all"
+        ],
+        "ratings": {
+          "quality": null,
+          "carb": null,
+          "additive": null,
+          "value": null
+        },
+        "score": null,
+        "func": [],
+        "warnN": 0,
+        "concerns": [],
+        "facts": {
+          "protein": 25,
+          "dmCarb": null,
+          "firstIngrCat": null,
+          "cautionN": null,
+          "dangerN": null,
+          "pKg": null
+        },
+        "specOrigin": "domestic",
+        "ga": {
+          "protein": 25,
+          "fat": 15,
+          "fiber": null,
+          "moisture": null,
+          "ash": null
+        },
+        "ingredients": [],
+        "thumb": "https://img.danuri.io/catalog-image/414/926/012/39ed98e0ba4c41679ff998df78a68951.jpg?shrink=360:360",
+        "draft": true,
+        "pricePending": true,
+        "wgOptionsHint": [
+          1600
+        ]
+      },
+      "sources": [
+        {
+          "role": "retail",
+          "url": "https://prod.danawa.com/info/?pcode=12926414",
+          "fetchedAt": "2026-08-04T00:07:46.246Z",
+          "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
+        }
+      ],
+      "evidence": {
+        "facts.protein": {
+          "src": 0,
+          "quote": "다나와 스펙 — 조단백 25%"
+        },
+        "_남은일": {
+          "src": 0,
+          "quote": "라벨을 봐야 채워집니다 — 원료 표기 전체, 조섬유·수분(건물기준 탄수 계산용), 칼로리. 쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 65,860원 · 주단백질원 연어 · 판매 용량 1.6kg"
+        }
+      },
+      "collector": {
+        "agent": "다나와 수집",
+        "via": "scripts/collect-danawa.mjs",
+        "at": "2026-08-04T00:07:46.246Z"
+      }
+    },
+    {
+      "stagingId": "stg_thereal_67401221",
+      "proposed": {
+        "brand": "더리얼(하림)",
+        "brandSlug": "thereal",
+        "country": "KR",
+        "name": "동결건조 오븐베이크드 닭고기 어덜트",
+        "type": "dry",
+        "rx": false,
+        "ages": [
+          "all"
+        ],
+        "sizes": [
+          "all"
+        ],
+        "ratings": {
+          "quality": null,
+          "carb": null,
+          "additive": null,
+          "value": null
+        },
+        "score": null,
+        "func": [],
+        "warnN": 0,
+        "concerns": [],
+        "facts": {
+          "protein": 29,
+          "dmCarb": null,
+          "firstIngrCat": null,
+          "cautionN": null,
+          "dangerN": null,
+          "pKg": null
+        },
+        "specOrigin": "domestic",
+        "ga": {
+          "protein": 29,
+          "fat": 16,
+          "fiber": null,
+          "moisture": null,
+          "ash": null
+        },
+        "ingredients": [],
+        "thumb": "https://img.danuri.io/catalog-image/221/401/067/3a761c1e21f54dc8b054daae11e69eaa.jpg?shrink=360:360",
+        "draft": true,
+        "pricePending": true,
+        "wgOptionsHint": [
+          1000
+        ]
+      },
+      "sources": [
+        {
+          "role": "retail",
+          "url": "https://prod.danawa.com/info/?pcode=67401221",
+          "fetchedAt": "2026-08-04T00:07:46.246Z",
+          "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
+        }
+      ],
+      "evidence": {
+        "facts.protein": {
+          "src": 0,
+          "quote": "다나와 스펙 — 조단백 29%"
+        },
+        "_남은일": {
+          "src": 0,
+          "quote": "라벨을 봐야 채워집니다 — 원료 표기 전체, 조섬유·수분(건물기준 탄수 계산용), 칼로리. 쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 59,520원 · 주단백질원 닭고기 · 판매 용량 1kg"
+        }
+      },
+      "collector": {
+        "agent": "다나와 수집",
+        "via": "scripts/collect-danawa.mjs",
+        "at": "2026-08-04T00:07:46.246Z"
+      }
+    },
+    {
+      "stagingId": "stg_thereal_9947406",
+      "proposed": {
+        "brand": "더리얼(하림)",
+        "brandSlug": "thereal",
+        "country": "KR",
+        "name": "동결건조 오븐베이크드 연어 어덜트",
+        "type": "dry",
+        "rx": false,
+        "ages": [
+          "all"
+        ],
+        "sizes": [
+          "all"
+        ],
+        "ratings": {
+          "quality": null,
+          "carb": null,
+          "additive": null,
+          "value": null
+        },
+        "score": null,
+        "func": [],
+        "warnN": 0,
+        "concerns": [],
+        "facts": {
+          "protein": 28,
+          "dmCarb": null,
+          "firstIngrCat": null,
+          "cautionN": null,
+          "dangerN": null,
+          "pKg": null
+        },
+        "specOrigin": "domestic",
+        "ga": {
+          "protein": 28,
+          "fat": 16,
+          "fiber": null,
+          "moisture": null,
+          "ash": null
+        },
+        "ingredients": [],
+        "thumb": "https://img.danuri.io/catalog-image/406/947/009/8ffa273a34d849319dd7412ec4c302e8.jpg?shrink=360:360",
+        "draft": true,
+        "pricePending": true,
+        "wgOptionsHint": [
+          1600
+        ]
+      },
+      "sources": [
+        {
+          "role": "retail",
+          "url": "https://prod.danawa.com/info/?pcode=9947406",
+          "fetchedAt": "2026-08-04T00:07:46.246Z",
+          "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
+        }
+      ],
+      "evidence": {
+        "facts.protein": {
+          "src": 0,
+          "quote": "다나와 스펙 — 조단백 28%"
+        },
+        "_남은일": {
+          "src": 0,
+          "quote": "라벨을 봐야 채워집니다 — 원료 표기 전체, 조섬유·수분(건물기준 탄수 계산용), 칼로리. 쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 43,890원 · 주단백질원 연어 · 판매 용량 1.6kg"
+        }
+      },
+      "collector": {
+        "agent": "다나와 수집",
+        "via": "scripts/collect-danawa.mjs",
+        "at": "2026-08-04T00:07:46.246Z"
+      }
+    },
+    {
+      "stagingId": "stg_thereal_67506071",
+      "proposed": {
+        "brand": "더리얼(하림)",
+        "brandSlug": "thereal",
+        "country": "KR",
+        "name": "로우 닭고기 시니어",
+        "type": "dry",
+        "rx": false,
+        "ages": [
+          "senior"
+        ],
+        "sizes": [
+          "all"
+        ],
+        "ratings": {
+          "quality": null,
+          "carb": null,
+          "additive": null,
+          "value": null
+        },
+        "score": null,
+        "func": [],
+        "warnN": 0,
+        "concerns": [],
+        "facts": {
+          "protein": 45,
+          "dmCarb": null,
+          "firstIngrCat": null,
+          "cautionN": null,
+          "dangerN": null,
+          "pKg": null
+        },
+        "specOrigin": "domestic",
+        "ga": {
+          "protein": 45,
+          "fat": 25,
+          "fiber": null,
+          "moisture": null,
+          "ash": null
+        },
+        "ingredients": [],
+        "thumb": "https://img.danuri.io/catalog-image/071/506/067/88d7744dc8344b9dbbb5ec9b5ac1456d.jpg?shrink=360:360",
+        "draft": true,
+        "pricePending": true,
+        "wgOptionsHint": [
+          210
+        ]
+      },
+      "sources": [
+        {
+          "role": "retail",
+          "url": "https://prod.danawa.com/info/?pcode=67506071",
+          "fetchedAt": "2026-08-04T00:07:46.246Z",
+          "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
+        }
+      ],
+      "evidence": {
+        "facts.protein": {
+          "src": 0,
+          "quote": "다나와 스펙 — 조단백 45%"
+        },
+        "_남은일": {
+          "src": 0,
+          "quote": "라벨을 봐야 채워집니다 — 원료 표기 전체, 조섬유·수분(건물기준 탄수 계산용), 칼로리. 쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 28,160원 · 주단백질원 닭고기, 과일·야채 · 판매 용량 210g"
+        }
+      },
+      "collector": {
+        "agent": "다나와 수집",
+        "via": "scripts/collect-danawa.mjs",
+        "at": "2026-08-04T00:07:46.246Z"
+      }
+    },
+    {
+      "stagingId": "stg_thereal_67409591",
+      "proposed": {
+        "brand": "더리얼(하림)",
+        "brandSlug": "thereal",
+        "country": "KR",
+        "name": "로우 닭고기 퍼피",
+        "type": "dry",
+        "rx": false,
+        "ages": [
+          "puppy"
+        ],
+        "sizes": [
+          "all"
+        ],
+        "ratings": {
+          "quality": null,
+          "carb": null,
+          "additive": null,
+          "value": null
+        },
+        "score": null,
+        "func": [],
+        "warnN": 0,
+        "concerns": [],
+        "facts": {
+          "protein": 48,
+          "dmCarb": null,
+          "firstIngrCat": null,
+          "cautionN": null,
+          "dangerN": null,
+          "pKg": null
+        },
+        "specOrigin": "domestic",
+        "ga": {
+          "protein": 48,
+          "fat": 28,
+          "fiber": null,
+          "moisture": null,
+          "ash": null
+        },
+        "ingredients": [],
+        "thumb": "https://img.danuri.io/catalog-image/591/409/067/2e06c2eba99340cf983804e514516754.jpg?shrink=360:360",
+        "draft": true,
+        "pricePending": true,
+        "wgOptionsHint": [
+          210
+        ]
+      },
+      "sources": [
+        {
+          "role": "retail",
+          "url": "https://prod.danawa.com/info/?pcode=67409591",
+          "fetchedAt": "2026-08-04T00:07:46.246Z",
+          "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
+        }
+      ],
+      "evidence": {
+        "facts.protein": {
+          "src": 0,
+          "quote": "다나와 스펙 — 조단백 48%"
+        },
+        "_남은일": {
+          "src": 0,
+          "quote": "라벨을 봐야 채워집니다 — 원료 표기 전체, 조섬유·수분(건물기준 탄수 계산용), 칼로리. 쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 28,890원 · 주단백질원 닭고기, 과일·야채 · 판매 용량 210g"
+        }
+      },
+      "collector": {
+        "agent": "다나와 수집",
+        "via": "scripts/collect-danawa.mjs",
+        "at": "2026-08-04T00:07:46.246Z"
+      }
+    },
+    {
+      "stagingId": "stg_thereal_67409603",
+      "proposed": {
+        "brand": "더리얼(하림)",
+        "brandSlug": "thereal",
+        "country": "KR",
+        "name": "로우 돼지고기 어덜트",
+        "type": "dry",
+        "rx": false,
+        "ages": [
+          "all"
+        ],
+        "sizes": [
+          "all"
+        ],
+        "ratings": {
+          "quality": null,
+          "carb": null,
+          "additive": null,
+          "value": null
+        },
+        "score": null,
+        "func": [],
+        "warnN": 0,
+        "concerns": [],
+        "facts": {
+          "protein": 45,
+          "dmCarb": null,
+          "firstIngrCat": null,
+          "cautionN": null,
+          "dangerN": null,
+          "pKg": null
+        },
+        "specOrigin": "domestic",
+        "ga": {
+          "protein": 45,
+          "fat": 23,
+          "fiber": null,
+          "moisture": null,
+          "ash": null
+        },
+        "ingredients": [],
+        "thumb": "https://img.danuri.io/catalog-image/603/409/067/a17fa75fcb5a4025bb2204464c7f9ade.jpg?shrink=360:360",
+        "draft": true,
+        "pricePending": true,
+        "wgOptionsHint": [
+          210
+        ]
+      },
+      "sources": [
+        {
+          "role": "retail",
+          "url": "https://prod.danawa.com/info/?pcode=67409603",
+          "fetchedAt": "2026-08-04T00:07:46.246Z",
+          "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
+        }
+      ],
+      "evidence": {
+        "facts.protein": {
+          "src": 0,
+          "quote": "다나와 스펙 — 조단백 45%"
+        },
+        "_남은일": {
+          "src": 0,
+          "quote": "라벨을 봐야 채워집니다 — 원료 표기 전체, 조섬유·수분(건물기준 탄수 계산용), 칼로리. 쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 28,160원 · 주단백질원 돼지고기, 과일·야채 · 판매 용량 210g"
+        }
+      },
+      "collector": {
+        "agent": "다나와 수집",
+        "via": "scripts/collect-danawa.mjs",
+        "at": "2026-08-04T00:07:46.246Z"
+      }
+    },
+    {
+      "stagingId": "stg_thereal_99802238",
+      "proposed": {
+        "brand": "더리얼(하림)",
+        "brandSlug": "thereal",
+        "country": "KR",
+        "name": "로우 오리고기 어덜트",
+        "type": "dry",
+        "rx": false,
+        "ages": [
+          "all"
+        ],
+        "sizes": [
+          "all"
+        ],
+        "ratings": {
+          "quality": null,
+          "carb": null,
+          "additive": null,
+          "value": null
+        },
+        "score": null,
+        "func": [],
+        "warnN": 0,
+        "concerns": [],
+        "facts": {
+          "protein": 47,
+          "dmCarb": null,
+          "firstIngrCat": null,
+          "cautionN": null,
+          "dangerN": null,
+          "pKg": null
+        },
+        "specOrigin": "domestic",
+        "ga": {
+          "protein": 47,
+          "fat": 29,
+          "fiber": null,
+          "moisture": null,
+          "ash": null
+        },
+        "ingredients": [],
+        "thumb": "https://img.danuri.io/catalog-image/238/802/099/6707e76b3faa4bfcbce67940777396a5.jpg?shrink=360:360",
+        "draft": true,
+        "pricePending": true,
+        "wgOptionsHint": [
+          360
+        ]
+      },
+      "sources": [
+        {
+          "role": "retail",
+          "url": "https://prod.danawa.com/info/?pcode=99802238",
+          "fetchedAt": "2026-08-04T00:07:46.246Z",
+          "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
+        }
+      ],
+      "evidence": {
+        "facts.protein": {
+          "src": 0,
+          "quote": "다나와 스펙 — 조단백 47%"
+        },
+        "_남은일": {
+          "src": 0,
+          "quote": "라벨을 봐야 채워집니다 — 원료 표기 전체, 조섬유·수분(건물기준 탄수 계산용), 칼로리. 쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 46,280원 · 주단백질원 오리고기, 과일·야채 · 판매 용량 360g"
+        }
+      },
+      "collector": {
+        "agent": "다나와 수집",
+        "via": "scripts/collect-danawa.mjs",
+        "at": "2026-08-04T00:07:46.246Z"
+      }
+    },
+    {
+      "stagingId": "stg_thereal_99875597",
+      "proposed": {
+        "brand": "더리얼(하림)",
+        "brandSlug": "thereal",
+        "country": "KR",
+        "name": "크런치 닭고기 시니어",
+        "type": "dry",
+        "rx": false,
+        "ages": [
+          "senior"
+        ],
+        "sizes": [
+          "all"
+        ],
+        "ratings": {
+          "quality": null,
+          "carb": null,
+          "additive": null,
+          "value": null
+        },
+        "score": null,
+        "func": [],
+        "warnN": 0,
+        "concerns": [],
+        "facts": {
+          "protein": 24,
+          "dmCarb": null,
+          "firstIngrCat": null,
+          "cautionN": null,
+          "dangerN": null,
+          "pKg": null
+        },
+        "specOrigin": "domestic",
+        "ga": {
+          "protein": 24,
+          "fat": 14,
+          "fiber": null,
+          "moisture": null,
+          "ash": null
+        },
+        "ingredients": [],
+        "thumb": "https://img.danuri.io/catalog-image/597/875/099/ab8e25cd53dc413881886eb73e464f24.jpg?shrink=360:360",
+        "draft": true,
+        "pricePending": true,
+        "wgOptionsHint": []
+      },
+      "sources": [
+        {
+          "role": "retail",
+          "url": "https://prod.danawa.com/info/?pcode=99875597",
+          "fetchedAt": "2026-08-04T00:07:46.246Z",
+          "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
+        }
+      ],
+      "evidence": {
+        "facts.protein": {
+          "src": 0,
+          "quote": "다나와 스펙 — 조단백 24%"
+        },
+        "_남은일": {
+          "src": 0,
+          "quote": "라벨을 봐야 채워집니다 — 원료 표기 전체, 조섬유·수분(건물기준 탄수 계산용), 칼로리. 쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 3,870원 · 주단백질원 닭고기"
+        }
+      },
+      "collector": {
+        "agent": "다나와 수집",
+        "via": "scripts/collect-danawa.mjs",
+        "at": "2026-08-04T00:07:46.246Z"
+      }
+    },
+    {
+      "stagingId": "stg_thereal_100454987",
+      "proposed": {
+        "brand": "더리얼(하림)",
+        "brandSlug": "thereal",
+        "country": "KR",
+        "name": "크런치 닭고기 어덜트",
+        "type": "dry",
+        "rx": false,
+        "ages": [
+          "all"
+        ],
+        "sizes": [
+          "all"
+        ],
+        "ratings": {
+          "quality": null,
+          "carb": null,
+          "additive": null,
+          "value": null
+        },
+        "score": null,
+        "func": [],
+        "warnN": 0,
+        "concerns": [],
+        "facts": {
+          "protein": 26,
+          "dmCarb": null,
+          "firstIngrCat": null,
+          "cautionN": null,
+          "dangerN": null,
+          "pKg": null
+        },
+        "specOrigin": "domestic",
+        "ga": {
+          "protein": 26,
+          "fat": 16,
+          "fiber": null,
+          "moisture": null,
+          "ash": null
+        },
+        "ingredients": [],
+        "thumb": "https://img.danuri.io/catalog-image/987/454/100/90dcb24e4116467eb70c43ae2a14e1a0.jpg?shrink=360:360",
+        "draft": true,
+        "pricePending": true,
+        "wgOptionsHint": [
+          200
+        ]
+      },
+      "sources": [
+        {
+          "role": "retail",
+          "url": "https://prod.danawa.com/info/?pcode=100454987",
+          "fetchedAt": "2026-08-04T00:07:46.246Z",
+          "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
+        }
+      ],
+      "evidence": {
+        "facts.protein": {
+          "src": 0,
+          "quote": "다나와 스펙 — 조단백 26%"
+        },
+        "_남은일": {
+          "src": 0,
+          "quote": "라벨을 봐야 채워집니다 — 원료 표기 전체, 조섬유·수분(건물기준 탄수 계산용), 칼로리. 쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 5,990원 · 주단백질원 닭고기 · 판매 용량 200g"
+        }
+      },
+      "collector": {
+        "agent": "다나와 수집",
+        "via": "scripts/collect-danawa.mjs",
+        "at": "2026-08-04T00:07:46.246Z"
+      }
+    },
+    {
+      "stagingId": "stg_thereal_99805883",
+      "proposed": {
+        "brand": "더리얼(하림)",
+        "brandSlug": "thereal",
+        "country": "KR",
+        "name": "크런치 연어 어덜트",
+        "type": "dry",
+        "rx": false,
+        "ages": [
+          "all"
+        ],
+        "sizes": [
+          "all"
+        ],
+        "ratings": {
+          "quality": null,
+          "carb": null,
+          "additive": null,
+          "value": null
+        },
+        "score": null,
+        "func": [],
+        "warnN": 0,
+        "concerns": [],
+        "facts": {
+          "protein": 26,
+          "dmCarb": null,
+          "firstIngrCat": null,
+          "cautionN": null,
+          "dangerN": null,
+          "pKg": null
+        },
+        "specOrigin": "domestic",
+        "ga": {
+          "protein": 26,
+          "fat": 16,
+          "fiber": null,
+          "moisture": null,
+          "ash": null
+        },
+        "ingredients": [],
+        "thumb": "https://img.danuri.io/catalog-image/883/805/099/f1db782c51c344ecb92353ab52ff8713.jpg?shrink=360:360",
+        "draft": true,
+        "pricePending": true,
+        "wgOptionsHint": [
+          1600
+        ]
+      },
+      "sources": [
+        {
+          "role": "retail",
+          "url": "https://prod.danawa.com/info/?pcode=99805883",
+          "fetchedAt": "2026-08-04T00:07:46.246Z",
+          "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
+        }
+      ],
+      "evidence": {
+        "facts.protein": {
+          "src": 0,
+          "quote": "다나와 스펙 — 조단백 26%"
+        },
+        "_남은일": {
+          "src": 0,
+          "quote": "라벨을 봐야 채워집니다 — 원료 표기 전체, 조섬유·수분(건물기준 탄수 계산용), 칼로리. 쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 34,410원 · 주단백질원 연어 · 판매 용량 1.6kg"
+        }
+      },
+      "collector": {
+        "agent": "다나와 수집",
+        "via": "scripts/collect-danawa.mjs",
+        "at": "2026-08-04T00:07:46.246Z"
+      }
+    }
+  ]
+}

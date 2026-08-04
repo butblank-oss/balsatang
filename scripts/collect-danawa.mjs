@@ -67,13 +67,19 @@ async function detail(pcode) {
 
   /* 스펙 줄 — '강아지 전용 / 사료 / 전연령 / 건식 / 스몰(~8mm) / 주 단백질원: …' */
   const i = html.indexOf('spec_list');
-  const spec = i < 0 ? '' : strip(html.slice(i, i + 1600).replace(/<[^>]+>/g, '|'))
+  /* [영양정보] 블록이 뒤쪽에 있어서 1600자로는 잘렸다. 넉넉히 읽는다. */
+  const spec = i < 0 ? '' : strip(html.slice(i, i + 3000).replace(/<[^>]+>/g, '|'))
     .replace(/\|+/g, '|').replace(/^spec_list"?>?\|?/, '');
 
-  /* 조단백·조지방은 keywords 에 섞여 있다 */
-  const kw = meta('keywords') || html.slice(0, 4000);
-  const prot = /조단백\s*:?\s*([0-9.]+)\s*%/.exec(kw);
-  const fat = /조지방\s*:?\s*([0-9.]+)\s*%/.exec(kw);
+  /* 스펙의 [영양정보] 가 조섬유·조회분·수분까지 준다. 없으면 keywords 로 물러선다.
+     넷(조단백·조지방·조섬유·수분)이 다 있으면 건물기준 탄수를 낼 수 있다. */
+  const kw = spec + ' ' + (meta('keywords') || '');
+  const num = label => {
+    const m = new RegExp(label + '\\s*\\|?\\s*:?\\s*\\|?\\s*([0-9.]+)\\s*%').exec(kw);
+    return m ? Number(m[1]) : null;
+  };
+  const prot = num('조단백') != null ? [null, num('조단백')] : null;
+  const fat = num('조지방') != null ? [null, num('조지방')] : null;
   /* '주 단백질원|: |칠면조고기|, |닭고기|' 처럼 항목마다 막대가 낀다.
      콜론 뒤부터 다음 슬래시(다음 스펙 항목) 전까지를 통째로 걷어낸다. */
   const mp = /주 ?단백질원\s*\|?\s*:\s*([\s\S]*?)(?:\/|$)/.exec(spec);
@@ -85,8 +91,10 @@ async function detail(pcode) {
     type: /건식/.test(spec) ? 'dry' : /습식/.test(spec) ? 'wet' : /동결건조/.test(spec) ? 'freeze_dried' : null,
     age: /전연령/.test(spec) ? 'all' : /퍼피|자견/.test(spec) ? 'puppy'
       : /시니어|노령/.test(spec) ? 'senior' : /성견/.test(spec) ? 'adult' : null,
-    protein: prot ? Number(prot[1]) : null,
-    fat: fat ? Number(fat[1]) : null,
+    protein: num('조단백'), fat: num('조지방'),
+    fiber: num('조섬유'), ash: num('조회분'), moisture: num('수분'),
+    /* 다나와 스펙에 '처방식' 이 찍힌다. 수의사 처방 사료는 화면에서 따로 안내한다. */
+    rx: /\|처방식\|/.test(spec) || /처방식/.test(spec),
     mainProtein: mainProt?.[0] || null,
     spec
   };
@@ -94,13 +102,19 @@ async function detail(pcode) {
 
 /* 제품명 끝의 용량을 g 으로. '11.4kg' → 11400 */
 function weightOf(title) {
-  const m = /([\d.]+)\s*(kg|g)\s*$/i.exec(title.trim());
+  const t = title.replace(/\s*\([^)]*\)\s*$/, '').trim();
+  const m = /([\d.]+)\s*(kg|g)\s*$/i.exec(t);
   if (!m) return null;
   const n = Number(m[1]);
-  return /kg/i.test(m[2]) ? Math.round(n * 1000) : Math.round(n);
+  const g = /kg/i.test(m[2]) ? Math.round(n * 1000) : Math.round(n);
+  /* 50g·6g 짜리는 사료가 아니라 샘플이나 간식이다. 판매 용량으로 세지 않는다. */
+  return g >= 200 ? g : null;
 }
 /* 용량을 뗀 나머지가 제품이다. '오리젠 독 퍼피 6kg' → '오리젠 독 퍼피' */
-const baseName = t => t.replace(/\s*[\d.]+\s*(kg|g)\s*$/i, '').trim();
+const baseName = t => t
+  .replace(/\s*\([^)]*\)\s*$/, '')          /* '(11.4kg x 1개)' 같은 꼬리 먼저 */
+  .replace(/\s*[\d.]+\s*(kg|g)\s*$/i, '')
+  .trim();
 
 /* ── 실행 ── */
 const codes = await findCodes(QUERY);
@@ -156,7 +170,8 @@ for (const g of [...groups.values()].sort((a, b) => a.key.localeCompare(b.key, '
   const sizes = [...new Set(g.sizes)].sort((a, b) => a - b);
   const low = g.rows.map(r => r.lowPrice).filter(Boolean).sort((a, b) => a - b)[0] ?? null;
   console.log(`\n■ ${g.key}   ${sizes.map(s => s >= 1000 ? s / 1000 + 'kg' : s + 'g').join(' / ')}`);
-  console.log(`   제형 ${best.type ?? '?'} · 연령 ${best.age ?? '?'} · 조단백 ${best.protein ?? '?'}% · 조지방 ${best.fat ?? '?'}%`);
+  console.log(`   제형 ${best.type ?? '?'} · 연령 ${best.age ?? '?'}${best.rx ? ' · 처방식' : ''}` +
+    ` · 조단백 ${best.protein ?? '?'} 조지방 ${best.fat ?? '?'} 조섬유 ${best.fiber ?? '?'} 수분 ${best.moisture ?? '?'}`);
   console.log(`   주단백질원 ${best.mainProtein ?? '?'}`);
   console.log(`   다나와 최저가 ${low ? low.toLocaleString('ko-KR') + '원' : '?'} · 사진 ${best.img ? '있음' : '없음'}`);
   items.push({ ...best, base: g.key, sizes, low });

@@ -42,12 +42,15 @@ if (!rows.length) {
   process.exit(0);
 }
 const nospace = s => String(s ?? '').replace(/\s+/g, '');
-const alien = rows.filter(r => !nospace(r.base).startsWith(nospace(BRAND)));
+/* 표시할 브랜드명과 다나와 표기가 다를 수 있다 — 우리는 '더리얼(하림)' 로 쓰는데
+   다나와는 '더리얼 독' 이다. 무엇으로 긁었는지(query)를 기준으로 삼는다. */
+const PREFIX = raw.query ?? BRAND;
+const alien = rows.filter(r => !nospace(r.base).startsWith(nospace(PREFIX)));
 if (alien.length) {
   console.log(`\n❌ 수집 결과가 ${BRAND} 것이 아닙니다 — 다른 브랜드가 섞여 있습니다.`);
   console.log(`   수집 검색어: ${raw.query ?? '(모름)'}`);
   for (const a of alien.slice(0, 5)) console.log(`   · ${a.base}`);
-  console.log(`   collect-danawa.mjs "${BRAND} 독" --write 를 먼저 돌리세요.\n`);
+  console.log(`   collect-danawa.mjs 를 이 브랜드로 먼저 돌리세요.\n`);
   process.exit(1);
 }
 
@@ -76,25 +79,37 @@ let skipped = 0;
 for (const r of rows) {
   /* '로얄 캐닌 독 미니 인도어 어덜트' → '미니 인도어 어덜트'.
      브랜드가 띄어 쓰여 있을 수 있으니 글자 사이 공백을 허용해 지운다. */
-  const brandRe = new RegExp('^' + BRAND.split('').map(c => c.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('\\s*') + '\\s*(독)?\\s*');
-  const name = r.base.replace(brandRe, '').trim() || r.base;
+  const preRe = new RegExp('^' + PREFIX.split('').filter(c => !/\s/.test(c))
+    .map(c => c.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('\\s*') + '\\s*');
+  /* 검색어에 '독' 이 안 들어간 브랜드('지위픽')는 앞에 '독' 이 남는다 */
+  const name = r.base.replace(preRe, '').replace(/^독\s+/, '').trim() || r.base;
+  /* 다나와는 같은 제품을 띄어쓰기만 달리 올려 둔다 — '어덜트 스몰 브리드' 와
+     '어덜트 스몰브리드'. 공백을 지운 이름으로 견줘 한 번만 올린다. */
   if (known.has(norm(BRAND + name))) { skipped++; continue; }
+  known.add(norm(BRAND + name));
+
+  /* 조단백·조지방·조섬유·수분이 다 있으면 건물기준 탄수를 낼 수 있다.
+     조회분은 기존 사료들과 같은 방식으로 빼지 않는다. */
+  const dmCarb = [r.protein, r.fat, r.fiber, r.moisture].every(v => v != null)
+    ? Math.round(((100 - (r.protein + r.fat + r.fiber + r.moisture)) / (100 - r.moisture)) * 1000) / 10
+    : null;
 
   items.push({
     stagingId: `stg_${SLUG}_${r.pcode}`,
     proposed: {
       brand: BRAND, brandSlug: SLUG, country: COUNTRY, name,
-      type: r.type ?? 'dry', rx: false,
+      type: r.type ?? 'dry', rx: !!r.rx,
       ages: [r.age ?? 'all'], sizes: ['all'],
       /* 원료가 없어 낼 수 있는 별점이 없다. 지어내지 않는다. */
       ratings: { quality: null, carb: null, additive: null, value: null },
       score: null, func: [], warnN: 0, concerns: [],
-      facts: { protein: r.protein ?? null, dmCarb: null, firstIngrCat: null,
+      facts: { protein: r.protein ?? null, dmCarb, firstIngrCat: null,
                cautionN: null, dangerN: null, pKg: null },
       specOrigin: 'domestic',
-      /* 다나와가 준 두 값만. 조섬유·수분·조회분은 라벨을 봐야 한다. */
+      /* 다나와 [영양정보] 가 조섬유·조회분·수분까지 준다. 넷이 다 있으면
+         건물기준 탄수까지 나온다 — 그래도 원료가 없어 별점 둘은 여전히 못 낸다. */
       ga: { protein: r.protein ?? null, fat: r.fat ?? null,
-            fiber: null, moisture: null, ash: null },
+            fiber: r.fiber ?? null, moisture: r.moisture ?? null, ash: r.ash ?? null },
       ingredients: [],
       ...(r.img ? { thumb: r.img + '?shrink=360:360' } : {}),
       /* 아직 라벨을 못 봤다. 게이트는 이 표시를 보고 채점 검사를 미룬다 —
@@ -111,7 +126,7 @@ for (const r of rows) {
       'facts.protein': r.protein != null
         ? { src: 0, quote: `다나와 스펙 — 조단백 ${r.protein}%` } : undefined,
       '_남은일': { src: 0, quote:
-        `라벨을 봐야 채워집니다 — 원료 표기 전체, 조섬유·수분(건물기준 탄수 계산용), 칼로리. ` +
+        `라벨을 봐야 채워집니다 — 원료 표기 전체${r.fiber == null ? ', 조섬유·수분(건물기준 탄수 계산용)' : ''}, 칼로리. ` +
         `쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 ` +
         `${r.low ? r.low.toLocaleString('ko-KR') + '원' : '미확인'}` +
         `${r.mainProtein ? ` · 주단백질원 ${r.mainProtein}` : ''}` +

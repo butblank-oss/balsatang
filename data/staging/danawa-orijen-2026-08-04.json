@@ -1,6 +1,6 @@
 {
-  "batchId": "danawa-orijen-2026-08-03",
-  "collectedAt": "2026-08-03T14:52:02.864Z",
+  "batchId": "danawa-orijen-2026-08-04",
+  "collectedAt": "2026-08-04T00:03:20.732Z",
   "collector": {
     "agent": "다나와 수집",
     "model": null
@@ -42,27 +42,27 @@
         "specOrigin": "domestic",
         "ga": {
           "protein": 38,
-          "fat": 18,
+          "fat": null,
           "fiber": null,
           "moisture": null,
           "ash": null
         },
         "ingredients": [],
         "thumb": "https://img.danuri.io/catalog-image/451/418/015/d62c321823934f1583447f3e46d810cb.jpg?shrink=360:360",
+        "draft": true,
         "pricePending": true,
         "wgOptionsHint": [
           1000,
           2000,
           6000,
           11400
-        ],
-        "draft": true
+        ]
       },
       "sources": [
         {
           "role": "retail",
           "url": "https://prod.danawa.com/info/?pcode=15418451",
-          "fetchedAt": "2026-08-03T14:52:02.864Z",
+          "fetchedAt": "2026-08-04T00:03:20.732Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
         }
       ],
@@ -79,7 +79,7 @@
       "collector": {
         "agent": "다나와 수집",
         "via": "scripts/collect-danawa.mjs",
-        "at": "2026-08-03T14:52:02.864Z"
+        "at": "2026-08-04T00:03:20.732Z"
       }
     },
     {
@@ -109,7 +109,7 @@
         "concerns": [],
         "facts": {
           "protein": 40,
-          "dmCarb": null,
+          "dmCarb": 33,
           "firstIngrCat": null,
           "cautionN": null,
           "dangerN": null,
@@ -119,24 +119,24 @@
         "ga": {
           "protein": 40,
           "fat": 15,
-          "fiber": null,
-          "moisture": null,
-          "ash": null
+          "fiber": 4,
+          "moisture": 12,
+          "ash": 10
         },
         "ingredients": [],
         "thumb": "https://img.danuri.io/catalog-image/871/682/123/3e49027246774caf9a620359dc8fe482.webp?shrink=360:360",
+        "draft": true,
         "pricePending": true,
         "wgOptionsHint": [
           1800,
           4500
-        ],
-        "draft": true
+        ]
       },
       "sources": [
         {
           "role": "retail",
           "url": "https://prod.danawa.com/info/?pcode=123682871",
-          "fetchedAt": "2026-08-03T14:52:02.864Z",
+          "fetchedAt": "2026-08-04T00:03:20.732Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
         }
       ],
@@ -147,13 +147,13 @@
         },
         "_남은일": {
           "src": 0,
-          "quote": "라벨을 봐야 채워집니다 — 원료 표기 전체, 조섬유·수분(건물기준 탄수 계산용), 칼로리. 쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 32,510원 · 주단백질원 연어, 기타생선류, 과일·야채 · 판매 용량 1.8kg, 4.5kg"
+          "quote": "라벨을 봐야 채워집니다 — 원료 표기 전체, 칼로리. 쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 32,510원 · 주단백질원 연어, 기타생선류, 과일·야채 · 판매 용량 1.8kg, 4.5kg"
         }
       },
       "collector": {
         "agent": "다나와 수집",
         "via": "scripts/collect-danawa.mjs",
-        "at": "2026-08-03T14:52:02.864Z"
+        "at": "2026-08-04T00:03:20.732Z"
       }
     },
     {
@@ -199,18 +199,18 @@
         },
         "ingredients": [],
         "thumb": "https://img.danuri.io/catalog-image/189/815/099/afb076c267e94531985f37d40fde3eae.jpg?shrink=360:360",
+        "draft": true,
         "pricePending": true,
         "wgOptionsHint": [
           1800,
           4500
-        ],
-        "draft": true
+        ]
       },
       "sources": [
         {
           "role": "retail",
           "url": "https://prod.danawa.com/info/?pcode=99815189",
-          "fetchedAt": "2026-08-03T14:52:02.864Z",
+          "fetchedAt": "2026-08-04T00:03:20.732Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
         }
       ],
@@ -227,7 +227,82 @@
       "collector": {
         "agent": "다나와 수집",
         "via": "scripts/collect-danawa.mjs",
-        "at": "2026-08-03T14:52:02.864Z"
+        "at": "2026-08-04T00:03:20.732Z"
+      }
+    },
+    {
+      "stagingId": "stg_orijen_5195074",
+      "proposed": {
+        "brand": "오리젠",
+        "brandSlug": "orijen",
+        "country": "CA",
+        "name": "시니어",
+        "type": "dry",
+        "rx": false,
+        "ages": [
+          "senior"
+        ],
+        "sizes": [
+          "all"
+        ],
+        "ratings": {
+          "quality": null,
+          "carb": null,
+          "additive": null,
+          "value": null
+        },
+        "score": null,
+        "func": [],
+        "warnN": 0,
+        "concerns": [],
+        "facts": {
+          "protein": 38,
+          "dmCarb": null,
+          "firstIngrCat": null,
+          "cautionN": null,
+          "dangerN": null,
+          "pKg": null
+        },
+        "specOrigin": "domestic",
+        "ga": {
+          "protein": 38,
+          "fat": 15,
+          "fiber": null,
+          "moisture": null,
+          "ash": null
+        },
+        "ingredients": [],
+        "thumb": "https://img.danuri.io/catalog-image/074/195/005/3bc90ca1bd804dfa980ae6711f25050c.jpg?shrink=360:360",
+        "draft": true,
+        "pricePending": true,
+        "wgOptionsHint": [
+          2000,
+          6000,
+          11400
+        ]
+      },
+      "sources": [
+        {
+          "role": "retail",
+          "url": "https://prod.danawa.com/info/?pcode=5195074",
+          "fetchedAt": "2026-08-04T00:03:20.732Z",
+          "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
+        }
+      ],
+      "evidence": {
+        "facts.protein": {
+          "src": 0,
+          "quote": "다나와 스펙 — 조단백 38%"
+        },
+        "_남은일": {
+          "src": 0,
+          "quote": "라벨을 봐야 채워집니다 — 원료 표기 전체, 조섬유·수분(건물기준 탄수 계산용), 칼로리. 쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 33,920원 · 주단백질원 칠면조고기, 과일·야채, 닭고기, 기타생선류 · 판매 용량 2kg, 6kg, 11.4kg"
+        }
+      },
+      "collector": {
+        "agent": "다나와 수집",
+        "via": "scripts/collect-danawa.mjs",
+        "at": "2026-08-04T00:03:20.732Z"
       }
     },
     {
@@ -273,20 +348,20 @@
         },
         "ingredients": [],
         "thumb": "https://img.danuri.io/catalog-image/771/266/004/dc3cc54522d74a30bd6d6e44f76a963f.jpg?shrink=360:360",
+        "draft": true,
         "pricePending": true,
         "wgOptionsHint": [
           340,
           2000,
           6000,
           11400
-        ],
-        "draft": true
+        ]
       },
       "sources": [
         {
           "role": "retail",
           "url": "https://prod.danawa.com/info/?pcode=4266771",
-          "fetchedAt": "2026-08-03T14:52:02.864Z",
+          "fetchedAt": "2026-08-04T00:03:20.732Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
         }
       ],
@@ -303,7 +378,82 @@
       "collector": {
         "agent": "다나와 수집",
         "via": "scripts/collect-danawa.mjs",
-        "at": "2026-08-03T14:52:02.864Z"
+        "at": "2026-08-04T00:03:20.732Z"
+      }
+    },
+    {
+      "stagingId": "stg_orijen_99804548",
+      "proposed": {
+        "brand": "오리젠",
+        "brandSlug": "orijen",
+        "country": "CA",
+        "name": "퍼피",
+        "type": "dry",
+        "rx": false,
+        "ages": [
+          "puppy"
+        ],
+        "sizes": [
+          "all"
+        ],
+        "ratings": {
+          "quality": null,
+          "carb": null,
+          "additive": null,
+          "value": null
+        },
+        "score": null,
+        "func": [],
+        "warnN": 0,
+        "concerns": [],
+        "facts": {
+          "protein": 38,
+          "dmCarb": null,
+          "firstIngrCat": null,
+          "cautionN": null,
+          "dangerN": null,
+          "pKg": null
+        },
+        "specOrigin": "domestic",
+        "ga": {
+          "protein": 38,
+          "fat": null,
+          "fiber": null,
+          "moisture": null,
+          "ash": null
+        },
+        "ingredients": [],
+        "thumb": "https://img.danuri.io/catalog-image/548/804/099/21464b29f508446a9849bc10496f1167.jpg?shrink=360:360",
+        "draft": true,
+        "pricePending": true,
+        "wgOptionsHint": [
+          2000,
+          6000,
+          11400
+        ]
+      },
+      "sources": [
+        {
+          "role": "retail",
+          "url": "https://prod.danawa.com/info/?pcode=99804548",
+          "fetchedAt": "2026-08-04T00:03:20.732Z",
+          "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
+        }
+      ],
+      "evidence": {
+        "facts.protein": {
+          "src": 0,
+          "quote": "다나와 스펙 — 조단백 38%"
+        },
+        "_남은일": {
+          "src": 0,
+          "quote": "라벨을 봐야 채워집니다 — 원료 표기 전체, 조섬유·수분(건물기준 탄수 계산용), 칼로리. 쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 31,500원 · 주단백질원 기타생선류, 닭고기, 칠면조고기, 과일·야채 · 판매 용량 2kg, 6kg, 11.4kg"
+        }
+      },
+      "collector": {
+        "agent": "다나와 수집",
+        "via": "scripts/collect-danawa.mjs",
+        "at": "2026-08-04T00:03:20.732Z"
       }
     },
     {
@@ -342,25 +492,25 @@
         "specOrigin": "domestic",
         "ga": {
           "protein": 38,
-          "fat": 20,
+          "fat": null,
           "fiber": null,
           "moisture": null,
           "ash": null
         },
         "ingredients": [],
         "thumb": "https://img.danuri.io/catalog-image/134/195/005/b0683500353841f28ed44bec9a5f0bae.jpg?shrink=360:360",
+        "draft": true,
         "pricePending": true,
         "wgOptionsHint": [
           6000,
           11400
-        ],
-        "draft": true
+        ]
       },
       "sources": [
         {
           "role": "retail",
           "url": "https://prod.danawa.com/info/?pcode=5195134",
-          "fetchedAt": "2026-08-03T14:52:02.864Z",
+          "fetchedAt": "2026-08-04T00:03:20.732Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
         }
       ],
@@ -377,7 +527,7 @@
       "collector": {
         "agent": "다나와 수집",
         "via": "scripts/collect-danawa.mjs",
-        "at": "2026-08-03T14:52:02.864Z"
+        "at": "2026-08-04T00:03:20.732Z"
       }
     },
     {
@@ -416,24 +566,24 @@
         "specOrigin": "domestic",
         "ga": {
           "protein": 38,
-          "fat": 18,
+          "fat": null,
           "fiber": null,
           "moisture": null,
           "ash": null
         },
         "ingredients": [],
         "thumb": "https://img.danuri.io/catalog-image/223/052/069/418372b3c41b47949f538e2399438473.jpg?shrink=360:360",
+        "draft": true,
         "pricePending": true,
         "wgOptionsHint": [
           1800
-        ],
-        "draft": true
+        ]
       },
       "sources": [
         {
           "role": "retail",
           "url": "https://prod.danawa.com/info/?pcode=69052223",
-          "fetchedAt": "2026-08-03T14:52:02.864Z",
+          "fetchedAt": "2026-08-04T00:03:20.732Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
         }
       ],
@@ -450,7 +600,7 @@
       "collector": {
         "agent": "다나와 수집",
         "via": "scripts/collect-danawa.mjs",
-        "at": "2026-08-03T14:52:02.864Z"
+        "at": "2026-08-04T00:03:20.732Z"
       }
     },
     {
@@ -496,19 +646,19 @@
         },
         "ingredients": [],
         "thumb": "https://img.danuri.io/catalog-image/368/068/013/bc2c0b5ce53e49168591c47f1579e8a9.jpg?shrink=360:360",
+        "draft": true,
         "pricePending": true,
         "wgOptionsHint": [
           2000,
           6000,
           11400
-        ],
-        "draft": true
+        ]
       },
       "sources": [
         {
           "role": "retail",
           "url": "https://prod.danawa.com/info/?pcode=13068368",
-          "fetchedAt": "2026-08-03T14:52:02.864Z",
+          "fetchedAt": "2026-08-04T00:03:20.732Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
         }
       ],
@@ -525,7 +675,7 @@
       "collector": {
         "agent": "다나와 수집",
         "via": "scripts/collect-danawa.mjs",
-        "at": "2026-08-03T14:52:02.864Z"
+        "at": "2026-08-04T00:03:20.732Z"
       }
     }
   ]

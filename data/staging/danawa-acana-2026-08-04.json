@@ -1,6 +1,6 @@
 {
-  "batchId": "danawa-acana-2026-08-03",
-  "collectedAt": "2026-08-03T23:43:03.207Z",
+  "batchId": "danawa-acana-2026-08-04",
+  "collectedAt": "2026-08-04T00:04:37.811Z",
   "collector": {
     "agent": "다나와 수집",
     "model": null
@@ -52,7 +52,6 @@
         "draft": true,
         "pricePending": true,
         "wgOptionsHint": [
-          50,
           2000,
           6000,
           11400
@@ -62,7 +61,7 @@
         {
           "role": "retail",
           "url": "https://prod.danawa.com/info/?pcode=11250735",
-          "fetchedAt": "2026-08-03T23:43:03.207Z",
+          "fetchedAt": "2026-08-04T00:04:37.811Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
         }
       ],
@@ -73,13 +72,13 @@
         },
         "_남은일": {
           "src": 0,
-          "quote": "라벨을 봐야 채워집니다 — 원료 표기 전체, 조섬유·수분(건물기준 탄수 계산용), 칼로리. 쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 31,870원 · 주단백질원 과일·야채, 닭고기 · 판매 용량 50g, 2kg, 6kg, 11.4kg"
+          "quote": "라벨을 봐야 채워집니다 — 원료 표기 전체, 조섬유·수분(건물기준 탄수 계산용), 칼로리. 쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 31,870원 · 주단백질원 과일·야채, 닭고기 · 판매 용량 2kg, 6kg, 11.4kg"
         }
       },
       "collector": {
         "agent": "다나와 수집",
         "via": "scripts/collect-danawa.mjs",
-        "at": "2026-08-03T23:43:03.207Z"
+        "at": "2026-08-04T00:04:37.811Z"
       }
     },
     {
@@ -135,7 +134,7 @@
         {
           "role": "retail",
           "url": "https://prod.danawa.com/info/?pcode=99815597",
-          "fetchedAt": "2026-08-03T23:43:03.207Z",
+          "fetchedAt": "2026-08-04T00:04:37.811Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
         }
       ],
@@ -152,7 +151,7 @@
       "collector": {
         "agent": "다나와 수집",
         "via": "scripts/collect-danawa.mjs",
-        "at": "2026-08-03T23:43:03.207Z"
+        "at": "2026-08-04T00:04:37.811Z"
       }
     },
     {
@@ -208,7 +207,7 @@
         {
           "role": "retail",
           "url": "https://prod.danawa.com/info/?pcode=91498661",
-          "fetchedAt": "2026-08-03T23:43:03.207Z",
+          "fetchedAt": "2026-08-04T00:04:37.811Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
         }
       ],
@@ -221,7 +220,7 @@
       "collector": {
         "agent": "다나와 수집",
         "via": "scripts/collect-danawa.mjs",
-        "at": "2026-08-03T23:43:03.207Z"
+        "at": "2026-08-04T00:04:37.811Z"
       }
     },
     {
@@ -251,7 +250,7 @@
         "concerns": [],
         "facts": {
           "protein": 29,
-          "dmCarb": null,
+          "dmCarb": 42,
           "firstIngrCat": null,
           "cautionN": null,
           "dangerN": null,
@@ -261,9 +260,9 @@
         "ga": {
           "protein": 29,
           "fat": 17,
-          "fiber": null,
-          "moisture": null,
-          "ash": null
+          "fiber": 5,
+          "moisture": 12,
+          "ash": 7
         },
         "ingredients": [],
         "thumb": "https://img.danuri.io/catalog-image/026/631/104/ddd38760763c41b8bad2745b58133a87.jpg?shrink=360:360",
@@ -279,7 +278,7 @@
         {
           "role": "retail",
           "url": "https://prod.danawa.com/info/?pcode=104631026",
-          "fetchedAt": "2026-08-03T23:43:03.207Z",
+          "fetchedAt": "2026-08-04T00:04:37.811Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
         }
       ],
@@ -290,13 +289,13 @@
         },
         "_남은일": {
           "src": 0,
-          "quote": "라벨을 봐야 채워집니다 — 원료 표기 전체, 조섬유·수분(건물기준 탄수 계산용), 칼로리. 쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 25,920원 · 주단백질원 칠면조고기, 과일·야채, 닭고기, 기타생선류 · 판매 용량 2kg, 6kg, 11.4kg"
+          "quote": "라벨을 봐야 채워집니다 — 원료 표기 전체, 칼로리. 쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 25,920원 · 주단백질원 칠면조고기, 과일·야채, 닭고기, 기타생선류 · 판매 용량 2kg, 6kg, 11.4kg"
         }
       },
       "collector": {
         "agent": "다나와 수집",
         "via": "scripts/collect-danawa.mjs",
-        "at": "2026-08-03T23:43:03.207Z"
+        "at": "2026-08-04T00:04:37.811Z"
       }
     },
     {
@@ -352,7 +351,7 @@
         {
           "role": "retail",
           "url": "https://prod.danawa.com/info/?pcode=104631122",
-          "fetchedAt": "2026-08-03T23:43:03.207Z",
+          "fetchedAt": "2026-08-04T00:04:37.811Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
         }
       ],
@@ -369,7 +368,7 @@
       "collector": {
         "agent": "다나와 수집",
         "via": "scripts/collect-danawa.mjs",
-        "at": "2026-08-03T23:43:03.207Z"
+        "at": "2026-08-04T00:04:37.811Z"
       }
     },
     {
@@ -426,7 +425,7 @@
         {
           "role": "retail",
           "url": "https://prod.danawa.com/info/?pcode=11250522",
-          "fetchedAt": "2026-08-03T23:43:03.207Z",
+          "fetchedAt": "2026-08-04T00:04:37.811Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
         }
       ],
@@ -443,80 +442,7 @@
       "collector": {
         "agent": "다나와 수집",
         "via": "scripts/collect-danawa.mjs",
-        "at": "2026-08-03T23:43:03.207Z"
-      }
-    },
-    {
-      "stagingId": "stg_acana_104631155",
-      "proposed": {
-        "brand": "아카나",
-        "brandSlug": "acana",
-        "country": "CA",
-        "name": "어덜트 스몰브리드",
-        "type": "dry",
-        "rx": false,
-        "ages": [
-          "all"
-        ],
-        "sizes": [
-          "all"
-        ],
-        "ratings": {
-          "quality": null,
-          "carb": null,
-          "additive": null,
-          "value": null
-        },
-        "score": null,
-        "func": [],
-        "warnN": 0,
-        "concerns": [],
-        "facts": {
-          "protein": 31,
-          "dmCarb": null,
-          "firstIngrCat": null,
-          "cautionN": null,
-          "dangerN": null,
-          "pKg": null
-        },
-        "specOrigin": "domestic",
-        "ga": {
-          "protein": 31,
-          "fat": 17,
-          "fiber": null,
-          "moisture": null,
-          "ash": null
-        },
-        "ingredients": [],
-        "thumb": "https://img.danuri.io/catalog-image/155/631/104/4d4d9ed1df1f4c9f80d452fc327dc7eb.jpg?shrink=360:360",
-        "draft": true,
-        "pricePending": true,
-        "wgOptionsHint": [
-          2000
-        ]
-      },
-      "sources": [
-        {
-          "role": "retail",
-          "url": "https://prod.danawa.com/info/?pcode=104631155",
-          "fetchedAt": "2026-08-03T23:43:03.207Z",
-          "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
-        }
-      ],
-      "evidence": {
-        "facts.protein": {
-          "src": 0,
-          "quote": "다나와 스펙 — 조단백 31%"
-        },
-        "_남은일": {
-          "src": 0,
-          "quote": "라벨을 봐야 채워집니다 — 원료 표기 전체, 조섬유·수분(건물기준 탄수 계산용), 칼로리. 쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 64,800원 · 주단백질원 기타생선류, 닭고기, 칠면조고기, 과일·야채 · 판매 용량 2kg"
-        }
-      },
-      "collector": {
-        "agent": "다나와 수집",
-        "via": "scripts/collect-danawa.mjs",
-        "at": "2026-08-03T23:43:03.207Z"
+        "at": "2026-08-04T00:04:37.811Z"
       }
     },
     {
@@ -572,7 +498,7 @@
         {
           "role": "retail",
           "url": "https://prod.danawa.com/info/?pcode=33141803",
-          "fetchedAt": "2026-08-03T23:43:03.207Z",
+          "fetchedAt": "2026-08-04T00:04:37.811Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
         }
       ],
@@ -589,7 +515,7 @@
       "collector": {
         "agent": "다나와 수집",
         "via": "scripts/collect-danawa.mjs",
-        "at": "2026-08-03T23:43:03.207Z"
+        "at": "2026-08-04T00:04:37.811Z"
       }
     },
     {
@@ -645,7 +571,7 @@
         {
           "role": "retail",
           "url": "https://prod.danawa.com/info/?pcode=45309749",
-          "fetchedAt": "2026-08-03T23:43:03.207Z",
+          "fetchedAt": "2026-08-04T00:04:37.811Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
         }
       ],
@@ -662,7 +588,7 @@
       "collector": {
         "agent": "다나와 수집",
         "via": "scripts/collect-danawa.mjs",
-        "at": "2026-08-03T23:43:03.207Z"
+        "at": "2026-08-04T00:04:37.811Z"
       }
     },
     {
@@ -720,7 +646,7 @@
         {
           "role": "retail",
           "url": "https://prod.danawa.com/info/?pcode=96034961",
-          "fetchedAt": "2026-08-03T23:43:03.207Z",
+          "fetchedAt": "2026-08-04T00:04:37.811Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
         }
       ],
@@ -737,11 +663,11 @@
       "collector": {
         "agent": "다나와 수집",
         "via": "scripts/collect-danawa.mjs",
-        "at": "2026-08-03T23:43:03.207Z"
+        "at": "2026-08-04T00:04:37.811Z"
       }
     },
     {
-      "stagingId": "stg_acana_99812186",
+      "stagingId": "stg_acana_75361673",
       "proposed": {
         "brand": "아카나",
         "brandSlug": "acana",
@@ -782,90 +708,20 @@
           "ash": null
         },
         "ingredients": [],
-        "thumb": "https://img.danuri.io/catalog-image/186/812/099/db3c9816413f4fc384c83c445e8cce2b.jpg?shrink=360:360",
+        "thumb": "https://img.danuri.io/catalog-image/673/361/075/03e6d94a8b2f4cd080b65e8c09e752b5.png?shrink=360:360",
         "draft": true,
         "pricePending": true,
         "wgOptionsHint": [
           2000,
-          6000
+          6000,
+          11400
         ]
       },
       "sources": [
         {
           "role": "retail",
-          "url": "https://prod.danawa.com/info/?pcode=99812186",
-          "fetchedAt": "2026-08-03T23:43:03.207Z",
-          "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
-        }
-      ],
-      "evidence": {
-        "facts.protein": {
-          "src": 0,
-          "quote": "다나와 스펙 — 조단백 31%"
-        },
-        "_남은일": {
-          "src": 0,
-          "quote": "라벨을 봐야 채워집니다 — 원료 표기 전체, 조섬유·수분(건물기준 탄수 계산용), 칼로리. 쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 27,378원 · 주단백질원 돼지고기, 과일·야채 · 판매 용량 2kg, 6kg"
-        }
-      },
-      "collector": {
-        "agent": "다나와 수집",
-        "via": "scripts/collect-danawa.mjs",
-        "at": "2026-08-03T23:43:03.207Z"
-      }
-    },
-    {
-      "stagingId": "stg_acana_75361673",
-      "proposed": {
-        "brand": "아카나",
-        "brandSlug": "acana",
-        "country": "CA",
-        "name": "요크셔 포크 11.4kg (11.4kg x 1개)",
-        "type": "dry",
-        "rx": false,
-        "ages": [
-          "all"
-        ],
-        "sizes": [
-          "all"
-        ],
-        "ratings": {
-          "quality": null,
-          "carb": null,
-          "additive": null,
-          "value": null
-        },
-        "score": null,
-        "func": [],
-        "warnN": 0,
-        "concerns": [],
-        "facts": {
-          "protein": 31,
-          "dmCarb": null,
-          "firstIngrCat": null,
-          "cautionN": null,
-          "dangerN": null,
-          "pKg": null
-        },
-        "specOrigin": "domestic",
-        "ga": {
-          "protein": 31,
-          "fat": 15,
-          "fiber": null,
-          "moisture": null,
-          "ash": null
-        },
-        "ingredients": [],
-        "thumb": "https://img.danuri.io/catalog-image/673/361/075/03e6d94a8b2f4cd080b65e8c09e752b5.png?shrink=360:360",
-        "draft": true,
-        "pricePending": true,
-        "wgOptionsHint": []
-      },
-      "sources": [
-        {
-          "role": "retail",
           "url": "https://prod.danawa.com/info/?pcode=75361673",
-          "fetchedAt": "2026-08-03T23:43:03.207Z",
+          "fetchedAt": "2026-08-04T00:04:37.811Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
         }
       ],
@@ -876,13 +732,13 @@
         },
         "_남은일": {
           "src": 0,
-          "quote": "라벨을 봐야 채워집니다 — 원료 표기 전체, 조섬유·수분(건물기준 탄수 계산용), 칼로리. 쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 113,230원 · 주단백질원 과일·야채, 돼지고기"
+          "quote": "라벨을 봐야 채워집니다 — 원료 표기 전체, 조섬유·수분(건물기준 탄수 계산용), 칼로리. 쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 27,378원 · 주단백질원 과일·야채, 돼지고기 · 판매 용량 2kg, 6kg, 11.4kg"
         }
       },
       "collector": {
         "agent": "다나와 수집",
         "via": "scripts/collect-danawa.mjs",
-        "at": "2026-08-03T23:43:03.207Z"
+        "at": "2026-08-04T00:04:37.811Z"
       }
     },
     {
@@ -940,7 +796,7 @@
         {
           "role": "retail",
           "url": "https://prod.danawa.com/info/?pcode=33424832",
-          "fetchedAt": "2026-08-03T23:43:03.207Z",
+          "fetchedAt": "2026-08-04T00:04:37.811Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
         }
       ],
@@ -957,7 +813,7 @@
       "collector": {
         "agent": "다나와 수집",
         "via": "scripts/collect-danawa.mjs",
-        "at": "2026-08-03T23:43:03.207Z"
+        "at": "2026-08-04T00:04:37.811Z"
       }
     },
     {
@@ -987,7 +843,7 @@
         "concerns": [],
         "facts": {
           "protein": 33,
-          "dmCarb": null,
+          "dmCarb": 34.1,
           "firstIngrCat": null,
           "cautionN": null,
           "dangerN": null,
@@ -997,9 +853,9 @@
         "ga": {
           "protein": 33,
           "fat": 20,
-          "fiber": null,
-          "moisture": null,
-          "ash": null
+          "fiber": 5,
+          "moisture": 12,
+          "ash": 7
         },
         "ingredients": [],
         "thumb": "https://img.danuri.io/catalog-image/412/629/104/bb28b0100cef41c58bc78ad09946e351.jpg?shrink=360:360",
@@ -1015,7 +871,7 @@
         {
           "role": "retail",
           "url": "https://prod.danawa.com/info/?pcode=104629412",
-          "fetchedAt": "2026-08-03T23:43:03.207Z",
+          "fetchedAt": "2026-08-04T00:04:37.811Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
         }
       ],
@@ -1026,13 +882,13 @@
         },
         "_남은일": {
           "src": 0,
-          "quote": "라벨을 봐야 채워집니다 — 원료 표기 전체, 조섬유·수분(건물기준 탄수 계산용), 칼로리. 쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 30,800원 · 주단백질원 칠면조고기, 과일·야채, 닭고기, 기타생선류 · 판매 용량 2kg, 6kg, 11.4kg"
+          "quote": "라벨을 봐야 채워집니다 — 원료 표기 전체, 칼로리. 쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 30,800원 · 주단백질원 칠면조고기, 과일·야채, 닭고기, 기타생선류 · 판매 용량 2kg, 6kg, 11.4kg"
         }
       },
       "collector": {
         "agent": "다나와 수집",
         "via": "scripts/collect-danawa.mjs",
-        "at": "2026-08-03T23:43:03.207Z"
+        "at": "2026-08-04T00:04:37.811Z"
       }
     },
     {
@@ -1062,7 +918,7 @@
         "concerns": [],
         "facts": {
           "protein": 33,
-          "dmCarb": null,
+          "dmCarb": 38.6,
           "firstIngrCat": null,
           "cautionN": null,
           "dangerN": null,
@@ -1072,9 +928,9 @@
         "ga": {
           "protein": 33,
           "fat": 15,
-          "fiber": null,
-          "moisture": null,
-          "ash": null
+          "fiber": 6,
+          "moisture": 12,
+          "ash": 7
         },
         "ingredients": [],
         "thumb": "https://img.danuri.io/catalog-image/400/629/104/f6bb9322883b44d08472ab15f74a508b.jpg?shrink=360:360",
@@ -1088,7 +944,7 @@
         {
           "role": "retail",
           "url": "https://prod.danawa.com/info/?pcode=104629400",
-          "fetchedAt": "2026-08-03T23:43:03.207Z",
+          "fetchedAt": "2026-08-04T00:04:37.811Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
         }
       ],
@@ -1099,13 +955,13 @@
         },
         "_남은일": {
           "src": 0,
-          "quote": "라벨을 봐야 채워집니다 — 원료 표기 전체, 조섬유·수분(건물기준 탄수 계산용), 칼로리. 쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 121,630원 · 주단백질원 닭고기, 기타생선류, 칠면조고기, 과일·야채 · 판매 용량 11.4kg"
+          "quote": "라벨을 봐야 채워집니다 — 원료 표기 전체, 칼로리. 쿠팡 구매 링크와 가격도 필요합니다. 참고: 다나와 최저가 121,630원 · 주단백질원 닭고기, 기타생선류, 칠면조고기, 과일·야채 · 판매 용량 11.4kg"
         }
       },
       "collector": {
         "agent": "다나와 수집",
         "via": "scripts/collect-danawa.mjs",
-        "at": "2026-08-03T23:43:03.207Z"
+        "at": "2026-08-04T00:04:37.811Z"
       }
     },
     {
@@ -1162,7 +1018,7 @@
         {
           "role": "retail",
           "url": "https://prod.danawa.com/info/?pcode=11250975",
-          "fetchedAt": "2026-08-03T23:43:03.207Z",
+          "fetchedAt": "2026-08-04T00:04:37.811Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
         }
       ],
@@ -1179,7 +1035,7 @@
       "collector": {
         "agent": "다나와 수집",
         "via": "scripts/collect-danawa.mjs",
-        "at": "2026-08-03T23:43:03.207Z"
+        "at": "2026-08-04T00:04:37.811Z"
       }
     },
     {
@@ -1237,7 +1093,7 @@
         {
           "role": "retail",
           "url": "https://prod.danawa.com/info/?pcode=8489769",
-          "fetchedAt": "2026-08-03T23:43:03.207Z",
+          "fetchedAt": "2026-08-04T00:04:37.811Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
         }
       ],
@@ -1254,7 +1110,7 @@
       "collector": {
         "agent": "다나와 수집",
         "via": "scripts/collect-danawa.mjs",
-        "at": "2026-08-03T23:43:03.207Z"
+        "at": "2026-08-04T00:04:37.811Z"
       }
     },
     {
@@ -1311,7 +1167,7 @@
         {
           "role": "retail",
           "url": "https://prod.danawa.com/info/?pcode=99815681",
-          "fetchedAt": "2026-08-03T23:43:03.207Z",
+          "fetchedAt": "2026-08-04T00:04:37.811Z",
           "title": "다나와 카탈로그 — 제품명·용량·제형·연령·사진 (가격 근거 아님)"
         }
       ],
@@ -1328,7 +1184,7 @@
       "collector": {
         "agent": "다나와 수집",
         "via": "scripts/collect-danawa.mjs",
-        "at": "2026-08-03T23:43:03.207Z"
+        "at": "2026-08-04T00:04:37.811Z"
       }
     }
   ]
