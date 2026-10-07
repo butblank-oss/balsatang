@@ -14,8 +14,8 @@ async function open({ token = 't', canWrite = true } = {}) {
   const log = watch(pg, 'foods');
   await pg.route('https://api.github.com/**', route => {
     const u = route.request().url(), m = route.request().method();
-    if (u.endsWith('/repos/butblank-oss/gsso_scat'))
-      return route.fulfill({ json: { full_name: 'butblank-oss/gsso_scat', permissions: { push: canWrite } } });
+    if (u.endsWith('/repos/butblank-oss/balsatang'))
+      return route.fulfill({ json: { full_name: 'butblank-oss/balsatang', permissions: { push: canWrite } } });
     if (m === 'GET') { getCount++; return route.fulfill({ json: { content: Buffer.from(DATA, 'utf8').toString('base64'), sha: 'sha0000000' } }); }
     if (m === 'PUT') {
       put = JSON.parse(route.request().postData());

@@ -26,7 +26,7 @@ for (const [name, url, sel, kind] of CASES) {
   if (kind === 'foods') {
     await pg.route('https://api.github.com/**', r => {
       const u = r.request().url();
-      if (u.endsWith('/repos/butblank-oss/gsso_scat')) return r.fulfill({ json: { full_name: 'x', permissions: { push: true } } });
+      if (u.endsWith('/repos/butblank-oss/balsatang')) return r.fulfill({ json: { full_name: 'x', permissions: { push: true } } });
       return r.fulfill({ json: { content: Buffer.from(DATA, 'utf8').toString('base64'), sha: 'a' } });
     });
     await pg.addInitScript(() => localStorage.setItem('balsatang.gh.token', 't'));
