@@ -82,46 +82,12 @@ const PAGES = [['dash', '대시보드'], ['foods', '사료 관리'], ['ingr', '�
   else pass('TC-B02', '반응 없는 버튼 없음');
 }
 
-/* TC-B03 사료 수정 위저드 5단계 */
-{
-  await pg.evaluate(() => { try { closeModal(); } catch { } go('foods'); });
-  await pg.waitForTimeout(300);
-  const edit = pg.locator('#wrap button').filter({ hasText: '수정' }).first();
-  if (!await edit.count()) bug('admin', 'TC-B03', 'P2', '사료 목록에 수정 버튼이 없음');
-  else {
-    await edit.click(); await pg.waitForTimeout(400);
-    const steps = await pg.locator('.step, [class*=step]').count();
-    for (let i = 0; i < 5; i++) {
-      const next = pg.locator('#wrap button').filter({ hasText: '다음 단계' }).first();
-      if (!await next.count()) break;
-      log.errors.length = 0;
-      await next.click(); await pg.waitForTimeout(350);
-      if (log.errors.length) bug('admin', 'TC-B03', 'P1', `위저드 ${i + 2}단계에서 오류: ${log.errors[0]}`);
-    }
-    const txt = await pg.textContent('#wrap');
-    if (!txt.trim()) bug('admin', 'TC-B03', 'P1', '위저드 마지막 단계가 비어 있음');
-    else pass('TC-B03', `위저드 ${steps ? steps + '단계 ' : ''}끝까지 진행`);
-    await pg.screenshot({ path: `${OUT}/shot-admin-wizard.png` });
-  }
-}
-
-/* TC-B04 사료 관리 화면에 '최신 데이터 불러오기' 가 실제로 동작하는지 */
-{
-  await pg.evaluate(() => go('foods')); await pg.waitForTimeout(300);
-  await pg.evaluate(() => { store.foods[0].name = 'QA낡은초안'; store.save(); });
-  await pg.reload(); await pg.waitForSelector('.nav-i');
-  await pg.evaluate(() => go('foods')); await pg.waitForTimeout(400);
-  const stale = await pg.evaluate(() => store.foods[0].name);
-  if (stale !== 'QA낡은초안') bug('admin', 'TC-B04', 'P2', '임시저장이 새로고침 후 유지되지 않음');
-  const btn = pg.locator('#wrap button').filter({ hasText: '최신 데이터' }).first();
-  if (!await btn.count()) bug('admin', 'TC-B04', 'P1', "'최신 데이터 불러오기' 버튼이 없음");
-  else {
-    await btn.click(); await pg.waitForTimeout(500);
-    const now = await pg.evaluate(() => store.foods[0].name);
-    if (now === 'QA낡은초안') bug('admin', 'TC-B04', 'P1', '최신 데이터 불러오기를 눌러도 초안이 그대로');
-    else pass('TC-B04', `최신 데이터 불러오기 동작 (${now})`);
-  }
-}
+/* TC-B03 사료 수정 위저드 · TC-B04 '최신 데이터 불러오기' — 뺐다.
+   통합 어드민(index.html)의 사료 편집기는 걷어냈고(app.js: "예전 사료 편집기는 걷어냈다"),
+   사료 편집은 foods.html 로 옮겨갔다 — 그 화면은 QA-2(foods.mjs)가 본다.
+   실측: index.html·app.js 에 '최신 데이터' 문자열 0건, foods 페이지는 foods.html 을
+   띄우는 껍데기라 수정 버튼은 그 안으로 넘어가 여기엔 없다. 기능이 사라진 게 아니라
+   옮겨간 것이라, 여기서 찾으면 '없음' 이 거짓으로 뜬다. */
 
 /* TC-B05 data.js 내보내기가 막혀 있는지 */
 {
