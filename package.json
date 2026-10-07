@@ -23,7 +23,8 @@
     "partners": "node scripts/coupang-partners.mjs",
     "thumbs": "node scripts/find-thumbs.mjs",
     "registry": "node scripts/feed-registry.mjs",
-    "qa": "node scripts/qa/all.mjs"
+    "qa": "node scripts/qa/all.mjs",
+    "pages": "node scripts/build-pages.mjs"
   },
   "devDependencies": {
     "playwright": "^1.49.0"
