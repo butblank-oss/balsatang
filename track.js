@@ -19,8 +19,8 @@
   'use strict';
 
   const TRACK_CFG = {
-    url: '',      /* 예: 'https://abcd1234.supabase.co' */
-    key: ''       /* Supabase anon(public) 키 */
+    url: 'https://lcynjpiclpedxflfvhns.supabase.co',
+    key: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxjeW5qcGljbHBlZHhmbGZ2aG5zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEzMTE4MTUsImV4cCI6MjEwNjg4NzgxNX0.NHEB02OtA0zYevKMeWnIDQaT7nl-toqn7Nka---8tZE'   /* anon(public) — 넣기만 된다 */
   };
 
   const K_DEVICE = 'balsatang.did';
