@@ -64,8 +64,31 @@ function kcalPerKg(text) {
    첨가물 줄이 원료보다 길어지는 경우가 있어(비타민·미네랄을 다 적은 라벨),
    '%' 나 'mg' 이 붙은 항목이 절반을 넘으면 원료 목록이 아니라고 본다 —
    원료 표기는 함량을 일부에만 적고, 첨가물은 거의 전부에 적는다. */
+/* 라벨을 PDF·상세 이미지에서 긁으면 원료 목록이 화면 폭대로 줄이 바뀐 채 들어온다.
+   '…칠면조 분말\n(6%), 통 병아리콩…' 처럼. 줄마다 따로 보면 가장 긴 줄(목록 중간의
+   '신선한 케일, 신선한 시금치…')이 원료 목록으로 뽑혀 1번 원료가 채소가 됐다 — 실제로
+   아카나 시니어 라벨에서 그랬다. 줄을 먼저 이어 붙여 문단으로 되돌린다.
+   앞 줄이 마침표·콜론으로 끝났거나, 새 줄이 다른 항목(첨가물·보장성분·영양소 이름)으로
+   시작하면 거기서 끊는다. 빈 줄도 끊는다. */
+const SECTION = /^(첨가물|기술적|감각|영양\s*첨가|축산학|보증\s*성분|보장\s*성분|등록\s*성분|성분\s*(분석|등록)|영양\s*성분|칼로리|열량|대사\s*에너지|급여|사용\s*원료|원재료|원료\s*명?|조단백|조지방|조섬유|조회분|수분|칼슘|인\s|Guaranteed|Ingredients|Additives|Calorie)/i;
+/* '[원재료]' '【보장성분】' 처럼 괄호로 감싼 한 줄 머리말도 항목의 시작이다 */
+const isHead = l => /^[\[【<].{0,20}[\]】>]$/.test(l) || SECTION.test(l.replace(/^[\[【<(]\s*/, ''));
+function unwrap(text) {
+  const out = [];
+  for (const raw of String(text ?? '').split('\n')) {
+    const line = raw.trim();
+    const prev = out.length ? out[out.length - 1] : null;
+    if (!line) { out.push(''); continue; }
+    if (prev && !/[.:：。]$/.test(prev) && !isHead(line) && !/^[\[【<].{0,20}[\]】>]$/.test(prev))
+      out[out.length - 1] = prev + ' ' + line;
+    else out.push(line);
+  }
+  /* 한 줄 안에서 '…로즈힙. 첨가물(kg 당): …' 처럼 다음 항목이 이어 붙은 것도 가른다 */
+  return out.join('\n').replace(/[.。]\s+(?=(첨가물|보증\s*성분|보장\s*성분|등록\s*성분|영양\s*성분))/g, '.\n');
+}
+
 function ingredients(text) {
-  const chunks = String(text ?? '')
+  const chunks = unwrap(text)
     .split(/\n|·\s|•/)
     .map(s => s.trim())
     .filter(s => (s.match(/,/g) || []).length >= 4);
