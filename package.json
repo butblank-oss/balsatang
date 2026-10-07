@@ -13,7 +13,7 @@
     "review:live": "NODE_USE_ENV_PROXY=1 node scripts/build-review.mjs --live",
     "publish": "node scripts/merge-approved.mjs",
     "verify": "node scripts/verify-data.mjs",
-    "check": "npm run verify && npm run surfaces && npm run gate1 && npm run gate3",
+    "check": "npm run verify && npm run surfaces && npm run rxfor && npm run gate1 && npm run gate3",
     "surfaces": "node scripts/verify-surfaces.mjs",
     "strength": "node scripts/compute-func-strength.mjs",
     "ranking": "node scripts/collect-ranking.mjs",
@@ -24,7 +24,8 @@
     "thumbs": "node scripts/find-thumbs.mjs",
     "registry": "node scripts/feed-registry.mjs",
     "qa": "node scripts/qa/all.mjs",
-    "pages": "node scripts/build-pages.mjs"
+    "pages": "node scripts/build-pages.mjs",
+    "rxfor": "node scripts/publish-rxfor.test.mjs"
   },
   "devDependencies": {
     "playwright": "^1.49.0"
