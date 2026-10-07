@@ -819,7 +819,7 @@ const CONCERN_PIC = {
   immune: 'senior', dental: 'picky'
 };
 
-function fitCards(d) {
+function fitCards(f, d) {
   const good = (d.fit || []).filter(x => x && String(x.label || '').trim());
   const care = (d.fitCaution || []).filter(x => x && String(x.label || '').trim());
   if (!good.length && !care.length) return '';
@@ -840,9 +840,14 @@ function fitCards(d) {
     ${good.length ? `<div class="fitgroup good">
       <span class="fitdot good">${icon('check', 10)}</span>이런 아이들에게 좋아요</div>
       <div class="fitlist">${good.map(x => card(x, 'good')).join('')}</div>` : ''}
+    ${/* ⚠ 처방식이어도 이 경고를 지우지 않는다 — 알러지 유발 원료처럼 안전에 걸리는 것이 섞여 있어,
+         통째로 숨기면 꼭 봐야 할 것까지 사라진다. 대신 안내를 한 줄 붙여 오해만 막는다.
+         "탄수화물이 높아 체중 관리가 필요한 아이는 주의"·"위험 성분이 있어 장기 급여는 권하지
+         않아요" 는 처방식에선 수의사가 일부러 그렇게 정했을 수 있는 값이다. */''}
     ${care.length ? `<div class="fitgroup care">
       <span class="fitdot care">!</span>이런 아이들은 주의가 필요해요</div>
-      <div class="fitlist">${care.map(x => card(x, 'care')).join('')}</div>` : ''}
+      <div class="fitlist">${care.map(x => card(x, 'care')).join('')}</div>
+      ${f.rx ? `<p class="t-micro c-mute" style="margin-top:10px;font-weight:500">처방식은 질환 관리를 위해 일부러 조정한 영양이 있어요. 수의사와 상담한 뒤 판단해 주세요.</p>` : ''}` : ''}
   </div>`;
 }
 
@@ -883,7 +888,14 @@ function renderNutritionTab(f, d) {
 
     ${/* 판정 카드 — 카드마다 색 배경을 깔던 것을 테두리 하나로 묶은 목록으로 바꿨다.
          색 덩어리가 다섯 개씩 쌓이면 무엇이 중요한지가 안 보인다. */''}
-    ${cards.length ? `<h2 class="t-sub" style="margin-top:30px">이 사료를 이렇게 봤어요</h2>
+    ${/* ⚠ 처방식은 이 카드를 통째로 숨긴다. 문구가 일반 기준의 판정이라 그대로 두면 거짓이 된다 —
+         "탄수화물이 높아요 … 체중 관리가 필요한 아이는 주의하세요"·"조단백이 낮아요 … AAFCO
+         권장 최소치에 못 미쳐요" 는 신장·체중 처방식이 일부러 그렇게 만든 값이다. 문구는 엔진이
+         만든 자연어라 판정만 골라 떼어낼 수 없고, 화면에서 고쳐 쓰면 엔진과 두 벌이 된다.
+         원료·주의성분·성분표는 아래에 일반 사료와 똑같이 그대로 있다. */''}
+    ${f.rx ? `<h2 class="t-sub" style="margin-top:30px">이 사료를 이렇게 봤어요</h2>
+    <p style="margin-top:2px;font-size:13px;color:var(--ink40);letter-spacing:-.02em">처방식은 질환 관리를 위해 영양을 일부러 조정해요. 그래서 일반 사료 기준의 판정은 보여드리지 않아요. 원료와 성분은 아래에 그대로 있어요.</p>`
+      : cards.length ? `<h2 class="t-sub" style="margin-top:30px">이 사료를 이렇게 봤어요</h2>
     <p style="margin-top:2px;font-size:13px;color:var(--ink40);letter-spacing:-.02em">원료표에서 바로 확인한 사실이에요</p>
     <div class="verlist">${cards.map(([k, c]) => `
       <div class="verrow">
@@ -895,7 +907,7 @@ function renderNutritionTab(f, d) {
 
     ${funcBars(d)}
 
-    ${fitCards(d)}
+    ${fitCards(f, d)}
 
     ${/* 원료 칩에 양호·주의를 색으로 물려 뒀었다. 이제 그 판단은 위쪽
          '이런 아이에게 어떨까요?' 와 헤더 배지가 맡는다. 같은 말을 세 번 하면
@@ -1123,7 +1135,10 @@ function slotView(f, side) {
 const CASES = [
   { key: 'tear', label: '눈물이 많은 아이라면', fn: 'eye_tear' },
   { key: 'joint', label: '관절이 걱정된다면', fn: 'joint' },
-  { key: 'weight', label: '체중 관리 중이라면', metric: f => (DETAIL[f.id]?.nutrient?.dmCarb ?? 99), lower: true,
+  /* ⚠ 값이 없을 때 큰 수로 메꾸지 마라. ?? 99 로 메꿨더니 표기가 없는 사료가 '탄수화물 99%' 가
+     되어, 없는 숫자에서 만든 "52.4%p 낮아요" 가 화면에 찍혔다(§1 — 없는 데이터를 있는 것처럼
+     말하지 않는다). 지금은 null 로 두고 compareCases 가 '비교할 수 없음' 으로 가른다. */
+  { key: 'weight', label: '체중 관리 중이라면', metric: f => DETAIL[f.id]?.nutrient?.dmCarb, lower: true,
     say: (w, l) => `${w.n}가 탄수화물이 ${Math.abs(Math.round((l.v - w.v) * 10) / 10)}%p 낮아요.`,
     rxSay: (a, b) => `탄수화물 ${a.n} ${Math.round(a.v * 10) / 10}% · ${b.n} ${Math.round(b.v * 10) / 10}%` },
   { key: 'skin', label: '알러지가 의심된다면', metric: f => (DETAIL[f.id]?.ingr || []).filter(i => i.allergen).length, lower: true,
@@ -1144,7 +1159,10 @@ function compareCases(A, B, la, lb) {
       body = `${win === 'A' ? la : lb}에 ${items} 원료가 들어있어요.`;
     } else {
       const va = c.metric(A), vb = c.metric(B);
-      if (va === vb || va == null || vb == null) { out.push({ key: c.key, label: c.label, win: null, body: '두 사료 모두 이 기준으론 차이가 없어요.' }); continue; }
+      /* '표기가 없다' 와 '값이 같다' 는 다른 말이다. 뭉쳐서 '차이가 없어요' 라고 하면
+         재 보지도 않은 것을 재 봤다고 말하는 게 된다. */
+      if (va == null || vb == null) { out.push({ key: c.key, label: c.label, win: null, body: '한쪽이라도 표기가 없어 이 기준으론 비교할 수 없어요.' }); continue; }
+      if (va === vb) { out.push({ key: c.key, label: c.label, win: null, body: '두 사료 모두 이 기준으론 차이가 없어요.' }); continue; }
       win = (c.lower ? va < vb : va > vb) ? 'A' : 'B';
       const w = win === 'A' ? { n: la, v: va } : { n: lb, v: vb };
       const l = win === 'A' ? { n: lb, v: vb } : { n: la, v: va };
