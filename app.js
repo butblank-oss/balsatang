@@ -1124,13 +1124,16 @@ const CASES = [
   { key: 'tear', label: '눈물이 많은 아이라면', fn: 'eye_tear' },
   { key: 'joint', label: '관절이 걱정된다면', fn: 'joint' },
   { key: 'weight', label: '체중 관리 중이라면', metric: f => (DETAIL[f.id]?.nutrient?.dmCarb ?? 99), lower: true,
-    say: (w, l) => `${w.n}가 탄수화물이 ${Math.abs(Math.round((l.v - w.v) * 10) / 10)}%p 낮아요.` },
+    say: (w, l) => `${w.n}가 탄수화물이 ${Math.abs(Math.round((l.v - w.v) * 10) / 10)}%p 낮아요.`,
+    rxSay: (a, b) => `탄수화물 ${a.n} ${Math.round(a.v * 10) / 10}% · ${b.n} ${Math.round(b.v * 10) / 10}%` },
   { key: 'skin', label: '알러지가 의심된다면', metric: f => (DETAIL[f.id]?.ingr || []).filter(i => i.allergen).length, lower: true,
-    say: (w, l) => `${w.n} 쪽에 알러지 유발 가능 원료가 ${l.v - w.v}개 적어요.` },
+    say: (w, l) => `${w.n} 쪽에 알러지 유발 가능 원료가 ${l.v - w.v}개 적어요.`,
+    rxSay: (a, b) => `알러지 유발 가능 원료 ${a.n} ${a.v}개 · ${b.n} ${b.v}개` },
   { key: 'gut', label: '장이 약하다면', fn: 'digestive' }
 ];
 function compareCases(A, B, la, lb) {
   const out = [];
+  const rx = !!(A.rx || B.rx);
   for (const c of CASES) {
     let win = null, body = '';
     if (c.fn) {
@@ -1145,13 +1148,16 @@ function compareCases(A, B, la, lb) {
       win = (c.lower ? va < vb : va > vb) ? 'A' : 'B';
       const w = win === 'A' ? { n: la, v: va } : { n: lb, v: vb };
       const l = win === 'A' ? { n: lb, v: vb } : { n: la, v: va };
-      body = c.say(w, l);
+      /* 처방식이면 say 를 쓸 수 없다 — '낮아요'·'적어요' 는 사실이 아니라 우열 평가다.
+         질환 때문에 일부러 탄수화물을 높이거나 원료를 바꾼 경우가 있어서, 낮은 쪽을 '낮아요'
+         라고 적으면 수의사가 처방한 사료를 깎는 말이 된다. 숫자는 그대로 두고 두 값을 나란히만 적는다. */
+      body = rx && c.rxSay ? c.rxSay({ n: la, v: va }, { n: lb, v: vb }) : c.say(w, l);
     }
     out.push({ key: c.key, label: c.label, win, body });
   }
-  /* 한쪽이라도 처방식이면 우열을 가리지 않는다. 사실 서술(body)은 그대로 두고 승자만 뗀다 —
-     win 을 null 로만 두면 '차이 없음' 으로 읽혀 거짓이 되므로 rx 를 따로 표시한다. */
-  if (A.rx || B.rx) return out.map(c => ({ ...c, win: null, rx: true }));
+  /* 한쪽이라도 처방식이면 우열을 가리지 않는다. win 을 null 로만 두면 '차이 없음' 으로
+     읽혀 거짓이 되므로 rx 를 따로 표시한다. */
+  if (rx) return out.map(c => ({ ...c, win: null, rx: true }));
   return out;
 }
 
@@ -1204,6 +1210,7 @@ function renderCompare() {
         <p class="t-bodySm c-sub" style="margin-top:8px">${esc(c.body)}</p>
       </div>`).join('')}
     </div>
+    ${rxCmp ? `<p class="t-micro c-mute" style="margin-top:10px;font-weight:500">처방식은 질환 관리를 위해 일부러 조정한 값일 수 있어요. 수의사와 상담한 뒤 골라 주세요.</p>` : ''}
   </div>
 
   <div class="sec lg">
