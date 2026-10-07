@@ -116,7 +116,7 @@ function normalizeIngredient(raw) {
     /\s+(분말|가루|파우더|밀|미트밀|부산물)$/,
     /^(붉은|녹색|노란|흰|검은)\s+/,
     /* 산지 수식어 — 지위픽은 '뉴질랜드 초록입홍합' 처럼 원료마다 붙인다 */
-    /^(뉴질랜드|호주|캐나다|미국|노르웨이|프랑스|아일랜드|스코틀랜드|아이슬란드|태국|국내|국산)\s*산?\s+/
+    /^(뉴질랜드|호주|캐나다|미국|노르웨이|프랑스|네덜란드|덴마크|아일랜드|스코틀랜드|아이슬란드|태국|국내|국산)\s*산?\s+/
   ];
   let t = noOrganic;
   for (let i = 0; i < 4 && t; i++) {
@@ -495,7 +495,10 @@ function publishRecord(item, uuid, now) {
   const food = {
     id: uuid,
     brand: p.brand, brandSlug: p.brandSlug, country: p.country, name: p.name,
-    type: p.type, rx: p.rx, ages: p.ages, sizes: p.sizes,
+    /* rxFor 는 처방식이 어떤 상태용인지(용도 키 배열). 제조사 공식 문장을 근거로 받는다 —
+       우리가 효능을 새로 쓰지 않는다. 같은 자리가 scripts/merge-approved.mjs 에도 있어
+       둘 다 넘겨야 한다. 한쪽만 고치면 그 경로로 발행할 때 조용히 사라진다. */
+    type: p.type, rx: p.rx, rxFor: p.rxFor ?? null, ages: p.ages, sizes: p.sizes,
     thumb: p.thumb ?? null, ico: p.ico ?? 'dog',
     score: computeScore(p.ratings),
     ratings: p.ratings, func: p.func, warnN: p.warnN ?? 0,

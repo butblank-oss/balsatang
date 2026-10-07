@@ -1,0 +1,1110 @@
+{
+  "note": "수정 직전(origin/main) 엔진으로 분류한 발행 사료 원료. 재검증으로 의도적으로 갱신할 때만 다시 생성한다.",
+  "foods": [
+    {
+      "name": "BHA",
+      "cat": "other",
+      "safe": "danger"
+    },
+    {
+      "name": "BHT",
+      "cat": "other",
+      "safe": "danger"
+    },
+    {
+      "name": "DL-메치오닌",
+      "cat": "other",
+      "safe": "safe"
+    },
+    {
+      "name": "DL-메티오닌",
+      "cat": "other",
+      "safe": "safe"
+    },
+    {
+      "name": "L-라이신",
+      "cat": "other",
+      "safe": "safe"
+    },
+    {
+      "name": "L-카르니틴",
+      "cat": "other",
+      "safe": "safe"
+    },
+    {
+      "name": "L-트레오닌",
+      "cat": "other",
+      "safe": "safe"
+    },
+    {
+      "name": "L-트립토판",
+      "cat": "other",
+      "safe": "safe"
+    },
+    {
+      "name": "가수분해 닭고기분(천연향미제)",
+      "cat": "other",
+      "safe": "unknown"
+    },
+    {
+      "name": "가수분해 동물성 단백질",
+      "cat": "meat",
+      "safe": "caution"
+    },
+    {
+      "name": "가수분해 효모",
+      "cat": "other",
+      "safe": "caution"
+    },
+    {
+      "name": "가수분해단백질(닭)",
+      "cat": "other",
+      "safe": "unknown"
+    },
+    {
+      "name": "가수분해연어",
+      "cat": "fish",
+      "safe": "safe"
+    },
+    {
+      "name": "강황",
+      "cat": "herb",
+      "safe": "safe"
+    },
+    {
+      "name": "건조 켈프",
+      "cat": "vegetable",
+      "safe": "safe"
+    },
+    {
+      "name": "건조된 치커리 뿌리",
+      "cat": "probiotic",
+      "safe": "safe"
+    },
+    {
+      "name": "계란분말",
+      "cat": "other",
+      "safe": "safe"
+    },
+    {
+      "name": "계유",
+      "cat": "fat",
+      "safe": "safe"
+    },
+    {
+      "name": "계육분",
+      "cat": "meat",
+      "safe": "safe"
+    },
+    {
+      "name": "고구마",
+      "cat": "vegetable",
+      "safe": "safe"
+    },
+    {
+      "name": "곡류",
+      "cat": "grain",
+      "safe": "caution"
+    },
+    {
+      "name": "곡물(밀, 수수, 옥수수, 쌀)",
+      "cat": "grain",
+      "safe": "caution"
+    },
+    {
+      "name": "구연산",
+      "cat": "other",
+      "safe": "unknown"
+    },
+    {
+      "name": "글루코사민",
+      "cat": "other",
+      "safe": "safe"
+    },
+    {
+      "name": "글리세롤",
+      "cat": "other",
+      "safe": "caution"
+    },
+    {
+      "name": "금잔화 추출물",
+      "cat": "herb",
+      "safe": "safe"
+    },
+    {
+      "name": "녹색 완두콩",
+      "cat": "legume",
+      "safe": "caution"
+    },
+    {
+      "name": "녹차추출물",
+      "cat": "herb",
+      "safe": "safe"
+    },
+    {
+      "name": "뉴질랜드 초록입홍합",
+      "cat": "other",
+      "safe": "safe"
+    },
+    {
+      "name": "닭 지방",
+      "cat": "fat",
+      "safe": "safe"
+    },
+    {
+      "name": "닭간",
+      "cat": "organ",
+      "safe": "safe"
+    },
+    {
+      "name": "닭고기 분말",
+      "cat": "meat",
+      "safe": "safe"
+    },
+    {
+      "name": "닭고기(뼈 바른 신선한 닭고기)",
+      "cat": "meat",
+      "safe": "safe"
+    },
+    {
+      "name": "닭고기분",
+      "cat": "meat",
+      "safe": "safe"
+    },
+    {
+      "name": "닭고기분말",
+      "cat": "meat",
+      "safe": "safe"
+    },
+    {
+      "name": "닭기름",
+      "cat": "fat",
+      "safe": "safe"
+    },
+    {
+      "name": "대두박",
+      "cat": "legume",
+      "safe": "caution"
+    },
+    {
+      "name": "대두유",
+      "cat": "legume",
+      "safe": "caution"
+    },
+    {
+      "name": "동물성단백질(건조 분쇄된 신선한 오리고기, 연어 그리고 닭고기)",
+      "cat": "other",
+      "safe": "unknown"
+    },
+    {
+      "name": "동물성지방",
+      "cat": "fat",
+      "safe": "caution"
+    },
+    {
+      "name": "라벤더",
+      "cat": "herb",
+      "safe": "safe"
+    },
+    {
+      "name": "라이신",
+      "cat": "other",
+      "safe": "safe"
+    },
+    {
+      "name": "레시틴",
+      "cat": "other",
+      "safe": "unknown"
+    },
+    {
+      "name": "렌틸콩",
+      "cat": "legume",
+      "safe": "caution"
+    },
+    {
+      "name": "렌틸콩 섬유질",
+      "cat": "other",
+      "safe": "safe"
+    },
+    {
+      "name": "로즈마리 오일",
+      "cat": "herb",
+      "safe": "safe"
+    },
+    {
+      "name": "로즈마리 추출물",
+      "cat": "herb",
+      "safe": "safe"
+    },
+    {
+      "name": "로즈마리추출물",
+      "cat": "herb",
+      "safe": "safe"
+    },
+    {
+      "name": "로즈힙",
+      "cat": "herb",
+      "safe": "safe"
+    },
+    {
+      "name": "마시멜로우 뿌리",
+      "cat": "herb",
+      "safe": "safe"
+    },
+    {
+      "name": "맥반석",
+      "cat": "other",
+      "safe": "safe"
+    },
+    {
+      "name": "맥주효모",
+      "cat": "other",
+      "safe": "caution"
+    },
+    {
+      "name": "메티오닌",
+      "cat": "other",
+      "safe": "safe"
+    },
+    {
+      "name": "뮤코다당(상어연골)",
+      "cat": "other",
+      "safe": "safe"
+    },
+    {
+      "name": "미네랄",
+      "cat": "vitamin",
+      "safe": "safe"
+    },
+    {
+      "name": "미네랄 보충제",
+      "cat": "vitamin",
+      "safe": "safe"
+    },
+    {
+      "name": "미네랄(제이인산칼륨, 황산마그네슘, 아연아미노산, 철아미노산, 구리아미노산, 망간아미노산)",
+      "cat": "vitamin",
+      "safe": "safe"
+    },
+    {
+      "name": "미네랄프리믹스",
+      "cat": "vitamin",
+      "safe": "safe"
+    },
+    {
+      "name": "미네랄합제",
+      "cat": "vitamin",
+      "safe": "safe"
+    },
+    {
+      "name": "미량광물질 합제",
+      "cat": "vitamin",
+      "safe": "safe"
+    },
+    {
+      "name": "미량광물질류합제",
+      "cat": "vitamin",
+      "safe": "safe"
+    },
+    {
+      "name": "밀크 시슬",
+      "cat": "herb",
+      "safe": "safe"
+    },
+    {
+      "name": "밀크씨슬",
+      "cat": "herb",
+      "safe": "safe"
+    },
+    {
+      "name": "바나나분말",
+      "cat": "other",
+      "safe": "safe"
+    },
+    {
+      "name": "베리믹스",
+      "cat": "other",
+      "safe": "safe"
+    },
+    {
+      "name": "베타카로틴",
+      "cat": "vitamin",
+      "safe": "safe"
+    },
+    {
+      "name": "병아리콩",
+      "cat": "legume",
+      "safe": "caution"
+    },
+    {
+      "name": "보리지오일",
+      "cat": "oil",
+      "safe": "safe"
+    },
+    {
+      "name": "불활성효모(맥주효모)",
+      "cat": "other",
+      "safe": "caution"
+    },
+    {
+      "name": "붉은 렌틸콩",
+      "cat": "legume",
+      "safe": "caution"
+    },
+    {
+      "name": "뷰티르산",
+      "cat": "other",
+      "safe": "safe"
+    },
+    {
+      "name": "비타민 및 미네랄",
+      "cat": "vitamin",
+      "safe": "safe"
+    },
+    {
+      "name": "비타민 보충제",
+      "cat": "vitamin",
+      "safe": "safe"
+    },
+    {
+      "name": "비타민C",
+      "cat": "vitamin",
+      "safe": "safe"
+    },
+    {
+      "name": "비타민제합제",
+      "cat": "vitamin",
+      "safe": "safe"
+    },
+    {
+      "name": "비타민프리믹스",
+      "cat": "vitamin",
+      "safe": "safe"
+    },
+    {
+      "name": "비타민합제",
+      "cat": "vitamin",
+      "safe": "safe"
+    },
+    {
+      "name": "비타민합제(비타민E, 비타민B1, 비타민B2, 비타민B6, 비타민D3, 엽산)",
+      "cat": "vitamin",
+      "safe": "safe"
+    },
+    {
+      "name": "비트식이섬유",
+      "cat": "vegetable",
+      "safe": "safe"
+    },
+    {
+      "name": "비트펄프",
+      "cat": "vegetable",
+      "safe": "safe"
+    },
+    {
+      "name": "비특이성 면역증강제",
+      "cat": "other",
+      "safe": "caution"
+    },
+    {
+      "name": "사과박",
+      "cat": "other",
+      "safe": "unknown"
+    },
+    {
+      "name": "사탕무박",
+      "cat": "vegetable",
+      "safe": "safe"
+    },
+    {
+      "name": "생 메룰루사",
+      "cat": "fish",
+      "safe": "safe"
+    },
+    {
+      "name": "생 칠면조 간",
+      "cat": "organ",
+      "safe": "safe"
+    },
+    {
+      "name": "생닭고기",
+      "cat": "meat",
+      "safe": "safe"
+    },
+    {
+      "name": "생메를루사",
+      "cat": "fish",
+      "safe": "safe"
+    },
+    {
+      "name": "생선 기름",
+      "cat": "oil",
+      "safe": "safe"
+    },
+    {
+      "name": "생선기름",
+      "cat": "oil",
+      "safe": "safe"
+    },
+    {
+      "name": "생선오일",
+      "cat": "oil",
+      "safe": "safe"
+    },
+    {
+      "name": "석회석분말",
+      "cat": "other",
+      "safe": "safe"
+    },
+    {
+      "name": "소금",
+      "cat": "other",
+      "safe": "caution"
+    },
+    {
+      "name": "소기름",
+      "cat": "fat",
+      "safe": "safe"
+    },
+    {
+      "name": "소르빈산칼륨",
+      "cat": "other",
+      "safe": "caution"
+    },
+    {
+      "name": "소맥",
+      "cat": "grain",
+      "safe": "caution"
+    },
+    {
+      "name": "식물성 단백질 분리물",
+      "cat": "legume",
+      "safe": "caution"
+    },
+    {
+      "name": "식물성 단백질류",
+      "cat": "legume",
+      "safe": "caution"
+    },
+    {
+      "name": "식용색소적색 제102호",
+      "cat": "other",
+      "safe": "caution"
+    },
+    {
+      "name": "식용색소청색 제2호",
+      "cat": "other",
+      "safe": "caution"
+    },
+    {
+      "name": "식용색소황색 제4호",
+      "cat": "other",
+      "safe": "caution"
+    },
+    {
+      "name": "식용색소황색 제5호",
+      "cat": "other",
+      "safe": "caution"
+    },
+    {
+      "name": "식이유황",
+      "cat": "other",
+      "safe": "safe"
+    },
+    {
+      "name": "신선한 계란",
+      "cat": "other",
+      "safe": "safe"
+    },
+    {
+      "name": "신선한 닭 내장",
+      "cat": "organ",
+      "safe": "safe"
+    },
+    {
+      "name": "신선한 닭고기",
+      "cat": "meat",
+      "safe": "safe"
+    },
+    {
+      "name": "신선한 닭내장",
+      "cat": "organ",
+      "safe": "safe"
+    },
+    {
+      "name": "신선한 비트 그린",
+      "cat": "vegetable",
+      "safe": "safe"
+    },
+    {
+      "name": "신선한 순무잎",
+      "cat": "vegetable",
+      "safe": "safe"
+    },
+    {
+      "name": "신선한 시금치",
+      "cat": "vegetable",
+      "safe": "safe"
+    },
+    {
+      "name": "신선한 케일",
+      "cat": "vegetable",
+      "safe": "safe"
+    },
+    {
+      "name": "신선한 통 당근",
+      "cat": "vegetable",
+      "safe": "safe"
+    },
+    {
+      "name": "신선한 통 배",
+      "cat": "vegetable",
+      "safe": "safe"
+    },
+    {
+      "name": "신선한 통 버터넛 스쿼시",
+      "cat": "vegetable",
+      "safe": "safe"
+    },
+    {
+      "name": "신선한 통 사과",
+      "cat": "other",
+      "safe": "safe"
+    },
+    {
+      "name": "신선한 통 주키니",
+      "cat": "vegetable",
+      "safe": "safe"
+    },
+    {
+      "name": "신선한 통 호박",
+      "cat": "vegetable",
+      "safe": "safe"
+    },
+    {
+      "name": "쌀",
+      "cat": "grain",
+      "safe": "caution"
+    },
+    {
+      "name": "아마인",
+      "cat": "oil",
+      "safe": "safe"
+    },
+    {
+      "name": "아마종실",
+      "cat": "oil",
+      "safe": "safe"
+    },
+    {
+      "name": "야채(완두콩, 당근, 토마토, 호박)",
+      "cat": "vegetable",
+      "safe": "safe"
+    },
+    {
+      "name": "야채믹스",
+      "cat": "vegetable",
+      "safe": "safe"
+    },
+    {
+      "name": "양 간",
+      "cat": "other",
+      "safe": "unknown"
+    },
+    {
+      "name": "양 비장",
+      "cat": "other",
+      "safe": "unknown"
+    },
+    {
+      "name": "양 뼈",
+      "cat": "other",
+      "safe": "unknown"
+    },
+    {
+      "name": "양 신장",
+      "cat": "other",
+      "safe": "unknown"
+    },
+    {
+      "name": "양 심장",
+      "cat": "other",
+      "safe": "unknown"
+    },
+    {
+      "name": "양 연골",
+      "cat": "other",
+      "safe": "unknown"
+    },
+    {
+      "name": "양 위",
+      "cat": "other",
+      "safe": "unknown"
+    },
+    {
+      "name": "양 폐",
+      "cat": "other",
+      "safe": "unknown"
+    },
+    {
+      "name": "양고기",
+      "cat": "meat",
+      "safe": "safe"
+    },
+    {
+      "name": "연어 어분(가수분해연어어분)",
+      "cat": "fish",
+      "safe": "safe"
+    },
+    {
+      "name": "연어분말",
+      "cat": "fish",
+      "safe": "safe"
+    },
+    {
+      "name": "연어어분",
+      "cat": "fish",
+      "safe": "safe"
+    },
+    {
+      "name": "염화칼륨",
+      "cat": "other",
+      "safe": "safe"
+    },
+    {
+      "name": "염화콜린",
+      "cat": "other",
+      "safe": "safe"
+    },
+    {
+      "name": "옥글루텐",
+      "cat": "grain",
+      "safe": "caution"
+    },
+    {
+      "name": "옥수수",
+      "cat": "grain",
+      "safe": "caution"
+    },
+    {
+      "name": "옥수수 분말",
+      "cat": "grain",
+      "safe": "caution"
+    },
+    {
+      "name": "옥수수글루텐",
+      "cat": "grain",
+      "safe": "caution"
+    },
+    {
+      "name": "완두",
+      "cat": "legume",
+      "safe": "caution"
+    },
+    {
+      "name": "완두콩",
+      "cat": "legume",
+      "safe": "caution"
+    },
+    {
+      "name": "완두콩 전분",
+      "cat": "legume",
+      "safe": "caution"
+    },
+    {
+      "name": "우엉 뿌리",
+      "cat": "herb",
+      "safe": "safe"
+    },
+    {
+      "name": "유기농 건조 켈프",
+      "cat": "vegetable",
+      "safe": "safe"
+    },
+    {
+      "name": "유기농 귀리",
+      "cat": "grain",
+      "safe": "safe"
+    },
+    {
+      "name": "유기농고구마",
+      "cat": "vegetable",
+      "safe": "safe"
+    },
+    {
+      "name": "유기농녹두",
+      "cat": "legume",
+      "safe": "caution"
+    },
+    {
+      "name": "유기농당근",
+      "cat": "vegetable",
+      "safe": "safe"
+    },
+    {
+      "name": "유기농메밀",
+      "cat": "grain",
+      "safe": "safe"
+    },
+    {
+      "name": "유기농보리",
+      "cat": "grain",
+      "safe": "safe"
+    },
+    {
+      "name": "유기농비트펄프",
+      "cat": "vegetable",
+      "safe": "safe"
+    },
+    {
+      "name": "유기농쌀",
+      "cat": "grain",
+      "safe": "caution"
+    },
+    {
+      "name": "유기농아마씨",
+      "cat": "oil",
+      "safe": "safe"
+    },
+    {
+      "name": "유기농옥수수",
+      "cat": "grain",
+      "safe": "caution"
+    },
+    {
+      "name": "유기농옥수수글루텐",
+      "cat": "grain",
+      "safe": "caution"
+    },
+    {
+      "name": "유기농참깨박",
+      "cat": "other",
+      "safe": "safe"
+    },
+    {
+      "name": "유기농해바라기박",
+      "cat": "other",
+      "safe": "safe"
+    },
+    {
+      "name": "유기농해바라기씨",
+      "cat": "oil",
+      "safe": "safe"
+    },
+    {
+      "name": "유기농현미",
+      "cat": "grain",
+      "safe": "caution"
+    },
+    {
+      "name": "유기농호박",
+      "cat": "vegetable",
+      "safe": "safe"
+    },
+    {
+      "name": "유기농호박씨",
+      "cat": "other",
+      "safe": "safe"
+    },
+    {
+      "name": "유기태미네랄",
+      "cat": "vitamin",
+      "safe": "safe"
+    },
+    {
+      "name": "유카추출물",
+      "cat": "herb",
+      "safe": "safe"
+    },
+    {
+      "name": "육류 및 육류부산물(닭, 쇠고기)",
+      "cat": "meat",
+      "safe": "danger"
+    },
+    {
+      "name": "육류 및 육류부산물(닭, 쇠고기, 칠면조)",
+      "cat": "meat",
+      "safe": "danger"
+    },
+    {
+      "name": "육분",
+      "cat": "meat",
+      "safe": "danger"
+    },
+    {
+      "name": "인산칼슘",
+      "cat": "other",
+      "safe": "safe"
+    },
+    {
+      "name": "정제 계유",
+      "cat": "fat",
+      "safe": "safe"
+    },
+    {
+      "name": "정제계유",
+      "cat": "fat",
+      "safe": "safe"
+    },
+    {
+      "name": "정제소금",
+      "cat": "other",
+      "safe": "caution"
+    },
+    {
+      "name": "제올라이트",
+      "cat": "other",
+      "safe": "safe"
+    },
+    {
+      "name": "제이인산칼슘",
+      "cat": "other",
+      "safe": "safe"
+    },
+    {
+      "name": "천연 항산화제",
+      "cat": "herb",
+      "safe": "safe"
+    },
+    {
+      "name": "천연항산화제",
+      "cat": "herb",
+      "safe": "safe"
+    },
+    {
+      "name": "천연향료",
+      "cat": "other",
+      "safe": "caution"
+    },
+    {
+      "name": "천연향미제",
+      "cat": "other",
+      "safe": "caution"
+    },
+    {
+      "name": "천일염",
+      "cat": "other",
+      "safe": "caution"
+    },
+    {
+      "name": "청어 분말",
+      "cat": "fish",
+      "safe": "safe"
+    },
+    {
+      "name": "초록입홍합분말",
+      "cat": "other",
+      "safe": "safe"
+    },
+    {
+      "name": "치즈",
+      "cat": "other",
+      "safe": "caution"
+    },
+    {
+      "name": "치커리 이눌린",
+      "cat": "probiotic",
+      "safe": "safe"
+    },
+    {
+      "name": "치커리이눌린",
+      "cat": "probiotic",
+      "safe": "safe"
+    },
+    {
+      "name": "치킨윙팁",
+      "cat": "meat",
+      "safe": "safe"
+    },
+    {
+      "name": "칠면조 분말",
+      "cat": "meat",
+      "safe": "safe"
+    },
+    {
+      "name": "칠면조분말",
+      "cat": "meat",
+      "safe": "safe"
+    },
+    {
+      "name": "카놀라유",
+      "cat": "oil",
+      "safe": "safe"
+    },
+    {
+      "name": "커큐민",
+      "cat": "herb",
+      "safe": "safe"
+    },
+    {
+      "name": "콘글루텐",
+      "cat": "grain",
+      "safe": "caution"
+    },
+    {
+      "name": "콘드로이틴(뮤코다당)",
+      "cat": "other",
+      "safe": "unknown"
+    },
+    {
+      "name": "키토산",
+      "cat": "other",
+      "safe": "safe"
+    },
+    {
+      "name": "타우린",
+      "cat": "other",
+      "safe": "safe"
+    },
+    {
+      "name": "탄산칼슘",
+      "cat": "other",
+      "safe": "safe"
+    },
+    {
+      "name": "탈수 가금 단백질",
+      "cat": "meat",
+      "safe": "safe"
+    },
+    {
+      "name": "토마토",
+      "cat": "vegetable",
+      "safe": "safe"
+    },
+    {
+      "name": "토코페롤",
+      "cat": "vitamin",
+      "safe": "safe"
+    },
+    {
+      "name": "통 노란 완두콩",
+      "cat": "legume",
+      "safe": "caution"
+    },
+    {
+      "name": "통 녹색 렌틸콩",
+      "cat": "legume",
+      "safe": "caution"
+    },
+    {
+      "name": "통 녹색 완두콩",
+      "cat": "legume",
+      "safe": "caution"
+    },
+    {
+      "name": "통 병아리콩",
+      "cat": "legume",
+      "safe": "caution"
+    },
+    {
+      "name": "통 붉은 렌틸콩",
+      "cat": "legume",
+      "safe": "caution"
+    },
+    {
+      "name": "통 블루베리",
+      "cat": "other",
+      "safe": "safe"
+    },
+    {
+      "name": "통 사스카툰 베리",
+      "cat": "other",
+      "safe": "safe"
+    },
+    {
+      "name": "통 크랜베리",
+      "cat": "other",
+      "safe": "safe"
+    },
+    {
+      "name": "통고등어",
+      "cat": "fish",
+      "safe": "safe"
+    },
+    {
+      "name": "파슬리",
+      "cat": "herb",
+      "safe": "safe"
+    },
+    {
+      "name": "페뉴그릭추출물",
+      "cat": "herb",
+      "safe": "safe"
+    },
+    {
+      "name": "프락토올리고당",
+      "cat": "probiotic",
+      "safe": "safe"
+    },
+    {
+      "name": "프로바이오틱스",
+      "cat": "probiotic",
+      "safe": "safe"
+    },
+    {
+      "name": "프로테아제",
+      "cat": "probiotic",
+      "safe": "safe"
+    },
+    {
+      "name": "프로폴리스",
+      "cat": "other",
+      "safe": "safe"
+    },
+    {
+      "name": "프리바이오틱스",
+      "cat": "probiotic",
+      "safe": "safe"
+    },
+    {
+      "name": "한약제제추출물",
+      "cat": "herb",
+      "safe": "safe"
+    },
+    {
+      "name": "해바라기유",
+      "cat": "oil",
+      "safe": "safe"
+    },
+    {
+      "name": "향미제",
+      "cat": "other",
+      "safe": "caution"
+    },
+    {
+      "name": "혼합광물질류합제",
+      "cat": "vitamin",
+      "safe": "safe"
+    },
+    {
+      "name": "혼합인산칼슘",
+      "cat": "other",
+      "safe": "safe"
+    },
+    {
+      "name": "혼합인산칼슘(MDCP)",
+      "cat": "other",
+      "safe": "safe"
+    },
+    {
+      "name": "혼합토코페롤",
+      "cat": "vitamin",
+      "safe": "safe"
+    },
+    {
+      "name": "효모추출물",
+      "cat": "other",
+      "safe": "caution"
+    },
+    {
+      "name": "흰살생선어분",
+      "cat": "fish",
+      "safe": "safe"
+    },
+    {
+      "name": "흰색생선분말(대구)",
+      "cat": "fish",
+      "safe": "safe"
+    }
+  ]
+}

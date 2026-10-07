@@ -90,7 +90,8 @@ for (const file of files) {
     published.push({
       id: uuid,
       brand: p.brand, brandSlug: p.brandSlug, country: p.country, name: p.name,
-      type: p.type, rx: p.rx, ages: p.ages, sizes: p.sizes,
+      /* rxFor — engine.js publishRecord 와 쌍이다. 둘 다 넘겨야 한다. */
+      type: p.type, rx: p.rx, rxFor: p.rxFor ?? null, ages: p.ages, sizes: p.sizes,
       thumb: p.thumb ?? null, ico: p.ico ?? 'dog',
       score: computeScore(p.ratings),   // 제출값이 아니라 항상 공식으로 다시 계산한다
       ratings: p.ratings, func: p.func, warnN: p.warnN ?? 0,

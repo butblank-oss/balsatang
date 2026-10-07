@@ -276,6 +276,24 @@ function checkItem(item, published, seen) {
     if (!e.quote || String(e.quote).trim().length < 2) F('E_EV_QUOTE', `${key} 의 인용문이 비어 있습니다`);
   }
 
+  /* 보장성분표(ga)는 값마다 근거 인용을 요구한다 — 값은 있는데 어느 출처의 어느
+     문장에서 왔는지가 없으면, 다나와(B등급) 스펙이 공식 확인 없이 그대로 남는다
+     (정책 1 위반). 특히 조회분(ash)처럼 별점 계산에 안 쓰이는 값은 facts 근거검사가
+     건드리지 않아 비어 있어도 통과했다 — 실제로 지위픽 2종이 그 상태였고 먀오가
+     사람 눈으로 잡았다. 값이 없으면 면제 — ash 를 필수값으로 올리는 게 아니라
+     '값이 있으면 근거도 있어야 한다' 는 것(값 자체의 필수 여부는 REQUIRED_GA_KEYS 로
+     따로 가린다). */
+  if (ga && typeof ga === 'object') {
+    for (const k of Object.keys(ga)) {
+      if (ga[k] == null) continue;
+      const key = `ga.${k}`;
+      const e = ev?.[key];
+      if (!e) { F('E_EV_NONE', `근거 누락: ${key} (값이 있으면 인용도 있어야 합니다)`); continue; }
+      if (!Number.isInteger(e.src) || !srcs?.[e.src]) F('E_EV_SRC', `${key} 의 출처 번호가 잘못됨: ${e.src}`);
+      if (!e.quote || String(e.quote).trim().length < 2) F('E_EV_QUOTE', `${key} 의 인용문이 비어 있습니다`);
+    }
+  }
+
   /* --- 8. 중복 --- */
   const key = norm(p.brand) + '|' + norm(p.name);
   if (published.some(f => norm(f.brand) + '|' + norm(f.name) === key)) {
