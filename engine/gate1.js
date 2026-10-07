@@ -332,6 +332,20 @@ function checkItem(item, published, seen) {
     if (gaSrcs.size > 1) {
       F('E_GA_SRC_MIX', `보장성분(ga) 인용이 서로 다른 출처를 가리킵니다: src ${[...gaSrcs].sort((a, b) => a - b).join(', ')} — 생산지마다 배합이 달라 섞으면 안 됩니다. 한 라벨에서 가져오세요 (같은 생산지를 여러 공식 문서에 나눠 적은 경우면 사람이 확인)`);
     }
+
+    /* 원재료와 보장성분도 같은 출처여야 한다 — 위 검사가 ga.* 끼리만 보는 탓에 빠져나간
+       구멍이다. 로얄캐닌 4종이 실제로 통과했다: 보장성분이 전부 미국 한 곳이라
+       gaSrcs.size === 1 이었고, 섞인 자리는 ga 안이 아니라 원재료(한국 공식) ↔
+       보장성분(미국 공식) 사이였다. 칸 묶음이 달라 그물에 걸리지 않았고 사람이 눈으로 잡았다.
+       같은 제품도 생산지마다 배합이 다르므로(위 주석의 실측) 둘을 다른 나라 페이지에서
+       끌어오면 어디에도 없는 제품이 된다. 더구나 그 중 한 건은 미국 쪽 제품명이 아예 달랐다
+       (한국 hypoallergenic-small-dog ↔ 미국 hydrolyzed-protein-small-dog).
+       예외(같은 생산지를 여러 공식 문서에 나눠 게시)는 위와 같이 기계가 막고 사람이 확인한다. */
+    const ingrSrc = ev?.ingredients?.src;
+    if (gaSrcs.size === 1 && Number.isInteger(ingrSrc) && !gaSrcs.has(ingrSrc)) {
+      const [gaSrc] = [...gaSrcs];
+      F('E_SRC_MIX', `원재료와 보장성분이 서로 다른 출처입니다: 원재료 src ${ingrSrc}(${srcs?.[ingrSrc]?.url ?? '?'}) / 보장성분 src ${gaSrc}(${srcs?.[gaSrc]?.url ?? '?'}) — 생산지마다 배합이 달라 섞으면 안 됩니다. 한 출처에서 둘 다 가져오세요 (같은 생산지를 여러 공식 문서에 나눠 적은 경우면 사람이 확인)`);
+    }
   }
 
   /* --- 8. 중복 --- */

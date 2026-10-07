@@ -42,6 +42,9 @@ jobs:
       - name: 게이트1 warnN·rxFor 회귀 — 주의성분 수와 처방식 용도가 틀린 채 나가지 않도록
         run: node scripts/gate1-warnn-rxfor.test.mjs
 
+      - name: 출처 판정 회귀 — 성분이 어느 나라 기준인지 사실대로 찍히도록
+        run: node scripts/source-origin.test.mjs
+
       - name: 게이트 1 · 기계 검사 (URL 실접속 포함)
         id: g1
         run: node scripts/gate1-validate.mjs --live | tee /tmp/g1.txt
