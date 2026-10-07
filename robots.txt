@@ -1,0 +1,5 @@
+# 검색엔진 안내 — 전부 열어 둔다. 어드민은 다른 도메인(admin.balsatang.com)이라 여기 없다.
+User-agent: *
+Allow: /
+
+Sitemap: https://balsatang.com/sitemap.xml
