@@ -699,7 +699,7 @@ function renderDetail() {
       state.detailTab === 'nutrition'
         ? `<button class="btn pri press" data-dtab="feeding">급여량 · 가격 보기</button>`
         : buyUrlOf(f)
-          ? `<button class="btn pri press" data-buy="${esc(buyUrlOf(f))}">구매하러 가기</button>`
+          ? `<button class="btn pri press" data-buy="${esc(buyUrlOf(f))}" data-buy-at="cta">구매하러 가기</button>`
           /* 비활성이라도 읽혀야 한다. opacity 로 흐리면 대비가 1.9:1 까지 떨어진다. */
           : `<button class="btn press" data-request="price" disabled
               style="background:var(--surface);color:var(--ink50);box-shadow:var(--outline)">구매 링크 준비 중</button>`}
@@ -956,7 +956,7 @@ function renderFeedingTab(f, d) {
             <div style="margin-top:3px"><b style="font-size:18px;font-weight:800;letter-spacing:-.04em">${won(p.price)}원</b>
               <span class="t-caption c-sub" style="margin-left:5px">(kg당 ${won(p.pKg)}원)</span></div>
           </div>
-          ${p.url ? `<button class="press" data-buy="${esc(p.url)}" style="height:40px;padding:0 18px;border-radius:var(--rSegment);font-size:14px;font-weight:700;${i === 0 ? 'background:var(--purple700);color:#fff' : 'box-shadow:var(--outline);color:var(--ink70)'}">구매</button>`
+          ${p.url ? `<button class="press" data-buy="${esc(p.url)}" data-buy-at="price${i}" data-buy-shop="${esc(p.shop || '')}" style="height:40px;padding:0 18px;border-radius:var(--rSegment);font-size:14px;font-weight:700;${i === 0 ? 'background:var(--purple700);color:#fff' : 'box-shadow:var(--outline);color:var(--ink70)'}">구매</button>`
         : `<span class="t-caption c-cap">링크 준비 중</span>`}
         </div>`).join('') : `<p class="t-bodySm c-sub">등록된 판매처 가격이 없어요.</p>`}
     </div>
@@ -1584,6 +1584,11 @@ function renderLegal(key) {
     <p class="t-caption c-sub" style="margin-top:8px">시행일 ${esc(doc.updatedAt)}</p>
   </div>
   <div class="sec md">${mdToHtml(doc.body)}</div>
+  ${key === 'privacy' && window.Track ? `<div class="sec">
+    <h2 class="t-section">사용 기록</h2>
+    <p class="md-p">지금 이 기기는 사용 기록을 <b>${Track.isOn() ? '보내고 있어요' : '보내지 않아요'}</b>.</p>
+    <button class="btn press" style="margin-top:12px" data-track-toggle>${Track.isOn() ? '기록 끄기' : '기록 다시 켜기'}</button>
+  </div>` : ''}
   ${/* 문의처는 문서에 적어 두지 않고 여기서 붙인다. 이메일이 없으면 이 칸도
        없다 — 없는 연락처를 적으면 이의제기 경로가 있는 척하는 셈이다. */''}
   ${SITE.email ? `<div class="sec"><h2 class="t-section">문의</h2>
@@ -1670,6 +1675,7 @@ function repaintSearchResults() {
   if (!body) { render(); return; }
   body.innerHTML = searchBodyHtml();
   wireSearchResults();
+  window.Track?.search(state.query, searchResults().length);
 }
 
 function render() {
@@ -1691,6 +1697,7 @@ function render() {
   view.classList.toggle('has-dock', !!dock);
   syncBars(dock);
   wire();
+  logScreen(s);
 }
 
 /* 고정 바 높이를 재서 CSS 에 넘긴다. 숫자를 코드에 박으면 라벨이나 글꼴이
@@ -1741,6 +1748,11 @@ function wire() {
   on('[data-dtab]', 'click', e => { state.detailTab = e.currentTarget.dataset.dtab; render(); });
   on('[data-buy]', 'click', e => window.open(e.currentTarget.dataset.buy, '_blank', 'noopener'));
   on('[data-request]', 'click', e => submitRequest(e.currentTarget.dataset.request, { query: state.query, id: state.detailId }));
+  on('[data-track-toggle]', 'click', () => {
+    const next = !Track.isOn();
+    Track.setOn(next); render();
+    toast(next ? '사용 기록을 다시 켰어요' : '사용 기록을 껐어요 — 이 기기의 기록 번호도 지웠어요');
+  });
   on('[data-ingr-sheet]', 'click', () => openIngrSheet());
   on('[data-recent-sheet]', 'click', () => openRecentSheet());
   on('[data-pick-slot]', 'click', e => openPicker(+e.currentTarget.dataset.pickSlot));
@@ -1830,8 +1842,14 @@ function wire() {
       $('#wz-kg')?.focus();
       return;
     }
+    const wasSet = !!state.pet;
     state.pet = { ...d, kg };
     state.feeding.weightKg = kg;
+    /* 이름·견종·몸무게는 보내지 않는다. 어떤 고민이 많은지만 센다. */
+    window.Track?.track('pet_profile_saved', {
+      edit: wasSet, age: d.ageGroup ?? null, activity: d.activity ?? null,
+      concerns: d.concerns ?? [], allergens: (d.allergens || []).filter(x => x !== 'none')
+    });
     save(); go('custom');
   });
 
@@ -1883,6 +1901,58 @@ function openRecentSheet() {
     ${well(f, 44)}<span class="row-b"><span class="row-name" style="display:block">${esc(f.brand)} ${esc(f.name)}</span></span>
     ${icon('plus', 18, 'chev')}</button>`).join('') || '<p class="t-bodySm c-sub" style="padding:20px 0">최근 본 사료가 없어요.</p>',
     el => $$('[data-pick]', el).forEach(b => b.onclick = () => { closeSheet(); addCompare(b.dataset.pick, false); }));
+}
+
+/* ═══ 사용 기록 ═══
+   무엇을 보내는지는 track.js 머리말에 있다. 여기서는 화면 상태를 이벤트로 옮길 뿐이다.
+
+   버튼마다 track() 을 박아 넣으면 새 버튼이 생길 때마다 빠진다. 그래서 문서 전체에서
+   클릭을 한 번 가로채 data-* 속성으로 무슨 동작인지 알아낸다. 버튼이 이미 data-* 로
+   자기 할 일을 말하고 있으니 그걸 그대로 읽는다. 캡처 단계라 원래 동작보다 먼저 돈다. */
+const ACTION = {
+  buy: 'buy_click', addCompare: 'compare_add', pick: 'compare_add', drop: 'compare_remove',
+  resetCompare: 'compare_reset', pickSlot: 'compare_slot', save: 'save_toggle', share: 'share',
+  filter: 'filter', s: 'sort', sort: 'sort_open', concern: 'concern_click', search: 'search_chip',
+  tab: 'tab_click', dtab: 'detail_tab', request: 'request', ingrSheet: 'ingredients_open',
+  recentSheet: 'recent_open', meals: 'feeding_meals', bag: 'feeding_bag', editPet: 'pet_edit',
+  wzSet: 'wizard_answer', wzSubmit: 'wizard_submit', article: 'article_click', acat: 'article_category',
+  go: 'nav', goDetail: 'food_click', clearSearch: 'search_clear', back: 'back', trackToggle: null
+};
+document.addEventListener('click', e => {
+  if (!window.Track) return;
+  const el = e.target.closest?.('button,a,[role=button]');
+  if (!el) return;
+  const ds = el.dataset;
+  const k = Object.keys(ACTION).find(a => a in ds);
+  if (!k || !ACTION[k]) return;
+  const p = { screen: state.screen };
+  const v = ds[k];
+  if (k === 'buy') {
+    let host = null; try { host = new URL(v).hostname.replace(/^www\./, ''); } catch { }
+    Object.assign(p, { id: state.detailId, host, at: ds.buyAt || null, shop: ds.buyShop || null });
+  } else if (k === 'save') Object.assign(p, { id: v, on: !isSaved(v) });
+  else if (k === 'share') p.id = state.detailId;
+  else if (k === 'filter') Object.assign(p, { key: v || 'all', on: v ? !state.filters.has(v) : false });
+  else if (k === 'wzSet') Object.assign(p, { key: ds.wzSet, val: ds.wzVal });
+  else if (k === 'request') Object.assign(p, { type: v, id: state.detailId, q: state.query ? state.query.slice(0, 60) : null });
+  else if (k === 'goDetail' || k === 'pick' || k === 'addCompare' || k === 'drop') p.id = v;
+  else if (v) p.v = String(v).slice(0, 80);
+  /* 바로 화면을 옮기는 클릭은 어디서 눌렀는지가 중요하다 — 카드 목록의 몇 번째인지 */
+  if (k === 'goDetail') {
+    const list = el.parentElement ? [...el.parentElement.querySelectorAll('[data-go-detail]')] : [];
+    p.pos = list.indexOf(el);
+  }
+  Track.track(ACTION[k], p);
+}, true);
+
+function logScreen(s) {
+  if (!window.Track) return;
+  const extra = s === 'detail' ? { id: state.detailId, tab: state.detailTab }
+    : s === 'article' ? { id: state.articleId }
+      : s === 'search' ? { q: state.query ? state.query.slice(0, 60) : null } : {};
+  /* 상세 탭 전환은 같은 화면이라 screen_view 로 세지 않는다 (detail_tab 클릭으로 남는다) */
+  Track.screenView(s, s === 'detail' ? { id: extra.id } : extra);
+  if (s === 'search' && state.query) Track.search(state.query, searchResults().length);
 }
 
 /* ═══ 시작 ═══ */
