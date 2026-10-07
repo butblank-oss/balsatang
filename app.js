@@ -702,7 +702,6 @@ function renderDetail() {
       ${[['nutrition', '성분 분석'], ['feeding', '급여량 · 가격']].map(([k, l]) => `
         <button class="press" data-dtab="${k}" style="height:52px;font-size:15px;font-weight:${state.detailTab === k ? 800 : 600};color:${state.detailTab === k ? 'var(--ink)' : 'var(--ink50)'};box-shadow:${state.detailTab === k ? 'inset 0 -2.5px 0 var(--purple700)' : 'none'};transition:box-shadow .22s ease-out">${l}</button>`).join('')}
     </div>
-    ${pend ? '' : specNotice(f)}
     ${pend ? renderPending(f) : state.detailTab === 'nutrition' ? renderNutritionTab(f, d) : renderFeedingTab(f, d)}
   </div>
 
@@ -722,8 +721,8 @@ function renderDetail() {
 
 /* 해외 본사(글로벌) 정보 안내 — DATA-POLICY 3.5.
    국내 사료관리법 표시사항이 아니라 제조사 글로벌 사이트의 정보로 분석한 사료다.
-   쿠팡에서 파는 국내 제품 봉투와 숫자가 다를 수 있어, 두 탭 모두 맨 위에 띄운다
-   (가격 탭에서 구매로 넘어가는 사람도 봐야 한다). 어드민에서 사료마다 문구를
+   쿠팡에서 파는 국내 제품 봉투와 숫자가 다를 수 있어, 성분 분석 탭의 기본 정보(숫자)
+   바로 아래에 띄운다 — 그 숫자에 대한 안내라서다. 어드민에서 사료마다 문구를
    고쳐 쓸 수 있고(specNote), 비우면 브랜드 이름으로 기본 문구를 만든다. */
 function specNoteText(f) {
   if (f.specOrigin !== 'overseas') return '';
@@ -733,7 +732,7 @@ function specNoteText(f) {
 function specNotice(f) {
   const t = specNoteText(f);
   if (!t) return '';
-  return `<div style="margin:16px var(--screenX) 0;padding:12px 14px;border-radius:var(--rThumbMd);background:var(--surface)">
+  return `<div style="margin-top:12px;padding:12px 14px;border-radius:var(--rThumbMd);background:var(--surface)">
     <div style="font-size:12px;font-weight:700;letter-spacing:-.02em;color:var(--ink)">${esc(f.brand)} ${esc(f.name)}</div>
     <p class="t-bodySm c-sub" style="margin-top:4px">${esc(t)}</p>
   </div>`;
@@ -903,6 +902,7 @@ function renderNutritionTab(f, d) {
           <span class="factcard-v">${esc(val)}</span>
         </div>`).join('')}
     </div>
+    ${specNotice(f)}
 
     ${ratingCards(f)}
 
