@@ -5,23 +5,48 @@ import fs from 'node:fs';
 const srv = await serve(9102);
 const b = await launch();
 const DATA = fs.readFileSync(ROOT + '/data.js', 'utf8');
-const U = 'http://localhost:9102/balsatang/admin/foods.html';
+const U = 'http://localhost:9102/admin/foods.html';
 console.log('\n═══ QA-2 운영자 · 사료 관리 ═══');
 
-let put = null, getCount = 0, failNextPut = null;
+let put = null, getCount = 0, failNextRef = null;
+let pendingContent = null, pendingMessage = null, blobN = 0;  // commitFiles 가 올리는 조각을 모은다
 async function open({ token = 't', canWrite = true } = {}) {
   const pg = await b.newPage({ viewport: { width: 1280, height: 900 } });
   const log = watch(pg, 'foods');
+  /* 어드민은 이제 Contents API 의 putFile 이 아니라 Git Data API 의 commitFiles 로
+     커밋한다(github.js: /git/ref→commits→blobs→trees→commits→refs PATCH). 가짜
+     GitHub 도 그 체계를 흉내 낸다. '커밋이 실제로 나갔다' 는 ref PATCH 가 성공한
+     순간이고, 올라간 data.js 내용은 blob POST 본문에 담겨 있다 — 그 둘을 put 으로
+     모아 TC-A09 가 "나갔는가 + 내용이 맞는가" 를 그대로 잰다. 충돌(409)은 ref PATCH 에만
+     건다(commitFiles 는 force:false 라, 그 사이 누가 올렸으면 여기서 막히는 게 실제
+     동작이다). Contents API 로 되돌린다면 아래 /git/* 가지를 지우고 PUT 가지를 살린다. */
   await pg.route('https://api.github.com/**', route => {
     const u = route.request().url(), m = route.request().method();
-    if (u.endsWith('/repos/butblank-oss/gsso_scat'))
-      return route.fulfill({ json: { full_name: 'butblank-oss/gsso_scat', permissions: { push: canWrite } } });
-    if (m === 'GET') { getCount++; return route.fulfill({ json: { content: Buffer.from(DATA, 'utf8').toString('base64'), sha: 'sha0000000' } }); }
-    if (m === 'PUT') {
-      put = JSON.parse(route.request().postData());
-      if (failNextPut) { const s = failNextPut; failNextPut = null; return route.fulfill({ status: s, json: { message: 'is at 111 but expected 222' } }); }
-      return route.fulfill({ json: { content: { sha: 'sha1111111' }, commit: { sha: 'c0ffee1234' } } });
+    if (u.endsWith('/repos/butblank-oss/balsatang'))
+      return route.fulfill({ json: { full_name: 'butblank-oss/balsatang', permissions: { push: canWrite } } });
+    if (m === 'GET' && u.includes('/git/ref/heads/'))
+      return route.fulfill({ json: { object: { sha: 'base0000000' } } });
+    if (m === 'GET' && u.includes('/git/commits/'))
+      return route.fulfill({ json: { sha: 'base0000000', tree: { sha: 'basetree000' } } });
+    if (m === 'POST' && u.endsWith('/git/blobs')) {
+      const text = Buffer.from(JSON.parse(route.request().postData()).content, 'base64').toString('utf8');
+      if (/FOODS_ALL/.test(text)) pendingContent = Buffer.from(text, 'utf8').toString('base64');  // data.js 블롭만 잡는다
+      return route.fulfill({ json: { sha: `blob${++blobN}` } });
     }
+    if (m === 'POST' && u.endsWith('/git/trees'))
+      return route.fulfill({ json: { sha: 'newtree1111' } });
+    if (m === 'POST' && u.endsWith('/git/commits')) {
+      pendingMessage = JSON.parse(route.request().postData()).message;
+      return route.fulfill({ json: { sha: 'newcommit111' } });
+    }
+    if (m === 'PATCH' && u.includes('/git/refs/heads/')) {
+      if (failNextRef) { const s = failNextRef; failNextRef = null; return route.fulfill({ status: s, json: { message: 'is at 111 but expected 222' } }); }
+      put = { content: pendingContent, message: pendingMessage };  // ref 가 밀린 이 순간이 '실제로 나감'
+      pendingContent = pendingMessage = null;
+      return route.fulfill({ json: { object: { sha: 'newcommit111' } } });
+    }
+    /* Contents API — 읽기(getFile)·충돌 사전검사·index.html 캐시버스트에 아직 쓰인다 */
+    if (m === 'GET') { getCount++; return route.fulfill({ json: { content: Buffer.from(DATA, 'utf8').toString('base64'), sha: 'sha0000000' } }); }
     return route.fulfill({ status: 404, json: { message: 'unmocked' } });
   });
   await pg.addInitScript(t => { if (t) localStorage.setItem('balsatang.gh.token', t); else localStorage.removeItem('balsatang.gh.token'); }, token);
@@ -60,7 +85,10 @@ await pg.waitForSelector('tbody tr');
 {
   const rows = await pg.locator('tbody tr').count();
   const chips = await pg.locator('[data-filter]').allTextContents();
-  if (rows !== 55) bug('foods', 'TC-A03', 'P2', `목록 ${rows}행 (data.js 는 55종)`);
+  /* 종수는 손으로 적지 않고 센다 — data.js 가 로드한 사료 수(S.foods)와 목록 행이 같아야 한다 */
+  const want = await pg.evaluate(() => S.foods.length);
+  if (!want) bug('foods', 'TC-A03', 'P1', 'data.js 에 사료가 하나도 없음');
+  else if (rows !== want) bug('foods', 'TC-A03', 'P2', `목록 ${rows}행 (data.js 는 ${want}종)`);
   else pass('TC-A03', `목록 ${rows}행 · 필터 ${chips.length}개`);
   for (const c of chips) {
     const k = c.trim();
@@ -91,9 +119,9 @@ await pg.waitForSelector('tbody tr');
 /* TC-A05 편집 패널 열기 */
 {
   await pg.locator('tbody tr').first().click();
-  await pg.waitForSelector('#panel.on');
-  const title = await pg.textContent('#panelTitle');
-  if (!title.trim()) bug('foods', 'TC-A05', 'P2', '패널 제목이 비어 있음');
+  await pg.waitForSelector('#panelBody');
+  const title = await pg.textContent('.edit-head h2');
+  if (!title.trim()) bug('foods', 'TC-A05', 'P2', '편집 화면 제목이 비어 있음');
   const fields = await pg.locator('#panelBody [data-k]').count();
   if (fields < 8) bug('foods', 'TC-A05', 'P2', `편집 필드가 ${fields}개뿐`);
   else pass('TC-A05', `패널 열림 "${title}" · 필드 ${fields}개`);
@@ -133,24 +161,24 @@ await pg.waitForSelector('tbody tr');
   for (const [sel, val, expect] of cases) {
     const before = await pg.inputValue(sel);
     await pg.fill(sel, val); await pg.waitForTimeout(150);
-    await pg.click('#panelDone'); await pg.waitForTimeout(200);
+    await pg.click('[data-back]'); await pg.waitForTimeout(200);
     put = null;
     await pg.click('#commit'); await pg.waitForTimeout(400);
     const t = (await pg.textContent('#toast') || '').trim();
     if (put) bug('foods', 'TC-A08', 'P1', `잘못된 값(${val || '빈값'})인데 커밋이 나감`);
     else if (!t.includes(expect)) bug('foods', 'TC-A08', 'P2', `막긴 했는데 안내가 모호함: "${t}"`);
-    await pg.locator('tbody tr').first().click(); await pg.waitForSelector('#panel.on');
+    await pg.locator('tbody tr').first().click(); await pg.waitForSelector('#panelBody');
     await pg.fill(sel, before); await pg.waitForTimeout(150);
   }
   pass('TC-A08', '잘못된 구매링크·빈 브랜드·잘못된 썸네일 전부 커밋 차단');
-  await pg.click('#panelDone');
+  await pg.click('[data-back]');
 }
 
 /* TC-A09 정상 커밋 → 파일 두 줄만 바뀌는지 */
 {
-  await pg.locator('tbody tr').first().click(); await pg.waitForSelector('#panel.on');
+  await pg.locator('tbody tr').first().click(); await pg.waitForSelector('#panelBody');
   await pg.fill('[data-k="price.buyUrl"]', 'https://link.coupang.com/a/QATEST');
-  await pg.click('#panelDone'); await pg.waitForTimeout(200);
+  await pg.click('[data-back]'); await pg.waitForTimeout(200);
   put = null;
   await pg.click('#commit'); await pg.waitForTimeout(700);
   if (!put) bug('foods', 'TC-A09', 'P1', '정상 값인데 커밋이 안 나감');
@@ -165,7 +193,9 @@ await pg.waitForSelector('tbody tr');
     /* 커밋한 결과가 실제로 유효한 data.js 인지 */
     try {
       const sc = new Function(`${text}; return {FOODS_ALL,FOODS,DETAIL,ICONS}`)();
-      if (sc.FOODS_ALL.length !== 55) bug('foods', 'TC-A09', 'P1', `커밋 결과 사료 ${sc.FOODS_ALL.length}종`);
+      /* 종수는 세게 — 커밋 결과는 원본 data.js 와 같은 종수여야 한다(가격만 고쳤으니) */
+      const wantN = new Function(`${DATA}; return FOODS_ALL.length`)();
+      if (sc.FOODS_ALL.length !== wantN) bug('foods', 'TC-A09', 'P1', `커밋 결과 사료 ${sc.FOODS_ALL.length}종 (원본 ${wantN}종)`);
     } catch (e) { bug('foods', 'TC-A09', 'P1', `커밋 결과가 실행되지 않음: ${e.message}`); }
   }
   const dockHidden = await pg.locator('#dock').isHidden();
@@ -174,10 +204,10 @@ await pg.waitForSelector('tbody tr');
 
 /* TC-A10 충돌(409) 처리 */
 {
-  await pg.locator('tbody tr').first().click(); await pg.waitForSelector('#panel.on');
+  await pg.locator('tbody tr').first().click(); await pg.waitForSelector('#panelBody');
   await pg.fill('[data-k="price.buyUrl"]', 'https://link.coupang.com/a/QACONFLICT');
-  await pg.click('#panelDone'); await pg.waitForTimeout(200);
-  failNextPut = 409;
+  await pg.click('[data-back]'); await pg.waitForTimeout(200);
+  failNextRef = 409;
   await pg.click('#commit'); await pg.waitForTimeout(700);
   const t = (await pg.textContent('#toast') || '').trim();
   if (!/다른 곳|새로고침/.test(t)) bug('foods', 'TC-A10', 'P2', `409 안내가 불친절함: "${t}"`);

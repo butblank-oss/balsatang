@@ -13,11 +13,11 @@ const srv = await serve(9120); const b = await launch();
 console.log('\n═══ QA-5 한글 입력 ═══');
 
 const CASES = [
-  ['프론트 검색',   'http://localhost:9120/balsatang/index.html',            '#q', 'front'],
-  ['사료 관리',     'http://localhost:9120/balsatang/admin/foods.html',      '#q', 'foods'],
-  ['어드민 사료',   'http://localhost:9120/balsatang/admin/index.html',      '[placeholder="브랜드·사료명 검색"]', 'old-foods'],
-  ['어드민 성분',   'http://localhost:9120/balsatang/admin/index.html',      '[placeholder="성분명 검색"]',       'old-ingr'],
-  ['어드민 가격',   'http://localhost:9120/balsatang/admin/index.html',      '[placeholder="브랜드·사료명 검색"]', 'old-price']
+  ['프론트 검색',   'http://localhost:9120/index.html',            '#q', 'front'],
+  ['사료 관리',     'http://localhost:9120/admin/foods.html',      '#q', 'foods'],
+  /* '어드민 사료'·'어드민 가격' 은 뺐다 — 사료·가격 관리가 foods.html 로 옮겨가
+     /admin/index.html 엔 그 검색칸이 없다. 그쪽 한글 입력은 위 '사료 관리' 줄이 이미 본다. */
+  ['어드민 성분',   'http://localhost:9120/admin/index.html',      '[placeholder="성분명 검색"]',       'old-ingr']
 ];
 
 for (const [name, url, sel, kind] of CASES) {
@@ -26,7 +26,7 @@ for (const [name, url, sel, kind] of CASES) {
   if (kind === 'foods') {
     await pg.route('https://api.github.com/**', r => {
       const u = r.request().url();
-      if (u.endsWith('/repos/butblank-oss/gsso_scat')) return r.fulfill({ json: { full_name: 'x', permissions: { push: true } } });
+      if (u.endsWith('/repos/butblank-oss/balsatang')) return r.fulfill({ json: { full_name: 'x', permissions: { push: true } } });
       return r.fulfill({ json: { content: Buffer.from(DATA, 'utf8').toString('base64'), sha: 'a' } });
     });
     await pg.addInitScript(() => localStorage.setItem('balsatang.gh.token', 't'));
@@ -36,7 +36,7 @@ for (const [name, url, sel, kind] of CASES) {
   if (kind === 'foods') await pg.waitForSelector('tbody tr');
   if (kind.startsWith('old')) {
     await pg.waitForSelector('.nav-i');
-    await pg.click(kind === 'old-ingr' ? 'text=성분 관리' : kind === 'old-price' ? 'text=가격 관리' : 'text=사료 관리');
+    await pg.click('text=성분 관리');
     await pg.waitForSelector(sel);
   }
 
