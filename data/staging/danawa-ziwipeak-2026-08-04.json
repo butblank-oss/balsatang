@@ -119,6 +119,10 @@
           "src": 1,
           "quote": "4500 kcal ME / kg"
         },
+        "ga.ash": {
+          "src": 1,
+          "quote": "Ash (max) 12.0%"
+        },
         "facts.protein": {
           "src": 1,
           "quote": "Crude Protein (min) 44.0%"
@@ -259,6 +263,10 @@
         "kcal": {
           "src": 1,
           "quote": "5000 kcal ME / kg"
+        },
+        "ga.ash": {
+          "src": 1,
+          "quote": "Ash (max) 12.0%"
         },
         "facts.protein": {
           "src": 1,
