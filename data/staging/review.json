@@ -1,5 +1,5 @@
 {
-  "builtAt": "2026-10-07T08:50:30.534Z",
+  "builtAt": "2026-10-07T08:58:49.819Z",
   "live": true,
   "batches": [
     {
@@ -154,8 +154,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[0] HTTP 403: https://www.royalcanin.com/kr/dogs/products/retail-products/mini-indoor-adult-2434"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
