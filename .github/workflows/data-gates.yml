@@ -8,6 +8,7 @@ on:
       - 'data/staging/**'
       - 'data.js'
       - 'scripts/**'
+      - 'engine/**'
   workflow_dispatch:
 
 permissions:
@@ -28,6 +29,9 @@ jobs:
 
       - name: 화면 간 연동 검사 — 한쪽에서 고친 값이 다른 쪽에서 사라지지 않도록
         run: node scripts/verify-surfaces.mjs
+
+      - name: 원료 사전 회귀 — 사전 변경이 발행 사료 점수를 소급해 바꾸지 않도록
+        run: node scripts/ingredient-dict.test.mjs
 
       - name: 게이트 1 · 기계 검사 (URL 실접속 포함)
         id: g1
