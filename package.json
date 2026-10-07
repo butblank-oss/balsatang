@@ -13,7 +13,7 @@
     "review:live": "NODE_USE_ENV_PROXY=1 node scripts/build-review.mjs --live",
     "publish": "node scripts/merge-approved.mjs",
     "verify": "node scripts/verify-data.mjs",
-    "check": "npm run verify && npm run surfaces && npm run dict && npm run gate1-ga && npm run rxfor && npm run gate1 && npm run gate3",
+    "check": "npm run verify && npm run surfaces && npm run dict && npm run gate1-ga && npm run rxfor && npm run srcorigin && npm run gate1 && npm run gate3",
     "surfaces": "node scripts/verify-surfaces.mjs",
     "dict": "node scripts/ingredient-dict.test.mjs",
     "gate1-ga": "node scripts/gate1-ga-evidence.test.mjs",
@@ -27,7 +27,8 @@
     "registry": "node scripts/feed-registry.mjs",
     "qa": "node scripts/qa/all.mjs",
     "pages": "node scripts/build-pages.mjs",
-    "rxfor": "node scripts/publish-rxfor.test.mjs"
+    "rxfor": "node scripts/publish-rxfor.test.mjs",
+    "srcorigin": "node scripts/source-origin.test.mjs"
   },
   "devDependencies": {
     "playwright": "^1.49.0"

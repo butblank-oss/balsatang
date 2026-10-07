@@ -46,12 +46,30 @@ function isRetailHost(url) {
    CDN(danuri.io)은 국내 유통 상품의 국내 등록 정보를 싣는다. */
 const DOMESTIC_HOSTS = ['danawa.com', 'danuri.io'];
 
+/* 한국 공식 사이트인데 도메인이 .kr 이 아닌 곳 — 글로벌 브랜드가 한 도메인 아래 나라별
+   경로로 나누는 경우다. 호스트명만 보면 `.com` 이라 해외로 잡혀, 한국 공식 라벨에서 뜬
+   성분에 🟡 해외 성분표 배지가 틀리게 붙는다(로얄캐닌 미니 인도어가 그래서 막혔다).
+
+   ⚠ "경로에 /kr 이 있으면 국내" 로 넓히지 마라. 해외 사이트의 한국어 안내 페이지까지
+      국내로 잡혀 배지가 반대로 틀린다. 아는 주소만 도메인+경로 짝으로 하나씩 적고,
+      목록에 없으면 지금처럼 해외로 둔다 — 모르면 해외가 틀릴 때 안전한 쪽이다. */
+const DOMESTIC_PATHS = [
+  { host: 'royalcanin.com', prefix: '/kr' }
+];
+
 function isDomesticSource(url) {
   try {
-    const h = new URL(url).hostname.toLowerCase();
+    const u = new URL(url);
+    const h = u.hostname.toLowerCase();
     if (h.endsWith('.kr')) return true;
     if (isRetailHost(url)) return true;
-    return DOMESTIC_HOSTS.some(d => h === d || h.endsWith('.' + d));
+    if (DOMESTIC_HOSTS.some(d => h === d || h.endsWith('.' + d))) return true;
+    /* 경로는 '그 구간 전체' 로만 맞춘다 — prefix 를 startsWith 로 느슨하게 보면
+       `/kr-global` 같은 다른 나라 경로까지 걸린다. */
+    const path = u.pathname.toLowerCase();
+    return DOMESTIC_PATHS.some(d =>
+      (h === d.host || h.endsWith('.' + d.host)) &&
+      (path === d.prefix || path.startsWith(d.prefix + '/')));
   } catch { return false; }
 }
 
