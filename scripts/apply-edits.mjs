@@ -91,7 +91,10 @@ for (const file of files) {
     if (p.pricePending) ratings.value = null;
     p.ratings = ratings;
     p.score = p.pricePending ? null : computeScore(ratings);
-    if (p.facts?.cautionN != null) p.warnN = p.facts.cautionN;
+    /* warnN 은 화면의 '주의성분 N종' 이다. 주의(cautionN)와 위험(dangerN)을 **둘 다** 센다 —
+       cautionN 만 쓰던 탓에 위험 성분이 든 사료가 심사 편집을 거치면 한 종씩 줄어들었다.
+       수집·발행 쪽은 맞게 세고 있어서, 편집한 것만 조용히 틀려지는 모양이었다. */
+    if (p.facts?.cautionN != null) p.warnN = p.facts.cautionN + (p.facts.dangerN ?? 0);
 
     (item.audit ??= {}).humanEdits = [
       ...(item.audit.humanEdits ?? []),
