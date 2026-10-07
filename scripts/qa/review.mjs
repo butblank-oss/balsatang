@@ -153,6 +153,20 @@ try {
     else pass('TC-R08', '레이아웃·대비 정상');
   }
 
+  /* TC-R09 A등급 출처 제목 ↔ 제품명 나란히 — 엉뚱한 제품에서 성분 떠옴을 사람이 잡게
+     (로얄캐닌 하이포↔hydrolyzed 재발 방지). 둘 다 같은 카드에 떠야 비교가 된다. */
+  {
+    const A_ROLES = ['official', 'importer', 'authority', 'label'];
+    const okItem = QA_FIXTURE.batches[0].items.find(x => x.stagingId === 'stg_qa_ok');
+    const name = okItem.proposed.name;
+    const specTitle = (okItem.sources || []).find(s => A_ROLES.includes(s.role) && s.title)?.title;
+    const txt = await pg.textContent('.card[data-id="stg_qa_ok"]');
+    if (!specTitle) bug('review', 'TC-R09', 'P2', '시험 데이터에 A등급(성분 근거) 출처 제목이 없음');
+    else if (!txt.includes(name)) bug('review', 'TC-R09', 'P1', `등록 제품명이 심사 카드에 안 보임: "${name}"`);
+    else if (!txt.includes(specTitle)) bug('review', 'TC-R09', 'P1', `A등급 출처 제목이 제품명 옆에 안 보임 — 어느 제품 성분인지 대조 불가: "${specTitle}"`);
+    else pass('TC-R09', `출처 제목·제품명 나란히 표시 ("${specTitle}" ↔ "${name}")`);
+  }
+
   if (log.errors.length) bug('review', 'TC-R00', 'P1', `JS 오류 ${log.errors.length}건: ${[...new Set(log.errors)].slice(0, 2).join(' | ')}`);
   await pg.close();
 
