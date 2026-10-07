@@ -8,20 +8,45 @@ const DATA = fs.readFileSync(ROOT + '/data.js', 'utf8');
 const U = 'http://localhost:9102/admin/foods.html';
 console.log('\n═══ QA-2 운영자 · 사료 관리 ═══');
 
-let put = null, getCount = 0, failNextPut = null;
+let put = null, getCount = 0, failNextRef = null;
+let pendingContent = null, pendingMessage = null, blobN = 0;  // commitFiles 가 올리는 조각을 모은다
 async function open({ token = 't', canWrite = true } = {}) {
   const pg = await b.newPage({ viewport: { width: 1280, height: 900 } });
   const log = watch(pg, 'foods');
+  /* 어드민은 이제 Contents API 의 putFile 이 아니라 Git Data API 의 commitFiles 로
+     커밋한다(github.js: /git/ref→commits→blobs→trees→commits→refs PATCH). 가짜
+     GitHub 도 그 체계를 흉내 낸다. '커밋이 실제로 나갔다' 는 ref PATCH 가 성공한
+     순간이고, 올라간 data.js 내용은 blob POST 본문에 담겨 있다 — 그 둘을 put 으로
+     모아 TC-A09 가 "나갔는가 + 내용이 맞는가" 를 그대로 잰다. 충돌(409)은 ref PATCH 에만
+     건다(commitFiles 는 force:false 라, 그 사이 누가 올렸으면 여기서 막히는 게 실제
+     동작이다). Contents API 로 되돌린다면 아래 /git/* 가지를 지우고 PUT 가지를 살린다. */
   await pg.route('https://api.github.com/**', route => {
     const u = route.request().url(), m = route.request().method();
     if (u.endsWith('/repos/butblank-oss/balsatang'))
       return route.fulfill({ json: { full_name: 'butblank-oss/balsatang', permissions: { push: canWrite } } });
-    if (m === 'GET') { getCount++; return route.fulfill({ json: { content: Buffer.from(DATA, 'utf8').toString('base64'), sha: 'sha0000000' } }); }
-    if (m === 'PUT') {
-      put = JSON.parse(route.request().postData());
-      if (failNextPut) { const s = failNextPut; failNextPut = null; return route.fulfill({ status: s, json: { message: 'is at 111 but expected 222' } }); }
-      return route.fulfill({ json: { content: { sha: 'sha1111111' }, commit: { sha: 'c0ffee1234' } } });
+    if (m === 'GET' && u.includes('/git/ref/heads/'))
+      return route.fulfill({ json: { object: { sha: 'base0000000' } } });
+    if (m === 'GET' && u.includes('/git/commits/'))
+      return route.fulfill({ json: { sha: 'base0000000', tree: { sha: 'basetree000' } } });
+    if (m === 'POST' && u.endsWith('/git/blobs')) {
+      const text = Buffer.from(JSON.parse(route.request().postData()).content, 'base64').toString('utf8');
+      if (/FOODS_ALL/.test(text)) pendingContent = Buffer.from(text, 'utf8').toString('base64');  // data.js 블롭만 잡는다
+      return route.fulfill({ json: { sha: `blob${++blobN}` } });
     }
+    if (m === 'POST' && u.endsWith('/git/trees'))
+      return route.fulfill({ json: { sha: 'newtree1111' } });
+    if (m === 'POST' && u.endsWith('/git/commits')) {
+      pendingMessage = JSON.parse(route.request().postData()).message;
+      return route.fulfill({ json: { sha: 'newcommit111' } });
+    }
+    if (m === 'PATCH' && u.includes('/git/refs/heads/')) {
+      if (failNextRef) { const s = failNextRef; failNextRef = null; return route.fulfill({ status: s, json: { message: 'is at 111 but expected 222' } }); }
+      put = { content: pendingContent, message: pendingMessage };  // ref 가 밀린 이 순간이 '실제로 나감'
+      pendingContent = pendingMessage = null;
+      return route.fulfill({ json: { object: { sha: 'newcommit111' } } });
+    }
+    /* Contents API — 읽기(getFile)·충돌 사전검사·index.html 캐시버스트에 아직 쓰인다 */
+    if (m === 'GET') { getCount++; return route.fulfill({ json: { content: Buffer.from(DATA, 'utf8').toString('base64'), sha: 'sha0000000' } }); }
     return route.fulfill({ status: 404, json: { message: 'unmocked' } });
   });
   await pg.addInitScript(t => { if (t) localStorage.setItem('balsatang.gh.token', t); else localStorage.removeItem('balsatang.gh.token'); }, token);
@@ -182,7 +207,7 @@ await pg.waitForSelector('tbody tr');
   await pg.locator('tbody tr').first().click(); await pg.waitForSelector('#panelBody');
   await pg.fill('[data-k="price.buyUrl"]', 'https://link.coupang.com/a/QACONFLICT');
   await pg.click('[data-back]'); await pg.waitForTimeout(200);
-  failNextPut = 409;
+  failNextRef = 409;
   await pg.click('#commit'); await pg.waitForTimeout(700);
   const t = (await pg.textContent('#toast') || '').trim();
   if (!/다른 곳|새로고침/.test(t)) bug('foods', 'TC-A10', 'P2', `409 안내가 불친절함: "${t}"`);
