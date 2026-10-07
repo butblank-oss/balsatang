@@ -1,18 +1,60 @@
 /* QA-3 · 심사자 — 발행 심사 화면
-   지금 review.json 은 비어 있다. 빈 상태만 보고 끝내면 정작 쓸 때 터진다.
-   그래서 진짜 모양의 배치를 하나 만들어 넣고 전체 흐름을 돌린다. */
+   실제 큐(review.json)는 비거나 들쭉날쭉해서, 그대로 두면 stg_qa_ok·stg_qa_blocked
+   카드를 못 찾아 30초를 기다리다 멈춘다. 그래서 진짜 모양의 배치를 하나 만들어 넣고
+   전체 흐름을 돌린다 — 끝나면 finally 에서 원본으로 되돌린다. */
 import { serve, launch, watch, bug, pass, findings, overflowX, lowContrast, OUT, ROOT } from './lib.mjs';
 import fs from 'node:fs';
 
 const P = ROOT + '/data/staging/review.json';
 const BACKUP = fs.readFileSync(P, 'utf8');
 
+/* 시험용 두 건. build-review.mjs 가 내는 모양 그대로다(batches[].items[] · summary).
+   stg_qa_ok 는 라벨을 고치는 TC-R04 이후 화면이 게이트를 다시 돌리므로(review.html 의
+   gateNow), 편집 뒤에도 통과를 유지하려면 proposed 가 실제 gate1 을 통과해야 한다.
+   그래서 숫자를 지어내지 않고 '게이트를 그대로 통과하는 상태로 유지되는' _example.json 의
+   proposed·sources·evidence 를 재료로 쓴다. 대조 불일치는 audit 으로만 심는다 —
+   gate1 은 audit 을 보지 않아 통과에 지장이 없다. stg_qa_blocked 는 가격 근거(retail)
+   출처만 빼서 실제로 탈락시킨다(E_SRC_PRICE). 끝나면 finally 에서 원본으로 되돌린다. */
+const EX = JSON.parse(fs.readFileSync(ROOT + '/data/staging/_example.json', 'utf8')).items[0];
+const okProposed = { ...EX.proposed, name: 'QA 통과 사료' };
+/* 수집값보다 심사 AI 재조사 조단백을 3 낮춰 대조 불일치 한 줄을 만든다 */
+const indProtein = EX.proposed.facts.protein - 3;
+const DIFF = [{ key: 'facts.protein', collected: EX.proposed.facts.protein, independent: indProtein }];
+const QA_FIXTURE = {
+  builtAt: new Date().toISOString(), live: false,
+  batches: [{
+    file: 'qa-fixture.json', batchId: 'qa-fixture', collectedAt: new Date().toISOString(),
+    items: [
+      { stagingId: 'stg_qa_ok', label: `${EX.proposed.brand} QA 통과 사료`,
+        proposed: okProposed, sources: EX.sources, evidence: EX.evidence,
+        audit: { ...EX.audit, verdict: 'mismatch',
+                 independent: { ...EX.audit.independent,
+                                facts: { ...EX.audit.independent.facts, protein: indProtein } },
+                 diff: DIFF },
+        pricePending: false, draft: false,
+        gates: { g1: 'pass', g1fail: [], g1warn: [], todo: [],
+                 g2: 'mismatch', g2diff: DIFF, g3warn: [] },
+        ready: true },
+      { stagingId: 'stg_qa_blocked', label: `${EX.proposed.brand} 게이트 탈락 사료`,
+        proposed: { ...EX.proposed, name: '게이트 탈락 사료' },
+        sources: EX.sources.filter(s => s.role !== 'retail'), evidence: EX.evidence, audit: null,
+        pricePending: false, draft: false,
+        gates: { g1: 'fail',
+                 g1fail: [{ code: 'E_SRC_PRICE', msg: '가격 근거(쿠팡 상품 출처)가 없습니다' }],
+                 g1warn: [], todo: [], g2: 'none', g2diff: [], g3warn: [] },
+        ready: false }
+    ]
+  }],
+  summary: { total: 2, ready: 1, blocked: 1, pricePending: 0 }
+};
+fs.writeFileSync(P, JSON.stringify(QA_FIXTURE, null, 2));
+
 const srv = await serve(9103);
 const b = await launch();
 const U = 'http://localhost:9103/admin/review.html';
 console.log('\n═══ QA-3 심사자 · 발행 심사 ═══');
 
-{
+try {
   const pg = await b.newPage({ viewport: { width: 1280, height: 950 } });
   const log = watch(pg, 'review');
   pg.on('dialog', d => d.accept());
@@ -111,8 +153,12 @@ console.log('\n═══ QA-3 심사자 · 발행 심사 ═══');
 
   if (log.errors.length) bug('review', 'TC-R00', 'P1', `JS 오류 ${log.errors.length}건: ${[...new Set(log.errors)].slice(0, 2).join(' | ')}`);
   await pg.close();
-}
 
-fs.writeFileSync(`${OUT}/findings-review.json`, JSON.stringify(findings, null, 1));
-console.log(`\n심사 화면 발견 ${findings.length}건`);
-await b.close(); srv.close();
+  fs.writeFileSync(`${OUT}/findings-review.json`, JSON.stringify(findings, null, 1));
+  console.log(`\n심사 화면 발견 ${findings.length}건`);
+} finally {
+  /* 중간에 터져도 저장소의 review.json 이 시험용으로 덮인 채 남지 않게 한다 */
+  fs.writeFileSync(P, BACKUP);
+  await b.close().catch(() => {});
+  srv.close();
+}
