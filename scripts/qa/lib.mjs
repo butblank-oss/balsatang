@@ -4,21 +4,37 @@ import fs from 'node:fs';
 import http from 'node:http';
 import path from 'node:path';
 
-/* 저장소 뿌리와 결과 폴더. 어디서 실행하든 같은 곳을 본다. */
-export const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '../..');
+/* 저장소 뿌리와 결과 폴더. 어디서 실행하든 같은 곳을 본다.
+   어드민은 옆 저장소라 위치를 paths.mjs 한 곳에서만 읽는다. */
+import { ROOT, ADMIN, ADMIN_MOUNT, APP_MOUNT } from './paths.mjs';
+export { ROOT, ADMIN };
 export const OUT = process.env.QA_OUT || path.join(ROOT, '.qa-out');
 fs.mkdirSync(OUT, { recursive: true });
 const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.svg': 'image/svg+xml', '.png': 'image/png', '.webmanifest': 'application/json' };
 
+/* 주소 하나를 실제 파일로 옮긴다. 두 저장소를 한 서버에 붙여 둔다 —
+   /admin/ 은 어드민 저장소, /app/ 은 프론트 저장소(어드민이 engine·data 를 읽는 자리다).
+   '..' 이 든 주소로 저장소 밖 파일을 집어가지 못하게 막는다. */
+const MOUNTS = [[ADMIN_MOUNT, ADMIN], [APP_MOUNT, ROOT]];
+function resolveFile(urlPath) {
+  const rel = decodeURIComponent(String(urlPath).split('?')[0]);
+  const hit = MOUNTS.find(([m]) => rel.startsWith(m));
+  const [base, sub] = hit ? [hit[1], rel.slice(hit[0].length)] : [ROOT, rel.replace(/^\//, '')];
+  const p = path.resolve(base, sub);
+  return p === base || p.startsWith(base + path.sep) ? p : null;
+}
+const readable = p => p && fs.existsSync(p) && !fs.statSync(p).isDirectory();
+
 export function serve(port) {
   const srv = http.createServer((req, res) => {
-    const p = path.join(ROOT, decodeURIComponent(req.url.split('?')[0]));
-    if (!fs.existsSync(p) || fs.statSync(p).isDirectory()) { res.writeHead(404); return res.end('404'); }
+    const p = resolveFile(req.url);
+    if (!readable(p)) { res.writeHead(404); return res.end('404'); }
     res.writeHead(200, { 'content-type': MIME[path.extname(p)] || 'application/octet-stream' });
     res.end(fs.readFileSync(p));
   });
   return new Promise(r => srv.listen(port, () => r(srv)));
 }
+
 
 export const launch = () => chromium.launch({
   executablePath: process.env.QA_CHROME || undefined, args: ['--no-sandbox']
