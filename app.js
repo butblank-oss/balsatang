@@ -5,6 +5,13 @@
    ⚠ 제품 종합 점수(f.score)는 화면에 렌더링하지 않는다.
      정렬·추천 가중치로만 쓴다. 별점(f.ratings)은 사람이 판단하는 재료라 남긴다.
      이유는 docs/DATA-POLICY 와 디자인 핸드오프 NOTES.md 참고.
+
+   ⚠ 처방식(f.rx)은 별점도 보여주지 않는다.
+     질환 때문에 일부러 단백질을 낮추거나 탄수화물을 높인 사료가 많아서, 일반 기준으로
+     별점을 매기면 수의사가 처방한 사료가 '나쁜 사료' 로 보인다. 점수·별점은 데이터에
+     그대로 두고 화면에서만 가린다 — 엔진(engine/)은 건드리지 않는다.
+     가리는 자리는 네 곳이다: ratingCards(별점), compareCases·renderCompare(우열 판정),
+     renderResult(맞춤 추천 후보), searchResults(추천순 맨 뒤).
 */
 
 /* ═══ 짧은 도우미 ═══ */
@@ -83,7 +90,9 @@ function foodTags(f) {
   const first = (d.ingr || [])[0];
   if (first) out.push(`첫 원료 ${first.name.replace(/\s*\(.*$/, '').slice(0, 10)}`);
   if (f.sizes?.includes('small')) out.push('소형견');
-  if (f.rx) out.push('처방식');
+  /* 처방식은 맨 앞이다. 뒤에 붙이면 slice(0,3) 에 밀려 목록·검색 결과에서 사라진다 —
+     그 사료에 대해 가장 먼저 알아야 할 사실이 안 보이게 된다. */
+  if (f.rx) out.unshift('처방식');
   return out.slice(0, 3);
 }
 
@@ -215,7 +224,9 @@ function load() {
 /* ═══ 검색·필터·정렬 ═══ */
 function matchQuery(f, q) {
   if (!q) return true;
-  const hay = `${f.brand} ${f.name}`.toLowerCase().replace(/\s/g, '');
+  /* 처방식을 검색거리에 넣는다. 홈의 '처방식' 고민 칩이 state.query='처방식' 을 넣는데,
+     제품명에 그 글자가 든 사료는 없어서 칩이 늘 빈 결과를 냈다. */
+  const hay = `${f.brand} ${f.name}${f.rx ? ' 처방식' : ''}`.toLowerCase().replace(/\s/g, '');
   const nq = q.toLowerCase().replace(/\s/g, '');
   if (hay.includes(nq)) return true;
   const tags = synonymTags(q);
@@ -234,7 +245,9 @@ function searchResults() {
      내부 score 로 정렬한다. 없는 데이터를 있는 것처럼 말하지 않는다. */
   if (s === 'priceAsc') list.sort((a, b) => (a.price?.pKg ?? 9e9) - (b.price?.pKg ?? 9e9));
   else if (s === 'recent') list = list.slice().reverse();
-  else list.sort((a, b) => (b.score ?? 0) - (a.score ?? 0));
+  /* 추천순에서 처방식은 맨 뒤다. 수의사 처방 없이 먼저 보일 사료가 아니다.
+     '처방식' 으로 검색했을 때는 그 결과 안에서만 뒤로 가므로 찾는 데는 지장이 없다. */
+  else list.sort((a, b) => (a.rx ? 1 : 0) - (b.rx ? 1 : 0) || (b.score ?? 0) - (a.score ?? 0));
   return list;
 }
 const SORT_LABEL = { recommend: '발사탕 추천순', priceAsc: '가격 낮은 순', recent: '최근 분석 순' };
@@ -907,7 +920,27 @@ function stars(v) {
     <path d="${STAR_PATH}" fill="${i <= v ? 'var(--purple700)' : 'none'}"
       stroke="${i <= v ? 'none' : 'var(--starOff)'}" stroke-width="1.6" stroke-linejoin="round"></path></svg>`).join('');
 }
+/* 처방식 용도 — 데이터팀이 넣는 rxFor 키를 화면 말로 옮기는 표.
+   ⚠ '용도 이름' 까지만 쓴다. 효과를 우리 말로 새로 쓰지 않는다("신장병에 좋다" 금지) —
+   우리는 수의사가 아니고, 그 한 줄이 처방을 대신하는 말로 읽힌다. */
+const RX_FOR_KO = {
+  kidney: '신장 관리용', digestive: '소화 관리용', allergy: '알러지 관리용',
+  urinary: '요로 관리용', weight: '체중 관리용', liver: '간 관리용',
+  joint: '관절 관리용', diabetes: '혈당 관리용'
+};
+/* 모르는 키는 버린다 — 키를 그대로 찍으면 화면에 'pancreas' 같은 영문이 나온다. */
+const rxForLabel = f => (f.rxFor || []).map(k => RX_FOR_KO[k]).filter(Boolean).join(' · ');
+
 function ratingCards(f) {
+  /* 처방식은 별점을 보여주지 않는다 — 머리말 ⚠ 참고. ratings 는 데이터에 그대로 남는다. */
+  if (f.rx) {
+    const forKo = rxForLabel(f);
+    return `<h2 class="t-sub" style="margin-top:30px">이 사료는요</h2>
+    <div class="card soft" style="padding:15px 16px">
+      <span style="height:26px;padding:0 11px;border-radius:999px;background:var(--purple900);color:#fff;font-size:11px;font-weight:800;display:inline-flex;align-items:center">수의사 처방식${forKo ? ' · ' + esc(forKo) : ''}</span>
+      <p class="t-bodySm c-sub" style="margin-top:10px">질환 관리를 위해 만든 사료예요. 수의사와 상담한 뒤 급여해 주세요. 일반 사료와 같은 기준으로 점수를 매기지 않아요.</p>
+    </div>`;
+  }
   const r = f.ratings;
   if (!r) return '';
   return `<h2 class="t-sub" style="margin-top:30px">항목별로 보면</h2>
@@ -1116,6 +1149,9 @@ function compareCases(A, B, la, lb) {
     }
     out.push({ key: c.key, label: c.label, win, body });
   }
+  /* 한쪽이라도 처방식이면 우열을 가리지 않는다. 사실 서술(body)은 그대로 두고 승자만 뗀다 —
+     win 을 null 로만 두면 '차이 없음' 으로 읽혀 거짓이 되므로 rx 를 따로 표시한다. */
+  if (A.rx || B.rx) return out.map(c => ({ ...c, win: null, rx: true }));
   return out;
 }
 
@@ -1133,6 +1169,7 @@ function renderCompare() {
   if (!A || !B) return renderCompareEmpty(A || B);
   const [la, lb] = abLabels(A, B);
   const cases = compareCases(A, B, la, lb);
+  const rxCmp = !!(A.rx || B.rx);
   const sameBrand = A.brand === B.brand;
 
   return `
@@ -1157,10 +1194,12 @@ function renderCompare() {
       ${cases.map(c => `<div class="card soft" style="padding:15px 16px">
         <div class="t-caption" style="color:var(--ink50);display:flex;align-items:center;gap:6px">${cicon(c.key, 17)}${c.label}</div>
         <div style="display:flex;align-items:center;gap:7px;margin-top:8px;flex-wrap:wrap">
-          ${c.win
-      ? `<span style="height:24px;padding:0 9px;border-radius:999px;background:${c.win === 'A' ? 'var(--purple700)' : 'var(--blue700)'};color:#fff;font-size:11px;font-weight:800;display:inline-flex;align-items:center">${c.win} · ${esc(c.win === 'A' ? la : lb)}</span>
+          ${c.rx
+      ? `<span class="chip neutral" style="height:24px;font-size:11px;padding:0 9px">처방식이라 우열을 가리지 않아요</span>`
+      : c.win
+        ? `<span style="height:24px;padding:0 9px;border-radius:999px;background:${c.win === 'A' ? 'var(--purple700)' : 'var(--blue700)'};color:#fff;font-size:11px;font-weight:800;display:inline-flex;align-items:center">${c.win} · ${esc(c.win === 'A' ? la : lb)}</span>
              <b style="font-size:15px;font-weight:700;letter-spacing:-.03em">쪽이 더 맞아요</b>`
-      : `<span class="chip neutral" style="height:24px;font-size:11px;padding:0 9px">차이 없음</span>`}
+        : `<span class="chip neutral" style="height:24px;font-size:11px;padding:0 9px">차이 없음</span>`}
         </div>
         <p class="t-bodySm c-sub" style="margin-top:8px">${esc(c.body)}</p>
       </div>`).join('')}
@@ -1179,7 +1218,9 @@ function renderCompare() {
       ${CMP_ROWS.map(r => {
         const va = r.get(A), vb = r.get(B);
         let winA = false, winB = false;
-        if (va != null && vb != null && va !== vb && (r.lower || r.higher)) {
+        /* 처방식은 숫자표에서도 '더 나은 쪽' 을 굵게 집지 않는다 — 일부러 낮춘 값이
+           '지는 값' 으로 보인다. 숫자 자체는 그대로 보여준다. */
+        if (!rxCmp && va != null && vb != null && va !== vb && (r.lower || r.higher)) {
           const aWins = r.lower ? va < vb : va > vb;
           winA = aWins; winB = !aWins;
         }
@@ -1193,7 +1234,9 @@ function renderCompare() {
           ${cell(vb, winB, 'B', 'right')}</div>`;
       }).join('')}
     </div>
-    <p class="t-micro c-mute" style="margin-top:10px;font-weight:500">진하게 표시된 값이 해당 항목에서 더 나은 쪽이에요.</p>
+    <p class="t-micro c-mute" style="margin-top:10px;font-weight:500">${rxCmp
+      ? '처방식이 들어 있어 더 나은 쪽을 따로 표시하지 않아요. 수의사와 상담한 뒤 골라 주세요.'
+      : '진하게 표시된 값이 해당 항목에서 더 나은 쪽이에요.'}</p>
   </div>
 
   <div class="sec lg">
@@ -1338,7 +1381,9 @@ function matchScore(f, pet) {
 function renderResult() {
   const pet = state.pet;
   if (!pet) return renderProfileEmpty();
-  const ranked = FOODS.filter(f => analysisState(f) === 'analyzed')
+  /* 처방식은 맞춤 추천에서 뺀다. 질환 관리용이라 수의사 처방 없이 '우리 아이 맞춤 1위' 로
+     내밀 사료가 아니다. 검색과 홈의 '처방식' 칩으로는 그대로 찾을 수 있다. */
+  const ranked = FOODS.filter(f => analysisState(f) === 'analyzed' && !f.rx)
     .map(f => ({ f, m: matchScore(f, pet) })).sort((a, b) => b.m - a.m);
   const [top, ...rest] = ranked;
   if (!top) return renderProfileEmpty();
