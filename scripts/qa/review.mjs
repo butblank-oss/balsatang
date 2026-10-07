@@ -104,7 +104,9 @@ try {
 
   /* TC-R05 구매 링크 입력 검증 */
   {
-    const buy = pg.locator('.card[data-id="stg_qa_ok"] [data-buy]');
+    /* 구매 링크 칸은 data-edit="price.buyUrl" 이다. 옛 선택자 [data-buy] 는 화면에 없어
+       '구매 링크 입력칸 없음' 이 거짓으로 떴다. */
+    const buy = pg.locator('.card[data-id="stg_qa_ok"] [data-edit="price.buyUrl"]');
     if (!await buy.count()) bug('review', 'TC-R05', 'P2', '심사 화면에 구매 링크 입력칸이 없음');
     else {
       await buy.fill('https://smartstore.naver.com/x'); await buy.dispatchEvent('change');
