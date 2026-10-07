@@ -60,7 +60,10 @@ await pg.waitForSelector('tbody tr');
 {
   const rows = await pg.locator('tbody tr').count();
   const chips = await pg.locator('[data-filter]').allTextContents();
-  if (rows !== 55) bug('foods', 'TC-A03', 'P2', `목록 ${rows}행 (data.js 는 55종)`);
+  /* 종수는 손으로 적지 않고 센다 — data.js 가 로드한 사료 수(S.foods)와 목록 행이 같아야 한다 */
+  const want = await pg.evaluate(() => S.foods.length);
+  if (!want) bug('foods', 'TC-A03', 'P1', 'data.js 에 사료가 하나도 없음');
+  else if (rows !== want) bug('foods', 'TC-A03', 'P2', `목록 ${rows}행 (data.js 는 ${want}종)`);
   else pass('TC-A03', `목록 ${rows}행 · 필터 ${chips.length}개`);
   for (const c of chips) {
     const k = c.trim();
@@ -91,9 +94,9 @@ await pg.waitForSelector('tbody tr');
 /* TC-A05 편집 패널 열기 */
 {
   await pg.locator('tbody tr').first().click();
-  await pg.waitForSelector('#panel.on');
-  const title = await pg.textContent('#panelTitle');
-  if (!title.trim()) bug('foods', 'TC-A05', 'P2', '패널 제목이 비어 있음');
+  await pg.waitForSelector('#panelBody');
+  const title = await pg.textContent('.edit-head h2');
+  if (!title.trim()) bug('foods', 'TC-A05', 'P2', '편집 화면 제목이 비어 있음');
   const fields = await pg.locator('#panelBody [data-k]').count();
   if (fields < 8) bug('foods', 'TC-A05', 'P2', `편집 필드가 ${fields}개뿐`);
   else pass('TC-A05', `패널 열림 "${title}" · 필드 ${fields}개`);
@@ -133,24 +136,24 @@ await pg.waitForSelector('tbody tr');
   for (const [sel, val, expect] of cases) {
     const before = await pg.inputValue(sel);
     await pg.fill(sel, val); await pg.waitForTimeout(150);
-    await pg.click('#panelDone'); await pg.waitForTimeout(200);
+    await pg.click('[data-back]'); await pg.waitForTimeout(200);
     put = null;
     await pg.click('#commit'); await pg.waitForTimeout(400);
     const t = (await pg.textContent('#toast') || '').trim();
     if (put) bug('foods', 'TC-A08', 'P1', `잘못된 값(${val || '빈값'})인데 커밋이 나감`);
     else if (!t.includes(expect)) bug('foods', 'TC-A08', 'P2', `막긴 했는데 안내가 모호함: "${t}"`);
-    await pg.locator('tbody tr').first().click(); await pg.waitForSelector('#panel.on');
+    await pg.locator('tbody tr').first().click(); await pg.waitForSelector('#panelBody');
     await pg.fill(sel, before); await pg.waitForTimeout(150);
   }
   pass('TC-A08', '잘못된 구매링크·빈 브랜드·잘못된 썸네일 전부 커밋 차단');
-  await pg.click('#panelDone');
+  await pg.click('[data-back]');
 }
 
 /* TC-A09 정상 커밋 → 파일 두 줄만 바뀌는지 */
 {
-  await pg.locator('tbody tr').first().click(); await pg.waitForSelector('#panel.on');
+  await pg.locator('tbody tr').first().click(); await pg.waitForSelector('#panelBody');
   await pg.fill('[data-k="price.buyUrl"]', 'https://link.coupang.com/a/QATEST');
-  await pg.click('#panelDone'); await pg.waitForTimeout(200);
+  await pg.click('[data-back]'); await pg.waitForTimeout(200);
   put = null;
   await pg.click('#commit'); await pg.waitForTimeout(700);
   if (!put) bug('foods', 'TC-A09', 'P1', '정상 값인데 커밋이 안 나감');
@@ -165,7 +168,9 @@ await pg.waitForSelector('tbody tr');
     /* 커밋한 결과가 실제로 유효한 data.js 인지 */
     try {
       const sc = new Function(`${text}; return {FOODS_ALL,FOODS,DETAIL,ICONS}`)();
-      if (sc.FOODS_ALL.length !== 55) bug('foods', 'TC-A09', 'P1', `커밋 결과 사료 ${sc.FOODS_ALL.length}종`);
+      /* 종수는 세게 — 커밋 결과는 원본 data.js 와 같은 종수여야 한다(가격만 고쳤으니) */
+      const wantN = new Function(`${DATA}; return FOODS_ALL.length`)();
+      if (sc.FOODS_ALL.length !== wantN) bug('foods', 'TC-A09', 'P1', `커밋 결과 사료 ${sc.FOODS_ALL.length}종 (원본 ${wantN}종)`);
     } catch (e) { bug('foods', 'TC-A09', 'P1', `커밋 결과가 실행되지 않음: ${e.message}`); }
   }
   const dockHidden = await pg.locator('#dock').isHidden();
@@ -174,9 +179,9 @@ await pg.waitForSelector('tbody tr');
 
 /* TC-A10 충돌(409) 처리 */
 {
-  await pg.locator('tbody tr').first().click(); await pg.waitForSelector('#panel.on');
+  await pg.locator('tbody tr').first().click(); await pg.waitForSelector('#panelBody');
   await pg.fill('[data-k="price.buyUrl"]', 'https://link.coupang.com/a/QACONFLICT');
-  await pg.click('#panelDone'); await pg.waitForTimeout(200);
+  await pg.click('[data-back]'); await pg.waitForTimeout(200);
   failNextPut = 409;
   await pg.click('#commit'); await pg.waitForTimeout(700);
   const t = (await pg.textContent('#toast') || '').trim();
