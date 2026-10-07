@@ -111,6 +111,30 @@
         "price.p": {
           "src": 1,
           "quote": "판매가 60,000원 / 3kg (2026-08-03 확인)"
+        },
+        "ga.protein": {
+          "src": 0,
+          "quote": "Crude protein (min) 35.0%"
+        },
+        "ga.fat": {
+          "src": 0,
+          "quote": "Crude fat (min) 15.0%"
+        },
+        "ga.fiber": {
+          "src": 0,
+          "quote": "Crude fiber (max) 4.0%"
+        },
+        "ga.moisture": {
+          "src": 0,
+          "quote": "Moisture (max) 10.0%"
+        },
+        "ga.ash": {
+          "src": 0,
+          "quote": "Ash (max) 8.0%"
+        },
+        "ingredients": {
+          "src": 0,
+          "quote": "Ingredients: Fresh chicken, ..."
         }
       },
       "audit": {

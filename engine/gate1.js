@@ -258,9 +258,11 @@ function checkItem(item, published, seen) {
     if (gA < 1 && gB < 2) {
       F('E_SRC_GRADE', `성분 근거 부족 — A등급 ${gA}곳, B등급 ${gB}곳 (A 1곳 또는 B 2곳 필요)`);
     }
-    /* 가격 근거: 쿠팡 상품 페이지 1곳 — DATA-POLICY 3.2. 가격 보류 중이면 면제. */
+    /* 가격 근거: 쿠팡 상품 페이지 — DATA-POLICY 3.2. 있으면 형식을 검사하고, 없으면 경고만 한다.
+       대표가 쿠팡에서 직접 보고 넣은 가격은 상품 페이지 주소 없이도 발행한다(2026-10-07 대표 결정).
+       파트너스 단축링크(구매 버튼)만으로는 어느 상품의 얼마인지 남지 않아 경고로 알린다. */
     const retails = srcs.filter(s => s.role === 'retail');
-    if (!retails.length && !pricePending) F('E_SRC_PRICE', '가격 근거(쿠팡 상품 출처)가 없습니다');
+    if (!retails.length && !pricePending) W('W_SRC_PRICE', '가격 근거(쿠팡 상품 페이지 주소)가 없습니다 — 사람이 확인한 가격으로 발행합니다');
     for (const r of retails) {
       if (!isRetailHost(r.url)) {
         F('E_SRC_RETAIL_HOST',
@@ -320,7 +322,10 @@ function checkItem(item, published, seen) {
       if (!e) { F('E_EV_NONE', `근거 누락: ${key} (값이 있으면 인용도 있어야 합니다)`); continue; }
       if (!Number.isInteger(e.src) || !srcs?.[e.src]) { F('E_EV_SRC', `${key} 의 출처 번호가 잘못됨: ${e.src}`); continue; }
       if (!e.quote || String(e.quote).trim().length < 2) F('E_EV_QUOTE', `${key} 의 인용문이 비어 있습니다`);
-      gaSrcs.add(e.src);
+      /* 심사자가 제품 봉투·라벨을 보고 직접 넣은 값(human 출처)은 섞임 검사에서 뺀다.
+         사람이 '이 제품의 값' 이라고 확인한 것이라 생산지 섞임 사고(다른 나라 페이지를
+         기계가 끌어오는 것)와 성격이 다르다. 근거 인용은 그대로 요구한다. */
+      if (!srcs[e.src].human) gaSrcs.add(e.src);
     }
     /* 보장성분(ga)은 한 라벨에 다 적혀 있는 값이라 ga.* 인용은 모두 같은 출처를 가리켜야 한다.
        같은 제품이라도 생산지마다 배합이 다른데(실측: 로얄캐닌 가스트로 로우팻 스몰독 —
@@ -342,7 +347,7 @@ function checkItem(item, published, seen) {
        (한국 hypoallergenic-small-dog ↔ 미국 hydrolyzed-protein-small-dog).
        예외(같은 생산지를 여러 공식 문서에 나눠 게시)는 위와 같이 기계가 막고 사람이 확인한다. */
     const ingrSrc = ev?.ingredients?.src;
-    if (gaSrcs.size === 1 && Number.isInteger(ingrSrc) && !gaSrcs.has(ingrSrc)) {
+    if (gaSrcs.size === 1 && Number.isInteger(ingrSrc) && !srcs?.[ingrSrc]?.human && !gaSrcs.has(ingrSrc)) {
       const [gaSrc] = [...gaSrcs];
       F('E_SRC_MIX', `원재료와 보장성분이 서로 다른 출처입니다: 원재료 src ${ingrSrc}(${srcs?.[ingrSrc]?.url ?? '?'}) / 보장성분 src ${gaSrc}(${srcs?.[gaSrc]?.url ?? '?'}) — 생산지마다 배합이 달라 섞으면 안 됩니다. 한 출처에서 둘 다 가져오세요 (같은 생산지를 여러 공식 문서에 나눠 적은 경우면 사람이 확인)`);
     }

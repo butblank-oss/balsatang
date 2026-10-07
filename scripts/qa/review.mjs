@@ -13,8 +13,10 @@ const BACKUP = fs.readFileSync(P, 'utf8');
    gateNow), 편집 뒤에도 통과를 유지하려면 proposed 가 실제 gate1 을 통과해야 한다.
    그래서 숫자를 지어내지 않고 '게이트를 그대로 통과하는 상태로 유지되는' _example.json 의
    proposed·sources·evidence 를 재료로 쓴다. 대조 불일치는 audit 으로만 심는다 —
-   gate1 은 audit 을 보지 않아 통과에 지장이 없다. stg_qa_blocked 는 가격 근거(retail)
-   출처만 빼서 실제로 탈락시킨다(E_SRC_PRICE). 끝나면 finally 에서 원본으로 되돌린다. */
+   gate1 은 audit 을 보지 않아 통과에 지장이 없다. stg_qa_blocked 는 원재료를 비워
+   실제로 탈락시킨다(E_INGR_NONE — 책임 승인으로도 못 넘기는 탈락). 예전엔 가격 근거를
+   뺐는데, 2026-10-07 부터 가격 근거는 경고(W_SRC_PRICE)라 탈락이 안 된다.
+   끝나면 finally 에서 원본으로 되돌린다. */
 const EX = JSON.parse(fs.readFileSync(ROOT + '/data/staging/_example.json', 'utf8')).items[0];
 const okProposed = { ...EX.proposed, name: 'QA 통과 사료' };
 /* 수집값보다 심사 AI 재조사 조단백을 3 낮춰 대조 불일치 한 줄을 만든다 */
@@ -36,11 +38,11 @@ const QA_FIXTURE = {
                  g2: 'mismatch', g2diff: DIFF, g3warn: [] },
         ready: true },
       { stagingId: 'stg_qa_blocked', label: `${EX.proposed.brand} 게이트 탈락 사료`,
-        proposed: { ...EX.proposed, name: '게이트 탈락 사료' },
-        sources: EX.sources.filter(s => s.role !== 'retail'), evidence: EX.evidence, audit: null,
+        proposed: { ...EX.proposed, name: '게이트 탈락 사료', ingredients: [] },
+        sources: EX.sources, evidence: EX.evidence, audit: null,
         pricePending: false, draft: false,
         gates: { g1: 'fail',
-                 g1fail: [{ code: 'E_SRC_PRICE', msg: '가격 근거(쿠팡 상품 출처)가 없습니다' }],
+                 g1fail: [{ code: 'E_INGR_NONE', msg: 'ingredients 가 없습니다 — 원재료명을 표기 순서대로 적어야 합니다' }],
                  g1warn: [], todo: [], g2: 'none', g2diff: [], g3warn: [] },
         ready: false }
     ]
