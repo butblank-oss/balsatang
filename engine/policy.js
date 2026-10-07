@@ -22,6 +22,11 @@ const ENUM = {
      둘 다 'immune' 이라는 코드를 그대로 화면에 뿌렸다. 실제 고민이므로 넣는다. */
   concerns: ['allergy', 'digestive', 'eye_tear', 'healthy', 'immune', 'joint', 'kidney',
              'liver', 'picky_eater', 'post_surgery', 'senior', 'weight', 'skin', 'dental'],
+  /* rxFor — 처방식이 어떤 상태용인지. concerns 와 겹치는 값이 있지만 뜻이 달라 따로 둔다
+     (concerns 는 보호자의 고민, rxFor 는 제조사가 밝힌 관리 대상이다).
+     ⚠ 이 목록은 app.js 의 RX_FOR_KO 와 짝이다. 여기만 늘리면 화면이 그 용도를 조용히
+       버려서, 처방식인데 무엇을 위한 것인지 안 보이는 상태가 된다. 양쪽을 함께 고친다. */
+  rxFor: ['kidney', 'digestive', 'allergy', 'urinary', 'weight', 'liver', 'joint', 'diabetes'],
   shop: ['coupang', 'brand_official', 'naver', 'other'],
   ico: ['beef', 'bird', 'cross', 'dog', 'drumstick', 'fish', 'leaf'],
   status: ['draft', 'review', 'published', 'rejected', 'stale'],

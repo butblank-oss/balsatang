@@ -75,6 +75,24 @@ function checkItem(item, published, seen) {
   }
   if (typeof p.rx !== 'boolean') F('E_TYPE', 'rx 는 true/false 여야 합니다');
 
+  /* rxFor — 어디에서도 검증되지 않던 칸이다. 화면(app.js)은 모르는 키를 조용히 버리는데,
+     그건 화면으로서 맞는 처리다(영문 코드를 사용자에게 보이지 않는다). 문제는 그 뒤였다 —
+     'kidny' 처럼 오타를 넣으면 게이트도 화면도 아무 말을 하지 않고 용도만 사라져,
+     처방식인데 무엇을 위한 것인지 안 보이는 채로 발행된다. 여기서 잡는다. */
+  if (p.rxFor != null) {
+    if (!Array.isArray(p.rxFor)) F('E_ENUM', 'rxFor 는 배열이어야 합니다');
+    else {
+      for (const v of p.rxFor) if (!ENUM.rxFor.includes(v)) F('E_ENUM', `rxFor 허용값 아님: ${v}`);
+      /* 처방식이 아닌데 용도가 붙어 있으면 둘 중 하나가 틀렸다. 화면은 rx 로만 갈라서
+         rx:false 면 rxFor 를 아예 읽지 않는다 — 조용히 무시되므로 여기서 짚는다. */
+      if (p.rxFor.length && p.rx !== true) {
+        F('E_RX_FOR', 'rx 가 true 가 아닌데 rxFor 에 값이 있습니다');
+      }
+      /* 용도는 제조사 공식 문장이 근거다. 우리가 제품명을 보고 짐작하지 않는다. */
+      if (p.rxFor.length && !ev?.rxFor) F('E_EVIDENCE', '근거 누락: rxFor');
+    }
+  }
+
   /* --- 3. ratings — 가격 보류 중이면 value 는 아직 매길 수 없다 --- */
   const pending = p.pricePending === true;
   for (const k of REQUIRED_RATING_KEYS) {
@@ -94,6 +112,16 @@ function checkItem(item, published, seen) {
   } else {
     for (const k of REQUIRED_FACT_KEYS) {
       if (facts[k] == null) F('E_FACTS', `facts.${k} 누락 — 채점 검증에 필요합니다`);
+    }
+    /* warnN 은 화면에 '주의성분 N종' 으로 그대로 찍힌다. 점수와 달리 아무 데서도 검증하지
+       않아서, 손으로 적은 수가 그대로 사용자에게 나갔다. 실제로 두 번 틀렸다 —
+       수집 쪽이 0 으로 박아 6종인 사료가 '없음' 으로 나올 뻔했고, 심사 편집 쪽은
+       위험 성분(dangerN)을 빼고 세어 편집을 거친 사료만 한 종씩 줄었다. */
+    if (facts.cautionN != null) {
+      const wantWarn = facts.cautionN + (facts.dangerN ?? 0);
+      if ((p.warnN ?? 0) !== wantWarn) {
+        F('E_WARN_N', `warnN(${p.warnN ?? 0})이 사실값과 다릅니다 — 주의 ${facts.cautionN} + 위험 ${facts.dangerN ?? 0} = ${wantWarn}`);
+      }
     }
     const expect = rateAll({ ...facts, pKg: p.price?.pKg });
     for (const k of REQUIRED_RATING_KEYS) {
