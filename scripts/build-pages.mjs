@@ -76,7 +76,7 @@ function foodBody(f, d) {
   <p>${esc(f.brand)}</p>
   <h1>${esc(f.name)} 성분 분석</h1>
   <p>${[TYPE_KO[f.type] || f.type, (f.ages || []).map(a => AGE_KO[a] || a).join('·') || '전연령',
-    f.score != null ? `발사탕 점수 ${f.score}` : null, f.warnN ? `주의성분 ${f.warnN}종` : '주의성분 없음']
+    f.rx ? '수의사 처방식' : (f.score != null ? `발사탕 점수 ${f.score}` : null), f.warnN ? `주의성분 ${f.warnN}종` : '주의성분 없음']
     .filter(Boolean).map(esc).join(' · ')}</p>
   ${rows ? `<h2>보장성분</h2><table>${rows}</table>` : ''}
   ${ingr.length ? `<h2>원재료 (표기 순서)</h2><ol>${ingr.map(i => `<li>${esc(i.name)}${i.desc ? ` — ${esc(i.desc)}` : ''}</li>`).join('')}</ol>` : ''}
