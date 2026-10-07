@@ -10,6 +10,7 @@
 index.html · app.js · app.css      프론트 (사용자가 보는 화면)
 data.js                            사료 데이터. 어드민이 이 파일을 고쳐 커밋한다
 articles.js                        콘텐츠
+track.js                           익명 사용 기록 → Supabase (설치: 어드민 저장소 analytics/README.md)
 engine/                            채점·원료 판정·문구 템플릿 ← 어드민도 이걸 읽는다
 scripts/                           수집·게이트·검증·QA
 data/staging                       심사 대기 중인 사료
