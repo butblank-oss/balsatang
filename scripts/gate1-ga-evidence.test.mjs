@@ -43,4 +43,32 @@ assert.ok(gaEvMissing(mk({ protein: 30 }, {}), 'protein'),
 assert.ok(!gaEvMissing(mk({ ash: null }, {}), 'ash'),
   'ga.ash 가 null 이면 근거를 요구하지 않아야 합니다');
 
-console.log('✅ 게이트1 ga 근거 검사 회귀 통과 — 값 있으면 근거 요구 / 없으면 면제, 5케이스');
+/* --- ga.* 인용이 모두 같은 출처(src)를 가리키는지 — 생산지 섞기 방지 ---
+   같은 제품이라도 생산지마다 배합이 달라(로얄캐닌 가스트로 영국 섬유 1.8 vs 미국 4.7)
+   다른 나라 라벨에서 빈 칸을 끌어와 채우면 어디에도 없는 성분표가 된다. src 가 2개 이상
+   필요한 검사라 sources 를 둘 둔다 — src:1 이 유효해야 gaSrcs 에 담긴다. */
+const mk2 = (ga, ev) => ({
+  stagingId: 'test_ga_src',
+  sources: [
+    { role: 'label', url: 'https://example.uk/a', fetchedAt: '2026-10-07' },
+    { role: 'label', url: 'https://example.us/b', fetchedAt: '2026-10-07' }
+  ],
+  proposed: { ga },
+  evidence: ev
+});
+const q = src => ({ src, quote: 'Protein (min) 20.0%' });
+const gaSrcMix = item => checkItem(item, [], new Set()).fail.some(f => f.code === 'E_GA_SRC_MIX');
+
+/* 6. ga 인용이 모두 같은 출처면 통과 */
+assert.ok(!gaSrcMix(mk2({ protein: 20, fat: 5 }, { 'ga.protein': q(0), 'ga.fat': q(0) })),
+  'ga.* 인용이 모두 같은 src 면 통과해야 합니다');
+
+/* 7. ga 인용이 서로 다른 출처를 가리키면 탈락 — 이게 영/미 라벨 섞기 사고 */
+assert.ok(gaSrcMix(mk2({ protein: 20, fat: 5 }, { 'ga.protein': q(0), 'ga.fat': q(1) })),
+  '서로 다른 src 를 가리키면 E_GA_SRC_MIX 로 탈락해야 합니다');
+
+/* 8. ga 인용이 하나뿐이면(비교 대상 없음) 통과 */
+assert.ok(!gaSrcMix(mk2({ protein: 20 }, { 'ga.protein': q(0) })),
+  'ga 인용이 하나뿐이면 섞임 검사에 걸리지 않아야 합니다');
+
+console.log('✅ 게이트1 ga 근거 검사 회귀 통과 — 값 있으면 근거 요구 / 없으면 면제 / 인용 출처 동일, 8케이스');

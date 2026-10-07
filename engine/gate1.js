@@ -284,13 +284,25 @@ function checkItem(item, published, seen) {
      '값이 있으면 근거도 있어야 한다' 는 것(값 자체의 필수 여부는 REQUIRED_GA_KEYS 로
      따로 가린다). */
   if (ga && typeof ga === 'object') {
+    const gaSrcs = new Set();
     for (const k of Object.keys(ga)) {
       if (ga[k] == null) continue;
       const key = `ga.${k}`;
       const e = ev?.[key];
       if (!e) { F('E_EV_NONE', `근거 누락: ${key} (값이 있으면 인용도 있어야 합니다)`); continue; }
-      if (!Number.isInteger(e.src) || !srcs?.[e.src]) F('E_EV_SRC', `${key} 의 출처 번호가 잘못됨: ${e.src}`);
+      if (!Number.isInteger(e.src) || !srcs?.[e.src]) { F('E_EV_SRC', `${key} 의 출처 번호가 잘못됨: ${e.src}`); continue; }
       if (!e.quote || String(e.quote).trim().length < 2) F('E_EV_QUOTE', `${key} 의 인용문이 비어 있습니다`);
+      gaSrcs.add(e.src);
+    }
+    /* 보장성분(ga)은 한 라벨에 다 적혀 있는 값이라 ga.* 인용은 모두 같은 출처를 가리켜야 한다.
+       같은 제품이라도 생산지마다 배합이 다른데(실측: 로얄캐닌 가스트로 로우팻 스몰독 —
+       영국 공식 섬유 1.8 vs 미국 공식 4.7, 2.6배) 나라마다 표기 의무가 달라(미국엔 조회분 없음,
+       영국엔 수분 없음) 빈 칸을 다른 나라 라벨에서 끌어와 채우고 싶은 유혹이 생긴다. 섞으면
+       어디에도 없는 제품의 성분표가 되고 그 값으로 탄수·별점이 계산된다 — 팀원 둘이 실제로
+       그 제안을 했고 사람이 막았다. 같은 생산지를 여러 공식 문서에 나눠 게시한 경우만 예외인데,
+       드문 그 경우를 위해 구멍을 열어두면 흔한 사고를 못 막으므로 기계는 막고 사람이 확인한다. */
+    if (gaSrcs.size > 1) {
+      F('E_GA_SRC_MIX', `보장성분(ga) 인용이 서로 다른 출처를 가리킵니다: src ${[...gaSrcs].sort((a, b) => a - b).join(', ')} — 생산지마다 배합이 달라 섞으면 안 됩니다. 한 라벨에서 가져오세요 (같은 생산지를 여러 공식 문서에 나눠 적은 경우면 사람이 확인)`);
     }
   }
 
