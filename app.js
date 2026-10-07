@@ -1758,11 +1758,13 @@ function wire() {
   on('[data-pick-slot]', 'click', e => openPicker(+e.currentTarget.dataset.pickSlot));
   on('[data-share]', 'click', async () => {
     const f = FOODS.find(x => x.id === state.detailId);
-    const share = { title: `${f.brand} ${f.name} — 발사탕`, url: location.href };
+    /* 분석된 사료는 검색용 진짜 주소(/food/<id>/)가 있다. 그걸 퍼뜨려야 검색에도 쌓인다. */
+    const url = analysisState(f) === 'analyzed' ? `${location.origin}/food/${encodeURIComponent(f.id)}/` : location.href;
+    const share = { title: `${f.brand} ${f.name} — 발사탕`, url };
     /* 예전엔 navigator.share 가 없으면 복사하지도 않고 '복사했어요' 라고만 했다.
        거짓말이다. 실제로 복사하고, 그것도 안 되면 안 됐다고 말한다. */
     if (navigator.share) { try { await navigator.share(share); } catch { } return; }
-    try { await navigator.clipboard.writeText(location.href); toast('링크를 복사했어요'); }
+    try { await navigator.clipboard.writeText(url); toast('링크를 복사했어요'); }
     catch { toast('링크를 복사하지 못했어요 — 주소창에서 복사해주세요'); }
   });
 
