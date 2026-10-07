@@ -104,6 +104,7 @@ for (const file of files) {
           .map(([k, v]) => [k, strengthOf(v)]).filter(([, v]) => v > 0)) : undefined;
       })(),
       specOrigin: p.specOrigin,     // 성분표가 국내 기준인지 해외 기준인지 — 사용자에게 표시된다
+      ...(p.specNote ? { specNote: p.specNote } : {}),   // 해외 정보 안내문 (비우면 프론트가 기본 문구)
       status: 'published',
       srcState: 'sourced',
       src: {

@@ -77,7 +77,9 @@ function foodBody(f, d) {
   <h1>${esc(f.name)} 성분 분석</h1>
   <p>${[TYPE_KO[f.type] || f.type, (f.ages || []).map(a => AGE_KO[a] || a).join('·') || '전연령',
     f.rx ? '수의사 처방식' : (f.score != null ? `발사탕 점수 ${f.score}` : null), f.warnN ? `주의성분 ${f.warnN}종` : '주의성분 없음']
-    .filter(Boolean).map(esc).join(' · ')}</p>
+    .filter(Boolean).map(esc).join(' · ')}</p>${f.specOrigin === 'overseas' ? `
+  <p>${esc(String(f.specNote || '').trim()
+    || `※ ${f.brand} 글로벌에서 제시되는 기본 정보로서, 국내 사료관리법에 따른 제품 표시사항과 일부 다를 수 있습니다.`)}</p>` : ''}
   ${rows ? `<h2>보장성분</h2><table>${rows}</table>` : ''}
   ${ingr.length ? `<h2>원재료 (표기 순서)</h2><ol>${ingr.map(i => `<li>${esc(i.name)}${i.desc ? ` — ${esc(i.desc)}` : ''}</li>`).join('')}</ol>` : ''}
   ${warns.length ? `<h2>주의할 원료</h2><ul>${warns.map(i => `<li><b>${esc(i.name)}</b>${i.basis ? ` — ${esc(i.basis)}` : ''}</li>`).join('')}</ul>` : ''}
