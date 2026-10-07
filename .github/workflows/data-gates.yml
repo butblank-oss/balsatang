@@ -36,6 +36,9 @@ jobs:
       - name: 게이트1 ga 근거 검사 — 값만 있고 인용 없는 보장성분이 통과하지 않도록
         run: node scripts/gate1-ga-evidence.test.mjs
 
+      - name: 발행 rxFor 회귀 — 처방식 용도가 발행 과정에서 사라지지 않도록
+        run: node scripts/publish-rxfor.test.mjs
+
       - name: 게이트 1 · 기계 검사 (URL 실접속 포함)
         id: g1
         run: node scripts/gate1-validate.mjs --live | tee /tmp/g1.txt

@@ -495,7 +495,10 @@ function publishRecord(item, uuid, now) {
   const food = {
     id: uuid,
     brand: p.brand, brandSlug: p.brandSlug, country: p.country, name: p.name,
-    type: p.type, rx: p.rx, ages: p.ages, sizes: p.sizes,
+    /* rxFor 는 처방식이 어떤 상태용인지(용도 키 배열). 제조사 공식 문장을 근거로 받는다 —
+       우리가 효능을 새로 쓰지 않는다. 같은 자리가 scripts/merge-approved.mjs 에도 있어
+       둘 다 넘겨야 한다. 한쪽만 고치면 그 경로로 발행할 때 조용히 사라진다. */
+    type: p.type, rx: p.rx, rxFor: p.rxFor ?? null, ages: p.ages, sizes: p.sizes,
     thumb: p.thumb ?? null, ico: p.ico ?? 'dog',
     score: computeScore(p.ratings),
     ratings: p.ratings, func: p.func, warnN: p.warnN ?? 0,
