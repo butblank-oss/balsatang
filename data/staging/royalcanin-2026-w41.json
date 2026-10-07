@@ -1,0 +1,649 @@
+{
+  "batchId": "royalcanin-2026-w41",
+  "note": "다나와 인기순 상위 건식 — 처방식 포함. 가격은 쿠팡 확보 전까지 비움.",
+  "collectedAt": "2026-10-07T06:55Z",
+  "collector": {
+    "agent": "때꾸 수집 · 때때 검수",
+    "model": null
+  },
+  "heldBack": [
+    {
+      "제품": "로얄캐닌 독 미니 인도어 어덜트",
+      "사유": "specOrigin 판정 문제로 막혀 있다 — 한국 공식(royalcanin.com/kr)에서 성분을 떴는데 게이트가 해외로 본다. isDomesticSource 가 호스트명만 보고 .com 이라 해외로 분류한다. 그 함수를 고치는 별도 PR 이 머지되면 그대로 통과한다."
+    },
+    {
+      "제품": "로얄캐닌 독 아날러제닉 스몰독",
+      "사유": "보장성분을 어느 공식에서도 못 구했다(한국·미국 양쪽 확인). 성분이 없으면 별점을 낼 수 없어 심사할 것이 없다."
+    }
+  ],
+  "items": [
+    {
+      "stagingId": "stg_royalcanin_13095638",
+      "proposed": {
+        "brand": "로얄캐닌",
+        "brandSlug": "royalcanin",
+        "country": "FR",
+        "countryBasis": "assumed-hq",
+        "name": "독 미니 라이트 웨이트 케어",
+        "type": "dry",
+        "rx": false,
+        "rxFor": null,
+        "ages": [
+          "adult"
+        ],
+        "sizes": [
+          "small"
+        ],
+        "ico": "dog",
+        "score": null,
+        "ratings": {
+          "quality": 4,
+          "carb": 2,
+          "additive": 2,
+          "value": null
+        },
+        "func": [],
+        "warnN": 7,
+        "concerns": [],
+        "facts": {
+          "protein": 28,
+          "dmCarb": 47.8,
+          "firstIngrCat": "meat",
+          "cautionN": 6,
+          "dangerN": 1,
+          "pKg": null
+        },
+        "specOrigin": "overseas",
+        "ga": {
+          "protein": 28,
+          "fat": 9,
+          "fiber": 10,
+          "moisture": 10,
+          "ash": null
+        },
+        "ingredients": [
+          "육분(닭)",
+          "옥수수가루",
+          "분말셀룰로오스",
+          "쌀가루",
+          "밀 글루텐",
+          "보리",
+          "옥수수 글루텐",
+          "동물성 유도단백질(닭, 칠면조, 돼지)",
+          "동물성 지방(닭, 오리, 돼지)",
+          "사탕무박",
+          "어유",
+          "효모",
+          "차전자피식이섬유",
+          "혼합광물질류 합제",
+          "대두유",
+          "프럭토올리고당",
+          "낙산나트륨",
+          "보리지유",
+          "글루코사민",
+          "금잔화 분말",
+          "뮤코다당단백(콘드로이틴의 원료)",
+          "아미노산제 합제",
+          "비타민 A",
+          "비타민 D3",
+          "철",
+          "요오드",
+          "구리",
+          "망간",
+          "아연",
+          "셀레늄",
+          "L-카르니틴",
+          "소르빈산칼륨",
+          "항산화제"
+        ],
+        "kcal": 3273,
+        "pricePending": true,
+        "wgOptionsHint": [
+          3000
+        ]
+      },
+      "sources": [
+        {
+          "role": "official",
+          "url": "https://www.royalcanin.com/kr/dogs/products/retail-products/mini-light-weight-care-3018",
+          "fetchedAt": "2026-10-07T06:50Z",
+          "title": "미니 라이트 웨이트 케어 (로얄캐닌 코리아 공식)"
+        },
+        {
+          "role": "official",
+          "url": "https://www.royalcanin.com/us/dogs/products/retail-products/mini-light-3018",
+          "fetchedAt": "2026-10-07T06:50Z",
+          "title": "Small Weight Care Dry Dog Food (Royal Canin US)"
+        }
+      ],
+      "evidence": {
+        "ingredients": {
+          "src": 0,
+          "quote": "육분(닭), 옥수수가루, 분말셀룰로오스, 쌀가루, 밀 글루텐, 보리, 옥수수 글루텐, 동물성 유도단백질(닭, 칠면조, 돼지), 동물성 지방(닭, 오리, 돼지), 사탕무박, 어유, 효모, 차전자피식이섬유, 혼합광물질류 합제, 대두유, 프럭토올리고당, 낙산나트륨, 보리지유, 글루코사민, 금잔화 분말, 뮤코다당단백(콘드로이틴의 원료), 아미노산제 합제, 비타민 A, 비타민 D3, 철, 요오드, 구리, 망간, 아연, 셀레늄, L-카르니틴, 소르빈산칼륨, 항산화제"
+        },
+        "ga.protein": {
+          "src": 1,
+          "quote": "Crude Protein (min.) 28.0%"
+        },
+        "ga.fat": {
+          "src": 1,
+          "quote": "Crude Fat (min.) 9.0%"
+        },
+        "ga.fiber": {
+          "src": 1,
+          "quote": "Crude Fiber (max.) 10.0%"
+        },
+        "ga.moisture": {
+          "src": 1,
+          "quote": "Moisture (max.) 10.0%"
+        },
+        "kcal": {
+          "src": 1,
+          "quote": "This diet contains 3273 kilocalories of metabolizable energy (ME) per kilogram or 259 kilocalories ME per cup"
+        },
+        "facts.protein": {
+          "src": 1,
+          "quote": "Crude Protein (min.) 28.0%"
+        },
+        "facts.dmCarb": {
+          "src": 1,
+          "quote": "Crude Protein (min.) 28.0% · Crude Fat (min.) 9.0% · Crude Fiber (max.) 10.0% · Moisture (max.) 10.0%"
+        },
+        "facts.firstIngrCat": {
+          "src": 0,
+          "quote": "육분(닭), 옥수수가루, 분말셀룰로오스, 쌀가루, 밀 글루텐, 보리, 옥수수 글루텐, 동물성 유도단백질(닭, 칠면조, 돼지), 동물성 지방(닭, 오리, 돼지), 사탕무박, 어유, 효모, 차전자피식이섬유, 혼합광물질류 합제, 대두유, 프럭토올리고당, 낙산나트륨, 보리지유, 글루코사민, 금잔화 분말, 뮤코다당단백(콘드로이틴의 원료), 아미노산제 합제, 비타민 A, 비타민 D3, 철, 요오드, 구리, 망간, 아연, 셀레늄, L-카르니틴, 소르빈산칼륨, 항산화제"
+        },
+        "facts.cautionN": {
+          "src": 0,
+          "quote": "육분(닭), 옥수수가루, 분말셀룰로오스, 쌀가루, 밀 글루텐, 보리, 옥수수 글루텐, 동물성 유도단백질(닭, 칠면조, 돼지), 동물성 지방(닭, 오리, 돼지), 사탕무박, 어유, 효모, 차전자피식이섬유, 혼합광물질류 합제, 대두유, 프럭토올리고당, 낙산나트륨, 보리지유, 글루코사민, 금잔화 분말, 뮤코다당단백(콘드로이틴의 원료), 아미노산제 합제, 비타민 A, 비타민 D3, 철, 요오드, 구리, 망간, 아연, 셀레늄, L-카르니틴, 소르빈산칼륨, 항산화제"
+        },
+        "facts.dangerN": {
+          "src": 0,
+          "quote": "육분(닭), 옥수수가루, 분말셀룰로오스, 쌀가루, 밀 글루텐, 보리, 옥수수 글루텐, 동물성 유도단백질(닭, 칠면조, 돼지), 동물성 지방(닭, 오리, 돼지), 사탕무박, 어유, 효모, 차전자피식이섬유, 혼합광물질류 합제, 대두유, 프럭토올리고당, 낙산나트륨, 보리지유, 글루코사민, 금잔화 분말, 뮤코다당단백(콘드로이틴의 원료), 아미노산제 합제, 비타민 A, 비타민 D3, 철, 요오드, 구리, 망간, 아연, 셀레늄, L-카르니틴, 소르빈산칼륨, 항산화제"
+        }
+      },
+      "collector": {
+        "agent": "때꾸 수집",
+        "via": "WebFetch (curl 403)",
+        "at": "2026-10-07T06:55Z"
+      },
+      "priceTodo": {
+        "쿠팡상품주소": null,
+        "메모": "쿠팡이 봇 차단(403)이라 제품별 상품 주소를 확인할 수 없습니다. 사람이 브라우저로 찾아야 합니다.",
+        "확인할것": "용량 3kg 중 어느 것이 판매되는지"
+      }
+    },
+    {
+      "stagingId": "stg_royalcanin_45991481",
+      "proposed": {
+        "brand": "로얄캐닌",
+        "brandSlug": "royalcanin",
+        "country": "KR",
+        "countryBasis": "official",
+        "name": "독 가스트로 인테스티널 로우팻 스몰독",
+        "type": "dry",
+        "rx": true,
+        "rxFor": [
+          "digestive"
+        ],
+        "ages": [
+          "adult"
+        ],
+        "sizes": [
+          "small"
+        ],
+        "ico": "dog",
+        "score": null,
+        "ratings": {
+          "quality": 3,
+          "carb": 1,
+          "additive": 2,
+          "value": null
+        },
+        "func": [],
+        "warnN": 6,
+        "concerns": [],
+        "facts": {
+          "protein": 20,
+          "dmCarb": 66.8,
+          "firstIngrCat": "grain",
+          "cautionN": 5,
+          "dangerN": 1,
+          "pKg": null
+        },
+        "specOrigin": "overseas",
+        "ga": {
+          "protein": 20,
+          "fat": 5,
+          "fiber": 4.7,
+          "moisture": 10.5,
+          "ash": null
+        },
+        "ingredients": [
+          "쌀",
+          "육분(닭, 오리)",
+          "옥수수",
+          "보리",
+          "유도단백질(닭, 칠면조, 어류)",
+          "사탕무박",
+          "동물성유지(닭, 오리)",
+          "정제소금",
+          "양조효모",
+          "차전자피식이섬유",
+          "비타민제 합제",
+          "글리세린 지방산 에스테르",
+          "제올라이트",
+          "염화칼륨",
+          "어유",
+          "프락토올리고당",
+          "소르빈산칼륨",
+          "혼합광물질류 합제",
+          "제일인산칼슘",
+          "염화콜린",
+          "탄산칼슘",
+          "비타민 E",
+          "효모(만난올리고당의 원료)",
+          "DL-메티오닌",
+          "타우린",
+          "비타민 C",
+          "금잔화 분말",
+          "식물성 유지",
+          "로즈마리 추출물"
+        ],
+        "kcal": 3203,
+        "pricePending": true,
+        "wgOptionsHint": [
+          1500,
+          3500
+        ]
+      },
+      "sources": [
+        {
+          "role": "official",
+          "url": "https://www.royalcanin.com/kr/dogs/products/vet-products/gastro-intestinal-low-fat-small-dog-1463",
+          "fetchedAt": "2026-10-07T06:48Z",
+          "title": "가스트로 인테스티널 로우팻 스몰독 (로얄캐닌 코리아 공식)"
+        },
+        {
+          "role": "official",
+          "url": "https://www.royalcanin.com/us/dogs/products/vet-products/gastrointestinal-low-fat-small-dog-1463",
+          "fetchedAt": "2026-10-07T06:48Z",
+          "title": "Gastrointestinal Low Fat Small Dog (Royal Canin US)"
+        }
+      ],
+      "evidence": {
+        "ga.protein": {
+          "src": 1,
+          "quote": "Crude Protein (min.)20.0%"
+        },
+        "ga.fat": {
+          "src": 1,
+          "quote": "Crude Fat (min.)5.0%"
+        },
+        "ga.fiber": {
+          "src": 1,
+          "quote": "Crude Fiber (max.)4.7%"
+        },
+        "ga.moisture": {
+          "src": 1,
+          "quote": "Moisture (max.)10.5%"
+        },
+        "kcal": {
+          "src": 1,
+          "quote": "This diet contains 3203 kilocalories of metabolizable energy (ME) per kilogram or 263 kilocalories ME per cup on an as fed basis (calculated)."
+        },
+        "ingredients": {
+          "src": 0,
+          "quote": "(대한민국 원산지) 쌀, 육분(닭, 오리), 옥수수, 보리, 유도단백질(닭, 칠면조, 어류), 사탕무박, 동물성유지(닭, 오리), 정제소금, 양조효모, 차전자피식이섬유, 비타민제 합제, 글리세린 지방산 에스테르, 제올라이트, 염화칼륨, 어유, 프락토올리고당, 소르빈산칼륨, 혼합광물질류 합제, 제일인산칼슘, 염화콜린, 탄산칼슘, 비타민 E, 효모(만난올리고당의 원료), DL-메티오닌, 타우린, 비타민 C, 금잔화 분말, 식물성 유지, 로즈마리 추출물 / (프랑스 원산지) 쌀, 육분(닭, 오리), 옥수수, 보리, 동물성 유도단백질(닭, 칠면조), 사탕무박, 동물성 지방(닭, 오리, 돼지), 혼합광물질류 합제, 효모, 차전자피식이섬유, 글리세린 지방산 에스테르, 어유, 프락토올리고당, 효모(만난올리고당의 원료), 금잔화 분말, 아미노산제 합제, 비타민 A, 비타민 D3, 철, 요오드, 구리, 망간, 아연, 셀레늄, 제올라이트, 소르빈산칼륨, 항산화제"
+        },
+        "rxFor": {
+          "src": 0,
+          "quote": "소형견(10kg 미만 성견)의 위장관 질환과 지방대사 장애 관리에 도움을 주는 수의사 처방 전용 제품 (※ 한국 공식 문장은 때때 팀장이 선수집)"
+        },
+        "facts.protein": {
+          "src": 1,
+          "quote": "Crude Protein (min.)20.0%"
+        },
+        "facts.dmCarb": {
+          "src": 1,
+          "quote": "Crude Protein (min.)20.0% · Crude Fat (min.)5.0% · Crude Fiber (max.)4.7% · Moisture (max.)10.5%"
+        },
+        "facts.firstIngrCat": {
+          "src": 0,
+          "quote": "(대한민국 원산지) 쌀, 육분(닭, 오리), 옥수수, 보리, 유도단백질(닭, 칠면조, 어류), 사탕무박, 동물성유지(닭, 오리), 정제소금, 양조효모, 차전자피식이섬유, 비타민제 합제, 글리세린 지방산 에스테르, 제올라이트, 염화칼륨, 어유, 프락토올리고당, 소르빈산칼륨, 혼합광물질류 합제, 제일인산칼슘, 염화콜린, 탄산칼슘, 비타민 E, 효모(만난올리고당의 원료), DL-메티오닌, 타우린, 비타민 C, 금잔화 분말, 식물성 유지, 로즈마리 추출물 / (프랑스 원산지) 쌀, 육분(닭, 오리), 옥수수, 보리, 동물성 유도단백질(닭, 칠면조), 사탕무박, 동물성 지방(닭, 오리, 돼지), 혼합광물질류 합제, 효모, 차전자피식이섬유, 글리세린 지방산 에스테르, 어유, 프락토올리고당, 효모(만난올리고당의 원료), 금잔화 분말, 아미노산제 합제, 비타민 A, 비타민 D3, 철, 요오드, 구리, 망간, 아연, 셀레늄, 제올라이트, 소르빈산칼륨, 항산화제"
+        },
+        "facts.cautionN": {
+          "src": 0,
+          "quote": "(대한민국 원산지) 쌀, 육분(닭, 오리), 옥수수, 보리, 유도단백질(닭, 칠면조, 어류), 사탕무박, 동물성유지(닭, 오리), 정제소금, 양조효모, 차전자피식이섬유, 비타민제 합제, 글리세린 지방산 에스테르, 제올라이트, 염화칼륨, 어유, 프락토올리고당, 소르빈산칼륨, 혼합광물질류 합제, 제일인산칼슘, 염화콜린, 탄산칼슘, 비타민 E, 효모(만난올리고당의 원료), DL-메티오닌, 타우린, 비타민 C, 금잔화 분말, 식물성 유지, 로즈마리 추출물 / (프랑스 원산지) 쌀, 육분(닭, 오리), 옥수수, 보리, 동물성 유도단백질(닭, 칠면조), 사탕무박, 동물성 지방(닭, 오리, 돼지), 혼합광물질류 합제, 효모, 차전자피식이섬유, 글리세린 지방산 에스테르, 어유, 프락토올리고당, 효모(만난올리고당의 원료), 금잔화 분말, 아미노산제 합제, 비타민 A, 비타민 D3, 철, 요오드, 구리, 망간, 아연, 셀레늄, 제올라이트, 소르빈산칼륨, 항산화제"
+        },
+        "facts.dangerN": {
+          "src": 0,
+          "quote": "(대한민국 원산지) 쌀, 육분(닭, 오리), 옥수수, 보리, 유도단백질(닭, 칠면조, 어류), 사탕무박, 동물성유지(닭, 오리), 정제소금, 양조효모, 차전자피식이섬유, 비타민제 합제, 글리세린 지방산 에스테르, 제올라이트, 염화칼륨, 어유, 프락토올리고당, 소르빈산칼륨, 혼합광물질류 합제, 제일인산칼슘, 염화콜린, 탄산칼슘, 비타민 E, 효모(만난올리고당의 원료), DL-메티오닌, 타우린, 비타민 C, 금잔화 분말, 식물성 유지, 로즈마리 추출물 / (프랑스 원산지) 쌀, 육분(닭, 오리), 옥수수, 보리, 동물성 유도단백질(닭, 칠면조), 사탕무박, 동물성 지방(닭, 오리, 돼지), 혼합광물질류 합제, 효모, 차전자피식이섬유, 글리세린 지방산 에스테르, 어유, 프락토올리고당, 효모(만난올리고당의 원료), 금잔화 분말, 아미노산제 합제, 비타민 A, 비타민 D3, 철, 요오드, 구리, 망간, 아연, 셀레늄, 제올라이트, 소르빈산칼륨, 항산화제"
+        }
+      },
+      "collector": {
+        "agent": "때꾸 수집",
+        "via": "WebFetch (curl 403)",
+        "at": "2026-10-07T06:55Z"
+      },
+      "priceTodo": {
+        "쿠팡상품주소": null,
+        "메모": "쿠팡이 봇 차단(403)이라 제품별 상품 주소를 확인할 수 없습니다. 사람이 브라우저로 찾아야 합니다.",
+        "확인할것": "용량 1.5kg·3.5kg 중 어느 것이 판매되는지"
+      }
+    },
+    {
+      "stagingId": "stg_royalcanin_6381743",
+      "proposed": {
+        "brand": "로얄캐닌",
+        "brandSlug": "royalcanin",
+        "country": "FR",
+        "countryBasis": "assumed-hq",
+        "name": "독 하이포알러제닉 스몰독",
+        "type": "dry",
+        "rx": true,
+        "rxFor": [
+          "allergy"
+        ],
+        "ages": [
+          "adult"
+        ],
+        "sizes": [
+          "small"
+        ],
+        "ico": "dog",
+        "score": null,
+        "ratings": {
+          "quality": 3,
+          "carb": 1,
+          "additive": 2,
+          "value": null
+        },
+        "func": [],
+        "warnN": 5,
+        "concerns": [],
+        "facts": {
+          "protein": 22,
+          "dmCarb": 56.9,
+          "firstIngrCat": "grain",
+          "cautionN": 5,
+          "dangerN": 0,
+          "pKg": null
+        },
+        "specOrigin": "overseas",
+        "ga": {
+          "protein": 22,
+          "fat": 14,
+          "fiber": 2.6,
+          "moisture": 10.5,
+          "ash": null
+        },
+        "ingredients": [
+          "쌀",
+          "대두박(가수분해 대두단백질)",
+          "동물성 지방 (닭, 오리, 돼지)",
+          "혼합광물질류 합제",
+          "동물성 유도단백질(닭, 칠면조)",
+          "대두유",
+          "사탕무박",
+          "프락토올리고당",
+          "어유",
+          "보리지유",
+          "금잔화 분말",
+          "비타민 A",
+          "비타민 D3",
+          "철",
+          "요오드",
+          "구리",
+          "망간",
+          "아연",
+          "셀레늄",
+          "제올라이트",
+          "소르빈산칼륨",
+          "항산화제"
+        ],
+        "kcal": 3642,
+        "pricePending": true,
+        "wgOptionsHint": [
+          1000,
+          3500
+        ]
+      },
+      "sources": [
+        {
+          "role": "official",
+          "url": "https://www.royalcanin.com/kr/dogs/products/vet-products/hypoallergenic-small-dog-3952",
+          "fetchedAt": "2026-10-07T06:48Z",
+          "title": "하이포알러제닉 스몰독 (로얄캐닌 코리아 공식)"
+        },
+        {
+          "role": "official",
+          "url": "https://www.royalcanin.com/us/dogs/products/vet-products/hydrolyzed-protein-small-dog-3952",
+          "fetchedAt": "2026-10-07T06:52Z",
+          "title": "Hydrolyzed Protein Small Dog (Royal Canin US)"
+        }
+      ],
+      "evidence": {
+        "ingredients": {
+          "src": 0,
+          "quote": "쌀, 대두박(가수분해 대두단백질), 동물성 지방 (닭, 오리, 돼지), 혼합광물질류 합제, 동물성 유도단백질(닭, 칠면조), 대두유, 사탕무박, 프락토올리고당, 어유, 보리지유, 금잔화 분말, 비타민 A, 비타민 D3, 철, 요오드, 구리, 망간, 아연, 셀레늄, 제올라이트, 소르빈산칼륨, 항산화제"
+        },
+        "ga.protein": {
+          "src": 1,
+          "quote": "Crude Protein (min.)22.0%"
+        },
+        "ga.fat": {
+          "src": 1,
+          "quote": "Crude Fat (min.)14.0%"
+        },
+        "ga.fiber": {
+          "src": 1,
+          "quote": "Crude Fiber (max.)2.6%"
+        },
+        "ga.moisture": {
+          "src": 1,
+          "quote": "Moisture (max.)10.5%"
+        },
+        "kcal": {
+          "src": 1,
+          "quote": "This diet contains 3642 kilocalories of metabolizable energy (ME) per kilogram or 375 kilocalories ME per cup on an as fed basis (calculated)."
+        },
+        "rxFor": {
+          "src": 0,
+          "quote": "소형견(10KG 미만 성견)의 알러지 피부염 증상 관리에 도움을 주는 수의사 처방 전용 제품 (※ 한국 공식 문장은 때때 팀장이 선수집)"
+        },
+        "facts.protein": {
+          "src": 1,
+          "quote": "Crude Protein (min.)22.0%"
+        },
+        "facts.dmCarb": {
+          "src": 1,
+          "quote": "Crude Protein (min.)22.0% · Crude Fat (min.)14.0% · Crude Fiber (max.)2.6% · Moisture (max.)10.5%"
+        },
+        "facts.firstIngrCat": {
+          "src": 0,
+          "quote": "쌀, 대두박(가수분해 대두단백질), 동물성 지방 (닭, 오리, 돼지), 혼합광물질류 합제, 동물성 유도단백질(닭, 칠면조), 대두유, 사탕무박, 프락토올리고당, 어유, 보리지유, 금잔화 분말, 비타민 A, 비타민 D3, 철, 요오드, 구리, 망간, 아연, 셀레늄, 제올라이트, 소르빈산칼륨, 항산화제"
+        },
+        "facts.cautionN": {
+          "src": 0,
+          "quote": "쌀, 대두박(가수분해 대두단백질), 동물성 지방 (닭, 오리, 돼지), 혼합광물질류 합제, 동물성 유도단백질(닭, 칠면조), 대두유, 사탕무박, 프락토올리고당, 어유, 보리지유, 금잔화 분말, 비타민 A, 비타민 D3, 철, 요오드, 구리, 망간, 아연, 셀레늄, 제올라이트, 소르빈산칼륨, 항산화제"
+        },
+        "facts.dangerN": {
+          "src": 0,
+          "quote": "쌀, 대두박(가수분해 대두단백질), 동물성 지방 (닭, 오리, 돼지), 혼합광물질류 합제, 동물성 유도단백질(닭, 칠면조), 대두유, 사탕무박, 프락토올리고당, 어유, 보리지유, 금잔화 분말, 비타민 A, 비타민 D3, 철, 요오드, 구리, 망간, 아연, 셀레늄, 제올라이트, 소르빈산칼륨, 항산화제"
+        }
+      },
+      "collector": {
+        "agent": "때꾸 수집",
+        "via": "WebFetch (curl 403)",
+        "at": "2026-10-07T06:55Z"
+      },
+      "priceTodo": {
+        "쿠팡상품주소": null,
+        "메모": "쿠팡이 봇 차단(403)이라 제품별 상품 주소를 확인할 수 없습니다. 사람이 브라우저로 찾아야 합니다.",
+        "확인할것": "용량 1kg·3.5kg 중 어느 것이 판매되는지"
+      }
+    },
+    {
+      "stagingId": "stg_royalcanin_12588677",
+      "proposed": {
+        "brand": "로얄캐닌",
+        "brandSlug": "royalcanin",
+        "country": "FR",
+        "countryBasis": "assumed-hq",
+        "name": "독 푸들 어덜트",
+        "type": "dry",
+        "rx": false,
+        "rxFor": null,
+        "ages": [
+          "adult"
+        ],
+        "sizes": [
+          "small"
+        ],
+        "ico": "dog",
+        "score": null,
+        "ratings": {
+          "quality": 3,
+          "carb": 2,
+          "additive": 2,
+          "value": null
+        },
+        "func": [],
+        "warnN": 10,
+        "concerns": [],
+        "facts": {
+          "protein": 28,
+          "dmCarb": 45.6,
+          "firstIngrCat": "grain",
+          "cautionN": 9,
+          "dangerN": 1,
+          "pKg": null
+        },
+        "specOrigin": "overseas",
+        "ga": {
+          "protein": 28,
+          "fat": 17,
+          "fiber": 4,
+          "moisture": 10,
+          "ash": null
+        },
+        "ingredients": [
+          "옥수수",
+          "육분(닭, 칠면조, 오리)",
+          "밀글루텐",
+          "동물성 지방(닭, 칠면조, 오리)",
+          "쌀",
+          "옥수수글루텐",
+          "동물성 유도단백질(닭, 칠면조)",
+          "사탕무박",
+          "혼합광물질류 합제",
+          "대두유",
+          "어유",
+          "효모",
+          "분말셀룰로스",
+          "프락토올리고당",
+          "보리지유",
+          "밀",
+          "글루코사민",
+          "금잔화추출물",
+          "L-카르니틴",
+          "뮤코다당단백(콘드로이틴의 원료)",
+          "아미노산제 합제",
+          "비타민A",
+          "비타민D3",
+          "철",
+          "요오드",
+          "구리",
+          "망간",
+          "아연",
+          "셀레늄",
+          "제올라이트",
+          "차 카테킨",
+          "소르빈산칼륨",
+          "항산화제"
+        ],
+        "kcal": 3880,
+        "pricePending": true,
+        "wgOptionsHint": [
+          3000,
+          7500
+        ]
+      },
+      "sources": [
+        {
+          "role": "official",
+          "url": "https://www.royalcanin.com/kr/dogs/products/retail-products/poodle-adult-3057",
+          "fetchedAt": "2026-10-07T07:05Z",
+          "title": "푸들 어덜트 (로얄캐닌 코리아 공식)"
+        },
+        {
+          "role": "official",
+          "url": "https://www.royalcanin.com/us/dogs/products/retail-products/poodle-adult-3057",
+          "fetchedAt": "2026-10-07T07:05Z",
+          "title": "Poodle Adult Dry Dog Food (Royal Canin US)"
+        }
+      ],
+      "evidence": {
+        "ingredients": {
+          "src": 0,
+          "quote": "옥수수, 육분(닭, 칠면조, 오리), 밀글루텐, 동물성 지방(닭, 칠면조, 오리), 쌀, 옥수수글루텐, 동물성 유도단백질(닭, 칠면조), 사탕무박, 혼합광물질류 합제, 대두유, 어유, 효모, 분말셀룰로스, 프락토올리고당, 보리지유, 밀, 글루코사민, 금잔화추출물, L-카르니틴, 뮤코다당단백(콘드로이틴의 원료), 아미노산제 합제, 비타민A, 비타민D3, 철, 요오드, 구리, 망간, 아연, 셀레늄, 제올라이트, 차 카테킨, 소르빈산칼륨, 항산화제"
+        },
+        "ga.protein": {
+          "src": 1,
+          "quote": "Crude Protein (min.) 28.0%"
+        },
+        "ga.fat": {
+          "src": 1,
+          "quote": "Crude Fat (min.) 17.0%"
+        },
+        "ga.fiber": {
+          "src": 1,
+          "quote": "Crude Fiber (max.) 4.0%"
+        },
+        "ga.moisture": {
+          "src": 1,
+          "quote": "Moisture (max.) 10.0%"
+        },
+        "kcal": {
+          "src": 1,
+          "quote": "3880 kilocalories of metabolizable energy (ME) per kilogram or 353 kilocalories ME per cup"
+        },
+        "ages.sizes": {
+          "src": 0,
+          "quote": "생후 10개월 이후 푸들의 곱슬한 피모, 근육량 유지에 도움을 주고 턱 구조에 맞게 설계된 견종별 전용사료"
+        },
+        "facts.protein": {
+          "src": 1,
+          "quote": "Crude Protein (min.) 28.0%"
+        },
+        "facts.dmCarb": {
+          "src": 1,
+          "quote": "Crude Protein (min.) 28.0% · Crude Fat (min.) 17.0% · Crude Fiber (max.) 4.0% · Moisture (max.) 10.0%"
+        },
+        "facts.firstIngrCat": {
+          "src": 0,
+          "quote": "옥수수, 육분(닭, 칠면조, 오리), 밀글루텐, 동물성 지방(닭, 칠면조, 오리), 쌀, 옥수수글루텐, 동물성 유도단백질(닭, 칠면조), 사탕무박, 혼합광물질류 합제, 대두유, 어유, 효모, 분말셀룰로스, 프락토올리고당, 보리지유, 밀, 글루코사민, 금잔화추출물, L-카르니틴, 뮤코다당단백(콘드로이틴의 원료), 아미노산제 합제, 비타민A, 비타민D3, 철, 요오드, 구리, 망간, 아연, 셀레늄, 제올라이트, 차 카테킨, 소르빈산칼륨, 항산화제"
+        },
+        "facts.cautionN": {
+          "src": 0,
+          "quote": "옥수수, 육분(닭, 칠면조, 오리), 밀글루텐, 동물성 지방(닭, 칠면조, 오리), 쌀, 옥수수글루텐, 동물성 유도단백질(닭, 칠면조), 사탕무박, 혼합광물질류 합제, 대두유, 어유, 효모, 분말셀룰로스, 프락토올리고당, 보리지유, 밀, 글루코사민, 금잔화추출물, L-카르니틴, 뮤코다당단백(콘드로이틴의 원료), 아미노산제 합제, 비타민A, 비타민D3, 철, 요오드, 구리, 망간, 아연, 셀레늄, 제올라이트, 차 카테킨, 소르빈산칼륨, 항산화제"
+        },
+        "facts.dangerN": {
+          "src": 0,
+          "quote": "옥수수, 육분(닭, 칠면조, 오리), 밀글루텐, 동물성 지방(닭, 칠면조, 오리), 쌀, 옥수수글루텐, 동물성 유도단백질(닭, 칠면조), 사탕무박, 혼합광물질류 합제, 대두유, 어유, 효모, 분말셀룰로스, 프락토올리고당, 보리지유, 밀, 글루코사민, 금잔화추출물, L-카르니틴, 뮤코다당단백(콘드로이틴의 원료), 아미노산제 합제, 비타민A, 비타민D3, 철, 요오드, 구리, 망간, 아연, 셀레늄, 제올라이트, 차 카테킨, 소르빈산칼륨, 항산화제"
+        }
+      },
+      "collector": {
+        "agent": "때꾸 수집",
+        "via": "WebFetch (curl 403)",
+        "at": "2026-10-07T06:55Z"
+      },
+      "priceTodo": {
+        "쿠팡상품주소": null,
+        "메모": "쿠팡이 봇 차단(403)이라 제품별 상품 주소를 확인할 수 없습니다. 사람이 브라우저로 찾아야 합니다.",
+        "확인할것": "용량 3kg·7.5kg 중 어느 것이 판매되는지"
+      }
+    }
+  ]
+}
