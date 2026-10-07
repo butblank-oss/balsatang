@@ -43,8 +43,8 @@
     },
     {
       "name": "가수분해 닭고기분(천연향미제)",
-      "cat": "other",
-      "safe": "unknown"
+      "cat": "meat",
+      "safe": "safe"
     },
     {
       "name": "가수분해 동물성 단백질",
@@ -58,8 +58,8 @@
     },
     {
       "name": "가수분해단백질(닭)",
-      "cat": "other",
-      "safe": "unknown"
+      "cat": "meat",
+      "safe": "safe"
     },
     {
       "name": "가수분해연어",
@@ -114,7 +114,7 @@
     {
       "name": "구연산",
       "cat": "other",
-      "safe": "unknown"
+      "safe": "safe"
     },
     {
       "name": "글루코사민",
@@ -214,7 +214,7 @@
     {
       "name": "레시틴",
       "cat": "other",
-      "safe": "unknown"
+      "safe": "safe"
     },
     {
       "name": "렌틸콩",
@@ -408,8 +408,8 @@
     },
     {
       "name": "사과박",
-      "cat": "other",
-      "safe": "unknown"
+      "cat": "vegetable",
+      "safe": "safe"
     },
     {
       "name": "사탕무박",
@@ -608,43 +608,43 @@
     },
     {
       "name": "양 간",
-      "cat": "other",
-      "safe": "unknown"
+      "cat": "organ",
+      "safe": "safe"
     },
     {
       "name": "양 비장",
-      "cat": "other",
-      "safe": "unknown"
+      "cat": "organ",
+      "safe": "safe"
     },
     {
       "name": "양 뼈",
       "cat": "other",
-      "safe": "unknown"
+      "safe": "safe"
     },
     {
       "name": "양 신장",
-      "cat": "other",
-      "safe": "unknown"
+      "cat": "organ",
+      "safe": "safe"
     },
     {
       "name": "양 심장",
-      "cat": "other",
-      "safe": "unknown"
+      "cat": "organ",
+      "safe": "safe"
     },
     {
       "name": "양 연골",
       "cat": "other",
-      "safe": "unknown"
+      "safe": "safe"
     },
     {
       "name": "양 위",
-      "cat": "other",
-      "safe": "unknown"
+      "cat": "organ",
+      "safe": "safe"
     },
     {
       "name": "양 폐",
-      "cat": "other",
-      "safe": "unknown"
+      "cat": "organ",
+      "safe": "safe"
     },
     {
       "name": "양고기",
@@ -944,7 +944,7 @@
     {
       "name": "콘드로이틴(뮤코다당)",
       "cat": "other",
-      "safe": "unknown"
+      "safe": "safe"
     },
     {
       "name": "키토산",

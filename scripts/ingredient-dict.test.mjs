@@ -55,6 +55,20 @@ for (const [raw, cat, safe] of nowKnown) {
   assert.equal(r.safe, safe, `'${raw}' safe 기대 ${safe}, 실제 ${r.safe}`);
 }
 
+/* ── 2-1. 로얄캐닌 라벨에서 '사전에 없음' 으로 빠지던 원료 (2026-10-07 추가) ──
+   주의(caution) 로 넣은 것은 출처·종류가 표기되지 않는 원료다. 나머지는 양호. */
+for (const [raw, safe] of [
+  ['옥수수가루', 'caution'], ['쌀가루', 'caution'], ['밀 글루텐', 'caution'],
+  ['동물성 유도단백질(닭, 칠면조)', 'caution'], ['항산화제', 'caution'], ['식물성 유지', 'caution'],
+  ['프럭토올리고당', 'safe'], ['차전자피식이섬유', 'safe'], ['낙산나트륨', 'safe'], ['보리지유', 'safe'],
+  ['뮤코다당단백(콘드로이틴의 원료)', 'safe'], ['아미노산제 합제', 'safe'], ['철', 'safe'],
+  ['L-타이로신', 'safe'], ['산화마그네슘', 'safe'], ['양조효모', 'caution']
+]) {
+  const r = lookupIngredient(raw);
+  assert.ok(r.known, `아직 모름: '${raw}'`);
+  assert.equal(r.safe, safe, `'${raw}' safe 기대 ${safe}, 실제 ${r.safe}`);
+}
+
 /* ── 3. 기존 소금 표기가 여전히 caution 인지 (정제염 alias 추가가 깨뜨리지 않았나) ── */
 for (const raw of ['소금', '염', '정제소금', '정제 소금', '정제염']) {
   assert.equal(lookupIngredient(raw).safe, 'caution', `'${raw}' 가 caution 이 아닙니다`);
