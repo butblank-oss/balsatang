@@ -5,7 +5,7 @@ import fs from 'node:fs';
 const srv = await serve(9102);
 const b = await launch();
 const DATA = fs.readFileSync(ROOT + '/data.js', 'utf8');
-const U = 'http://localhost:9102/balsatang/admin/foods.html';
+const U = 'http://localhost:9102/admin/foods.html';
 console.log('\n═══ QA-2 운영자 · 사료 관리 ═══');
 
 let put = null, getCount = 0, failNextPut = null;

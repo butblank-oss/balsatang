@@ -5,7 +5,7 @@ import fs from 'node:fs';
 
 const srv = await serve(9104);
 const b = await launch();
-const U = 'http://localhost:9104/balsatang/admin/index.html';
+const U = 'http://localhost:9104/admin/index.html';
 console.log('\n═══ QA-4 운영자 · 예전 어드민 ═══');
 
 const pg = await b.newPage({ viewport: { width: 1400, height: 950 } });

@@ -13,11 +13,11 @@ const srv = await serve(9120); const b = await launch();
 console.log('\n═══ QA-5 한글 입력 ═══');
 
 const CASES = [
-  ['프론트 검색',   'http://localhost:9120/balsatang/index.html',            '#q', 'front'],
-  ['사료 관리',     'http://localhost:9120/balsatang/admin/foods.html',      '#q', 'foods'],
-  ['어드민 사료',   'http://localhost:9120/balsatang/admin/index.html',      '[placeholder="브랜드·사료명 검색"]', 'old-foods'],
-  ['어드민 성분',   'http://localhost:9120/balsatang/admin/index.html',      '[placeholder="성분명 검색"]',       'old-ingr'],
-  ['어드민 가격',   'http://localhost:9120/balsatang/admin/index.html',      '[placeholder="브랜드·사료명 검색"]', 'old-price']
+  ['프론트 검색',   'http://localhost:9120/index.html',            '#q', 'front'],
+  ['사료 관리',     'http://localhost:9120/admin/foods.html',      '#q', 'foods'],
+  ['어드민 사료',   'http://localhost:9120/admin/index.html',      '[placeholder="브랜드·사료명 검색"]', 'old-foods'],
+  ['어드민 성분',   'http://localhost:9120/admin/index.html',      '[placeholder="성분명 검색"]',       'old-ingr'],
+  ['어드민 가격',   'http://localhost:9120/admin/index.html',      '[placeholder="브랜드·사료명 검색"]', 'old-price']
 ];
 
 for (const [name, url, sel, kind] of CASES) {

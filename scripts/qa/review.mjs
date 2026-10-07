@@ -9,7 +9,7 @@ const BACKUP = fs.readFileSync(P, 'utf8');
 
 const srv = await serve(9103);
 const b = await launch();
-const U = 'http://localhost:9103/(어드민 저장소) review.html';
+const U = 'http://localhost:9103/admin/review.html';
 console.log('\n═══ QA-3 심사자 · 발행 심사 ═══');
 
 {
