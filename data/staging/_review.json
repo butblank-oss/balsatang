@@ -1,5 +1,5 @@
 {
-  "builtAt": "2026-10-08T04:19:24.944Z",
+  "builtAt": "2026-10-08T09:01:07.822Z",
   "live": true,
   "batches": [
     {
@@ -402,7 +402,8 @@
             ],
             "pricePending": true,
             "wgOptionsHint": [
-              12000
+              12000,
+              17000
             ],
             "thumb": "https://img.danuri.io/catalog-image/466/896/008/d84a2b2bfb834a2ea8c4446b673776e9.jpg?shrink=360:360",
             "draft": true
@@ -591,7 +592,6 @@
             "kcalPerKg": 3860,
             "pricePending": true,
             "wgOptionsHint": [
-              340,
               1000,
               2000,
               6000,
@@ -691,6 +691,522 @@
       ]
     },
     {
+      "file": "danawa-top-2026-w41b.json",
+      "batchId": "danawa-top-2026-w41b",
+      "collectedAt": "2026-10-08T09:00Z",
+      "items": [
+        {
+          "stagingId": "stg_cakorea_99805562",
+          "label": "CA코리아 톰진도",
+          "proposed": {
+            "brand": "CA코리아",
+            "brandSlug": "cakorea",
+            "country": "KR",
+            "countryBasis": "label",
+            "name": "톰진도",
+            "type": "dry",
+            "rx": false,
+            "rxFor": null,
+            "ages": [
+              "puppy",
+              "adult",
+              "senior"
+            ],
+            "sizes": [
+              "small",
+              "medium"
+            ],
+            "ico": "dog",
+            "score": null,
+            "ratings": {
+              "quality": 3,
+              "carb": 1,
+              "additive": 2,
+              "value": null
+            },
+            "func": [],
+            "warnN": 7,
+            "concerns": [],
+            "facts": {
+              "protein": 17.5,
+              "dmCarb": 65.9,
+              "firstIngrCat": "grain",
+              "cautionN": 7,
+              "dangerN": 0,
+              "pKg": null
+            },
+            "specOrigin": "domestic",
+            "ga": {
+              "protein": 17.5,
+              "fat": 5.5,
+              "fiber": 7,
+              "moisture": 12,
+              "ash": 10
+            },
+            "ingredients": [
+              "곡물류(옥수수.쌀)",
+              "계육분",
+              "수지박",
+              "곡물부산물",
+              "식물성박류",
+              "동물성혼합유지",
+              "유도단백질(닭고기가수분해향미제)",
+              "정제소금",
+              "비타민제합제(비타민A.비타민D3.비타민E등)",
+              "미량광물질류합제(황산동.아연.구리등)",
+              "유카추출물",
+              "자몽종자추출물"
+            ],
+            "pricePending": true,
+            "wgOptionsHint": [
+              10000
+            ],
+            "thumb": "https://img.danuri.io/catalog-image/562/805/099/910715734c6c40f5b7ec94df2d9ca5a5.jpg?shrink=360:360"
+          },
+          "sources": [
+            {
+              "role": "official",
+              "url": "http://cakorea.co.kr/sub02/02_03.php?mode=view&idx=27",
+              "title": "[DOG] 톰진도 (CA코리아 공식 사이트 제품소개, 상세 이미지 http://www.cakorea.co.kr/smarteditor/upload/0801%25ED%2586%25B0%25EC%25A7%2584%25EB%258F%2584_10%25EC%2583%2581%25EC%2584%25B8%2528%25EC%2588%2598%25EC%25A0%2595%25EC%25B5%259C%25EC%25A2%2585%252COUT%2529.jpg)",
+              "fetchedAt": "2026-10-08T09:00Z"
+            },
+            {
+              "role": "catalog",
+              "url": "https://prod.danawa.com/info/?pcode=99805562",
+              "fetchedAt": "2026-10-08T09:00Z",
+              "title": "다나와 카탈로그 (제품 사진) — [다나와] CA코리아 독 톰진도 10kg (1개)"
+            }
+          ],
+          "evidence": {
+            "ingredients": {
+              "src": 0,
+              "quote": "사용한 원료의 명칭 : 곡물류(옥수수.쌀),계육분,수지박,곡물부산물,식물성박류,동물성혼합유지,유도단백질(닭고기가수분해향미제),정제소금,비타민제합제(비타민A.비타민D3.비타민E등),미량광물질류합제(황산동.아연.구리등),유카추출물,자몽종자추출물"
+            },
+            "ga.protein": {
+              "src": 0,
+              "quote": "등록성분량 : 조단백질 17.5%이상, 조지방5.5%이상, 칼슘 0.80%이상, 인 0.80%이상, 조섬유 7.0%이하, 조회분 10.0%이하, 수분 12.0%이하"
+            },
+            "ga.fat": {
+              "src": 0,
+              "quote": "조지방5.5%이상"
+            },
+            "ga.fiber": {
+              "src": 0,
+              "quote": "조섬유 7.0%이하"
+            },
+            "ga.moisture": {
+              "src": 0,
+              "quote": "수분 12.0%이하"
+            },
+            "ga.ash": {
+              "src": 0,
+              "quote": "조회분 10.0%이하"
+            },
+            "ages.sizes": {
+              "src": 0,
+              "quote": "진돗개 및 중소형견, 전연령의 애완견에게 급여 가능한 사료입니다."
+            },
+            "facts.protein": {
+              "src": 0,
+              "quote": "등록성분량 : 조단백질 17.5%이상, 조지방5.5%이상, 칼슘 0.80%이상, 인 0.80%이상, 조섬유 7.0%이하, 조회분 10.0%이하, 수분 12.0%이하"
+            },
+            "facts.firstIngrCat": {
+              "src": 0,
+              "quote": "사용한 원료의 명칭 : 곡물류(옥수수.쌀),계육분,수지박,곡물부산물,식물성박류,동물성혼합유지,유도단백질(닭고기가수분해향미제),정제소금,비타민제합제(비타민A.비타민D3.비타민E등),미량광물질류합제(황산동.아연.구리등),유카추출물,자몽종자추출물"
+            },
+            "facts.cautionN": {
+              "src": 0,
+              "quote": "사용한 원료의 명칭 : 곡물류(옥수수.쌀),계육분,수지박,곡물부산물,식물성박류,동물성혼합유지,유도단백질(닭고기가수분해향미제),정제소금,비타민제합제(비타민A.비타민D3.비타민E등),미량광물질류합제(황산동.아연.구리등),유카추출물,자몽종자추출물"
+            },
+            "facts.dangerN": {
+              "src": 0,
+              "quote": "사용한 원료의 명칭 : 곡물류(옥수수.쌀),계육분,수지박,곡물부산물,식물성박류,동물성혼합유지,유도단백질(닭고기가수분해향미제),정제소금,비타민제합제(비타민A.비타민D3.비타민E등),미량광물질류합제(황산동.아연.구리등),유카추출물,자몽종자추출물"
+            },
+            "facts.dmCarb": {
+              "src": 0,
+              "quote": "조단백 17.5 / 조지방 5.5 / 조섬유 7 / 수분 12 → 건물기준 탄수 65.9%"
+            },
+            "thumb": {
+              "src": 1,
+              "quote": "다나와 카탈로그 이미지 https://img.danuri.io/catalog-image/562/805/099/910715734c6c40f5b7ec94df2d9ca5a5.jpg?shrink=360:360"
+            }
+          },
+          "audit": null,
+          "pricePending": true,
+          "draft": false,
+          "gates": {
+            "g1": "pending",
+            "g1fail": [],
+            "g1warn": [],
+            "todo": [],
+            "g2": "none",
+            "g2diff": [],
+            "g3warn": [
+              "신규 브랜드입니다 (CA코리아) — 기준선 없음, 출처를 특히 꼼꼼히 확인하세요"
+            ]
+          },
+          "ready": false
+        },
+        {
+          "stagingId": "stg_kirkland_4905882",
+          "label": "커클랜드 시그니처 네이처스 도메인 연어&고구마",
+          "proposed": {
+            "brand": "커클랜드",
+            "brandSlug": "kirkland",
+            "country": "US",
+            "countryBasis": "label",
+            "name": "시그니처 네이처스 도메인 연어&고구마",
+            "type": "dry",
+            "rx": false,
+            "rxFor": null,
+            "ages": [
+              "puppy",
+              "adult",
+              "senior"
+            ],
+            "sizes": [
+              "small",
+              "medium",
+              "large"
+            ],
+            "ico": "dog",
+            "score": null,
+            "ratings": {
+              "quality": 3,
+              "carb": 2,
+              "additive": 3,
+              "value": null
+            },
+            "func": [],
+            "warnN": 3,
+            "concerns": [],
+            "facts": {
+              "protein": 23,
+              "dmCarb": 55.2,
+              "firstIngrCat": "fish",
+              "cautionN": 3,
+              "dangerN": 0,
+              "pKg": null
+            },
+            "specOrigin": "domestic",
+            "ga": {
+              "protein": 23,
+              "fat": 11,
+              "fiber": 6.35,
+              "moisture": 10,
+              "ash": 9
+            },
+            "ingredients": [
+              "연어분말",
+              "감자",
+              "완두콩",
+              "고구마",
+              "카놀라유",
+              "어분",
+              "토마토박",
+              "아마씨",
+              "천연향료",
+              "정제소금",
+              "염화콜린",
+              "타우린",
+              "블루베리",
+              "라즈베리",
+              "토마토",
+              "건조치커리뿌리",
+              "유카추출물",
+              "건조락토바실러스플란타럼발효제품",
+              "건조엔테로코커스훼시엄발효제품",
+              "건조락토바실러스애시도필러스발효제품",
+              "건조바실러스서브틸리스발효제품",
+              "건조비피도박테리움애니말리스발효제품",
+              "비타민E보충제",
+              "단백질화합물(철, 아연, 망간, 구리)",
+              "황산제일철",
+              "황산아연",
+              "황산망간",
+              "황산구리",
+              "요오드칼륨",
+              "비타민B1질산염",
+              "비타민C",
+              "비타민A보충제",
+              "비오틴",
+              "니코틴산",
+              "판토텐산칼슘",
+              "아셀렌산나트륨",
+              "비타민B6염산염",
+              "비타민B12보충제",
+              "비타민B2",
+              "비타민D보충제",
+              "엽산"
+            ],
+            "pricePending": true,
+            "wgOptionsHint": [
+              15870
+            ],
+            "thumb": "https://img.danuri.io/catalog-image/882/905/004/ab89152c1b2746ad887c95f69c3cd891.jpg?shrink=360:360"
+          },
+          "sources": [
+            {
+              "role": "importer",
+              "url": "https://www.costco.co.kr/Pet-Supplies/Kirkland-Signature-Premium-Dog-Food-1587kg-x-32ea/p/643115",
+              "title": "커클랜드 시그니춰 프리미엄 애견 사료 15.87kg x 32개 (코스트코 코리아 공식몰 - 브랜드 소유자 겸 수입자)",
+              "fetchedAt": "2026-10-08T09:00Z"
+            },
+            {
+              "role": "importer",
+              "url": "https://www.costco.co.kr/BabyKidsToysPets/Pet-Supplies/Dog-Foods/Kirkland-Signature-Premium-Dog-Food-1587kg/p/470974",
+              "title": "커클랜드 시그니춰 프리미엄 애견사료 15.87kg (코스트코 코리아 공식몰, 단품 페이지)",
+              "fetchedAt": "2026-10-08T09:00Z"
+            },
+            {
+              "role": "catalog",
+              "url": "https://prod.danawa.com/info/?pcode=4905882",
+              "fetchedAt": "2026-10-08T09:00Z",
+              "title": "다나와 카탈로그 (제품 사진) — [다나와] 커클랜드 시그니처 네이처스 도메인 살몬 15.87kg (1개)"
+            }
+          ],
+          "evidence": {
+            "ingredients": {
+              "src": 0,
+              "quote": "연어분말, 감자, 완두콩, 고구마, 카놀라유, 어분, 토마토박, 아마씨, 천연향료, 정제소금, 염화콜린, 타우린, 블루베리, 라즈베리, 토마토, 건조치커리뿌리, 유카추출물, 건조락토바실러스플란타럼발효제품, 건조엔테로코커스훼시엄발효제품, 건조락토바실러스애시도필러스발효제품, 건조바실러스서브틸리스발효제품, 건조비피도박테리움애니말리스발효제품, 비타민E보충제, 단백질화합물(철, 아연, 망간, 구리), 황산제일철, 황산아연, 황산망간, 황산구리, 요오드칼륨, 비타민B1질산염, 비타민C, 비타민A보충제, 비오틴, 니코틴산, 판토텐산칼슘, 아셀렌산나트륨, 비타민B6염산염, 비타민B12보충제, 비타민B2, 비타민D보충제, 엽산"
+            },
+            "ga.protein": {
+              "src": 0,
+              "quote": "조단백 23%이상"
+            },
+            "ga.fat": {
+              "src": 0,
+              "quote": "조지방 11%이상"
+            },
+            "ga.fiber": {
+              "src": 0,
+              "quote": "조섬유 6.35%이하"
+            },
+            "ga.moisture": {
+              "src": 0,
+              "quote": "수분 10%이하"
+            },
+            "ga.ash": {
+              "src": 0,
+              "quote": "조회분 9%이하"
+            },
+            "ages.sizes": {
+              "src": 0,
+              "quote": "생후 1개월 ~ 모든 연령 견용"
+            },
+            "facts.protein": {
+              "src": 0,
+              "quote": "조단백 23%이상"
+            },
+            "facts.firstIngrCat": {
+              "src": 0,
+              "quote": "연어분말, 감자, 완두콩, 고구마, 카놀라유, 어분, 토마토박, 아마씨, 천연향료, 정제소금, 염화콜린, 타우린, 블루베리, 라즈베리, 토마토, 건조치커리뿌리, 유카추출물, 건조락토바실러스플란타럼발효제품, 건조엔테로코커스훼시엄발효제품, 건조락토바실러스애시도필러스발효제품, 건조바실러스서브틸리스발효제품, 건조비피도박테리움애니말리스발효제품, 비타민E보충제, 단백질화합물(철, 아연, 망간, 구리), 황산제일철, 황산아연, 황산망간, 황산구리, 요오드칼륨, 비타민B1질산염, 비타민C, 비타민A보충제, 비오틴, 니코틴산, 판토텐산칼슘, 아셀렌산나트륨, 비타민B6염산염, 비타민B12보충제, 비타민B2, 비타민D보충제, 엽산"
+            },
+            "facts.cautionN": {
+              "src": 0,
+              "quote": "연어분말, 감자, 완두콩, 고구마, 카놀라유, 어분, 토마토박, 아마씨, 천연향료, 정제소금, 염화콜린, 타우린, 블루베리, 라즈베리, 토마토, 건조치커리뿌리, 유카추출물, 건조락토바실러스플란타럼발효제품, 건조엔테로코커스훼시엄발효제품, 건조락토바실러스애시도필러스발효제품, 건조바실러스서브틸리스발효제품, 건조비피도박테리움애니말리스발효제품, 비타민E보충제, 단백질화합물(철, 아연, 망간, 구리), 황산제일철, 황산아연, 황산망간, 황산구리, 요오드칼륨, 비타민B1질산염, 비타민C, 비타민A보충제, 비오틴, 니코틴산, 판토텐산칼슘, 아셀렌산나트륨, 비타민B6염산염, 비타민B12보충제, 비타민B2, 비타민D보충제, 엽산"
+            },
+            "facts.dangerN": {
+              "src": 0,
+              "quote": "연어분말, 감자, 완두콩, 고구마, 카놀라유, 어분, 토마토박, 아마씨, 천연향료, 정제소금, 염화콜린, 타우린, 블루베리, 라즈베리, 토마토, 건조치커리뿌리, 유카추출물, 건조락토바실러스플란타럼발효제품, 건조엔테로코커스훼시엄발효제품, 건조락토바실러스애시도필러스발효제품, 건조바실러스서브틸리스발효제품, 건조비피도박테리움애니말리스발효제품, 비타민E보충제, 단백질화합물(철, 아연, 망간, 구리), 황산제일철, 황산아연, 황산망간, 황산구리, 요오드칼륨, 비타민B1질산염, 비타민C, 비타민A보충제, 비오틴, 니코틴산, 판토텐산칼슘, 아셀렌산나트륨, 비타민B6염산염, 비타민B12보충제, 비타민B2, 비타민D보충제, 엽산"
+            },
+            "facts.dmCarb": {
+              "src": 0,
+              "quote": "조단백 23 / 조지방 11 / 조섬유 6.35 / 수분 10 → 건물기준 탄수 55.2%"
+            },
+            "thumb": {
+              "src": 2,
+              "quote": "다나와 카탈로그 이미지 https://img.danuri.io/catalog-image/882/905/004/ab89152c1b2746ad887c95f69c3cd891.jpg?shrink=360:360"
+            }
+          },
+          "audit": null,
+          "pricePending": true,
+          "draft": false,
+          "gates": {
+            "g1": "pending",
+            "g1fail": [],
+            "g1warn": [],
+            "todo": [],
+            "g2": "none",
+            "g2diff": [],
+            "g3warn": [
+              "신규 브랜드입니다 (커클랜드) — 기준선 없음, 출처를 특히 꼼꼼히 확인하세요"
+            ]
+          },
+          "ready": false
+        },
+        {
+          "stagingId": "stg_lavienDog_14728352",
+          "label": "라비앙독 가수분해 연어",
+          "proposed": {
+            "brand": "라비앙독",
+            "brandSlug": "lavienDog",
+            "country": "KR",
+            "countryBasis": "label",
+            "name": "가수분해 연어",
+            "type": "dry",
+            "rx": false,
+            "rxFor": null,
+            "ages": [
+              "puppy",
+              "adult",
+              "senior"
+            ],
+            "sizes": [
+              "small",
+              "medium",
+              "large"
+            ],
+            "ico": "dog",
+            "score": null,
+            "ratings": {
+              "quality": 4,
+              "carb": 2,
+              "additive": 3,
+              "value": null
+            },
+            "func": [],
+            "warnN": 3,
+            "concerns": [],
+            "facts": {
+              "protein": 26,
+              "dmCarb": 53.3,
+              "firstIngrCat": "fish",
+              "cautionN": 3,
+              "dangerN": 0,
+              "pKg": null
+            },
+            "specOrigin": "domestic",
+            "ga": {
+              "protein": 26,
+              "fat": 10,
+              "fiber": 6,
+              "moisture": 10,
+              "ash": 10
+            },
+            "ingredients": [
+              "가수분해 연어단백질",
+              "저분자 피쉬콜라겐",
+              "유기농 고구마",
+              "유기농 보리",
+              "유기농 쌀",
+              "유기농 아마씨",
+              "유기농 귀리",
+              "유기농 해바라기씨",
+              "유기농 감자",
+              "유기농 옥수수",
+              "천연향미제",
+              "맥반석",
+              "유기농 조",
+              "유기농 들깨",
+              "유카 추출물",
+              "펫푸드 비타민프리믹스(Vitamin A,AD3,E,K3,B1,B2,B6,B12,Niacin,Biotin,Folic acid,Pantothanic acid)",
+              "석회석",
+              "비트펄프",
+              "메티오닌",
+              "펫푸드 미네랄믹스(Fe,Mn,Zn,Cu,I,Se,Mg)",
+              "L-라이신",
+              "염화콜린"
+            ],
+            "kcalPerKg": 3660,
+            "pricePending": true,
+            "wgOptionsHint": [
+              1800,
+              4800
+            ],
+            "thumb": "https://img.danuri.io/catalog-image/352/728/014/4146a67ee69f40a086f3c3f7049cf5d9.jpg?shrink=360:360"
+          },
+          "sources": [
+            {
+              "role": "official",
+              "url": "http://gallerypet.com/goods/goods_view.php?goodsNo=1000000156",
+              "title": "라비앙독 가수분해 연어 4.8kg - 갤러리펫 B2B ((주)갤러리펫: 라비앙독 브랜드 본사 및 온라인 공식 판매처, 상세 '영양성분표' 이미지)",
+              "fetchedAt": "2026-10-08T09:00Z"
+            },
+            {
+              "role": "catalog",
+              "url": "https://prod.danawa.com/info/?pcode=14728352",
+              "fetchedAt": "2026-10-08T09:00Z",
+              "title": "다나와 카탈로그 (제품 사진) — [다나와] 라비앙독 가수분해 연어 4.8kg (1개)"
+            }
+          ],
+          "evidence": {
+            "ingredients": {
+              "src": 0,
+              "quote": "사용한 원료 가수분해 연어단백질, 저분자 피쉬콜라겐, 유기농 고구마, 유기농 보리, 유기농 쌀, 유기농 아마씨, 유기농 귀리, 유기농 해바라기씨, 유기농 감자, 유기농 옥수수, 천연향미제, 맥반석, 유기농 조, 유기농 들깨, 유카 추출물, 펫푸드 비타민프리믹스(Vitamin A,AD3,E,K3,B1,B2,B6,B12,Niacin,Biotin,Folic acid,Pantothanic acid),석회석, 비트펄프,메티오닌,펫푸드 미네랄믹스(Fe,Mn,Zn,Cu,I,Se,Mg),L-라이신, 염화콜린"
+            },
+            "ga.protein": {
+              "src": 0,
+              "quote": "조단백질 26%이상"
+            },
+            "ga.fat": {
+              "src": 0,
+              "quote": "조지방 10%이상"
+            },
+            "ga.fiber": {
+              "src": 0,
+              "quote": "조섬유 6.0%이하"
+            },
+            "ga.moisture": {
+              "src": 0,
+              "quote": "수분 10%이하"
+            },
+            "ga.ash": {
+              "src": 0,
+              "quote": "조회분 10%이하"
+            },
+            "kcal": {
+              "src": 0,
+              "quote": "* 종이컵 1컵(195ml=80g) / 100g 당 366kcal"
+            },
+            "ages.sizes": {
+              "src": 0,
+              "quote": "사료의 명칭 애완육성개 사료의 형태 익스투루젼(팽화) 사료의 용도 6개월령이상"
+            },
+            "facts.protein": {
+              "src": 0,
+              "quote": "조단백질 26%이상"
+            },
+            "facts.firstIngrCat": {
+              "src": 0,
+              "quote": "사용한 원료 가수분해 연어단백질, 저분자 피쉬콜라겐, 유기농 고구마, 유기농 보리, 유기농 쌀, 유기농 아마씨, 유기농 귀리, 유기농 해바라기씨, 유기농 감자, 유기농 옥수수, 천연향미제, 맥반석, 유기농 조, 유기농 들깨, 유카 추출물, 펫푸드 비타민프리믹스(Vitamin A,AD3,E,K3,B1,B2,B6,B12,Niacin,Biotin,Folic acid,Pantothanic acid),석회석, 비트펄프,메티오닌,펫푸드 미네랄믹스(Fe,Mn,Zn,Cu,I,Se,Mg),L-라이신, 염화콜린"
+            },
+            "facts.cautionN": {
+              "src": 0,
+              "quote": "사용한 원료 가수분해 연어단백질, 저분자 피쉬콜라겐, 유기농 고구마, 유기농 보리, 유기농 쌀, 유기농 아마씨, 유기농 귀리, 유기농 해바라기씨, 유기농 감자, 유기농 옥수수, 천연향미제, 맥반석, 유기농 조, 유기농 들깨, 유카 추출물, 펫푸드 비타민프리믹스(Vitamin A,AD3,E,K3,B1,B2,B6,B12,Niacin,Biotin,Folic acid,Pantothanic acid),석회석, 비트펄프,메티오닌,펫푸드 미네랄믹스(Fe,Mn,Zn,Cu,I,Se,Mg),L-라이신, 염화콜린"
+            },
+            "facts.dangerN": {
+              "src": 0,
+              "quote": "사용한 원료 가수분해 연어단백질, 저분자 피쉬콜라겐, 유기농 고구마, 유기농 보리, 유기농 쌀, 유기농 아마씨, 유기농 귀리, 유기농 해바라기씨, 유기농 감자, 유기농 옥수수, 천연향미제, 맥반석, 유기농 조, 유기농 들깨, 유카 추출물, 펫푸드 비타민프리믹스(Vitamin A,AD3,E,K3,B1,B2,B6,B12,Niacin,Biotin,Folic acid,Pantothanic acid),석회석, 비트펄프,메티오닌,펫푸드 미네랄믹스(Fe,Mn,Zn,Cu,I,Se,Mg),L-라이신, 염화콜린"
+            },
+            "facts.dmCarb": {
+              "src": 0,
+              "quote": "조단백 26 / 조지방 10 / 조섬유 6 / 수분 10 → 건물기준 탄수 53.3%"
+            },
+            "thumb": {
+              "src": 1,
+              "quote": "다나와 카탈로그 이미지 https://img.danuri.io/catalog-image/352/728/014/4146a67ee69f40a086f3c3f7049cf5d9.jpg?shrink=360:360"
+            }
+          },
+          "audit": null,
+          "pricePending": true,
+          "draft": false,
+          "gates": {
+            "g1": "pending",
+            "g1fail": [],
+            "g1warn": [],
+            "todo": [],
+            "g2": "none",
+            "g2diff": [],
+            "g3warn": [
+              "신규 브랜드입니다 (라비앙독) — 기준선 없음, 출처를 특히 꼼꼼히 확인하세요"
+            ]
+          },
+          "ready": false
+        }
+      ]
+    },
+    {
       "file": "royalcanin-2026-w41.json",
       "batchId": "royalcanin-2026-w41",
       "collectedAt": "2026-10-07T06:55Z",
@@ -779,6 +1295,8 @@
             "kcal": null,
             "pricePending": true,
             "wgOptionsHint": [
+              500,
+              1500,
               3000,
               7500
             ]
@@ -855,9 +1373,9 @@
     }
   ],
   "summary": {
-    "total": 5,
+    "total": 8,
     "ready": 0,
-    "blocked": 5,
-    "pricePending": 5
+    "blocked": 8,
+    "pricePending": 8
   }
 }

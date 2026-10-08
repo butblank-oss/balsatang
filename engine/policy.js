@@ -50,7 +50,7 @@ function isRetailHost(url) {
    .kr 도메인 외에 국내 서비스가 쓰는 도메인도 포함한다. 다나와(danawa.com)와 그 이미지
    CDN(danuri.io)은 국내 유통 상품의 국내 등록 정보를 싣는다. */
 /* wooriwa.com — 도그라인 제조사 우리와(주)의 한국 공식 사이트. 한국에서만 파는 국내 제조 사료다. */
-const DOMESTIC_HOSTS = ['danawa.com', 'danuri.io', 'wooriwa.com'];
+const DOMESTIC_HOSTS = ['danawa.com', 'danuri.io', 'wooriwa.com', 'gallerypet.com'];
 
 /* 한국 공식 사이트인데 도메인이 .kr 이 아닌 곳 — 글로벌 브랜드가 한 도메인 아래 나라별
    경로로 나누는 경우다. 호스트명만 보면 `.com` 이라 해외로 잡혀, 한국 공식 라벨에서 뜬
