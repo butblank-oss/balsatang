@@ -1596,6 +1596,53 @@ function renderContent() {
   ${siteFooter()}`;
 }
 
+/* ═══ 글 속 사료 카드·비교표 ═══
+   글쓴이(콘텐츠팀)는 id 대신 '브랜드 이름' 으로 적어도 된다 — [[사료 지위픽 에어드라이 고등어&양고기]].
+   못 찾은 사료는 조용히 빠진다(없는 사료를 지어내지 않게). 숫자는 전부 발행된 데이터에서 읽는다 —
+   글에 숫자를 따로 적으면 사료 정보가 바뀔 때 글만 옛 숫자로 남는다. */
+const foodKey = s => String(s || '').toLowerCase().replace(/[^0-9a-z가-힣]/g, '');
+function findFood(token) {
+  const t = String(token || '').trim(), k = foodKey(t);
+  if (!k) return null;
+  return FOODS.find(f => f.id === t)
+    || FOODS.find(f => foodKey(f.brand + f.name) === k)
+    || (k.length >= 4 ? FOODS.find(f => foodKey(f.brand + f.name).includes(k)) : null) || null;
+}
+function embedFoods(args) {
+  const seen = new Set();
+  return String(args).split(/\s*,\s*/).map(findFood).filter(f => f && !seen.has(f.id) && seen.add(f.id));
+}
+function mdEmbed(kind, args) {
+  const list = embedFoods(args);
+  if (!list.length) return '';
+  if (kind === '비교' && list.length >= 2) return embedCompare(list.slice(0, 3));
+  return `<div class="md-foods">${list.map(f => `<button class="md-food press" data-go-detail="${f.id}">
+    ${well(f, 64)}
+    <span class="md-food-b">
+      <span class="r-br">${esc(f.brand)}</span>
+      <span class="r-nm">${esc(f.name)}</span>
+      <span class="r-tags">${cautionTag(f)}${rankFacts(f).slice(0, 1).map(t => `<span class="tag">${esc(t)}</span>`).join('')}</span>
+    </span>
+    <span class="md-food-p">${f.price?.pKg ? `<b>${won(per100g(f))}원</b><small>100g</small>` : '<small>가격 확인 중</small>'}</span>
+  </button>`).join('')}</div>`;
+}
+function embedCompare(list) {
+  const D = f => DETAIL[f.id] || {};
+  const first = f => (D(f).ingr || [])[0]?.name.replace(/\s*\(.*$/, '') || '—';
+  const pct = v => v == null ? '—' : `${Math.round(v * 10) / 10}%`;
+  const rows = [
+    ['첫 원료', f => esc(first(f))],
+    ['조단백', f => pct(D(f).nutrient?.protein)],
+    ['탄수화물', f => pct(D(f).nutrient?.dmCarb), '건물 기준 추정'],
+    ['주의성분', f => cautionTag(f)],
+    ['100g당', f => f.price?.pKg ? `<b>${won(per100g(f))}원</b>` : '—']
+  ];
+  return `<div class="md-cmp" style="--n:${list.length}">
+    <div class="md-cmp-h"><span></span>${list.map(f => `<button class="press" data-go-detail="${f.id}">${well(f, 56)}<b>${esc(f.brand)}</b><span>${esc(f.name)}</span></button>`).join('')}</div>
+    ${rows.map(([k, fn, sub]) => `<div class="md-cmp-r"><span class="k">${k}${sub ? `<small>${sub}</small>` : ''}</span>${list.map(f => `<span>${fn(f)}</span>`).join('')}</div>`).join('')}
+  </div>`;
+}
+
 /* 본문은 마크다운의 아주 좁은 갈래만 쓴다 — ###, -, >, 1., **강조**.
    라이브러리를 붙이는 대신 쓰는 문법만 직접 옮긴다. 값을 먼저 이스케이프하고
    그 다음에 태그를 만들기 때문에 본문에 태그를 적어도 그대로 글자로 나온다.
@@ -1630,6 +1677,11 @@ function mdToHtml(src) {
   for (const raw of String(src || '').split('\n')) {
     const line = raw.trim();
     if (!line) { closeList(); continue; }
+
+    /* 글 속 사료 — [[사료 이름 또는 id, …]] 카드 / [[비교 A, B(, C)]] 비교표. 한 줄을 통째로 차지한다.
+       화면은 mdEmbed(아래)로 카드를 그리고, 검색용 페이지(build-pages)는 같은 문법을 링크 목록으로 바꾼다. */
+    const em = line.match(/^\[\[(사료|비교)\s+(.+?)\]\]$/);
+    if (em) { closeList(); out.push(typeof mdEmbed === 'function' ? mdEmbed(em[1], em[2]) : ''); continue; }
 
     const h = line.match(/^#{2,4}\s+(.*)$/);
     if (h) { closeList(); out.push(`<h3 class="t-section" style="margin:26px 0 10px">${inline(h[1])}</h3>`); continue; }

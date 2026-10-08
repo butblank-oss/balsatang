@@ -552,3 +552,26 @@ button.r-all[style]{width:calc(100% - 32px)}
 .h-pc .p small{font-size:12px;font-weight:500;color:var(--ink50)}
 .h-pc .tag{height:22px;font-size:11.5px}
 .h-pc .tag.safe{color:var(--safeText)} .h-pc .tag.caution{color:var(--cautionText)}
+
+/* 글 속 사료 카드·비교표 ([[사료 …]] / [[비교 …]]) */
+.md-foods{margin:16px 0;border-radius:var(--rCard);box-shadow:inset 0 0 0 1px var(--lineHair);overflow:hidden}
+.md-food{display:flex;align-items:center;gap:12px;width:100%;padding:12px 14px;text-align:left;background:#fff}
+.md-food + .md-food{border-top:var(--divider)}
+.md-food .well{border-radius:8px}
+.md-food-b{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.md-food-b .r-nm{font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.md-food-b .r-tags{margin-top:4px}
+.md-food-p{flex:none;text-align:right;display:flex;flex-direction:column;font-size:14px;letter-spacing:-.03em}
+.md-food-p small{font-size:11px;color:var(--ink50);font-weight:500}
+.md-cmp{margin:16px 0;border-radius:var(--rCard);box-shadow:inset 0 0 0 1px var(--lineHair);overflow:hidden;font-size:13px}
+.md-cmp-h,.md-cmp-r{display:grid;grid-template-columns:68px repeat(var(--n),minmax(0,1fr))}
+.md-cmp-h{background:var(--cmpHead)}
+.md-cmp-h button{display:flex;flex-direction:column;align-items:center;gap:4px;padding:12px 6px 10px;text-align:center;min-width:0}
+.md-cmp-h b{font-size:11.5px;color:var(--ink50);font-weight:600}
+.md-cmp-h button span{font-size:12.5px;font-weight:700;line-height:1.35;color:var(--ink);word-break:keep-all;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.md-cmp-r{border-top:var(--divider)}
+.md-cmp-r > span{padding:10px 6px;text-align:center;color:var(--ink);min-width:0;word-break:keep-all;line-height:1.4}
+.md-cmp-r > span.k{text-align:left;padding-left:12px;color:var(--ink50);font-weight:600;font-size:12px;display:flex;flex-direction:column}
+.md-cmp-r > span.k small{font-size:10px;font-weight:500;color:var(--ink50)}
+.md-cmp-r .tag{height:22px;font-size:11px}
