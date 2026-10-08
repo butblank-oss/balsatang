@@ -1596,7 +1596,12 @@ function articleWhen(a) {
   return `${ago} · 약 ${readMin(a)}분`;
 }
 
-/* 목록 — 맨 위 한 편은 크게(토스 리서치형), 나머지는 오른쪽 표지 목록(세진사형). */
+/* 목록 — 토스 리서치형 피드(대표 결정 2026-10-08): 채널(분류)·시간 → 제목 → 요약 3줄 → 큰 표지.
+   채널 아바타는 분류 색 + 아이콘. */
+function chAvatar(a) {
+  const [bg, fg] = COVER_TONE[a.cat] || ['var(--surface)', 'var(--ink70)'];
+  return `<span class="tf-av" style="background:${bg};color:${fg}">${icon(a.ico || 'book', 18)}</span>`;
+}
 function renderContent() {
   const list = articles();
   const cats = [...new Set(list.map(a => a.cat).filter(Boolean))];
@@ -1606,25 +1611,15 @@ function renderContent() {
   const chips = [`<button class="chip press${cur ? '' : ' on'}" data-acat="">전체<em>${list.length}</em></button>`,
   ...cats.map(c => `<button class="chip press${cur === c ? ' on' : ''}" data-acat="${esc(c)}">${esc(c)}</button>`)].join('');
 
-  const [lead, ...rest] = shown;
   return `<div class="top lg"><h1 class="t-page">사료, 제대로 알기</h1></div>
   <p class="t-bodySm c-sub" style="padding:6px var(--screenX) 0">헷갈렸던 것들을 쉽게 풀어드려요</p>
   <div class="chiprow" style="margin-top:20px">${chips}</div>
-  ${lead ? `
-  <button class="ct-lead press" data-article="${esc(lead.id)}">
-    <span class="ed-line">${EDITOR_AV}<b>발사탕 에디터</b><span>${esc(articleWhen(lead))}</span></span>
-    <span class="ct-t">${esc(lead.title)}</span>
-    ${lead.excerpt ? `<span class="ct-x">${esc(lead.excerpt)}</span>` : ''}
-    ${articleCover(lead, 'ac-wide')}
-  </button>
-  <div class="ct-list">${rest.map(a => `
-    <button class="ct-row press" data-article="${esc(a.id)}">
-      <span class="ct-rb">
-        <span class="ct-t">${esc(a.title)}</span>
-        ${a.excerpt ? `<span class="ct-x">${esc(a.excerpt)}</span>` : ''}
-        <span class="ct-m">${esc(a.cat || '읽을거리')} · ${esc(articleWhen(a))}</span>
-      </span>
-      ${articleCover(a, 'ac-sq')}
+  ${shown.length ? `<div class="tf">${shown.map(a => `
+    <button class="tf-item press" data-article="${esc(a.id)}">
+      <span class="tf-ch">${chAvatar(a)}<span><b>${esc(a.cat || '읽을거리')}</b><small>${esc(articleWhen(a))}</small></span></span>
+      <span class="tf-t">${esc(a.title)}</span>
+      ${a.excerpt ? `<span class="tf-x">${esc(a.excerpt)}</span>` : ''}
+      ${articleCover(a, 'ac-wide')}
     </button>`).join('')}</div>`
     : `<div class="empty"><div class="orb neutral">${icon('book', 38)}</div>
          <h2>준비 중이에요</h2><p>사료를 고를 때 도움되는 글을 쓰고 있어요.</p></div>`}
@@ -1698,7 +1693,9 @@ function embedCompare(list) {
    튀어나와 들여쓰기가 어긋났다. 아티클 10편에 42군데, 약관·방침에 29군데였다.
    빈 줄이 나올 때까지는 같은 블록으로 잇는다(마크다운의 원래 규칙이다). */
 function mdToHtml(src) {
+  /* ==핵심 문장== → 형광펜(토스형). 한 문단에 한 번 정도만 쓴다. */
   const inline = t => esc(t)
+    .replace(/==(.+?)==/g, '<mark class="hl">$1</mark>')
     .replace(/\*\*(.+?)\*\*/g, '<b>$1</b>')
     .replace(/`(.+?)`/g, '<code>$1</code>');
 
@@ -1725,6 +1722,10 @@ function mdToHtml(src) {
 
     /* 글 속 사료 — [[사료 이름 또는 id, …]] 카드 / [[비교 A, B(, C)]] 비교표. 한 줄을 통째로 차지한다.
        화면은 mdEmbed(아래)로 카드를 그리고, 검색용 페이지(build-pages)는 같은 문법을 링크 목록으로 바꾼다. */
+    /* '*컨센서스 기준' 처럼 별표로 시작하고 바로 글자가 붙은 줄은 작은 각주다(목록 '* ' 와 다르다). */
+    const fn = line.match(/^\*(?![\*\s])(.+)$/);
+    if (fn) { closeList(); out.push(`<p class="md-fn">*${inline(fn[1])}</p>`); continue; }
+
     const em = line.match(/^\[\[(사료|비교|대결)\s+(.+?)\]\]$/);
     if (em) { closeList(); out.push(typeof mdEmbed === 'function' ? mdEmbed(em[1], em[2]) : ''); continue; }
 
@@ -1812,30 +1813,36 @@ function renderLegal(key) {
 }
 
 /* 03-1 콘텐츠 상세 */
+/* 글 화면 — 토스 리서치형: #분류 → 큰 제목 → 날짜·읽는 시간 → 에디터 인사 → 굵은 첫 문단(요약) → 본문
+   → '이번 글, 어떠셨나요?' → 함께 읽으면 좋은 글. 추천 수는 모으는 곳이 없어 보여 주지 않는다(지어내지 않는다). */
+const VOTE_KEY = 'balsatang.votes';
+const getVotes = () => { try { return JSON.parse(localStorage.getItem(VOTE_KEY) || '{}'); } catch { return {}; } };
 function renderArticle() {
   const a = articles().find(x => x.id === state.articleId);
   if (!a) return renderContent();
 
   /* 본문에 사료 카드를 넣은 글은 아래 '관련 사료' 를 또 붙이지 않는다(같은 사료가 두 번 나온다). */
-  const hasEmbed = /^\s*\[\[(사료|비교)\s/m.test(a.body || '');
+  const hasEmbed = /^\s*\[\[(사료|비교|대결)\s/m.test(a.body || '');
   let related = [];
   if (!hasEmbed) {
     try { related = FOODS.filter(f => { try { return a.match?.(f); } catch { return false; } }).slice(0, 3); }
     catch { related = []; }
   }
-  /* 다 읽은 사람에게 다음 글 — 같은 분류 먼저, 모자라면 다른 글. */
   const others = articles().filter(x => x.id !== a.id);
   const next = [...others.filter(x => x.cat === a.cat), ...others.filter(x => x.cat !== a.cat)].slice(0, 3);
+  const vote = getVotes()[a.id];
 
   return `
   <div class="top icons">
     <button class="iconbtn press" data-back>${icon('chevronRight', 24, 'ui')}</button>
-    <h1 class="t-item" style="flex:1">${esc(a.cat || '콘텐츠')}</h1>
+    <span style="flex:1"></span>
+    <button class="iconbtn press" data-share-article="${esc(a.id)}" aria-label="공유">${icon('share', 22, 'ui')}</button>
   </div>
   <article class="art">
-    ${articleCover(a, 'ac-hero')}
+    <span class="art-tag">#${esc(a.cat || '읽을거리')}</span>
     <h2 class="art-t">${esc(a.title)}</h2>
-    <div class="ed-line">${EDITOR_AV}<b>발사탕 에디터</b><span>${esc(articleWhen(a))}</span></div>
+    <div class="art-meta">${esc(articleWhen(a))}</div>
+    <div class="art-hello">${EDITOR_AV}<p>안녕하세요,<br>발사탕 에디터입니다.</p></div>
     ${a.excerpt ? `<p class="art-lead">${esc(a.excerpt)}</p>` : ''}
     <div class="md art-body">${mdToHtml(a.body)}</div>
   </article>
@@ -1849,17 +1856,22 @@ function renderArticle() {
           <span class="row-name" style="display:block">${esc(f.name)}</span>
         </span>${icon('chevronRight', 16, 'chev')}</button>`).join('')}</div>
   </div>` : ''}
-  <div class="sec">
-    <p class="t-caption c-cap">이 글은 일반적인 정보예요. 아이가 아프거나 처방식을 먹고 있다면 수의사와 상의해 주세요.</p>
+  <div class="art-vote" id="art-vote">
+    <b>이번 글, 어떠셨나요?</b>
+    <span>${vote ? '의견 고마워요. 다음 글에 반영할게요.' : '눌러 주시면 다음 글에 반영할게요'}</span>
+    <div><button class="press${vote === 'up' ? ' on' : ''}" data-article-vote="up" data-id="${esc(a.id)}">${icon('star', 18)}추천</button>
+      <button class="press${vote === 'down' ? ' on' : ''}" data-article-vote="down" data-id="${esc(a.id)}">비추천</button></div>
   </div>
-  ${next.length ? `<div class="sec">
-    <h2 class="t-section">다음에 읽어볼 글</h2>
-    <div class="ct-list" style="margin:8px calc(var(--screenX) * -1) 0">${next.map(x => `
+  <p class="art-disc">이 글은 일반적인 정보예요. 아이가 아프거나 처방식을 먹고 있다면 수의사와 상의해 주세요.</p>
+  ${next.length ? `<div class="art-next">
+    <h2 class="t-section">함께 읽으면 좋은 글</h2>
+    ${next.map(x => `
       <button class="ct-row press" data-article="${esc(x.id)}">
         <span class="ct-rb"><span class="ct-t">${esc(x.title)}</span>
-          <span class="ct-m">${esc(x.cat || '읽을거리')} · ${esc(articleWhen(x))}</span></span>
+          <span class="ct-m ct-ch">${chAvatar(x)}${esc(x.cat || '읽을거리')}</span></span>
         ${articleCover(x, 'ac-sq')}
-      </button>`).join('')}</div>
+      </button>`).join('')}
+    <button class="art-more press" data-go="content">다른 콘텐츠 보기</button>
   </div>` : ''}`;
 }
 
@@ -1995,6 +2007,27 @@ function wire() {
   on('[data-ingr-sheet]', 'click', () => openIngrSheet());
   on('[data-recent-sheet]', 'click', () => openRecentSheet());
   on('[data-pick-slot]', 'click', e => openPicker(+e.currentTarget.dataset.pickSlot));
+  /* 글 공유 — 검색용 글 주소(/content/<id>/)로. ?from=share 로 '공유 링크' 유입이 잡힌다. */
+  on('[data-share-article]', 'click', async e => {
+    const a = articles().find(x => x.id === e.currentTarget.dataset.shareArticle);
+    if (!a) return;
+    const url = `${location.origin}/content/${encodeURIComponent(a.id)}/?from=share`;
+    if (navigator.share) { try { await navigator.share({ title: `${a.title} — 발사탕`, url }); } catch { } return; }
+    try { await navigator.clipboard.writeText(url); toast('링크를 복사했어요'); }
+    catch { toast('링크를 복사하지 못했어요 — 주소창에서 복사해주세요'); }
+  });
+  /* 이번 글, 어떠셨나요? — 이 브라우저에만 기억하고, 사용 기록(article_feedback)으로 남는다. */
+  on('[data-article-vote]', 'click', e => {
+    const b = e.currentTarget, id = b.dataset.id, v = b.dataset.articleVote;
+    const votes = getVotes(); votes[id] = v;
+    try { localStorage.setItem(VOTE_KEY, JSON.stringify(votes)); } catch { }
+    window.Track?.track('article_feedback', { id, v });
+    const box = document.getElementById('art-vote');
+    if (box) {
+      box.querySelectorAll('[data-article-vote]').forEach(x => x.classList.toggle('on', x.dataset.articleVote === v));
+      box.querySelector('span').textContent = '의견 고마워요. 다음 글에 반영할게요.';
+    }
+  });
   on('[data-share]', 'click', async () => {
     const f = FOODS.find(x => x.id === state.detailId);
     /* 분석된 사료는 검색용 진짜 주소(/food/<id>/)가 있다. 그걸 퍼뜨려야 검색에도 쌓인다. */
