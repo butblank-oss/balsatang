@@ -435,7 +435,7 @@ img{display:block;max-width:100%}
    탭이 있는 네 화면 아래에 상시로 둔다. 쿠팡 파트너스 고지가 급여량·가격 탭
    안쪽에만 있어서, '소비자가 쉽게 인식할 수 있는 위치' 라 보기 어려웠다.
    기존 .note 톤을 그대로 쓴다 — 새 색을 만들지 않았다. */
-.foot{margin-top:34px;padding:22px var(--screenX) 8px;border-top:var(--divider)}
+.foot{margin-top:48px;padding:22px var(--screenX) 8px;border-top:var(--divider)}
 .foot-ad{font-size:12px;font-weight:500;color:var(--ink50);letter-spacing:-.02em;line-height:1.6}
 .foot-ad b{color:var(--ink70);font-weight:700}
 /* footnote(#A8A2B0)는 흰 배경에서 2.48:1 이다 — 차트 밑 각주라면 몰라도
@@ -461,25 +461,19 @@ img{display:block;max-width:100%}
 .h-menu{display:flex;gap:22px;padding:4px 18px 0;border-bottom:var(--divider);overflow-x:auto;scrollbar-width:none}
 .h-menu button{flex-shrink:0;padding:8px 0 10px;font-size:16px;font-weight:500;color:var(--ink50);letter-spacing:-.02em}
 .h-menu button.on{color:var(--ink);font-weight:700;box-shadow:inset 0 -2px 0 var(--ink)}
-  background:var(--purple50);display:flex;text-align:left}
-  box-shadow:var(--imageWell);display:grid;place-items:center;padding:10px}
-  background:var(--purple700);display:grid;place-items:center;color:#fff}
-  background:rgba(25,31,40,.72);color:#fff;font-size:12px;font-weight:600;display:flex;align-items:center;letter-spacing:0}
-  color:var(--ink70);letter-spacing:-.03em;text-align:center;word-break:keep-all}
-.h-sec{margin-top:36px}
-.h-sech{display:flex;justify-content:space-between;align-items:center;padding:0 16px 12px}
+.h-sec{margin-top:40px}
+.h-sech{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:0 16px 14px}
 .h-sech h2{font-size:19px;font-weight:700;letter-spacing:-.035em}
-.h-sech button{font-size:14px;color:var(--ink50);font-weight:500;display:flex;align-items:center}
-  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.h-sech button{flex-shrink:0;font-size:14px;color:var(--ink50);font-weight:500;display:flex;align-items:center;gap:2px}
 .h-card{margin:0 16px;border-radius:var(--rCard);box-shadow:var(--outline);padding:18px 18px 6px}
 .h-card .k{font-size:13px;color:var(--ink50)}
 .h-card h3{font-size:18px;font-weight:700;line-height:1.4;margin-top:3px;letter-spacing:-.035em}
 .h-card h3 b{color:var(--purple700);font-weight:700}
-.h-strip{margin:26px 16px 0;padding:16px;border-radius:12px;background:var(--surface);display:flex;align-items:center;gap:12px;text-align:left;width:calc(100% - 32px)}
+.h-strip{margin:32px 16px 0;padding:16px 16px 16px 18px;border-radius:12px;background:var(--surface);display:flex;align-items:center;gap:14px;text-align:left;width:calc(100% - 32px)}
 .h-strip .i{width:34px;height:34px;color:var(--purple700)}
 .h-strip .tx b{display:block;color:var(--ink);font-size:15px;font-weight:700;letter-spacing:-.03em}
 .h-strip .tx span{display:block;font-size:12.5px;color:var(--ink70);margin-top:1px}
-.h-strip .go{margin-left:auto;height:34px;padding:0 12px;border-radius:8px;background:#fff;box-shadow:var(--outline);
+.h-strip .go{margin-left:auto;align-self:center;height:34px;padding:0 12px;border-radius:8px;background:#fff;box-shadow:var(--outline);
   font-size:13.5px;font-weight:600;display:flex;align-items:center;flex-shrink:0;color:var(--ink)}
 .h-list{padding:0 16px}
 .h-li{display:flex;align-items:center;gap:12px;padding:12px 0;width:100%;text-align:left}
@@ -509,11 +503,11 @@ img{display:block;max-width:100%}
 .d-tabs{display:grid;grid-template-columns:1fr 1fr;border-bottom:var(--divider);margin-top:22px;position:sticky;top:calc(52px + env(safe-area-inset-top));z-index:19;background:#fff}
 
 /* 랭킹 (홈 메인) */
-.r-sec{padding:24px 16px 0}
+.r-sec{padding:28px 16px 0}
 .r-up{font-size:12.5px;color:var(--ink50)}
-.r-h{font-size:20px;font-weight:700;letter-spacing:-.035em;margin-top:3px}
+.r-h{font-size:20px;font-weight:700;letter-spacing:-.035em;margin-top:4px}
 .r-h em{font-style:normal;color:var(--purple700)}
-.r-list{margin-top:4px}
+.r-list{margin-top:8px}
 .r-row{display:flex;gap:14px;padding:16px 0;width:100%;text-align:left;align-items:flex-start}
 .r-row + .r-row{border-top:var(--divider)}
 .r-no{width:24px;flex-shrink:0;text-align:center;padding-top:2px}
@@ -536,16 +530,16 @@ img{display:block;max-width:100%}
 .r-tags .tag{height:24px;font-size:12px;color:var(--ink70)}
 .r-tags .tag.safe{color:var(--safeText)}
 .r-tags .tag.caution{color:var(--cautionText)}
-.r-all{display:flex;align-items:center;justify-content:center;width:calc(100% - 0px);height:48px;margin-top:8px;
+.r-all{display:flex;align-items:center;justify-content:center;width:100%;height:48px;margin-top:12px;
   border-radius:8px;box-shadow:var(--outline);font-size:15px;font-weight:600;color:var(--ink)}
 .r-sec .r-all{width:100%}
 button.r-all[style]{width:calc(100% - 32px)}
 
 /* 홈 테마 줄 — 가로로 넘기는 카드 */
-.h-rail{display:flex;gap:10px;overflow-x:auto;padding:0 16px;scrollbar-width:none}
-.h-pc{flex:0 0 140px;text-align:left;display:flex;flex-direction:column;align-items:flex-start;gap:4px}
+.h-rail{display:flex;gap:12px;overflow-x:auto;padding:0 16px;scrollbar-width:none}
+.h-pc{flex:0 0 140px;text-align:left;display:flex;flex-direction:column;align-items:flex-start;gap:5px}
 .h-pc .well{width:140px;height:140px;border-radius:8px;padding:12px}
-.h-pc .n{font-size:14px;line-height:1.4;margin-top:6px;color:var(--ink70);letter-spacing:-.03em;
+.h-pc .n{font-size:14px;line-height:1.4;margin-top:5px;color:var(--ink70);letter-spacing:-.03em;
   display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .h-pc .n b{color:var(--ink);font-weight:600}
 .h-pc .p{font-size:15px;font-weight:700;letter-spacing:-.03em}

@@ -590,7 +590,7 @@ function renderHome() {
       ${icon('chevronRight', 16, 'chev')}</button>`).join('')}</div>
   </div></div>` : `<button class="h-strip press" data-go="custom">
     ${icon('paw', 34)}
-    <span class="tx"><b>우리 아이에게 맞는 순서로 다시 볼까요?</b><span>몸무게 · 나이 · 고민만, 1분이면 돼요</span></span>
+    <span class="tx"><b>우리 아이 맞춤으로 볼까요?</b><span>몸무게 · 나이 · 고민만, 1분이면 돼요</span></span>
     <span class="go">시작하기</span>
   </button>`}
 
