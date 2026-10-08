@@ -62,7 +62,7 @@
         "concerns": [],
         "facts": {
           "protein": 17.5,
-          "dmCarb": 65.9,
+          "dmCarb": 54.5,
           "firstIngrCat": "grain",
           "cautionN": 7,
           "dangerN": 0,
@@ -224,7 +224,7 @@
         "concerns": [],
         "facts": {
           "protein": 23,
-          "dmCarb": 55.2,
+          "dmCarb": 45.2,
           "firstIngrCat": "fish",
           "cautionN": 3,
           "dangerN": 0,
@@ -421,7 +421,7 @@
         "concerns": [],
         "facts": {
           "protein": 26,
-          "dmCarb": 53.3,
+          "dmCarb": 42.2,
           "firstIngrCat": "fish",
           "cautionN": 3,
           "dangerN": 0,

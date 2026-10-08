@@ -117,8 +117,9 @@ const REQUIRED_FOOD_FIELDS = ['brand', 'brandSlug', 'country', 'name', 'type',
                               'specOrigin', 'ga', 'ingredients'];
 
 /* 보장성분표. 상세 화면의 영양 프로파일이 여기서 나온다.
-   조회분·열량은 라벨에 없을 수 있어 필수가 아니다. */
-const REQUIRED_GA_KEYS = ['protein', 'fat', 'fiber', 'moisture'];
+   열량은 라벨에 없을 수 있어 필수가 아니다. */
+/* 조회분은 필수 — 탄수 계산에서 조회분까지 빼기 때문이다(2026-10-09, DATA-POLICY 4.1). */
+const REQUIRED_GA_KEYS = ['protein', 'fat', 'fiber', 'moisture', 'ash'];
 /* 가격은 나중에 채울 수 있다. pricePending: true 인 항목은 price 없이 임시저장된다. */
 const REQUIRED_PRICE_FIELDS = ['price'];
 const REQUIRED_RATING_KEYS = ['quality', 'carb', 'additive', 'value'];

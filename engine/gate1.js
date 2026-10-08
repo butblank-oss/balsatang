@@ -149,7 +149,7 @@ function checkItem(item, published, seen) {
       F('E_GA_PROTEIN', `ga.protein(${ga.protein}) 과 facts.protein(${facts.protein}) 이 다릅니다`);
     }
     if (facts && REQUIRED_GA_KEYS.every(k => Number(ga[k]) >= 0)) {
-      const dm = computeDmCarb({ protein: +ga.protein, fat: +ga.fat, fiber: +ga.fiber, moisture: +ga.moisture });
+      const dm = computeDmCarb({ protein: +ga.protein, fat: +ga.fat, fiber: +ga.fiber, moisture: +ga.moisture, ash: +ga.ash });
       if (facts.dmCarb != null && Math.abs(dm - facts.dmCarb) > 0.15) {
         F('E_GA_DMCARB', `ga 로 계산한 건물기준 탄수(${dm})와 facts.dmCarb(${facts.dmCarb})가 다릅니다`);
       }
