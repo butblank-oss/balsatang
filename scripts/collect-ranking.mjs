@@ -153,10 +153,22 @@ for (const r of ranked) {
   if (!r.coupangUrl && detail?.bridge) r.coupangUrl = await resolveCoupang(detail.bridge);
 }
 
-/* 이미 등록된 사료인지 표시 */
+/* 이미 등록된 사료인지 표시.
+   등록 사료의 단어가 모두 들어 있어도, 용량·'독' 말고 다른 단어가 남으면 다른 상품이다.
+   (예: '오리젠 퍼피' 가 있어도 '오리젠 퍼피 라지브리드' 는 새 상품 — 대표 지적 2026-10-08) */
+function sameProduct(danawaName, k) {
+  if (k.tokens.length < 2) return false;
+  const n = norm(danawaName);
+  if (!k.tokens.every(t => n.includes(t))) return false;
+  let rest = norm(String(danawaName)
+    .replace(/\d+(?:\.\d+)?\s*(?:kg|g)(?![a-z])/gi, ' ')
+    .replace(/[x×]\s*\d+|\d+\s*(?:개|팩|봉)/gi, ' ')
+    .replace(/(^|\s)(독|강아지|사료|건식|애견)(?=\s|$)/g, ' '));
+  for (const t of [...k.tokens].sort((a, b) => b.length - a.length)) rest = rest.replace(t, '');
+  return rest.length < 2;
+}
 for (const r of ranked) {
-  const n = norm(r.name);
-  const hit = knownTokens.find(k => k.tokens.length >= 2 && k.tokens.every(t => n.includes(t)));
+  const hit = knownTokens.find(k => sameProduct(r.name, k));
   r.alreadyRegistered = Boolean(hit);
   r.matchedWith = hit ? hit.label : null;
 }
