@@ -83,6 +83,26 @@
     return { app, os, browser, device: kind, lang: cut(navigator.language, 16), vw: w };
   }
 
+  /* 사람인가 — 검색 로봇·자동화 도구는 브라우저가 스스로 밝힌다(UA, navigator.webdriver).
+     지우지 않고 표시만 해 둔다. 어드민이 사람/봇을 나눠 보고, 대시보드 숫자는 사람만 센다.
+     JS 를 안 돌리는 수집기(curl·API)는 애초에 이 파일을 실행하지 않아 기록에 없다. */
+  const CRAWLERS = [
+    ['googlebot', /Googlebot|Google-InspectionTool|AdsBot-Google|Mediapartners-Google|Google-Read-Aloud|Storebot-Google/i],
+    ['naver', /Yeti|NaverBot/i], ['daum', /Daumoa/i], ['bing', /bingbot|BingPreview/i],
+    ['kakao', /kakaotalk-scrap|Kakao(?:Talk)?-?Scrap/i], ['facebook', /facebookexternalhit|Facebot|meta-externalagent/i],
+    ['twitter', /Twitterbot/i], ['apple', /Applebot/i], ['yandex', /YandexBot/i], ['baidu', /Baiduspider/i],
+    ['ai', /GPTBot|ChatGPT-User|OAI-SearchBot|ClaudeBot|Claude-User|Claude-SearchBot|anthropic-ai|PerplexityBot|Perplexity-User|Bytespider|CCBot|Google-Extended/i],
+    ['seo', /AhrefsBot|SemrushBot|MJ12bot|DotBot|PetalBot|DataForSeoBot/i],
+    ['other', /bot\b|crawler|spider|crawling|slurp/i]
+  ];
+  function agent() {
+    const ua = navigator.userAgent || '';
+    for (const [k, re] of CRAWLERS) if (re.test(ua)) return { agent: 'crawler', bot: k };
+    if (navigator.webdriver === true || /HeadlessChrome|PhantomJS|Puppeteer|Playwright|Lighthouse|Selenium|Cypress/i.test(ua))
+      return { agent: 'automation', bot: /Lighthouse/i.test(ua) ? 'lighthouse' : 'headless' };
+    return { agent: 'human' };
+  }
+
   /* 들어온 곳 — 외부 사이트면 호스트만 남긴다. 경로엔 검색어 같은 게 들어 있을 수 있다. */
   function acquisition() {
     const q = new URLSearchParams(location.search);
@@ -152,8 +172,9 @@
     const d = device();
     base = { device_id: d.id, ...env(), ...acquisition() };
     if (s.fresh) {
-      if (d.isNew) track('first_visit', { landing: cut(location.hash || '#/', 200) });
-      track('session_start', { landing: cut(location.hash || '#/', 200) });
+      const ag = agent();
+      if (d.isNew) track('first_visit', { landing: cut(location.hash || '#/', 200), ...ag });
+      track('session_start', { landing: cut(location.hash || '#/', 200), ...ag });
     }
     starting = false;
   }
