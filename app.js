@@ -499,20 +499,27 @@ const HOME_CONCERNS = [
 ];
 /* 순위 변동(▲1)·NEW 는 붙이지 않는다. 순위 기록이 없고, publishedAt 은 재판정 때도
    새로 찍혀서 오래된 사료가 NEW 로 보였다. 없는 사실을 만들지 않는다. */
-const miniStars = v => `<span class="r-st">${[1, 2, 3, 4, 5].map(i => `<i class="${i <= v ? 'on' : ''}"></i>`).join('')}</span>`;
+/* 줄마다 보이는 것은 판단이 아니라 라벨에서 읽은 사실이다 — 주의성분 수, 1번 원료, 추정 탄수.
+   막대 별점은 한눈에 안 읽혔다(대표 피드백). '추천률' 같은 숫자는 근거 데이터(후기·조사)가
+   없어 만들지 않는다. */
+function rankFacts(f) {
+  const d = DETAIL[f.id] || {};
+  const first = (d.ingr || [])[0];
+  const out = [];
+  if (first) out.push(`첫 원료 ${first.name.replace(/\s*\(.*$/, '').replace(/\(\d+%\)/, '').slice(0, 8)}`);
+  if (d.nutrient?.dmCarb != null) out.push(`탄수 ${Math.round(d.nutrient.dmCarb)}%`);
+  return out;
+}
 
 function rankRow(f, i) {
-  const r = f.ratings || {};
   return `<button class="r-row press" data-go-detail="${f.id}">
     <span class="r-no"><b>${i + 1}</b></span>
     ${well(f, 92)}
     <span class="r-b">
       <span class="r-br">${esc(f.brand)}</span>
       <span class="r-nm">${esc(f.name)}</span>
-      ${f.rx ? `<span class="r-rx">수의사 처방식 · 별점을 매기지 않아요</span>`
-        : `<span class="r-rt"><span>원료 ${miniStars(r.quality)}</span><span>탄수 ${miniStars(r.carb)}</span></span>`}
       <span class="r-pr">${f.price?.pKg ? `<b>${won(per100g(f))}원</b> / 100g` : '<span style="color:var(--ink50)">가격 확인 중</span>'}</span>
-      ${cautionTag(f)}
+      <span class="r-tags">${cautionTag(f)}${f.rx ? '<span class="tag">수의사 처방식</span>' : ''}${rankFacts(f).map(t => `<span class="tag">${esc(t)}</span>`).join('')}</span>
     </span>
   </button>`;
 }

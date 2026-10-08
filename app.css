@@ -532,7 +532,10 @@ img{display:block;max-width:100%}
 .r-rx{font-size:12.5px;color:var(--ink70);margin-top:3px}
 .r-pr{font-size:14.5px;color:var(--ink50)}
 .r-pr b{color:var(--ink);font-weight:700}
-.r-b .tag{margin-top:3px}
+.r-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}
+.r-tags .tag{height:24px;font-size:12px;color:var(--ink70)}
+.r-tags .tag.safe{color:var(--safeText)}
+.r-tags .tag.caution{color:var(--cautionText)}
 .r-all{display:flex;align-items:center;justify-content:center;width:calc(100% - 0px);height:48px;margin-top:8px;
   border-radius:8px;box-shadow:var(--outline);font-size:15px;font-weight:600;color:var(--ink)}
 .r-sec .r-all{width:100%}
