@@ -32,7 +32,7 @@ for (const [name, url, sel, kind] of CASES) {
     await pg.addInitScript(() => localStorage.setItem('balsatang.gh.token', 't'));
   }
   await pg.goto(url);
-  if (kind === 'front') { await pg.waitForSelector('.app'); await pg.click('.searchbox'); await pg.waitForSelector('#q'); }
+  if (kind === 'front') { await pg.waitForSelector('.app'); await pg.click('.h-search, .searchbox'); await pg.waitForSelector('#q'); }
   if (kind === 'foods') await pg.waitForSelector('tbody tr');
   if (kind.startsWith('old')) {
     await pg.waitForSelector('.nav-i');
