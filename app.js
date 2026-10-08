@@ -502,6 +502,8 @@ const HOME_CONCERNS = [
 /* 줄마다 보이는 것은 판단이 아니라 라벨에서 읽은 사실이다 — 주의성분 수, 1번 원료, 추정 탄수.
    막대 별점은 한눈에 안 읽혔다(대표 피드백). '추천률' 같은 숫자는 근거 데이터(후기·조사)가
    없어 만들지 않는다. */
+/* 로고 — 그라데이션 막대사탕 발자국(2026-10 대표 선택). 그라데이션 색은 로고에만 쓴다. */
+const LOGO_GRAD = '<defs><linearGradient id="bstg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7B2FF7"/><stop offset=".6" stop-color="#B14CE6"/><stop offset="1" stop-color="#FF7FB5"/></linearGradient></defs>';
 function rankFacts(f) {
   const d = DETAIL[f.id] || {};
   const first = (d.ingr || [])[0];
@@ -545,7 +547,7 @@ function renderHome() {
 
   return `
   <div class="h-top">
-    <span class="h-logo" aria-label="발사탕">발<b>사탕</b></span>
+    <span class="h-logo" aria-label="발사탕"><svg width="22" height="26" viewBox="0 0 58 68" aria-hidden="true">${LOGO_GRAD}<rect x="25.5" y="42" width="7" height="24" rx="3.5" fill="#E3D4F7"/><circle cx="29" cy="27" r="25" fill="url(#bstg)"/><g fill="#fff"><circle cx="19.5" cy="21" r="3.6"/><circle cx="25.8" cy="16" r="3.8"/><circle cx="32.6" cy="16" r="3.8"/><circle cx="38.8" cy="21" r="3.6"/><path d="M29.2 24c6 0 10 5 10 9.5 0 3.5-3 5-5.5 4.2-2.2-.7-3-1.2-4.5-1.2s-2.3.5-4.5 1.2C22.2 38.5 19.2 37 19.2 33.5c0-4.5 4-9.5 10-9.5z"/></g></svg>발사탕</span>
     <button class="h-search press" data-go="search">${icon('search', 18)}<span>사료 이름, 브랜드, 원료</span></button>
     <button class="h-me press" data-go="compare" aria-label="비교">${icon('compare', 24, 'ui')}</button>
   </div>
