@@ -821,20 +821,26 @@ function funcBars(d) {
     return { ...r, n: items.length, items };
   });
 
-  /* 막대 그래프를 걷었다(대표 피드백 — 막대 아이콘 표시는 별로). 홈 랭킹처럼 사실을 글과 태그로.
-     잡힌 고민만 줄로 세우고, 못 찾은 고민은 한 줄로 묶는다 — '없음' 칸 여섯 개가 화면을 먹지 않게. */
-  const hit = rows.filter(r => r.n), miss = rows.filter(r => !r.n);
-  return `
-  <h2 class="t-sub" style="margin-top:40px">고민별 관련 원료</h2>
-  <p style="margin-top:2px;font-size:13px;color:var(--ink50);letter-spacing:-.02em">원료 목록에서 찾은 관련 원료예요</p>
-  ${hit.length ? `<div class="verlist">${hit.map(r => `
-    <div class="verrow" style="align-items:flex-start">
-      <span class="func-ic">${cicon(r.icon, 15)}</span>
-      <div style="display:flex;flex-direction:column;gap:4px;min-width:0;flex:1">
-        <span style="display:flex;align-items:center;gap:6px"><span class="verrow-t">${r.label}</span><span class="tag">${r.n}종</span></span>
-        <span class="verrow-b">${esc(r.items.map(x => x.name).join(', '))}</span>
-      </div></div>`).join('')}</div>` : ''}
-  ${miss.length ? `<p style="margin-top:${hit.length ? 10 : 14}px;font-size:12.5px;color:var(--ink50);letter-spacing:-.02em;line-height:1.6">관련 원료를 찾지 못한 고민 · ${miss.map(r => r.label).join(', ')}</p>` : ''}`;
+  /* 세로 막대 6칸 — 대표 피드백(2026-10-08): 목록으로 바꿨더니 '문제 있는 성분' 처럼 읽혔다.
+     막대는 '도움 되는 원료가 몇 종' 을 보여 주는 좋은 쪽 그림이라 다시 막대로 둔다.
+     트랙 높이는 고정, 3종 이상이면 꽉 찬다 — 사료마다 같은 1종이 같은 길이로 보이게.
+     예외: 원료 목록이 없으면(분석 전) 칸을 통째로 숨기고, 하나도 못 찾았으면 빈 막대 여섯 개 대신 한 줄로. */
+  if (!(d.ingr || []).length) return '';
+  const MAXBUCKET = 3;
+  const pct = n => n <= 0 ? 0 : Math.min(1, n / MAXBUCKET) * 100;
+  const hit = rows.filter(r => r.n);
+  const head = `<h2 class="t-sub" style="margin-top:40px">고민별 관련 원료</h2>
+  <p style="margin-top:2px;font-size:13px;color:var(--ink50);letter-spacing:-.02em">고민에 도움 되는 것으로 알려진 원료가 몇 종 들었는지예요</p>`;
+  if (!hit.length) return head + `<p class="ingrtext" style="margin-top:14px">원료 목록에서 고민별로 도움 되는 원료를 찾지 못했어요.</p>`;
+  return head + `
+  <div class="fbars">${rows.map(r => `
+    <div class="fbar">
+      <span class="fbar-n${r.n ? '' : ' zero'}">${r.n ? r.n + '종' : '없음'}</span>
+      <div class="fbar-track">${r.n ? `<div class="fbar-fill" style="height:${pct(r.n)}%"></div>` : ''}</div>
+      <span class="fbar-ic${r.n ? '' : ' zero'}">${cicon(r.icon, 14)}</span>
+      <span class="fbar-l${r.n ? '' : ' zero'}">${esc(r.label).replace('·', '·<wbr>')}</span>
+    </div>`).join('')}</div>
+  <div class="fbar-names">${hit.map(r => `<div><b>${esc(r.label)}</b><span>${esc(r.items.map(x => x.name).join(', '))}</span></div>`).join('')}</div>`;
 }
 
 /* ── 이런 아이에게 어떨까요 ──
