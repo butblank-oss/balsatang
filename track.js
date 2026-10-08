@@ -179,8 +179,23 @@
     starting = false;
   }
 
-  addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') flush(true); });
-  addEventListener('pagehide', () => flush(true));
+  /* 떠남 — 탭을 닫거나 앱을 내릴 때 '마지막 화면에 얼마나 있었는지' 를 남긴다.
+     이게 없으면 마지막 화면 체류가 0 으로 잡혀, 오래 읽고 나간 사람과 바로 나간 사람이 같아 보인다.
+     숨겨져 있던 시간은 빼고 센다. 세션이 이미 끝난(30분 넘게 쉰) 뒤면 새 세션을 만들지 않게 건너뛴다. */
+  let left = false, hiddenAt = 0;
+  function leave() {
+    if (left || !lastScreen || !enabled()) return;
+    let s = null;
+    try { s = JSON.parse(ls.get(K_SESSION) || 'null'); } catch { }
+    if (!s || Date.now() - (s.last || 0) > SESSION_IDLE_MS) return;
+    left = true;
+    track('leave', { screen: lastScreen.split('|')[0], ms: Date.now() - lastAt });
+  }
+  addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') { hiddenAt = Date.now(); leave(); flush(true); }
+    else { if (hiddenAt) lastAt += Date.now() - hiddenAt; hiddenAt = 0; left = false; }
+  });
+  addEventListener('pagehide', () => { leave(); flush(true); });
 
   /* ── 화면 · 검색 · 오류 ── */
   let lastScreen = null, lastAt = 0;
