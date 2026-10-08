@@ -480,81 +480,85 @@ const CONCERNS = [
 ];
 
 
-/* 고민 바로가기 아이콘 색 — 선에만 쓴다. */
-const CONCERN_TINT = { skin: 'icRed', weight: 'icBlue', joint: 'icGreen', gut: 'icOrange',
-  tear: 'icIndigo', picky: 'icPink', senior: 'purple700', rx: 'ink70' };
 const isMeatFirst = f => ['meat', 'fish', 'organ'].includes((DETAIL[f.id]?.ingr || [])[0]?.cat);
 
-/* 배너 — 지금 데이터로 만든 기획전. 숫자는 실제 개수다. 만들 거리가 없으면 그 장은 뺀다. */
-function homeSlides(analyzed) {
-  const top = list => list.slice().sort((a, b) => (b.score ?? 0) - (a.score ?? 0))[0];
-  const out = [];
-  const meat = analyzed.filter(f => !f.rx && isMeatFirst(f));
-  if (meat.length) {
-    const t = top(meat);
-    out.push({ cls: '', k: '첫 원료가 고기인 사료', h: `원재료 맨 앞이\n고기인 사료 ${meat.length}개`,
-      p: `${t.brand} ${t.name}${meat.length > 1 ? ` 외 ${meat.length - 1}개` : ''}`, f: t, act: 'data-hfilter="meatFirst"' });
-  }
-  const clean = analyzed.filter(f => !f.rx && cautionState(f).k === 'none');
-  if (clean.length) {
-    const t = top(clean);
-    out.push({ cls: 'alt', k: '주의성분이 없는 사료', h: `주의해서 볼 원료가\n하나도 없는 사료 ${clean.length}개`,
-      p: `${t.brand} ${t.name}${clean.length > 1 ? ` 외 ${clean.length - 1}개` : ''}`, f: t, act: 'data-hfilter="noCaution"' });
-  }
-  out.push({ cls: 'dark', k: '맞춤 추천', h: state.pet ? `${state.pet.name || '우리 아이'}에게 맞는\n사료를 다시 볼까요?` : '우리 아이를 알려주면\n맞는 사료를 골라드려요',
-    p: '몸무게 · 나이 · 고민만, 1분이면 돼요', f: null, act: 'data-go="custom"' });
-  return out;
-}
+/* ═══ 01 홈 — 화해형 랭킹 (2026-10 리뉴얼 메인 컨셉) ═══
+   순서는 '발사탕 추천순' 이다(내부 점수로 정렬, 처방식은 뒤). 점수 숫자는 보이지 않는다 —
+   대신 별점 네 개와 주의성분·가격이라는 사실을 줄마다 둔다. */
+const HOME_CHIPS = [
+  ['all', '전체', () => true],
+  ['dry', '건식', f => f.type === 'dry'],
+  ['air', '에어드라이', f => f.type === 'air_dried' || f.type === 'freeze_dried'],
+  ['small', '소형견', f => (f.sizes || []).some(x => x === 'small' || x === 'all')],
+  ['senior', '시니어', f => (f.ages || []).some(x => x === 'senior' || x === 'all')],
+  ['rx', '처방식', f => !!f.rx]
+];
+const HOME_CONCERNS = [
+  ['weight', '체중 관리', ['weight']], ['joint', '관절', ['joint']],
+  ['skin', '피부·알러지', ['skin', 'allergy', 'eye_tear']], ['gut', '장·소화', ['digestive']]
+];
+/* 순위 변동(▲1)·NEW 는 붙이지 않는다. 순위 기록이 없고, publishedAt 은 재판정 때도
+   새로 찍혀서 오래된 사료가 NEW 로 보였다. 없는 사실을 만들지 않는다. */
+const miniStars = v => `<span class="r-st">${[1, 2, 3, 4, 5].map(i => `<i class="${i <= v ? 'on' : ''}"></i>`).join('')}</span>`;
 
-function homeCard(f) {
-  return `<button class="h-pc press" data-go-detail="${f.id}">
-    <div style="position:relative">${well(f, 148)}<span class="bdg">${cautionBadge(f)}</span></div>
-    <div class="n"><b>${esc(f.brand)}</b> ${esc(f.name)}</div>
-    ${f.price?.pKg ? `<div class="p"><em>100g</em>${won(per100g(f))}원</div>` : `<div class="p" style="color:var(--ink50);font-weight:600;font-size:14px">가격 확인 중</div>`}
-    <div class="m">${esc(cardSub(f))}</div>
+function rankRow(f, i) {
+  const r = f.ratings || {};
+  return `<button class="r-row press" data-go-detail="${f.id}">
+    <span class="r-no"><b>${i + 1}</b></span>
+    ${well(f, 92)}
+    <span class="r-b">
+      <span class="r-br">${esc(f.brand)}</span>
+      <span class="r-nm">${esc(f.name)}</span>
+      ${f.rx ? `<span class="r-rx">수의사 처방식 · 별점을 매기지 않아요</span>`
+        : `<span class="r-rt"><span>원료 ${miniStars(r.quality)}</span><span>탄수 ${miniStars(r.carb)}</span></span>`}
+      <span class="r-pr">${f.price?.pKg ? `<b>${won(per100g(f))}원</b> / 100g` : '<span style="color:var(--ink50)">가격 확인 중</span>'}</span>
+      ${cautionTag(f)}
+    </span>
   </button>`;
 }
 
 function renderHome() {
   const analyzed = FOODS.filter(f => analysisState(f) === 'analyzed');
-  const fresh = analyzed.slice(-8).reverse();
-  const value = analyzed.filter(f => f.price?.pKg).sort((a, b) => a.price.pKg - b.price.pKg).slice(0, 5);
-  const slides = homeSlides(analyzed);
-  /* 맞춤 프로필이 있으면 그 아이에게 맞는 사료를 카드로 먼저 보인다(토스형 카드). */
+  const chip = HOME_CHIPS.find(c => c[0] === state.homeChip) || HOME_CHIPS[0];
+  const ranked = analyzed.filter(chip[2])
+    .sort((a, b) => (a.rx ? 1 : 0) - (b.rx ? 1 : 0) || (b.score ?? 0) - (a.score ?? 0));
+  const shown = ranked.slice(0, 10);
+  const conc = HOME_CONCERNS.find(c => c[0] === state.homeConcern) || HOME_CONCERNS[0];
+  const forConc = analyzed.filter(f => !f.rx && conc[2].some(t => (f.func || []).includes(t) || (f.concerns || []).includes(t)))
+    .sort((a, b) => (b.score ?? 0) - (a.score ?? 0)).slice(0, 6);
   const mine = state.pet ? analyzed.filter(f => !f.rx).map(f => ({ f, m: matchScore(f, state.pet) }))
     .sort((a, b) => b.m - a.m).slice(0, 3).map(x => x.f) : [];
-  const shortcuts = [
-    ...CONCERNS.map(c => `<button class="press" data-concern="${c.key}"><span class="tile" style="color:var(--${CONCERN_TINT[c.key] || 'ink70'})">${icon(c.ico, 26)}</span>${esc(c.label.replace(' 케어', ''))}</button>`),
-    `<button class="press" data-go="compare"><span class="tile" style="color:var(--ink)">${icon('compare', 26)}</span>비교하기</button>`,
-    `<button class="press" data-go="custom"><span class="tile" style="color:var(--purple700)">${icon('paw', 26)}</span>맞춤 추천</button>`
-  ];
+  const updated = analyzed.map(f => f.src?.publishedAt).filter(Boolean).sort().pop();
+  const ymd = updated ? updated.slice(0, 10).replace(/-/g, '.') : '';
+  const fitLine = f => {
+    const d = DETAIL[f.id] || {};
+    const x = (d.fit || []).find(x => conc[2].includes(x.concernType)) || (d.fit || [])[0];
+    return x?.label || cardSub(f);
+  };
 
   return `
   <div class="h-top">
     <span class="h-logo" aria-label="발사탕">발<b>사탕</b></span>
-    <button class="h-search press" data-go="search">${icon('search', 18)}<span>사료 이름을 검색해 보세요</span></button>
-    <button class="h-me press" data-go="custom" aria-label="우리 아이">${icon('dog', 24, 'ui')}</button>
+    <button class="h-search press" data-go="search">${icon('search', 18)}<span>사료 이름, 브랜드, 원료</span></button>
+    <button class="h-me press" data-go="compare" aria-label="비교">${icon('compare', 24, 'ui')}</button>
   </div>
   <nav class="h-menu">
-    <button class="on">홈</button>
-    <button data-hsort="recommend">추천순</button>
+    <button class="on">추천 랭킹</button>
     <button data-hsort="priceAsc">가성비</button>
-    <button data-search="처방식">처방식</button>
+    <button data-go="custom">맞춤 추천</button>
     <button data-go="content">읽을거리</button>
   </nav>
-
-  <div class="h-bn">
-    <div class="h-bn-track" id="h-bn">
-      ${slides.map(sl => `<button class="h-slide ${sl.cls} press" ${sl.act}>
-        <div class="tx"><div class="k">${esc(sl.k)}</div><h2>${esc(sl.h)}</h2><p>${esc(sl.p)}</p></div>
-        ${sl.f ? `<span class="im">${/^https?:/.test(sl.f.thumb || '') ? `<img src="${esc(sl.f.thumb)}" alt="">` : ''}</span>`
-               : `<span class="ic">${icon('paw', 52)}</span>`}
-      </button>`).join('')}
-    </div>
-    <span class="h-pg" id="h-pg">1 / ${slides.length}</span>
+  <div class="chiprow" style="margin-top:14px;padding:0 16px">
+    ${HOME_CHIPS.map(([k, l]) => `<button class="chip press${chip[0] === k ? ' on' : ''}" data-hchip="${k}">${l}</button>`).join('')}
   </div>
 
-  <div class="h-sc">${shortcuts.join('')}</div>
+  <div class="r-sec">
+    <div class="r-up">${ymd ? `${ymd} 업데이트 · ` : ''}라벨 기준</div>
+    <h2 class="r-h">발사탕 추천 랭킹</h2>
+    <div class="r-list">${shown.length ? shown.map(rankRow).join('')
+      : `<p class="t-bodySm c-sub" style="padding:30px 0;text-align:center">이 조건의 사료를 아직 분석하지 못했어요.</p>`}</div>
+    ${ranked.length > 10 ? `<button class="r-all press" data-hsort="recommend">전체 랭킹 보기 ›</button>` : ''}
+  </div>
 
   ${mine.length ? `<div class="h-sec"><div class="h-card">
     <div class="k">우리 아이 맞춤</div>
@@ -562,26 +566,26 @@ function renderHome() {
     <div class="h-list" style="padding:6px 0 0">${mine.map(f => `<button class="h-li press" data-go-detail="${f.id}">
       ${well(f, 48)}<span class="t"><b>${esc(f.brand)} ${esc(f.name)}</b><span>${esc(cautionState(f).label)}${f.price?.pKg ? ` · 100g당 ${won(per100g(f))}원` : ''}</span></span>
       ${icon('chevronRight', 16, 'chev')}</button>`).join('')}</div>
-  </div></div>` : ''}
+  </div></div>` : `<button class="h-strip press" data-go="custom">
+    ${icon('paw', 34)}
+    <span class="tx"><b>우리 아이에게 맞는 순서로 다시 볼까요?</b><span>몸무게 · 나이 · 고민만, 1분이면 돼요</span></span>
+    <span class="go">시작하기</span>
+  </button>`}
 
-  <div class="h-sec">
-    <div class="h-sech"><h2>이번 주 새로 분석한 사료</h2><button data-go="search">${icon('chevronRight', 20)}</button></div>
-    <div class="h-rail">${fresh.map(homeCard).join('')}</div>
+  <div class="r-sec">
+    <h2 class="r-h"><em>${esc(conc[1])}</em> 고민이라면 이 사료</h2>
+    <div class="chiprow" style="margin:12px -16px 14px;padding:0 16px">
+      ${HOME_CONCERNS.map(([k, l]) => `<button class="chip press${conc[0] === k ? ' on' : ''}" data-hconc="${k}">${l}</button>`).join('')}
+    </div>
   </div>
-
-  <button class="h-strip press" data-go="content">
-    ${icon('shieldCheck', 34)}
-    <span class="tx"><b>광고비 0원 · 라벨 기준 분석</b><span>돈을 받고 결과를 바꾸지 않아요</span></span>
-    <span class="go">원칙 보기</span>
-  </button>
-
-  <div class="h-sec">
-    <div class="h-sech"><h2>100g당 가격이 착한 사료</h2><button data-hsort="priceAsc">전체보기</button></div>
-    <div class="h-list">${value.map((f, i) => `<button class="h-li press" data-go-detail="${f.id}">
-      <span class="no">${i + 1}</span>${well(f, 56)}
-      <span class="t"><b>${esc(f.brand)} ${esc(f.name)}</b><span>${esc(cautionState(f).label)}</span></span>
-      <span class="pr">${won(per100g(f))}원<small>100g당</small></span></button>`).join('')}</div>
-  </div>
+  ${forConc.length ? `<div class="r-cards">${forConc.map(f => `<button class="r-card press" data-go-detail="${f.id}">
+      <span class="r-cim">${/^https?:/.test(f.thumb || '') ? `<img src="${esc(f.thumb)}" alt="">` : ''}</span>
+      <span class="r-cbox"><span class="r-cn">${esc(f.brand)} ${esc(f.name)}</span>
+        <span class="r-cl">${esc(fitLine(f))}</span>
+        <span class="r-cp">${cautionTag(f)}${f.price?.pKg ? `<b>100g당 ${won(per100g(f))}원</b>` : ''}</span></span>
+    </button>`).join('')}</div>`
+    : `<p class="t-bodySm c-sub" style="padding:0 16px">이 고민에 맞는 원료가 든 사료를 아직 찾지 못했어요.</p>`}
+  <button class="r-all press" style="margin:16px" data-concern="${conc[0]}">${esc(conc[1])} 사료 모두 보기 ›</button>
 
   ${siteFooter()}`;
 }
@@ -1848,10 +1852,8 @@ function wire() {
   /* 홈 메뉴 탭·배너 — 검색 결과로 데려가면서 정렬·필터를 미리 걸어 둔다 */
   on('[data-hsort]', 'click', e => { state.query = ''; state.filters.clear(); state.sort = e.currentTarget.dataset.hsort; go('search'); });
   on('[data-hfilter]', 'click', e => { state.query = ''; state.filters.clear(); state.filters.add(e.currentTarget.dataset.hfilter); state.sort = 'recommend'; go('search'); });
-  const bn = $('#h-bn', v), pg = $('#h-pg', v);
-  if (bn && pg) bn.addEventListener('scroll', () => {
-    pg.textContent = `${Math.round(bn.scrollLeft / bn.clientWidth) + 1} / ${bn.children.length}`;
-  }, { passive: true });
+  on('[data-hchip]', 'click', e => { state.homeChip = e.currentTarget.dataset.hchip; render(); });
+  on('[data-hconc]', 'click', e => { state.homeConcern = e.currentTarget.dataset.hconc; render(); });
   if (state.screen === 'search') wireSearchResults();
   on('[data-clear-search]', 'click', () => { state.query = ''; state.filters.clear(); render(); $('#q')?.focus(); });
   on('[data-add-compare]', 'click', e => addCompare(e.currentTarget.dataset.addCompare));
