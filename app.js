@@ -651,8 +651,8 @@ function searchBodyHtml() {
     </button>`).join('') : renderEmptySearch();
 
   return `
-  <div class="chiprow" style="margin-top:14px">${chips}</div>
-  <div style="display:flex;align-items:center;justify-content:space-between;padding:20px var(--screenX) 6px">
+  <div class="chiprow" style="margin-top:12px">${chips}</div>
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:20px var(--screenX) 4px">
     <div class="t-caption c-sub"><b style="color:var(--ink);font-size:15px;font-weight:800">${list.length}개</b>의 사료</div>
     <button class="t-caption c-sub press" data-sort style="display:flex;align-items:center;gap:3px">
       ${SORT_LABEL[state.sort]} ${icon('chevronRight', 14)}
@@ -687,7 +687,7 @@ function renderEmptySearch() {
       <button class="btn pri press" data-request="analysis">이 사료 분석 요청하기</button>
       <button class="btn ghost press" data-clear-search>다른 이름으로 검색</button>
     </div>
-    ${near.length ? `<div style="width:100%;margin-top:30px;text-align:left">
+    ${near.length ? `<div style="width:100%;margin-top:40px;text-align:left">
       <div class="t-sub" style="margin-bottom:10px">혹시 이걸 찾으셨나요?</div>
       ${near.map(f => `<button class="row press" data-go-detail="${f.id}">
         ${well(f, 44)}<span class="row-b"><span class="row-name" style="display:block">${esc(f.brand)} ${esc(f.name)}</span></span>
@@ -781,7 +781,7 @@ function renderPending(f) {
 제조사에 자료를 요청해둔 상태예요.</p>
     </div>
     <div class="t-sub" style="margin-top:6px">지금 알 수 있는 것</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px">
       ${[['분류', (f.rx ? '처방식' : '일반식') + ' · ' + typeKo(f.type)], ['원산지', COUNTRY_KO[f.country] || f.country],
        ['가격', f.price?.p ? `${won(f.price.p)}원 / ${gLabel(f.price.wg)}` : '확인 전'],
        ['성분', '확인 전']].map(([k, v]) => `
@@ -790,7 +790,7 @@ function renderPending(f) {
           <div style="margin-top:4px;font-size:15px;font-weight:700;letter-spacing:-.03em">${esc(v)}</div>
         </div>`).join('')}
     </div>
-    <div style="display:flex;flex-direction:column;gap:9px;margin-top:24px">
+    <div style="display:flex;flex-direction:column;gap:8px;margin-top:24px">
       <button class="btn pri press" data-request="notify">분석되면 알림 받기</button>
       <button class="btn ghost press" data-go="search">비슷한 사료 보기</button>
     </div>
@@ -831,7 +831,7 @@ function funcBars(d) {
   const pct = n => n <= 0 ? 0 : Math.min(1, n / MAXBUCKET) * 100;
 
   return `
-  <h2 class="t-sub" style="margin-top:30px">고민별 관련 원료</h2>
+  <h2 class="t-sub" style="margin-top:40px">고민별 관련 원료</h2>
   <p style="margin-top:2px;font-size:13px;color:var(--ink35);letter-spacing:-.02em">원료 목록에서 찾은 관련 원료 종류 수예요</p>
   <div class="fbars">${rows.map(r => `
     <div class="fbar">
@@ -925,7 +925,7 @@ function renderNutritionTab(f, d) {
     ['수분', n.moisture != null ? n.moisture + '%' : '—']
   ];
 
-  return `<div style="padding:26px var(--screenX) 0">
+  return `<div style="padding:28px var(--screenX) 0">
     <h2 class="t-sub">기본 정보</h2>
     <div class="factgrid">
       ${basic.map(([k, val]) => `
@@ -945,9 +945,9 @@ function renderNutritionTab(f, d) {
          권장 최소치에 못 미쳐요" 는 신장·체중 처방식이 일부러 그렇게 만든 값이다. 문구는 엔진이
          만든 자연어라 판정만 골라 떼어낼 수 없고, 화면에서 고쳐 쓰면 엔진과 두 벌이 된다.
          원료·주의성분·성분표는 아래에 일반 사료와 똑같이 그대로 있다. */''}
-    ${f.rx ? `<h2 class="t-sub" style="margin-top:30px">이 사료를 이렇게 봤어요</h2>
+    ${f.rx ? `<h2 class="t-sub" style="margin-top:40px">이 사료를 이렇게 봤어요</h2>
     <p style="margin-top:2px;font-size:13px;color:var(--ink40);letter-spacing:-.02em">처방식은 질환 관리를 위해 영양을 일부러 조정해요. 그래서 일반 사료 기준의 판정은 보여드리지 않아요. 원료와 성분은 아래에 그대로 있어요.</p>`
-      : cards.length ? `<h2 class="t-sub" style="margin-top:30px">이 사료를 이렇게 봤어요</h2>
+      : cards.length ? `<h2 class="t-sub" style="margin-top:40px">이 사료를 이렇게 봤어요</h2>
     <p style="margin-top:2px;font-size:13px;color:var(--ink40);letter-spacing:-.02em">원료표에서 바로 확인한 사실이에요</p>
     <div class="verlist">${cards.map(([k, c]) => `
       <div class="verrow">
@@ -964,7 +964,7 @@ function renderNutritionTab(f, d) {
     ${/* 원료 칩에 양호·주의를 색으로 물려 뒀었다. 이제 그 판단은 위쪽
          '이런 아이에게 어떨까요?' 와 헤더 배지가 맡는다. 같은 말을 세 번 하면
          어느 것이 결론인지 흐려진다. 여기서는 표기 순서 그대로 읽히게만 둔다. */''}
-    ${ingr.length ? `<div style="display:flex;align-items:baseline;justify-content:space-between;margin-top:30px">
+    ${ingr.length ? `<div style="display:flex;align-items:baseline;justify-content:space-between;margin-top:40px">
       <h2 class="t-sub">원료 전체</h2>
       <button class="sec-more press" data-ingr-sheet>${ingr.length}개 모두 보기</button></div>
     <p class="ingrtext">${esc(ingr.slice(0, 12).map(i => i.name).join(', '))}${ingr.length > 12 ? '…' : ''}</p>` : ''}
@@ -999,7 +999,7 @@ function ratingCards(f) {
   /* 처방식은 별점을 보여주지 않는다 — 머리말 ⚠ 참고. ratings 는 데이터에 그대로 남는다. */
   if (f.rx) {
     const forKo = rxForLabel(f);
-    return `<h2 class="t-sub" style="margin-top:30px">이 사료는요</h2>
+    return `<h2 class="t-sub" style="margin-top:40px">이 사료는요</h2>
     <div class="card soft" style="padding:15px 16px">
       <span style="height:26px;padding:0 11px;border-radius:999px;background:var(--purple900);color:#fff;font-size:11px;font-weight:800;display:inline-flex;align-items:center">수의사 처방식${forKo ? ' · ' + esc(forKo) : ''}</span>
       <p class="t-bodySm c-sub" style="margin-top:10px">질환 관리를 위해 만든 사료예요. 수의사와 상담한 뒤 급여해 주세요. 일반 사료와 같은 기준으로 점수를 매기지 않아요.</p>
@@ -1007,7 +1007,7 @@ function ratingCards(f) {
   }
   const r = f.ratings;
   if (!r) return '';
-  return `<h2 class="t-sub" style="margin-top:30px">항목별로 보면</h2>
+  return `<h2 class="t-sub" style="margin-top:40px">항목별로 보면</h2>
   <div class="factgrid">
     ${Object.entries(RATING_LABEL).map(([k, label]) => r[k] == null ? '' : `
       <div class="factcard">
@@ -1045,9 +1045,9 @@ function renderFeedingTab(f, d) {
      그래서 최저가·구매 링크를 맨 위에 둔다. */
   const priceBlock = `
     <h2 class="t-section">구매하러 가기</h2>
-    <div style="margin-top:13px">
+    <div style="margin-top:12px">
       ${prices.length ? prices.map((p, i) => `
-        <div class="card" style="display:flex;align-items:center;gap:12px;padding:14px 16px;margin-bottom:9px">
+        <div class="card" style="display:flex;align-items:center;gap:12px;padding:14px 16px;margin-bottom:8px">
           <div style="flex:1;min-width:0">
             <div class="t-micro c-mute">${esc(SHOP_KO[p.shop] || p.shop || '판매처')} · ${gLabel(p.wg)}</div>
             <div style="margin-top:3px"><b style="font-size:18px;font-weight:800;letter-spacing:-.04em">${won(p.price)}원</b>
@@ -1059,7 +1059,7 @@ function renderFeedingTab(f, d) {
     </div>
     <p class="partners">이 페이지의 구매 링크는 쿠팡 파트너스 활동의 일환으로, 이에 따라 일정액의 수수료를 제공받습니다. 수수료는 발사탕의 성분 분석에 영향을 주지 않아요.</p>`;
 
-  return `<div style="padding:22px var(--screenX) 40px">
+  return `<div style="padding:28px var(--screenX) 40px">
     ${priceBlock}
 
     <div class="card" style="margin-top:26px;border-radius:var(--rCardLg);padding:20px 18px">
@@ -1165,7 +1165,7 @@ function slotView(f, side) {
   const slot = side === 'A' ? 0 : 1;
   /* 썸네일을 눌러도 다른 사료를 고를 수 있게 한다. '바꾸기' 글자만 있으면
      누를 수 있는 줄 모른다 — 실제로 그래서 못 찾는다는 말을 들었다. */
-  return `<div style="flex:1;min-width:0;border-radius:var(--rCard);padding:14px 12px;box-shadow:inset 0 0 0 2px ${color};display:flex;flex-direction:column;align-items:center;gap:9px">
+  return `<div style="flex:1;min-width:0;border-radius:var(--rCard);padding:14px 12px;box-shadow:inset 0 0 0 2px ${color};display:flex;flex-direction:column;align-items:center;gap:8px">
     <span style="align-self:flex-start;height:22px;padding:0 9px;border-radius:999px;background:${chipBg};color:${color};font-size:11px;font-weight:800;display:inline-flex;align-items:center">${side} · ${esc(label)}</span>
     <button class="press" data-pick-slot="${slot}" style="position:relative;display:block" aria-label="다른 사료로 바꾸기">
       ${well(f, 88)}
@@ -1258,7 +1258,7 @@ function renderCompare() {
 
   ${sameBrand ? `<div style="margin:16px var(--screenX) 0;border-radius:14px;background:var(--purple100);padding:11px 13px;font-size:12.5px;font-weight:600;color:var(--purple700);letter-spacing:-.02em">같은 <b>${esc(A.brand)}</b> 제품이라 <b>맛 이름</b>으로 구분해드려요.</div>` : ''}
 
-  <div style="display:flex;align-items:center;gap:9px;padding:18px var(--screenX) 0">
+  <div style="display:flex;align-items:center;gap:8px;padding:18px var(--screenX) 0">
     ${slotView(A, 'A')}
     <span style="width:30px;height:30px;border-radius:50%;background:var(--purple900);color:#fff;font-size:11px;font-weight:800;display:grid;place-items:center;flex-shrink:0">VS</span>
     ${slotView(B, 'B')}
@@ -1266,7 +1266,7 @@ function renderCompare() {
 
   <div class="sec lg">
     <h2 class="t-section">상황별로 보면 이래요</h2>
-    <div style="margin-top:13px;display:flex;flex-direction:column;gap:9px">
+    <div style="margin-top:12px;display:flex;flex-direction:column;gap:8px">
       ${cases.map(c => `<div class="card soft" style="padding:15px 16px">
         <div class="t-caption" style="color:var(--ink50);display:flex;align-items:center;gap:6px">${cicon(c.key, 17)}${c.label}</div>
         <div style="display:flex;align-items:center;gap:7px;margin-top:8px;flex-wrap:wrap">
@@ -1286,7 +1286,7 @@ function renderCompare() {
   <div class="sec lg">
     <h2 class="t-section">숫자로 자세히 비교하기</h2>
     <!-- overflow:hidden 이면 스크롤 컨테이너가 생겨 sticky 가 죽는다. clip 은 자르기만 한다. -->
-    <div style="margin-top:13px;border-radius:var(--rInput);box-shadow:inset 0 0 0 1px var(--line);overflow:clip">
+    <div style="margin-top:12px;border-radius:var(--rInput);box-shadow:inset 0 0 0 1px var(--line);overflow:clip">
       <div style="display:flex;position:sticky;top:0;z-index:2;background:var(--cmpHead)">
         <div style="flex:1;padding:12px 14px;font-size:12px;font-weight:800;color:var(--purple700)">Ⓐ ${esc(la)}</div>
         <div style="width:88px;text-align:center;padding:12px 4px;font-size:12px;font-weight:600;color:var(--ink50)">항목</div>
@@ -1318,7 +1318,7 @@ function renderCompare() {
 
   <div class="sec lg">
     <h2 class="t-section">각 사료 자세히 보기</h2>
-    <div style="display:flex;gap:9px;margin-top:13px">
+    <div style="display:flex;gap:8px;margin-top:12px">
       ${[[A, la], [B, lb]].map(([f, l]) => `<button class="press" data-go-detail="${f.id}" style="flex:1;min-width:0;border-radius:var(--rThumbMd);box-shadow:var(--outline);padding:13px;text-align:left">
         <div class="t-micro c-mute">${esc(f.brand)}</div>
         <div style="font-size:14px;font-weight:700;letter-spacing:-.03em;margin-top:3px">${esc(f.name)} ›</div></button>`).join('')}
@@ -1332,7 +1332,7 @@ function renderCompareEmpty(one) {
   const recent = state.recent.map(id => FOODS.find(f => f.id === id)).filter(Boolean).filter(f => !state.compare.includes(f.id)).slice(0, 3);
   return `
   <div class="top lg"><h1 class="t-page">비교하기</h1></div>
-  ${one ? `<div style="display:flex;align-items:center;gap:9px;padding:20px var(--screenX) 0">
+  ${one ? `<div style="display:flex;align-items:center;gap:8px;padding:20px var(--screenX) 0">
     ${slotView(one, 'A')}
     <span style="width:30px;height:30px;border-radius:50%;background:var(--purple900);color:#fff;font-size:11px;font-weight:800;display:grid;place-items:center;flex-shrink:0">VS</span>
     ${slotView(null, 'B')}
@@ -1374,7 +1374,7 @@ function renderWizard() {
       return `<button class="chip press${cur.has(k) ? ' on' : ''}" data-wz-set="${key}" data-wz-val="${esc(k)}" data-wz-multi="${multi ? 1 : ''}">${esc(label)}</button>`;
     }).join('')}</div>`;
   };
-  const label = (t, sub) => `<div style="margin-top:26px">
+  const label = (t, sub) => `<div style="margin-top:32px">
     <div class="t-sub">${t}${sub ? ` <span class="t-caption c-cap" style="font-weight:600">${sub}</span>` : ''}</div></div>`;
 
   return `
@@ -1382,21 +1382,21 @@ function renderWizard() {
     <button class="iconbtn press" data-back>${icon('chevronRight', 24, 'ui')}</button>
     <h1 class="t-page" style="flex:1">우리 아이를 알려주세요</h1>
   </div>
-  <div style="padding:8px var(--screenX) 0">
+  <div style="padding:12px var(--screenX) 0">
     <p class="t-bodySm c-sub">몇 가지만 알려주시면 맞는 사료를 골라드려요. 회원가입 없이도 돼요.</p>
 
     ${label('아이 이름', '선택')}
-    <input class="wz-in" id="wz-name" style="margin-top:9px" placeholder="이름 (선택)" value="${esc(d.name || '')}">
+    <input class="wz-in" id="wz-name" style="margin-top:12px" placeholder="이름 (선택)" value="${esc(d.name || '')}">
 
     ${label('견종', '선택')}
-    <input class="wz-in" id="wz-breed" style="margin-top:9px" placeholder="예) 말티즈 (선택)" value="${esc(d.breed || '')}">
+    <input class="wz-in" id="wz-breed" style="margin-top:12px" placeholder="예) 말티즈 (선택)" value="${esc(d.breed || '')}">
 
     ${label('나이')}
-    <div style="margin-top:9px">${chips(AGE_OPTS, 'ageGroup', false)}</div>
+    <div style="margin-top:12px">${chips(AGE_OPTS, 'ageGroup', false)}</div>
 
     ${label('몸무게')}
-    <div style="display:flex;align-items:center;gap:10px;margin-top:9px">
-      <div style="width:110px;height:52px;border-radius:14px;background:var(--surfaceInput);display:grid;place-items:center">
+    <div style="display:flex;align-items:center;gap:10px;margin-top:12px">
+      <div style="width:110px;height:56px;border-radius:var(--rInput);background:var(--surfaceInput);display:grid;place-items:center">
         <input id="wz-kg" type="number" inputmode="decimal" step="0.1" min="0.5" max="90" value="${esc(d.kg ?? '')}"
           placeholder="5.0" style="width:100%;text-align:center;font-size:20px;font-weight:800;letter-spacing:-.04em">
       </div>
@@ -1405,13 +1405,13 @@ function renderWizard() {
     </div>
 
     ${label('지금 고민', '여러 개 선택 가능')}
-    <div style="margin-top:9px">${chips(CONCERN_OPTS, 'concerns', true)}</div>
+    <div style="margin-top:12px">${chips(CONCERN_OPTS, 'concerns', true)}</div>
 
     ${label('활동량', '급여량 계산에 써요')}
-    <div style="margin-top:9px">${chips(ACTIVITY_OPTS, 'activity', false)}</div>
+    <div style="margin-top:12px">${chips(ACTIVITY_OPTS, 'activity', false)}</div>
 
     ${label('피해야 할 원료', '고른 원료가 든 사료는 빼드려요')}
-    <div style="margin-top:9px">${chips(ALLERGEN_OPTS, 'allergens', true)}</div>
+    <div style="margin-top:12px">${chips(ALLERGEN_OPTS, 'allergens', true)}</div>
   </div>
   <div class="dock col">
     <!-- 결과 화면의 '다시 분석하기' 와 같은 말을 쓰면 이 버튼이 초기화처럼 읽힌다.
@@ -1585,15 +1585,15 @@ function renderContent() {
 
   return `<div class="top lg"><h1 class="t-page">사료, 제대로 알기</h1></div>
   <p class="t-bodySm c-sub" style="padding:6px var(--screenX) 0">헷갈렸던 것들을 쉽게 풀어드려요</p>
-  <div class="chiprow" style="margin-top:16px">${chips}</div>
-  <div class="sec">
+  <div class="chiprow" style="margin-top:20px">${chips}</div>
+  <div class="sec" style="margin-top:12px">
     ${shown.length ? shown.map(a => `<button class="row press" data-article="${esc(a.id)}" style="align-items:flex-start">
       <span style="width:56px;height:56px;border-radius:var(--rThumbMd);background:var(--purple100);display:grid;place-items:center;color:var(--purple700);flex-shrink:0">${icon('book', 22)}</span>
       <span class="row-b">
         <span class="t-micro" style="color:var(--purple700)">${esc(a.cat || '읽을거리')}</span>
-        <span class="row-name" style="display:block;margin-top:3px">${esc(a.title)}</span>
+        <span class="row-name" style="display:block;margin-top:4px">${esc(a.title)}</span>
         <span class="row-meta">${esc((a.excerpt || '').slice(0, 52))}</span>
-        <span class="t-micro c-mute" style="display:block;margin-top:5px">약 ${readMin(a)}분</span>
+        <span class="t-micro c-mute" style="display:block;margin-top:8px">약 ${readMin(a)}분</span>
       </span></button>`).join('')
       : `<div class="empty"><div class="orb neutral">${icon('book', 38)}</div>
          <h2>준비 중이에요</h2><p>사료를 고를 때 도움되는 글을 쓰고 있어요.</p></div>`}
@@ -1742,7 +1742,7 @@ function renderArticle() {
   <div class="sec md">${mdToHtml(a.body)}</div>
   ${related.length ? `<div class="sec">
     <h2 class="t-section">이 글과 관련된 사료</h2>
-    <div style="margin-top:13px">${related.map(f => `
+    <div style="margin-top:12px">${related.map(f => `
       <button class="row press" data-go-detail="${f.id}">
         ${well(f, 44)}
         <span class="row-b">

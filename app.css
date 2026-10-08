@@ -31,7 +31,7 @@
   --rCard:16px; --rCardLg:16px; --rSheet:20px; --rInput:12px; --rButton:12px; --rSegment:8px;
 
   /* spacing */
-  --screenX:22px;
+  --screenX:16px;
 
   /* border — border 대신 inset shadow 를 쓴다. 레이아웃이 밀리지 않는다. */
   --outline:inset 0 0 0 1.5px var(--line);
@@ -109,7 +109,7 @@ img{display:block;max-width:100%}
 /* 조금 더 띄우는 화면들(비교·콘텐츠·맞춤·검색결과). 예전엔 인라인으로 18px 을
    덮어써서 safe-area 를 같이 못 받았다. */
 .top.lg{padding-top:calc(18px + env(safe-area-inset-top))}
-.top.icons{padding-left:18px;padding-right:18px}
+.top.icons{padding-left:16px;padding-right:16px}
 .logo{font-size:22px;font-weight:800;letter-spacing:-.04em}
 .logo b{color:var(--purple700);font-weight:800}
 .adfree{display:inline-flex;align-items:center;height:30px;padding:0 12px;border-radius:var(--rChip);
@@ -124,9 +124,9 @@ img{display:block;max-width:100%}
 .i.ui svg{stroke-width:2.2}
 
 /* ── 검색 인풋 ──────────────────────────────────────── */
-.searchbox{display:flex;align-items:center;gap:9px;height:56px;padding:0 16px;
+.searchbox{display:flex;align-items:center;gap:8px;height:56px;padding:0 16px;
   border-radius:var(--rInput);background:var(--surfaceInput);color:var(--ink50);width:100%;text-align:left}
-.searchbox.sm{height:46px;border-radius:15px}
+.searchbox.sm{height:44px;border-radius:10px;width:auto;flex:1;min-width:0}
 .searchbox .i{color:var(--ink50);width:20px;height:20px}
 /* 16px 이다. 15px 로 두면 iOS 사파리가 포커스할 때 페이지를 통째로 확대해 버린다.
    확대되면 화면이 좌우로 밀리고, 고정된 시트·탭바까지 같이 어긋나 보인다.
@@ -135,7 +135,7 @@ img{display:block;max-width:100%}
 .searchbox input::placeholder{color:var(--ink50);font-weight:500}
 
 /* ── 칩 ─────────────────────────────────────────────── */
-.chiprow{display:flex;gap:7px;overflow-x:auto;padding:0 var(--screenX);scrollbar-width:none}
+.chiprow{display:flex;gap:8px;overflow-x:auto;padding:0 var(--screenX);scrollbar-width:none}
 .chip{display:inline-flex;align-items:center;gap:5px;height:34px;padding:0 13px;flex-shrink:0;
   border-radius:var(--rChip);background:#fff;box-shadow:inset 0 0 0 1px var(--line);
   font-size:13px;font-weight:700;letter-spacing:-.02em;color:var(--ink70)}
@@ -144,7 +144,7 @@ img{display:block;max-width:100%}
 .chip.neutral{background:var(--chipNeutral);box-shadow:none;color:var(--ink50)}
 
 /* 태그 칩 — 리스트 행에 붙는 작은 것 */
-.tags{display:flex;flex-wrap:wrap;gap:5px}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
 .tag{display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 8px;border-radius:8px;
   background:var(--chipNeutral);color:var(--ink50);font-size:11px;font-weight:700;letter-spacing:-.02em}
 .tag.safe{background:var(--safeBg);color:var(--safeText)}
@@ -193,7 +193,7 @@ img{display:block;max-width:100%}
 
 /* 고민 칩 — 큰 박스 그리드는 화면을 너무 잡아먹었다.
    아이콘 없이 글자만 두고 줄바꿈으로 흘린다. 칩 톤은 필터 칩과 같다. */
-.concerns{display:flex;flex-wrap:wrap;gap:7px}
+.concerns{display:flex;flex-wrap:wrap;gap:8px}
 .concerns .chip{height:36px;font-size:13.5px;font-weight:700;color:var(--ink70)}
 /* .chip.on 과 특정도가 같아 여기가 뒤에 오면 흰 글자를 덮어쓴다.
    보라 배경에 회색 글자가 남아 아무것도 안 보였다. */
@@ -202,14 +202,14 @@ img{display:block;max-width:100%}
 .concerns .chip.on:active{background:var(--ink);color:#fff}
 
 /* ── 섹션 ───────────────────────────────────────────── */
-.sec{margin-top:30px;padding:0 var(--screenX)}
-.sec.lg{margin-top:34px}
-.sec.sm{margin-top:26px}
+.sec{margin-top:40px;padding:0 var(--screenX)}
+.sec.lg{margin-top:40px}
+.sec.sm{margin-top:28px}
 .sec-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
 .sec-more{font-size:13px;font-weight:700;color:var(--purple700)}
 
 /* ── 리스트 행 ──────────────────────────────────────── */
-.row{display:flex;align-items:center;gap:13px;padding:11px 0;width:100%;text-align:left;min-height:80px}
+.row{display:flex;align-items:center;gap:12px;padding:14px 0;width:100%;text-align:left;min-height:80px}
 .row + .row{border-top:var(--divider)}
 .row-b{flex:1;min-width:0}
 .row-brand{font-size:12px;font-weight:600;color:var(--ink50);letter-spacing:-.02em;
@@ -235,7 +235,7 @@ img{display:block;max-width:100%}
    예전과 똑같이 바닥에 붙는다. */
 .dock{position:fixed;left:0;right:0;bottom:var(--tabbarH,0px);z-index:40;max-width:480px;margin:0 auto;
   background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-top:var(--divider);
-  padding:10px var(--screenX) calc(12px + var(--dockSafe,env(safe-area-inset-bottom)));display:flex;gap:9px}
+  padding:10px var(--screenX) calc(12px + var(--dockSafe,env(safe-area-inset-bottom)));display:flex;gap:8px}
 .dock .btn{flex:1}
 /* 세로로 쌓는 독. flex-direction 만 바꾸면 .dock .btn 의 flex:1 이 이번엔
    '높이'를 나눠 갖는 뜻이 돼서 버튼이 21px 로 찌그러진다. */
@@ -262,7 +262,7 @@ img{display:block;max-width:100%}
 
 /* 근거 카드 */
 .reason{display:flex;gap:10px;border-radius:var(--rThumbMd);padding:13px 14px}
-.reason + .reason{margin-top:9px}
+.reason + .reason{margin-top:8px}
 .reason .i{width:18px;height:18px;margin-top:1px}
 .reason.pos{background:var(--safeBg)}
 .reason.pos .i{color:var(--safe)}
@@ -276,7 +276,7 @@ img{display:block;max-width:100%}
 .reason p{margin-top:4px;font-size:13px;font-weight:500;letter-spacing:-.02em;line-height:1.55}
 
 /* ── 면책·고지 ──────────────────────────────────────── */
-.note{margin-top:26px;padding:0 var(--screenX);font-size:12px;font-weight:500;
+.note{margin-top:24px;padding:0 var(--screenX);font-size:12px;font-weight:500;
   color:var(--ink50);letter-spacing:-.02em;line-height:1.6;white-space:pre-line}
 .partners{margin-top:12px;border-radius:14px;background:var(--surface);padding:12px 14px;
   font-size:12px;font-weight:500;color:var(--ink50);letter-spacing:-.02em;line-height:1.6}
@@ -292,16 +292,16 @@ img{display:block;max-width:100%}
 .toast button{color:var(--purple300);font-size:14px;font-weight:700;white-space:nowrap}
 
 /* ── 빈 화면 ────────────────────────────────────────── */
-.empty{padding:56px 30px 30px;text-align:center;display:flex;flex-direction:column;align-items:center}
+.empty{padding:56px var(--screenX) 32px;text-align:center;display:flex;flex-direction:column;align-items:center}
 .empty .orb{width:88px;height:88px;border-radius:50%;display:grid;place-items:center;
   background:var(--purple100);color:var(--purple700);margin-bottom:20px}
 .empty .orb.neutral{background:var(--surface);color:var(--ink25)}
 .empty .orb.caution{background:var(--cautionBg);color:var(--caution)}
 .empty .orb .i{width:38px;height:38px}
 .empty h2{font-size:20px;font-weight:800;letter-spacing:-.035em;line-height:1.4;white-space:pre-line}
-.empty p{margin-top:9px;font-size:14px;font-weight:500;color:var(--ink50);
+.empty p{margin-top:8px;font-size:14px;font-weight:500;color:var(--ink50);
   letter-spacing:-.02em;line-height:1.6;white-space:pre-line}
-.empty .acts{margin-top:24px;width:100%;display:flex;flex-direction:column;gap:9px}
+.empty .acts{margin-top:28px;width:100%;display:flex;flex-direction:column;gap:8px}
 .empty .acts .btn{height:52px}
 .empty .code{margin-top:18px;font-size:12px;color:var(--footnote)}
 
@@ -365,7 +365,7 @@ img{display:block;max-width:100%}
    hex 는 전부 위 토큰과 같은 값이라 var 로 적는다 — 숫자를 새로 만들지 않았다. */
 
 /* 사실 카드 2열 — 기본 정보와 별점이 같은 격자를 쓴다 */
-.factgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.factgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
 .factcard{border-radius:var(--rThumbMd);background:var(--surface);padding:14px 16px;
   display:flex;flex-direction:column;gap:4px;min-width:0}
 .factcard-k{font-size:12px;font-weight:600;color:var(--ink70);letter-spacing:-.01em}
@@ -405,8 +405,8 @@ img{display:block;max-width:100%}
 .fbar-l.zero{color:var(--ink35)}
 
 /* 이런 아이에게 어떨까요 — 화면 폭 풀블리드 연보라 구역 */
-.fitzone{margin:32px calc(var(--screenX) * -1) 0;background:var(--purple50);padding:26px var(--screenX)}
-.fitgroup{margin-top:18px;display:flex;align-items:center;gap:7px;
+.fitzone{margin:40px calc(var(--screenX) * -1) 0;background:var(--purple50);padding:32px var(--screenX)}
+.fitgroup{margin-top:20px;display:flex;align-items:center;gap:7px;
   font-size:13px;font-weight:700;letter-spacing:-.02em}
 .fitgroup.good{color:var(--safeText)}
 .fitgroup.care{color:var(--cautionText)}
@@ -415,7 +415,7 @@ img{display:block;max-width:100%}
 .fitdot.good{background:var(--safe)}
 .fitdot.good .i svg{stroke-width:3.6}
 .fitdot.care{background:var(--caution)}
-.fitlist{margin-top:10px;display:flex;flex-direction:column;gap:8px}
+.fitlist{margin-top:12px;display:flex;flex-direction:column;gap:8px}
 .fitcard{border-radius:14px;background:#fff;padding:12px 14px;display:flex;gap:11px;align-items:flex-start}
 .fitcard-ic{width:26px;height:26px;border-radius:8px;flex:none;margin-top:1px;
   display:flex;align-items:center;justify-content:center}
@@ -458,7 +458,7 @@ img{display:block;max-width:100%}
   gap:8px;padding:0 12px;color:var(--ink70);font-size:14.5px;font-weight:500;text-align:left}
 .h-search .i{width:18px;height:18px;color:var(--ink70)}
 .h-me{width:40px;height:40px;display:grid;place-items:center;margin-right:-8px;color:var(--ink)}
-.h-menu{display:flex;gap:22px;padding:4px 18px 0;border-bottom:var(--divider);overflow-x:auto;scrollbar-width:none}
+.h-menu{display:flex;gap:22px;padding:4px 16px 0;border-bottom:var(--divider);overflow-x:auto;scrollbar-width:none}
 .h-menu button{flex-shrink:0;padding:8px 0 10px;font-size:16px;font-weight:500;color:var(--ink50);letter-spacing:-.02em}
 .h-menu button.on{color:var(--ink);font-weight:700;box-shadow:inset 0 -2px 0 var(--ink)}
 .h-sec{margin-top:40px}
@@ -489,18 +489,18 @@ img{display:block;max-width:100%}
 /* ══ 03 사료 상세 머리 (2026-10 리뉴얼) ══
    보라 덩어리 대신 흰 바탕 + 큰 제품 사진. 커머스 상세처럼 사진이 먼저 보인다. */
 .d-bar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:16px;background:#fff;
-  padding:calc(8px + env(safe-area-inset-top)) 18px 8px}
+  padding:calc(8px + env(safe-area-inset-top)) 16px 8px}
 .d-bar .iconbtn{color:var(--ink);margin:-10px 0}
 .d-hero{margin:0 16px;height:268px;overflow:hidden;border-radius:12px;background:#fff;box-shadow:var(--imageWell);display:grid;place-items:center;padding:22px}
 .d-hero img{width:100%;height:100%;object-fit:contain;min-height:0}
 .d-hero.pending img{opacity:.4;filter:grayscale(1)}
 .d-hero .initial{font-size:64px;font-weight:800;color:var(--ink25)}
-.d-info{padding:18px 20px 0}
+.d-info{padding:20px 16px 0}
 .d-brand{font-size:14px;font-weight:600;color:var(--ink50);letter-spacing:-.02em}
 .d-name{font-size:23px;font-weight:700;letter-spacing:-.04em;line-height:1.35;margin-top:3px}
-.d-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px;align-items:center}
+.d-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px;align-items:center}
 .d-tags .tag{height:26px;font-size:12px;padding:0 9px;border-radius:6px;color:var(--ink70)}
-.d-tabs{display:grid;grid-template-columns:1fr 1fr;border-bottom:var(--divider);margin-top:22px;position:sticky;top:calc(52px + env(safe-area-inset-top));z-index:19;background:#fff}
+.d-tabs{display:grid;grid-template-columns:1fr 1fr;border-bottom:var(--divider);margin-top:24px;position:sticky;top:calc(52px + env(safe-area-inset-top));z-index:19;background:#fff}
 
 /* 랭킹 (홈 메인) */
 .r-sec{padding:28px 16px 0}
@@ -526,7 +526,7 @@ img{display:block;max-width:100%}
 .r-rx{font-size:12.5px;color:var(--ink70);margin-top:3px}
 .r-pr{font-size:14.5px;color:var(--ink50)}
 .r-pr b{color:var(--ink);font-weight:700}
-.r-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}
+.r-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
 .r-tags .tag{height:24px;font-size:12px;color:var(--ink70)}
 .r-tags .tag.safe{color:var(--safeText)}
 .r-tags .tag.caution{color:var(--cautionText)}
