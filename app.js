@@ -1589,7 +1589,7 @@ const COVER_IMG = { 'label-read': 1, 'allergy': 1, 'tear-stain': 1, 'food-types'
 const COVER_CAT = { '성분 가이드': 'cat-guide', '생애주기': 'cat-life', '영양': 'cat-nutri', '건강 고민': 'cat-health', '사료 종류': 'cat-types', '구매 팁': 'cat-buy' };
 function articleCover(a, cls = '') {
   const key = COVER_IMG[a.id] ? a.id : (COVER_CAT[a.cat] || 'cat-guide');
-  const src = a.cover || `assets/covers/${key}.webp?v=7`;
+  const src = a.cover || `assets/covers/${key}.webp?v=8`;
   if (/^(https?:|assets\/)/.test(src)) return `<span class="ac ${cls}"><img src="${esc(src)}" alt="" loading="lazy"></span>`;
   const [bg, fg] = COVER_TONE[a.cat] || ['var(--surface)', 'var(--ink70)'];
   return `<span class="ac ${cls}" style="--cbg:${bg};--cfg:${fg}" aria-hidden="true">
