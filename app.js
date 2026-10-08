@@ -493,9 +493,14 @@ const HOME_CHIPS = [
   ['senior', '시니어', f => (f.ages || []).some(x => x === 'senior' || x === 'all')],
   ['rx', '처방식', f => !!f.rx]
 ];
-const HOME_CONCERNS = [
-  ['weight', '체중 관리', ['weight']], ['joint', '관절', ['joint']],
-  ['skin', '피부·알러지', ['skin', 'allergy', 'eye_tear']], ['gut', '장·소화', ['digestive']]
+/* 랭킹 아래 테마 줄 — 가로로 넘기는 카드. 사료가 둘 이상일 때만 보인다.
+   key 는 '더보기' 가 검색으로 넘길 CONCERNS 키다. */
+const HOME_THEMES = [
+  { t: '100g당 가격이 착한 사료', more: 'price', pick: list => list.filter(f => f.price?.pKg).sort((a, b) => a.price.pKg - b.price.pKg) },
+  { t: '눈물 많은 아이에게', more: 'tear', tags: ['eye_tear'] },
+  { t: '체중 관리 중이라면', more: 'weight', tags: ['weight'] },
+  { t: '관절이 걱정된다면', more: 'joint', tags: ['joint'] },
+  { t: '장이 약한 아이에게', more: 'gut', tags: ['digestive'] }
 ];
 /* 순위 변동(▲1)·NEW 는 붙이지 않는다. 순위 기록이 없고, publishedAt 은 재판정 때도
    새로 찍혀서 오래된 사료가 NEW 로 보였다. 없는 사실을 만들지 않는다. */
@@ -526,24 +531,33 @@ function rankRow(f, i) {
   </button>`;
 }
 
+function themeCard(f) {
+  return `<button class="h-pc press" data-go-detail="${f.id}">
+    ${well(f, 148)}
+    <span class="n"><b>${esc(f.brand)}</b> ${esc(f.name)}</span>
+    <span class="p">${f.price?.pKg ? `${won(per100g(f))}원<small> / 100g</small>` : '<small>가격 확인 중</small>'}</span>
+    ${cautionTag(f)}
+  </button>`;
+}
+
 function renderHome() {
   const analyzed = FOODS.filter(f => analysisState(f) === 'analyzed');
   const chip = HOME_CHIPS.find(c => c[0] === state.homeChip) || HOME_CHIPS[0];
-  const ranked = analyzed.filter(chip[2])
-    .sort((a, b) => (a.rx ? 1 : 0) - (b.rx ? 1 : 0) || (b.score ?? 0) - (a.score ?? 0));
-  const shown = ranked.slice(0, 10);
-  const conc = HOME_CONCERNS.find(c => c[0] === state.homeConcern) || HOME_CONCERNS[0];
-  const forConc = analyzed.filter(f => !f.rx && conc[2].some(t => (f.func || []).includes(t) || (f.concerns || []).includes(t)))
-    .sort((a, b) => (b.score ?? 0) - (a.score ?? 0)).slice(0, 6);
+  const pool = analyzed.filter(chip[2]);
+  const byRec = (a, b) => (a.rx ? 1 : 0) - (b.rx ? 1 : 0) || (b.score ?? 0) - (a.score ?? 0);
+  const ranked = pool.slice().sort(byRec);
+  /* 열 개는 스크롤이 너무 길었다(대표 피드백). 다섯 개만 보이고 나머지는 '전체 랭킹' 으로. */
+  const shown = ranked.slice(0, 5);
+  const themes = HOME_THEMES.map(th => {
+    const base = pool.filter(f => !f.rx);
+    const list = th.pick ? th.pick(base)
+      : base.filter(f => th.tags.some(t => (f.func || []).includes(t) || (f.concerns || []).includes(t))).sort(byRec);
+    return { ...th, list: list.slice(0, 8) };
+  }).filter(th => th.list.length >= 2);
   const mine = state.pet ? analyzed.filter(f => !f.rx).map(f => ({ f, m: matchScore(f, state.pet) }))
     .sort((a, b) => b.m - a.m).slice(0, 3).map(x => x.f) : [];
   const updated = analyzed.map(f => f.src?.publishedAt).filter(Boolean).sort().pop();
   const ymd = updated ? updated.slice(0, 10).replace(/-/g, '.') : '';
-  const fitLine = f => {
-    const d = DETAIL[f.id] || {};
-    const x = (d.fit || []).find(x => conc[2].includes(x.concernType)) || (d.fit || [])[0];
-    return x?.label || cardSub(f);
-  };
 
   return `
   <div class="h-top">
@@ -553,7 +567,6 @@ function renderHome() {
   </div>
   <nav class="h-menu">
     <button class="on">추천 랭킹</button>
-    <button data-hsort="priceAsc">가성비</button>
     <button data-go="custom">맞춤 추천</button>
     <button data-go="content">읽을거리</button>
   </nav>
@@ -563,10 +576,10 @@ function renderHome() {
 
   <div class="r-sec">
     <div class="r-up">${ymd ? `${ymd} 업데이트 · ` : ''}라벨 기준</div>
-    <h2 class="r-h">발사탕 추천 랭킹</h2>
+    <h2 class="r-h">발사탕 추천 TOP 5</h2>
     <div class="r-list">${shown.length ? shown.map(rankRow).join('')
       : `<p class="t-bodySm c-sub" style="padding:30px 0;text-align:center">이 조건의 사료를 아직 분석하지 못했어요.</p>`}</div>
-    ${ranked.length > 10 ? `<button class="r-all press" data-hsort="recommend">전체 랭킹 보기 ›</button>` : ''}
+    ${ranked.length > 5 ? `<button class="r-all press" data-hsort="recommend">전체 랭킹 ${ranked.length}개 보기 ›</button>` : ''}
   </div>
 
   ${mine.length ? `<div class="h-sec"><div class="h-card">
@@ -581,20 +594,11 @@ function renderHome() {
     <span class="go">시작하기</span>
   </button>`}
 
-  <div class="r-sec">
-    <h2 class="r-h"><em>${esc(conc[1])}</em> 고민이라면 이 사료</h2>
-    <div class="chiprow" style="margin:12px -16px 14px;padding:0 16px">
-      ${HOME_CONCERNS.map(([k, l]) => `<button class="chip press${conc[0] === k ? ' on' : ''}" data-hconc="${k}">${l}</button>`).join('')}
-    </div>
-  </div>
-  ${forConc.length ? `<div class="r-cards">${forConc.map(f => `<button class="r-card press" data-go-detail="${f.id}">
-      <span class="r-cim">${/^https?:/.test(f.thumb || '') ? `<img src="${esc(f.thumb)}" alt="">` : ''}</span>
-      <span class="r-cbox"><span class="r-cn">${esc(f.brand)} ${esc(f.name)}</span>
-        <span class="r-cl">${esc(fitLine(f))}</span>
-        <span class="r-cp">${cautionTag(f)}${f.price?.pKg ? `<b>100g당 ${won(per100g(f))}원</b>` : ''}</span></span>
-    </button>`).join('')}</div>`
-    : `<p class="t-bodySm c-sub" style="padding:0 16px">이 고민에 맞는 원료가 든 사료를 아직 찾지 못했어요.</p>`}
-  <button class="r-all press" style="margin:16px" data-concern="${conc[0]}">${esc(conc[1])} 사료 모두 보기 ›</button>
+  ${themes.map(th => `<div class="h-sec">
+    <div class="h-sech"><h2>${esc(th.t)}</h2>
+      <button ${th.more === 'price' ? 'data-hsort="priceAsc"' : `data-concern="${th.more}"`}>더보기 ${icon('chevronRight', 16)}</button></div>
+    <div class="h-rail">${th.list.map(themeCard).join('')}</div>
+  </div>`).join('')}
 
   ${siteFooter()}`;
 }
@@ -1862,7 +1866,6 @@ function wire() {
   on('[data-hsort]', 'click', e => { state.query = ''; state.filters.clear(); state.sort = e.currentTarget.dataset.hsort; go('search'); });
   on('[data-hfilter]', 'click', e => { state.query = ''; state.filters.clear(); state.filters.add(e.currentTarget.dataset.hfilter); state.sort = 'recommend'; go('search'); });
   on('[data-hchip]', 'click', e => { state.homeChip = e.currentTarget.dataset.hchip; render(); });
-  on('[data-hconc]', 'click', e => { state.homeConcern = e.currentTarget.dataset.hconc; render(); });
   if (state.screen === 'search') wireSearchResults();
   on('[data-clear-search]', 'click', () => { state.query = ''; state.filters.clear(); render(); $('#q')?.focus(); });
   on('[data-add-compare]', 'click', e => addCompare(e.currentTarget.dataset.addCompare));
