@@ -1581,8 +1581,11 @@ const COVER_TONE = {
   '건강 고민': ['var(--purple100)', 'var(--purple700)'], '사료 종류': ['var(--surface)', 'var(--icIndigo)'],
   '구매 팁': ['var(--cautionBg)', 'var(--icOrange)'], '생애주기': ['var(--blue50)', 'var(--icPink)']
 };
+/* AI 일러스트 표지(Higgsfield, 토스식 미니멀 — 대표 결정 2026-10-08). 글 id → 그림. 없으면 아이콘 표지. */
+const COVER_IMG = { 'label-read': 1, 'allergy': 1, 'tear-stain': 1, 'food-types': 1, 'price-gap': 1 };
 function articleCover(a, cls = '') {
-  if (/^https?:/.test(a.cover || '')) return `<span class="ac ${cls}"><img src="${esc(a.cover)}" alt="" loading="lazy"></span>`;
+  const src = a.cover || (COVER_IMG[a.id] ? `assets/covers/${a.id}.webp?v=1` : '');
+  if (/^(https?:|assets\/)/.test(src)) return `<span class="ac ${cls}"><img src="${esc(src)}" alt="" loading="lazy"></span>`;
   const [bg, fg] = COVER_TONE[a.cat] || ['var(--surface)', 'var(--ink70)'];
   return `<span class="ac ${cls}" style="--cbg:${bg};--cfg:${fg}" aria-hidden="true">
     <span class="ac-b1"></span><span class="ac-b2"></span>${icon(a.ico || 'book', 48)}</span>`;
