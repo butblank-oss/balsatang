@@ -809,9 +809,6 @@ const FUNC_ROWS = [
   { k: 'immune', fn: ['immune'], icon: 'picky', label: '면역·활력' }
 ];
 
-/* 세로 막대는 칸이 좁다. 한글은 아무 데서나 끊기므로 '피부·알러지' 가
-   '피부 · 알 / 러지' 로 갈라졌다. 가운뎃점 뒤에서만 끊게 한다. */
-const barLabel = l => esc(l).replace('·', '·<wbr>');
 
 function funcBars(d) {
   const fi = d.funcIngr || {};
@@ -823,28 +820,21 @@ function funcBars(d) {
       .map(x => ({ name: x.n, safe: byName.get(x.n)?.safe ?? 'safe' }));
     return { ...r, n: items.length, items };
   });
-  /* 핸드오프 규칙 — 트랙 높이는 88px 고정. 3종(최댓값 버킷) 이상이면 막대는 항상
-     트랙을 100% 채우고 숫자 라벨만 '4종','5종'… 으로 바뀐다. 막대가 트랙을 넘어
-     더 채워지거나 트랙 높이가 늘어나지 않는다. 기준을 데이터에 따라 움직이면
-     사료마다 같은 1종이 다른 길이로 보인다. */
-  const MAXBUCKET = 3;
-  const pct = n => n <= 0 ? 0 : Math.min(1, n / MAXBUCKET) * 100;
 
+  /* 막대 그래프를 걷었다(대표 피드백 — 막대 아이콘 표시는 별로). 홈 랭킹처럼 사실을 글과 태그로.
+     잡힌 고민만 줄로 세우고, 못 찾은 고민은 한 줄로 묶는다 — '없음' 칸 여섯 개가 화면을 먹지 않게. */
+  const hit = rows.filter(r => r.n), miss = rows.filter(r => !r.n);
   return `
   <h2 class="t-sub" style="margin-top:40px">고민별 관련 원료</h2>
-  <p style="margin-top:2px;font-size:13px;color:var(--ink35);letter-spacing:-.02em">원료 목록에서 찾은 관련 원료 종류 수예요</p>
-  <div class="fbars">${rows.map(r => `
-    <div class="fbar">
-      <span class="fbar-n${r.n ? '' : ' zero'}">${r.n ? r.n + '종' : '없음'}</span>
-      <div class="fbar-track">${r.n ? `<div class="fbar-fill" style="height:${pct(r.n)}%"></div>` : ''}</div>
-      <span class="fbar-ic${r.n ? '' : ' zero'}">${cicon(r.icon, 14)}</span>
-      <span class="fbar-l${r.n ? '' : ' zero'}">${barLabel(r.label)}</span>
-    </div>`).join('')}</div>
-  ${/* 어떤 원료가 잡혔는지는 막대만으로는 알 수 없다. 있는 것만 아래에 적는다. */''}
-  ${rows.some(r => r.n) ? `<div style="margin-top:16px;display:flex;flex-direction:column;gap:6px">${
-    rows.filter(r => r.n).map(r => `<div style="display:flex;gap:10px;align-items:baseline">
-      <span style="font-size:12px;font-weight:700;letter-spacing:-.02em;color:var(--ink35);flex:none;min-width:62px">${r.label}</span>
-      <span class="ingrtext" style="margin:0;flex:1">${esc(r.items.map(x => x.name).join(', '))}</span></div>`).join('')}</div>` : ''}`;
+  <p style="margin-top:2px;font-size:13px;color:var(--ink50);letter-spacing:-.02em">원료 목록에서 찾은 관련 원료예요</p>
+  ${hit.length ? `<div class="verlist">${hit.map(r => `
+    <div class="verrow" style="align-items:flex-start">
+      <span class="func-ic">${cicon(r.icon, 15)}</span>
+      <div style="display:flex;flex-direction:column;gap:4px;min-width:0;flex:1">
+        <span style="display:flex;align-items:center;gap:6px"><span class="verrow-t">${r.label}</span><span class="tag">${r.n}종</span></span>
+        <span class="verrow-b">${esc(r.items.map(x => x.name).join(', '))}</span>
+      </div></div>`).join('')}</div>` : ''}
+  ${miss.length ? `<p style="margin-top:${hit.length ? 10 : 14}px;font-size:12.5px;color:var(--ink50);letter-spacing:-.02em;line-height:1.6">관련 원료를 찾지 못한 고민 · ${miss.map(r => r.label).join(', ')}</p>` : ''}`;
 }
 
 /* ── 이런 아이에게 어떨까요 ──
@@ -887,7 +877,7 @@ function fitCards(f, d) {
 
   return `<div class="fitzone">
     <h2 class="t-sub">이런 아이에게 어떨까요?</h2>
-    <p style="margin-top:2px;font-size:13px;color:var(--ink40);letter-spacing:-.02em">등록한 프로필과 원료를 맞춰봤어요</p>
+    <p style="margin-top:2px;font-size:13px;color:var(--ink50);letter-spacing:-.02em">등록한 프로필과 원료를 맞춰봤어요</p>
     ${good.length ? `<div class="fitgroup good">
       <span class="fitdot good">${icon('check', 10)}</span>이런 아이들에게 좋아요</div>
       <div class="fitlist">${good.map(x => card(x, 'good')).join('')}</div>` : ''}
@@ -946,9 +936,9 @@ function renderNutritionTab(f, d) {
          만든 자연어라 판정만 골라 떼어낼 수 없고, 화면에서 고쳐 쓰면 엔진과 두 벌이 된다.
          원료·주의성분·성분표는 아래에 일반 사료와 똑같이 그대로 있다. */''}
     ${f.rx ? `<h2 class="t-sub" style="margin-top:40px">이 사료를 이렇게 봤어요</h2>
-    <p style="margin-top:2px;font-size:13px;color:var(--ink40);letter-spacing:-.02em">처방식은 질환 관리를 위해 영양을 일부러 조정해요. 그래서 일반 사료 기준의 판정은 보여드리지 않아요. 원료와 성분은 아래에 그대로 있어요.</p>`
+    <p style="margin-top:2px;font-size:13px;color:var(--ink50);letter-spacing:-.02em">처방식은 질환 관리를 위해 영양을 일부러 조정해요. 그래서 일반 사료 기준의 판정은 보여드리지 않아요. 원료와 성분은 아래에 그대로 있어요.</p>`
       : cards.length ? `<h2 class="t-sub" style="margin-top:40px">이 사료를 이렇게 봤어요</h2>
-    <p style="margin-top:2px;font-size:13px;color:var(--ink40);letter-spacing:-.02em">원료표에서 바로 확인한 사실이에요</p>
+    <p style="margin-top:2px;font-size:13px;color:var(--ink50);letter-spacing:-.02em">원료표에서 바로 확인한 사실이에요</p>
     <div class="verlist">${cards.map(([k, c]) => `
       <div class="verrow">
         <span class="verrow-ic ${k}">${k === 'pos' ? icon('check', 15) : '!'}</span>
@@ -1001,7 +991,7 @@ function ratingCards(f) {
     const forKo = rxForLabel(f);
     return `<h2 class="t-sub" style="margin-top:40px">이 사료는요</h2>
     <div class="card soft" style="padding:15px 16px">
-      <span style="height:26px;padding:0 11px;border-radius:999px;background:var(--purple900);color:#fff;font-size:11px;font-weight:800;display:inline-flex;align-items:center">수의사 처방식${forKo ? ' · ' + esc(forKo) : ''}</span>
+      <span style="height:26px;padding:0 10px;border-radius:6px;background:var(--ink);color:#fff;font-size:12px;font-weight:700;display:inline-flex;align-items:center">수의사 처방식${forKo ? ' · ' + esc(forKo) : ''}</span>
       <p class="t-bodySm c-sub" style="margin-top:10px">질환 관리를 위해 만든 사료예요. 수의사와 상담한 뒤 급여해 주세요. 일반 사료와 같은 기준으로 점수를 매기지 않아요.</p>
     </div>`;
   }
@@ -1062,13 +1052,13 @@ function renderFeedingTab(f, d) {
   return `<div style="padding:28px var(--screenX) 40px">
     ${priceBlock}
 
-    <div class="card" style="margin-top:26px;border-radius:var(--rCardLg);padding:20px 18px">
+    <div class="card" style="margin-top:24px;border-radius:var(--rCardLg);padding:20px 18px">
       <h2 class="t-sub">하루에 얼마나 줄까요?</h2>
       <p class="t-caption c-cap" style="margin-top:4px">몸무게와 하루 끼니 수를 입력해주세요</p>
 
       <div class="t-caption c-sub" style="margin-top:18px">우리 아이 몸무게</div>
       <div style="display:flex;align-items:center;gap:10px;margin-top:8px">
-        <div style="width:96px;height:52px;border-radius:14px;background:var(--surfaceInput);display:grid;place-items:center">
+        <div style="width:96px;height:56px;border-radius:var(--rInput);background:var(--surfaceInput);display:grid;place-items:center">
           <input id="fw" type="number" inputmode="decimal" min="0.5" max="90" step="0.1" value="${state.feeding.weightKg}"
             style="width:100%;text-align:center;font-size:22px;font-weight:800;letter-spacing:-.04em">
         </div>
@@ -1077,8 +1067,8 @@ function renderFeedingTab(f, d) {
       </div>
 
       <div class="t-caption c-sub" style="margin-top:18px">하루 끼니 수</div>
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:8px">
-        ${[1, 2, 3, 4].map(m => `<button class="press" data-meals="${m}" style="height:44px;border-radius:var(--rSegment);font-size:14px;font-weight:700;${state.feeding.meals === m ? 'background:var(--purple700);color:#fff' : 'box-shadow:var(--outline);color:var(--ink70)'}">${m}끼</button>`).join('')}
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px">
+        ${[1, 2, 3, 4].map(m => `<button class="press" data-meals="${m}" style="height:44px;border-radius:var(--rSegment);font-size:14px;font-weight:700;${state.feeding.meals === m ? 'background:var(--ink);color:#fff' : 'box-shadow:var(--outline);color:var(--ink70)'}">${m}끼</button>`).join('')}
       </div>
 
       <div style="display:grid;grid-template-columns:1fr 1fr;border-radius:var(--rInput);background:var(--surface);margin-top:16px;overflow:hidden">
@@ -1099,7 +1089,7 @@ function renderFeedingTab(f, d) {
            우리가 아는 용량은 아래에 눌러 넣는 지름길로만 남긴다. -->
       <div class="t-caption c-sub" style="margin-top:18px">봉지 용량</div>
       <div style="display:flex;align-items:center;gap:10px;margin-top:8px">
-        <div style="width:110px;height:52px;border-radius:14px;background:var(--surfaceInput);display:grid;place-items:center">
+        <div style="width:110px;height:56px;border-radius:var(--rInput);background:var(--surfaceInput);display:grid;place-items:center">
           <input id="bagkg" type="number" inputmode="decimal" min="0.1" max="30" step="0.1"
             value="${Math.round(feed.bagG / 100) / 10}"
             style="width:100%;text-align:center;font-size:22px;font-weight:800;letter-spacing:-.04em">
@@ -1108,11 +1098,11 @@ function renderFeedingTab(f, d) {
         <span class="t-micro c-mute" style="flex:1;font-weight:500;line-height:1.5">집에 있는 봉지<br>크기로 적어주세요</span>
       </div>
       ${opts.length ? `<div style="display:flex;gap:6px;margin-top:9px;flex-wrap:wrap">
-        ${opts.map(g => `<button class="press" data-bag="${g}" style="height:32px;padding:0 13px;border-radius:var(--rChip);font-size:12.5px;font-weight:700;letter-spacing:-.02em;${feed.bagG === g ? 'background:var(--purple900);color:#fff' : 'box-shadow:var(--outline);color:var(--ink70)'}">${gLabel(g)}</button>`).join('')}
+        ${opts.map(g => `<button class="press" data-bag="${g}" style="height:32px;padding:0 13px;border-radius:var(--rChip);font-size:12.5px;font-weight:700;letter-spacing:-.02em;${feed.bagG === g ? 'background:var(--ink);color:#fff' : 'box-shadow:var(--outline);color:var(--ink70)'}">${gLabel(g)}</button>`).join('')}
       </div>` : ''}
       <div style="display:flex;align-items:center;gap:12px;margin-top:14px;padding:16px 18px;
-                  border-radius:var(--rInput);background:var(--purple900);color:#fff">
-        <div style="flex:1;min-width:0;font-size:12.5px;font-weight:600;letter-spacing:-.02em;line-height:1.5;color:var(--purple300)">
+                  border-radius:var(--rInput);background:var(--surface);color:var(--ink)">
+        <div style="flex:1;min-width:0;font-size:12.5px;font-weight:600;letter-spacing:-.02em;line-height:1.5;color:var(--ink70)">
           ${gLabel(feed.bagG)} 한 봉지 · 하루 ${state.feeding.meals}끼 기준${feed.monthCost ? `<br>월 예상 약 ${won(feed.monthCost)}원` : ''}
         </div>
         <div style="font-size:30px;font-weight:800;letter-spacing:-.04em">${feed.days}<span style="font-size:17px;margin-left:1px">일</span></div>
@@ -1121,11 +1111,10 @@ function renderFeedingTab(f, d) {
       <p class="t-micro" style="margin-top:14px;color:var(--footnote);font-weight:500;line-height:1.6">성견 유지 기준(RER×1.6) 계산값이에요. 활동량·나이에 따라 달라져요.${feed.kcal.est ? `<br>이 사료는 칼로리 표기가 없어 영양성분으로 추정한 값(약 ${won(feed.kcal.v)}kcal/kg)을 썼어요.` : ''}</p>
     </div>
 
-    <button class="card dark press" style="width:100%;margin-top:22px;display:flex;align-items:center;gap:12px;padding:18px;border-radius:var(--rCard);text-align:left" data-go="compare">
-      ${icon('compare', 20)}
-      <span style="flex:1"><b style="display:block;font-size:15px;font-weight:700">지금 먹는 사료와 비교하기</b>
-      <span style="font-size:12.5px;color:var(--purple300)">성분을 나란히 놓고 비교해드려요</span></span>
-      ${icon('chevronRight', 18)}
+    <button class="h-strip press" style="margin:24px 0 0;width:100%" data-go="compare">
+      ${icon('compare', 24)}
+      <span class="tx"><b>지금 먹는 사료와 비교하기</b><span>성분을 나란히 놓고 비교해드려요</span></span>
+      <span class="go">비교하기</span>
     </button>
 
   </div>`;
