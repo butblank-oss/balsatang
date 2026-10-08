@@ -72,6 +72,10 @@ for (const file of files) {
       sources: item.sources ?? [],
       evidence: item.evidence ?? {},
       audit: item.audit ?? null,
+      /* 심사자에게 보여 줄 메모 — 조사원 메모, 가격·용량 할 일, 다나와 국내 영양정보(참고값) */
+      note: item.note ?? null,
+      priceTodo: item.priceTodo ?? null,
+      danawaRef: item.danawaRef ?? null,
       pricePending: g1r.pricePending === true,
       draft,
       gates: {
