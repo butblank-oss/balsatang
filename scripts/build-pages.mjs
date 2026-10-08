@@ -61,7 +61,7 @@ function page({ url, title, desc, image, type = 'website', hash, body, jsonld })
   if (image) h = h.replace(/(<meta name="twitter:card" content=")summary(">)/,
     `$1summary_large_image$2\n<meta property="og:image" content="${esc(image)}">`);
   /* 스크립트·스타일을 루트에서 읽게. 앱이 켜지기 전에 화면 주소를 맞춘다. */
-  swap(/<meta charset="utf-8">/, `<meta charset="utf-8">\n<base href="/">\n<script>if(!location.hash)history.replaceState(null,'','/${hash}')</script>`);
+  swap(/<meta charset="utf-8">/, `<meta charset="utf-8">\n<base href="/">\n<script>if(!location.hash)history.replaceState(null,'','/'+location.search+'${hash}')</script>`);
   if (jsonld) h = h.replace('</head>', `<script type="application/ld+json">${JSON.stringify(jsonld).replace(/</g, '\\u003c')}</script>\n</head>`);
   swap(/<main id="view"><\/main>/, `<main id="view"><article class="seo" style="padding:24px 20px 120px;line-height:1.7">${body}</article></main>`);
   return h;

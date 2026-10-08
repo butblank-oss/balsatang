@@ -1874,7 +1874,9 @@ function wire() {
   on('[data-share]', 'click', async () => {
     const f = FOODS.find(x => x.id === state.detailId);
     /* 분석된 사료는 검색용 진짜 주소(/food/<id>/)가 있다. 그걸 퍼뜨려야 검색에도 쌓인다. */
-    const url = analysisState(f) === 'analyzed' ? `${location.origin}/food/${encodeURIComponent(f.id)}/` : location.href;
+    /* ?from=share — 받은 사람이 어느 앱에서 열든 사용 분석에 '공유 링크' 로 잡히게. */
+    const url = analysisState(f) === 'analyzed' ? `${location.origin}/food/${encodeURIComponent(f.id)}/?from=share`
+      : `${location.origin}/?from=share${location.hash}`;
     const share = { title: `${f.brand} ${f.name} — 발사탕`, url };
     /* 예전엔 navigator.share 가 없으면 복사하지도 않고 '복사했어요' 라고만 했다.
        거짓말이다. 실제로 복사하고, 그것도 안 되면 안 됐다고 말한다. */
@@ -2078,4 +2080,7 @@ load();
 applyHash();
 render();
 history.replaceState({ screen: state.screen }, '', hashFor(state.screen));
+/* 운영자 표시를 켜고 끈 직후 — 됐다는 걸 알려 준다 (track.js 의 ?bs_owner=on|off). */
+if (window.Track?.ownerChanged) setTimeout(() => toast(Track.ownerChanged === 'on'
+  ? '이 브라우저는 이제 \'내 방문\' 으로 표시돼요 — 사용 분석 숫자에서 빠져요' : '내 방문 표시를 껐어요'), 400);
 $('#dim').addEventListener('click', closeSheet);
