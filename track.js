@@ -72,8 +72,13 @@
     const app = cap && cap.isNativePlatform && cap.isNativePlatform() ? (cap.getPlatform?.() || 'native') : 'web';
     const os = /iPhone|iPad|iPod/.test(ua) ? 'ios' : /Android/.test(ua) ? 'android'
       : /Mac OS X/.test(ua) ? 'mac' : /Windows/.test(ua) ? 'windows' : /Linux/.test(ua) ? 'linux' : 'other';
-    const browser = /KAKAOTALK/i.test(ua) ? 'kakaotalk' : /NAVER\(inapp/i.test(ua) ? 'naver'
-      : /Instagram/i.test(ua) ? 'instagram' : /FBAN|FBAV/i.test(ua) ? 'facebook'
+    /* 앱 안 브라우저는 앞 사이트 주소를 안 넘기는 일이 많다. 그때 '어느 앱에서 열었나' 가 유일한 단서라
+       국내에서 링크를 많이 돌리는 앱을 먼저 본다. (카톡에서 사파리로 넘겨 열면 이 표시도 사라진다.) */
+    const browser = /KAKAOTALK/i.test(ua) ? 'kakaotalk' : /KAKAOSTORY/i.test(ua) ? 'kakaostory'
+      : /NAVER\(inapp/i.test(ua) ? 'naver' : /\bBAND\//.test(ua) ? 'band' : /\bLine\//.test(ua) ? 'line'
+      : /DaumApps|DaumDevice/i.test(ua) ? 'daum' : /everytime/i.test(ua) ? 'everytime'
+      : /Barcelona/.test(ua) ? 'threads' : /Instagram/i.test(ua) ? 'instagram' : /FBAN|FBAV/i.test(ua) ? 'facebook'
+      : /Twitter/i.test(ua) ? 'x'
         : /SamsungBrowser/i.test(ua) ? 'samsung' : /Edg\//.test(ua) ? 'edge'
           : /CriOS|Chrome\//.test(ua) ? 'chrome' : /Firefox|FxiOS/.test(ua) ? 'firefox'
             : /Safari/.test(ua) ? 'safari' : 'other';
@@ -95,7 +100,23 @@
     ['seo', /AhrefsBot|SemrushBot|MJ12bot|DotBot|PetalBot|DataForSeoBot/i],
     ['other', /bot\b|crawler|spider|crawling|slurp/i]
   ];
+  /* 운영자 기기 — https://balsatang.com/?bs_owner=on 을 한 번 열면 이 브라우저의 방문을 '내 방문' 으로 표시한다.
+     (?bs_owner=off 로 끈다.) 분석 숫자에서 빼는 데 쓴다. 브라우저마다 따로라 폰·맥·카톡 안에서 각각 해야 한다. */
+  const K_OWNER = 'balsatang.owner';
+  let ownerChanged = null;
+  try {
+    const v = new URLSearchParams(location.search).get('bs_owner');
+    if (v === 'on' || v === 'off') {
+      if (v === 'on') ls.set(K_OWNER, '1'); else ls.del(K_OWNER);
+      ownerChanged = v;
+      const q = new URLSearchParams(location.search); q.delete('bs_owner');
+      history.replaceState(history.state, '', location.pathname + (q.toString() ? '?' + q : '') + location.hash);
+    }
+  } catch { }
+  const isOwner = () => ls.get(K_OWNER) === '1';
+
   function agent() {
+    if (isOwner()) return { agent: 'owner' };
     const ua = navigator.userAgent || '';
     for (const [k, re] of CRAWLERS) if (re.test(ua)) return { agent: 'crawler', bot: k };
     if (navigator.webdriver === true || /HeadlessChrome|PhantomJS|Puppeteer|Playwright|Lighthouse|Selenium|Cypress/i.test(ua))
@@ -111,10 +132,12 @@
       const r = document.referrer ? new URL(document.referrer) : null;
       if (r && r.hostname !== location.hostname) ref = r.hostname.replace(/^www\./, '');
     } catch { }
+    /* 발사탕 공유 버튼으로 보낸 링크에는 ?from=share 가 붙는다. 받은 사람이 어느 앱에서 열든 '공유 링크' 로 잡힌다. */
+    const shared = q.get('from') === 'share';
     return {
       ref: cut(ref, 120),
-      utm_source: cut(q.get('utm_source'), 100),
-      utm_medium: cut(q.get('utm_medium'), 100),
+      utm_source: cut(q.get('utm_source') || (shared ? 'share' : null), 100),
+      utm_medium: cut(q.get('utm_medium') || (shared ? 'link' : null), 100),
       utm_campaign: cut(q.get('utm_campaign'), 100)
     };
   }
@@ -227,7 +250,11 @@
     track('js_error', { msg: cut(e.message, 200), src: cut((e.filename || '').split('/').pop(), 80), line: e.lineno || null });
   });
 
+  /* 운영자 표시를 바꾼 순간도 남긴다 — 어드민이 이 기기의 예전 방문까지 '내 방문' 으로 돌린다. */
+  if (ownerChanged) setTimeout(() => { track('owner_mark', { on: ownerChanged === 'on' }); flush(); }, 0);
+
   global.Track = {
+    ownerChanged, isOwner,
     track, screenView, search,
     isOn: () => !optedOut(),
     setOn(on) {
