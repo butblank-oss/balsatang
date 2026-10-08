@@ -575,6 +575,50 @@ button.r-all[style]{width:calc(100% - 32px)}
 .md-cmp-r > span.k{text-align:left;padding-left:12px;color:var(--ink50);font-weight:600;font-size:12px;display:flex;flex-direction:column}
 .md-cmp-r > span.k small{font-size:10px;font-weight:500;color:var(--ink50)}
 .md-cmp-r .tag{height:22px;font-size:11px}
+
+/* ══ 콘텐츠 (2026-10 · 읽고 싶은 느낌) ══
+   목록: 맨 위 한 편은 크게(에디터·제목·요약·큰 표지), 나머지는 오른쪽 정사각 표지.
+   표지는 분류 색 바탕 + 큰 아이콘(articleCover). */
+.ac{position:relative;display:grid;place-items:center;overflow:hidden;background:var(--cbg,var(--surface));color:var(--cfg,var(--ink70));flex:none}
+.ac img{width:100%;height:100%;object-fit:cover}
+.ac .i svg{stroke-width:1.6}
+.ac-b1,.ac-b2{position:absolute;border-radius:50%;background:currentColor;opacity:.08}
+.ac-b1{width:70%;aspect-ratio:1;right:-18%;top:-30%}
+.ac-b2{width:46%;aspect-ratio:1;left:-12%;bottom:-24%;opacity:.06}
+.ac-wide{width:100%;aspect-ratio:16/9;border-radius:var(--rCard);margin-top:14px}
+.ac-wide .i{width:64px!important;height:64px!important}
+.ac-sq{width:88px;height:88px;border-radius:12px}
+.ac-sq .i{width:34px!important;height:34px!important}
+.ac-hero{width:100%;aspect-ratio:16/9;border-radius:var(--rCard)}
+.ac-hero .i{width:72px!important;height:72px!important}
+.ed-line{display:flex;align-items:center;gap:8px;font-size:13px;letter-spacing:-.02em}
+.ed-line b{font-weight:700;color:var(--ink)}
+.ed-line > span:last-child{color:var(--ink50)}
+.ed-av{width:28px;height:28px;border-radius:50%;overflow:hidden;flex:none;display:block}
+.ed-av svg{width:100%;height:100%;display:block}
+.ct-lead{display:flex;flex-direction:column;align-items:flex-start;width:calc(100% - 32px);margin:24px 16px 0;text-align:left}
+.ct-lead .ct-t{margin-top:14px;font-size:20px;font-weight:700;line-height:1.4;letter-spacing:-.04em;color:var(--ink)}
+.ct-lead .ct-x{margin-top:8px;font-size:15px;line-height:1.6;color:var(--ink70);letter-spacing:-.02em;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.ct-list{margin-top:28px;border-top:8px solid var(--lineSoft)}
+.ct-row{display:flex;align-items:flex-start;gap:16px;width:100%;padding:20px 16px;text-align:left}
+.ct-row + .ct-row{border-top:var(--divider)}
+.ct-rb{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
+.ct-row .ct-t{font-size:16px;font-weight:700;line-height:1.45;letter-spacing:-.035em;color:var(--ink);word-break:keep-all;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ct-row .ct-x{font-size:14px;line-height:1.55;color:var(--ink70);letter-spacing:-.02em;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ct-m{font-size:12.5px;color:var(--ink50);letter-spacing:-.02em;margin-top:2px}
+/* 글 화면 */
+.art{padding:8px var(--screenX) 0}
+.art-t{margin-top:20px;font-size:24px;font-weight:800;line-height:1.38;letter-spacing:-.045em;word-break:keep-all}
+.art .ed-line{margin-top:14px}
+.art-lead{margin-top:20px;padding-bottom:20px;border-bottom:var(--divider);font-size:16px;line-height:1.7;color:var(--ink70);letter-spacing:-.02em}
+.art-body{margin-top:8px}
+.art-body .md-p{font-size:16px;line-height:1.85;color:var(--ink);margin:16px 0}
+.art-body .md-list li{font-size:16px;line-height:1.8;color:var(--ink)}
+.art-body h3{font-size:19px!important;margin:36px 0 4px!important}
+.art-body ul.md-list{list-style:disc} .art-body ol.md-list{list-style:decimal}
 .md-vs{display:block;width:100%;margin:16px 0;border-radius:var(--rCard);box-shadow:inset 0 0 0 1px var(--lineHair);overflow:hidden;background:#fff;text-align:center}
 .md-vs-h{display:grid;grid-template-columns:minmax(0,1fr) 40px minmax(0,1fr);align-items:center;padding:14px 8px 12px;background:var(--cmpHead)}
 .md-vs-s{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0}

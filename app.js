@@ -1572,6 +1572,31 @@ const articles = () => (typeof ARTICLES !== 'undefined' ? ARTICLES : []);
 /* 읽는 데 걸리는 시간 — 한국어는 분당 500자 정도로 잡는다 */
 function readMin(a) { return Math.max(1, Math.round((a.body || '').length / 500)); }
 
+/* ═══ 콘텐츠 표지·에디터 ═══
+   글마다 사진이 없어 아이콘 상자만 반복됐다 — '읽고 싶은 느낌' 이 안 났다(대표 피드백).
+   분류별 색 바탕 + 큰 아이콘으로 표지를 그린다. 제조사 사진을 쓰지 않으니 저작권 걱정이 없고,
+   글에 cover(이미지 주소)를 넣으면 그 사진이 우선한다. 색은 팔레트 토큰만 쓴다. */
+const COVER_TONE = {
+  '성분 가이드': ['var(--blue100)', 'var(--icBlue)'], '영양': ['var(--safeBg)', 'var(--icGreen)'],
+  '건강 고민': ['var(--purple100)', 'var(--purple700)'], '사료 종류': ['var(--surface)', 'var(--icIndigo)'],
+  '구매 팁': ['var(--cautionBg)', 'var(--icOrange)'], '생애주기': ['var(--blue50)', 'var(--icPink)']
+};
+function articleCover(a, cls = '') {
+  if (/^https?:/.test(a.cover || '')) return `<span class="ac ${cls}"><img src="${esc(a.cover)}" alt="" loading="lazy"></span>`;
+  const [bg, fg] = COVER_TONE[a.cat] || ['var(--surface)', 'var(--ink70)'];
+  return `<span class="ac ${cls}" style="--cbg:${bg};--cfg:${fg}" aria-hidden="true">
+    <span class="ac-b1"></span><span class="ac-b2"></span>${icon(a.ico || 'book', 48)}</span>`;
+}
+const EDITOR_AV = `<span class="ed-av" aria-hidden="true"><svg viewBox="0 0 58 58">${LOGO_GRAD}<circle cx="29" cy="29" r="29" fill="url(#bstg)"/><g fill="#fff" transform="translate(0 2)"><circle cx="19.5" cy="21" r="3.6"/><circle cx="25.8" cy="16" r="3.8"/><circle cx="32.6" cy="16" r="3.8"/><circle cx="38.8" cy="21" r="3.6"/><path d="M29.2 24c6 0 10 5 10 9.5 0 3.5-3 5-5.5 4.2-2.2-.7-3-1.2-4.5-1.2s-2.3.5-4.5 1.2C22.2 38.5 19.2 37 19.2 33.5c0-4.5 4-9.5 10-9.5z"/></g></svg></span>`;
+/* 날짜가 있으면 '3일 전', 없으면 읽는 시간만. 날짜를 지어내지 않는다. */
+function articleWhen(a) {
+  if (!a.date) return `약 ${readMin(a)}분`;
+  const d = Math.floor((Date.now() - new Date(a.date + 'T00:00:00+09:00')) / 86400e3);
+  const ago = d <= 0 ? '오늘' : d < 7 ? `${d}일 전` : a.date.replace(/-/g, '.');
+  return `${ago} · 약 ${readMin(a)}분`;
+}
+
+/* 목록 — 맨 위 한 편은 크게(토스 리서치형), 나머지는 오른쪽 표지 목록(세진사형). */
 function renderContent() {
   const list = articles();
   const cats = [...new Set(list.map(a => a.cat).filter(Boolean))];
@@ -1581,21 +1606,28 @@ function renderContent() {
   const chips = [`<button class="chip press${cur ? '' : ' on'}" data-acat="">전체<em>${list.length}</em></button>`,
   ...cats.map(c => `<button class="chip press${cur === c ? ' on' : ''}" data-acat="${esc(c)}">${esc(c)}</button>`)].join('');
 
+  const [lead, ...rest] = shown;
   return `<div class="top lg"><h1 class="t-page">사료, 제대로 알기</h1></div>
   <p class="t-bodySm c-sub" style="padding:6px var(--screenX) 0">헷갈렸던 것들을 쉽게 풀어드려요</p>
   <div class="chiprow" style="margin-top:20px">${chips}</div>
-  <div class="sec" style="margin-top:12px">
-    ${shown.length ? shown.map(a => `<button class="row press" data-article="${esc(a.id)}" style="align-items:flex-start">
-      <span style="width:56px;height:56px;border-radius:var(--rThumbMd);background:var(--purple100);display:grid;place-items:center;color:var(--purple700);flex-shrink:0">${icon('book', 22)}</span>
-      <span class="row-b">
-        <span class="t-micro" style="color:var(--purple700)">${esc(a.cat || '읽을거리')}</span>
-        <span class="row-name" style="display:block;margin-top:4px">${esc(a.title)}</span>
-        <span class="row-meta">${esc((a.excerpt || '').slice(0, 52))}</span>
-        <span class="t-micro c-mute" style="display:block;margin-top:8px">약 ${readMin(a)}분</span>
-      </span></button>`).join('')
-      : `<div class="empty"><div class="orb neutral">${icon('book', 38)}</div>
+  ${lead ? `
+  <button class="ct-lead press" data-article="${esc(lead.id)}">
+    <span class="ed-line">${EDITOR_AV}<b>발사탕 에디터</b><span>${esc(articleWhen(lead))}</span></span>
+    <span class="ct-t">${esc(lead.title)}</span>
+    ${lead.excerpt ? `<span class="ct-x">${esc(lead.excerpt)}</span>` : ''}
+    ${articleCover(lead, 'ac-wide')}
+  </button>
+  <div class="ct-list">${rest.map(a => `
+    <button class="ct-row press" data-article="${esc(a.id)}">
+      <span class="ct-rb">
+        <span class="ct-t">${esc(a.title)}</span>
+        ${a.excerpt ? `<span class="ct-x">${esc(a.excerpt)}</span>` : ''}
+        <span class="ct-m">${esc(a.cat || '읽을거리')} · ${esc(articleWhen(a))}</span>
+      </span>
+      ${articleCover(a, 'ac-sq')}
+    </button>`).join('')}</div>`
+    : `<div class="empty"><div class="orb neutral">${icon('book', 38)}</div>
          <h2>준비 중이에요</h2><p>사료를 고를 때 도움되는 글을 쓰고 있어요.</p></div>`}
-  </div>
   ${siteFooter()}`;
 }
 
@@ -1784,22 +1816,29 @@ function renderArticle() {
   const a = articles().find(x => x.id === state.articleId);
   if (!a) return renderContent();
 
-  /* 글마다 '어떤 사료가 여기 해당하는지' 판별식을 들고 있다. 그걸로 실제 사료를 잇는다. */
+  /* 본문에 사료 카드를 넣은 글은 아래 '관련 사료' 를 또 붙이지 않는다(같은 사료가 두 번 나온다). */
+  const hasEmbed = /^\s*\[\[(사료|비교)\s/m.test(a.body || '');
   let related = [];
-  try { related = FOODS.filter(f => { try { return a.match?.(f); } catch { return false; } }).slice(0, 3); }
-  catch { related = []; }
+  if (!hasEmbed) {
+    try { related = FOODS.filter(f => { try { return a.match?.(f); } catch { return false; } }).slice(0, 3); }
+    catch { related = []; }
+  }
+  /* 다 읽은 사람에게 다음 글 — 같은 분류 먼저, 모자라면 다른 글. */
+  const others = articles().filter(x => x.id !== a.id);
+  const next = [...others.filter(x => x.cat === a.cat), ...others.filter(x => x.cat !== a.cat)].slice(0, 3);
 
   return `
   <div class="top icons">
     <button class="iconbtn press" data-back>${icon('chevronRight', 24, 'ui')}</button>
-    <h1 class="t-item" style="flex:1">콘텐츠</h1>
+    <h1 class="t-item" style="flex:1">${esc(a.cat || '콘텐츠')}</h1>
   </div>
-  <div style="padding:calc(14px + env(safe-area-inset-top)) var(--screenX) 0">
-    <div class="t-micro" style="color:var(--purple700);font-weight:800">${esc(a.cat || '읽을거리')} · 약 ${readMin(a)}분</div>
-    <h2 class="t-product" style="margin-top:8px">${esc(a.title)}</h2>
-    ${a.excerpt ? `<p class="t-bodySm c-sub" style="margin-top:10px">${esc(a.excerpt)}</p>` : ''}
-  </div>
-  <div class="sec md">${mdToHtml(a.body)}</div>
+  <article class="art">
+    ${articleCover(a, 'ac-hero')}
+    <h2 class="art-t">${esc(a.title)}</h2>
+    <div class="ed-line">${EDITOR_AV}<b>발사탕 에디터</b><span>${esc(articleWhen(a))}</span></div>
+    ${a.excerpt ? `<p class="art-lead">${esc(a.excerpt)}</p>` : ''}
+    <div class="md art-body">${mdToHtml(a.body)}</div>
+  </article>
   ${related.length ? `<div class="sec">
     <h2 class="t-section">이 글과 관련된 사료</h2>
     <div style="margin-top:12px">${related.map(f => `
@@ -1812,7 +1851,16 @@ function renderArticle() {
   </div>` : ''}
   <div class="sec">
     <p class="t-caption c-cap">이 글은 일반적인 정보예요. 아이가 아프거나 처방식을 먹고 있다면 수의사와 상의해 주세요.</p>
-  </div>`;
+  </div>
+  ${next.length ? `<div class="sec">
+    <h2 class="t-section">다음에 읽어볼 글</h2>
+    <div class="ct-list" style="margin:8px calc(var(--screenX) * -1) 0">${next.map(x => `
+      <button class="ct-row press" data-article="${esc(x.id)}">
+        <span class="ct-rb"><span class="ct-t">${esc(x.title)}</span>
+          <span class="ct-m">${esc(x.cat || '읽을거리')} · ${esc(articleWhen(x))}</span></span>
+        ${articleCover(x, 'ac-sq')}
+      </button>`).join('')}</div>
+  </div>` : ''}`;
 }
 
 /* ═══════════════════════════════════════════════════════
