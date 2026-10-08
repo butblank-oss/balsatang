@@ -38,7 +38,18 @@ const appSrc = read('app.js');
 const grab = re => { const m = appSrc.match(re); if (!m) throw new Error('app.js 에서 찾지 못함: ' + re); return m[0]; };
 vm.runInContext(
   grab(/^const esc = .*$/m).replace(/^const /, 'var ') + '\n' +
-  grab(/^function mdToHtml\(src\) \{[\s\S]*?\n\}/m), ctx);
+  grab(/^function mdToHtml\(src\) \{[\s\S]*?\n\}/m) + '\n' +
+  /* 글 속 사료 문법([[사료 …]] / [[비교 …]])의 사료 찾기도 화면과 같은 코드를 쓴다 */
+  grab(/^const foodKey = .*$/m).replace(/^const /, 'var ') + '\n' +
+  grab(/^function findFood\(token\) \{[\s\S]*?\n\}/m) + '\n' +
+  grab(/^function embedFoods\(args\) \{[\s\S]*?\n\}/m), ctx);
+/* 검색용 페이지에서는 카드 대신 사료 상세 페이지로 가는 링크 목록 — 로봇이 읽고 따라갈 수 있게 */
+ctx.mdEmbed = (kind, args) => {
+  const list = ctx.embedFoods(args);
+  if (!list.length) return '';
+  return `<ul>${list.map(f => `<li><a href="/food/${encodeURIComponent(f.id)}/">${ctx.esc(f.brand)} ${ctx.esc(f.name)}</a>` +
+    `${f.warnN != null ? ` — 주의성분 ${f.warnN}종` : ''}${f.price?.pKg ? ` · 100g당 ${Math.round(f.price.pKg / 10).toLocaleString('ko-KR')}원` : ''}</li>`).join('')}</ul>`;
+};
 const { esc, mdToHtml } = ctx;
 
 const TYPE_KO = { dry: '건식', wet: '습식', freeze_dried: '동결건조', air_dried: '에어드라이', raw: '화식', topping: '토핑' };
