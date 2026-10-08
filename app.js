@@ -1585,7 +1585,7 @@ const COVER_TONE = {
 const COVER_IMG = { 'label-read': 1, 'allergy': 1, 'tear-stain': 1, 'food-types': 1, 'price-gap': 1,
   'senior-vs': 1, 'additives': 1, 'carb-grainfree': 1, 'life-stage': 1, 'price-per-kg': 1, 'weight-manage': 1, 'rx-when': 1 };
 function articleCover(a, cls = '') {
-  const src = a.cover || (COVER_IMG[a.id] ? `assets/covers/${a.id}.webp?v=5` : '');
+  const src = a.cover || (COVER_IMG[a.id] ? `assets/covers/${a.id}.webp?v=6` : '');
   if (/^(https?:|assets\/)/.test(src)) return `<span class="ac ${cls}"><img src="${esc(src)}" alt="" loading="lazy"></span>`;
   const [bg, fg] = COVER_TONE[a.cat] || ['var(--surface)', 'var(--ink70)'];
   return `<span class="ac ${cls}" style="--cbg:${bg};--cfg:${fg}" aria-hidden="true">
