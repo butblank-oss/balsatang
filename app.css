@@ -466,7 +466,7 @@ img{display:block;max-width:100%}
   background:var(--purple700);display:grid;place-items:center;color:#fff}
   background:rgba(25,31,40,.72);color:#fff;font-size:12px;font-weight:600;display:flex;align-items:center;letter-spacing:0}
   color:var(--ink70);letter-spacing:-.03em;text-align:center;word-break:keep-all}
-.h-sec{margin-top:28px}
+.h-sec{margin-top:36px}
 .h-sech{display:flex;justify-content:space-between;align-items:center;padding:0 16px 12px}
 .h-sech h2{font-size:19px;font-weight:700;letter-spacing:-.035em}
 .h-sech button{font-size:14px;color:var(--ink50);font-weight:500;display:flex;align-items:center}
@@ -540,15 +540,15 @@ img{display:block;max-width:100%}
   border-radius:8px;box-shadow:var(--outline);font-size:15px;font-weight:600;color:var(--ink)}
 .r-sec .r-all{width:100%}
 button.r-all[style]{width:calc(100% - 32px)}
-.r-cards{display:flex;gap:10px;overflow-x:auto;padding:0 16px;scrollbar-width:none}
-.r-card{flex:0 0 270px;height:300px;border-radius:12px;background:var(--purple50);position:relative;overflow:hidden;text-align:left}
-.r-card:nth-child(2n){background:var(--blue50)}
-.r-cim{position:absolute;left:50%;top:18px;transform:translateX(-50%);width:150px;height:150px;border-radius:10px;
-  background:#fff;box-shadow:var(--imageWell);display:grid;place-items:center;padding:12px}
-.r-cim img{width:100%;height:100%;object-fit:contain}
-.r-cbox{position:absolute;left:12px;right:12px;bottom:12px;background:#fff;border-radius:10px;padding:13px 14px;
-  display:flex;flex-direction:column;gap:5px}
-.r-cn{font-size:14.5px;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.r-cl{font-size:12.5px;color:var(--ink70);line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.r-cp{display:flex;align-items:center;gap:8px;font-size:13px}
-.r-cp b{font-weight:700}
+
+/* 홈 테마 줄 — 가로로 넘기는 카드 */
+.h-rail{display:flex;gap:10px;overflow-x:auto;padding:0 16px;scrollbar-width:none}
+.h-pc{flex:0 0 140px;text-align:left;display:flex;flex-direction:column;align-items:flex-start;gap:4px}
+.h-pc .well{width:140px;height:140px;border-radius:8px;padding:12px}
+.h-pc .n{font-size:14px;line-height:1.4;margin-top:6px;color:var(--ink70);letter-spacing:-.03em;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.h-pc .n b{color:var(--ink);font-weight:600}
+.h-pc .p{font-size:15px;font-weight:700;letter-spacing:-.03em}
+.h-pc .p small{font-size:12px;font-weight:500;color:var(--ink50)}
+.h-pc .tag{height:22px;font-size:11.5px}
+.h-pc .tag.safe{color:var(--safeText)} .h-pc .tag.caution{color:var(--cautionText)}
