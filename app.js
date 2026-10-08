@@ -1160,8 +1160,10 @@ function slotView(f, side) {
   const slot = side === 'A' ? 0 : 1;
   /* 썸네일을 눌러도 다른 사료를 고를 수 있게 한다. '바꾸기' 글자만 있으면
      누를 수 있는 줄 모른다 — 실제로 그래서 못 찾는다는 말을 들었다. */
+  /* 두 칸은 높이를 맞춘다 — 이름이 한쪽만 두 줄이면 칸 크기가 달라 보였다(대표 피드백).
+     이름 자리는 두 줄 높이로 고정하고, 버튼은 맨 아래에 붙인다. */
   return `<div style="flex:1;min-width:0;border-radius:var(--rCard);padding:14px 12px;box-shadow:inset 0 0 0 2px ${color};display:flex;flex-direction:column;align-items:center;gap:8px">
-    <span style="align-self:flex-start;height:22px;padding:0 9px;border-radius:999px;background:${chipBg};color:${color};font-size:11px;font-weight:800;display:inline-flex;align-items:center">${side} · ${esc(label)}</span>
+    <span style="align-self:flex-start;max-width:100%;height:22px;padding:0 8px;border-radius:6px;background:${chipBg};color:${color};font-size:11px;font-weight:800;display:inline-flex;align-items:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${side} · ${esc(label)}</span>
     <button class="press" data-pick-slot="${slot}" style="position:relative;display:block" aria-label="다른 사료로 바꾸기">
       ${well(f, 88)}
       <!-- 썸네일에서 떼어내는 흰 테두리다. 그림자로 흉내내지 않는다 — 앱 안에 그림자를 안 쓴다. -->
@@ -1169,10 +1171,11 @@ function slotView(f, side) {
         background:${color};color:#fff;display:grid;place-items:center">
         ${icon('compare', 14)}</span>
     </button>
-    <div style="width:100%;text-align:center">
+    <div style="width:100%;flex:1;display:flex;flex-direction:column;text-align:center">
       <div class="t-micro c-mute">${esc(f.brand)}</div>
-      <div style="font-size:14px;font-weight:700;letter-spacing:-.03em;margin-top:2px">${esc(f.name)}</div>
-      <button class="press" data-pick-slot="${slot}" style="margin-top:9px;width:100%;height:34px;border-radius:var(--rChip);
+      <div style="font-size:14px;font-weight:700;letter-spacing:-.03em;line-height:1.35;margin-top:2px;min-height:2.7em;margin-bottom:10px;word-break:keep-all;
+        display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">${esc(f.name)}</div>
+      <button class="press" data-pick-slot="${slot}" style="margin-top:auto;width:100%;height:34px;flex:none;border-radius:var(--rChip);
         font-size:12.5px;font-weight:700;letter-spacing:-.02em;color:${color};background:${chipBg}">다른 사료로 바꾸기</button>
     </div>
   </div>`;
@@ -1253,9 +1256,9 @@ function renderCompare() {
 
   ${sameBrand ? `<div style="margin:16px var(--screenX) 0;border-radius:14px;background:var(--purple100);padding:11px 13px;font-size:12.5px;font-weight:600;color:var(--purple700);letter-spacing:-.02em">같은 <b>${esc(A.brand)}</b> 제품이라 <b>맛 이름</b>으로 구분해드려요.</div>` : ''}
 
-  <div style="display:flex;align-items:center;gap:8px;padding:18px var(--screenX) 0">
+  <div style="display:flex;align-items:stretch;gap:8px;padding:18px var(--screenX) 0">
     ${slotView(A, 'A')}
-    <span style="width:30px;height:30px;border-radius:50%;background:var(--purple900);color:#fff;font-size:11px;font-weight:800;display:grid;place-items:center;flex-shrink:0">VS</span>
+    <span style="align-self:center;width:30px;height:30px;border-radius:50%;background:var(--purple900);color:#fff;font-size:11px;font-weight:800;display:grid;place-items:center;flex-shrink:0">VS</span>
     ${slotView(B, 'B')}
   </div>
 
@@ -1327,9 +1330,9 @@ function renderCompareEmpty(one) {
   const recent = state.recent.map(id => FOODS.find(f => f.id === id)).filter(Boolean).filter(f => !state.compare.includes(f.id)).slice(0, 3);
   return `
   <div class="top lg"><h1 class="t-page">비교하기</h1></div>
-  ${one ? `<div style="display:flex;align-items:center;gap:8px;padding:20px var(--screenX) 0">
+  ${one ? `<div style="display:flex;align-items:stretch;gap:8px;padding:20px var(--screenX) 0">
     ${slotView(one, 'A')}
-    <span style="width:30px;height:30px;border-radius:50%;background:var(--purple900);color:#fff;font-size:11px;font-weight:800;display:grid;place-items:center;flex-shrink:0">VS</span>
+    <span style="align-self:center;width:30px;height:30px;border-radius:50%;background:var(--purple900);color:#fff;font-size:11px;font-weight:800;display:grid;place-items:center;flex-shrink:0">VS</span>
     ${slotView(null, 'B')}
   </div>` : ''}
   <div class="empty">
