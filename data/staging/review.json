@@ -1,5 +1,5 @@
 {
-  "builtAt": "2026-10-08T09:01:07.822Z",
+  "builtAt": "2026-10-08T09:04:29.393Z",
   "live": true,
   "batches": [
     {
@@ -1203,6 +1203,197 @@
             ]
           },
           "ready": false
+        },
+        {
+          "stagingId": "stg_nutrena_3719398",
+          "label": "뉴트리나 건강백서 포메라니언",
+          "proposed": {
+            "brand": "뉴트리나",
+            "brandSlug": "nutrena",
+            "country": "KR",
+            "countryBasis": "assumed-hq",
+            "name": "건강백서 포메라니언",
+            "type": "dry",
+            "rx": false,
+            "rxFor": null,
+            "ages": [
+              "puppy",
+              "adult",
+              "senior"
+            ],
+            "sizes": [
+              "small"
+            ],
+            "ico": "dog",
+            "score": null,
+            "ratings": {
+              "quality": null,
+              "carb": null,
+              "additive": null,
+              "value": null
+            },
+            "func": [],
+            "warnN": 0,
+            "concerns": [],
+            "facts": {
+              "protein": null,
+              "dmCarb": null,
+              "firstIngrCat": null,
+              "cautionN": null,
+              "dangerN": null,
+              "pKg": null
+            },
+            "specOrigin": "domestic",
+            "ga": {
+              "protein": null,
+              "fat": null,
+              "fiber": null,
+              "moisture": null,
+              "ash": null
+            },
+            "ingredients": [],
+            "pricePending": true,
+            "wgOptionsHint": [
+              2000,
+              3900,
+              6000
+            ],
+            "thumb": "https://img.danuri.io/catalog-image/398/719/003/fb936e0e46fb46e1b9768f4c1d2a9a80.jpg?shrink=360:360",
+            "draft": true
+          },
+          "sources": [
+            {
+              "role": "official",
+              "url": "https://www.nutrenaworld.co.kr/",
+              "fetchedAt": "2026-10-08T09:04Z",
+              "title": "뉴트리나 공식 사이트 (봇 확인 화면으로 제품 상세를 못 읽음 — 라벨로 대체)"
+            },
+            {
+              "role": "catalog",
+              "url": "https://prod.danawa.com/info/?pcode=3719398",
+              "fetchedAt": "2026-10-08T09:04Z",
+              "title": "다나와 카탈로그 (제품 사진) — [다나와] 뉴트리나 독 건강백서 포메라니언 6kg (1개)"
+            }
+          ],
+          "evidence": {
+            "thumb": {
+              "src": 1,
+              "quote": "다나와 카탈로그 이미지 https://img.danuri.io/catalog-image/398/719/003/fb936e0e46fb46e1b9768f4c1d2a9a80.jpg?shrink=360:360"
+            }
+          },
+          "audit": null,
+          "pricePending": true,
+          "draft": true,
+          "gates": {
+            "g1": "draft",
+            "g1fail": [],
+            "g1warn": [],
+            "todo": [
+              "원료 표기 전체 (표기 순서대로)",
+              "조섬유·수분 (건물기준 탄수 계산에 필요)",
+              "조단백",
+              "쿠팡 상품 링크와 가격"
+            ],
+            "g2": "none",
+            "g2diff": [],
+            "g3warn": []
+          },
+          "ready": false
+        },
+        {
+          "stagingId": "stg_nutrena_3719157",
+          "label": "뉴트리나 건강백서 건강한 장",
+          "proposed": {
+            "brand": "뉴트리나",
+            "brandSlug": "nutrena",
+            "country": "KR",
+            "countryBasis": "assumed-hq",
+            "name": "건강백서 건강한 장",
+            "type": "dry",
+            "rx": false,
+            "rxFor": null,
+            "ages": [
+              "puppy",
+              "adult",
+              "senior"
+            ],
+            "sizes": [
+              "small"
+            ],
+            "ico": "dog",
+            "score": null,
+            "ratings": {
+              "quality": null,
+              "carb": null,
+              "additive": null,
+              "value": null
+            },
+            "func": [],
+            "warnN": 0,
+            "concerns": [],
+            "facts": {
+              "protein": null,
+              "dmCarb": null,
+              "firstIngrCat": null,
+              "cautionN": null,
+              "dangerN": null,
+              "pKg": null
+            },
+            "specOrigin": "domestic",
+            "ga": {
+              "protein": null,
+              "fat": null,
+              "fiber": null,
+              "moisture": null,
+              "ash": null
+            },
+            "ingredients": [],
+            "pricePending": true,
+            "wgOptionsHint": [
+              2000,
+              10200
+            ],
+            "thumb": "https://img.danuri.io/catalog-image/157/719/003/9f43b6403a9948f8830ab2b57d11076a.jpeg?shrink=360:360",
+            "draft": true
+          },
+          "sources": [
+            {
+              "role": "official",
+              "url": "https://www.nutrenaworld.co.kr/",
+              "fetchedAt": "2026-10-08T09:04Z",
+              "title": "뉴트리나 공식 사이트 (봇 확인 화면으로 제품 상세를 못 읽음 — 라벨로 대체)"
+            },
+            {
+              "role": "catalog",
+              "url": "https://prod.danawa.com/info/?pcode=3719157",
+              "fetchedAt": "2026-10-08T09:04Z",
+              "title": "다나와 카탈로그 (제품 사진) — [다나와] 뉴트리나 독 건강백서 건강한 장 10.2kg (1개)"
+            }
+          ],
+          "evidence": {
+            "thumb": {
+              "src": 1,
+              "quote": "다나와 카탈로그 이미지 https://img.danuri.io/catalog-image/157/719/003/9f43b6403a9948f8830ab2b57d11076a.jpeg?shrink=360:360"
+            }
+          },
+          "audit": null,
+          "pricePending": true,
+          "draft": true,
+          "gates": {
+            "g1": "draft",
+            "g1fail": [],
+            "g1warn": [],
+            "todo": [
+              "원료 표기 전체 (표기 순서대로)",
+              "조섬유·수분 (건물기준 탄수 계산에 필요)",
+              "조단백",
+              "쿠팡 상품 링크와 가격"
+            ],
+            "g2": "none",
+            "g2diff": [],
+            "g3warn": []
+          },
+          "ready": false
         }
       ]
     },
@@ -1373,9 +1564,9 @@
     }
   ],
   "summary": {
-    "total": 8,
+    "total": 10,
     "ready": 0,
-    "blocked": 8,
-    "pricePending": 8
+    "blocked": 10,
+    "pricePending": 10
   }
 }
