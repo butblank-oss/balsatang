@@ -28,10 +28,10 @@ await pg.waitForSelector('.app');
 
 /* TC-F02 홈 → 고민 칩 필터 */
 {
-  const chips = await pg.locator('.chiprow .chip, .concerns .chip').count();
+  const chips = await pg.locator('.chiprow .chip, .concerns .chip, .h-sc [data-concern]').count();
   if (!chips) bug('front', 'TC-F02', 'P1', '홈에 고민 칩이 하나도 없음');
   else {
-    await pg.locator('.chiprow .chip').nth(1).click().catch(() => { });
+    await pg.locator('.chiprow .chip, .h-sc [data-concern]').nth(1).click().catch(() => { });
     await pg.waitForTimeout(300);
     pass('TC-F02', `고민 칩 ${chips}개 · 선택 동작`);
   }

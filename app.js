@@ -235,7 +235,9 @@ function matchQuery(f, q) {
 const FILTERS = {
   noCaution: { label: '주의성분 없음', test: f => cautionState(f).k === 'none' },
   grainFree: { label: '그레인프리', test: f => foodTags(f).includes('그레인프리') },
-  small: { label: '소형견', test: f => (f.sizes || []).some(s => s === 'small' || s === 'all') }
+  small: { label: '소형견', test: f => (f.sizes || []).some(s => s === 'small' || s === 'all') },
+  /* 홈 배너 '첫 원료가 고기인 사료' 가 여기로 들어온다 */
+  meatFirst: { label: '첫 원료 고기', test: f => isMeatFirst(f) }
 };
 function searchResults() {
   let list = FOODS.filter(f => matchQuery(f, state.query));
@@ -477,83 +479,122 @@ const CONCERNS = [
   { key: 'rx', label: '처방식', ico: 'cross', tags: [] }
 ];
 
-function homeCard(f) {
-  return `<button class="press" data-go-detail="${f.id}" style="width:168px;flex-shrink:0;text-align:left">
-    <div style="position:relative">${well(f, 168)}
-      <span style="position:absolute;top:9px;right:9px">${cautionBadge(f)}</span></div>
-    <div style="margin-top:11px;font-size:12px;font-weight:600;color:var(--ink50)">${esc(f.brand)}</div>
-    <div class="t-item" style="margin-top:2px">${esc(f.name)}</div>
-    <div class="t-caption c-sub" style="margin-top:5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(cardSub(f))}</div>
+
+const isMeatFirst = f => ['meat', 'fish', 'organ'].includes((DETAIL[f.id]?.ingr || [])[0]?.cat);
+
+/* ═══ 01 홈 — 화해형 랭킹 (2026-10 리뉴얼 메인 컨셉) ═══
+   순서는 '발사탕 추천순' 이다(내부 점수로 정렬, 처방식은 뒤). 점수 숫자는 보이지 않는다 —
+   대신 별점 네 개와 주의성분·가격이라는 사실을 줄마다 둔다. */
+const HOME_CHIPS = [
+  ['all', '전체', () => true],
+  ['dry', '건식', f => f.type === 'dry'],
+  ['air', '에어드라이', f => f.type === 'air_dried' || f.type === 'freeze_dried'],
+  ['small', '소형견', f => (f.sizes || []).some(x => x === 'small' || x === 'all')],
+  ['senior', '시니어', f => (f.ages || []).some(x => x === 'senior' || x === 'all')],
+  ['rx', '처방식', f => !!f.rx]
+];
+const HOME_CONCERNS = [
+  ['weight', '체중 관리', ['weight']], ['joint', '관절', ['joint']],
+  ['skin', '피부·알러지', ['skin', 'allergy', 'eye_tear']], ['gut', '장·소화', ['digestive']]
+];
+/* 순위 변동(▲1)·NEW 는 붙이지 않는다. 순위 기록이 없고, publishedAt 은 재판정 때도
+   새로 찍혀서 오래된 사료가 NEW 로 보였다. 없는 사실을 만들지 않는다. */
+/* 줄마다 보이는 것은 판단이 아니라 라벨에서 읽은 사실이다 — 주의성분 수, 1번 원료, 추정 탄수.
+   막대 별점은 한눈에 안 읽혔다(대표 피드백). '추천률' 같은 숫자는 근거 데이터(후기·조사)가
+   없어 만들지 않는다. */
+/* 로고 — 그라데이션 막대사탕 발자국(2026-10 대표 선택). 그라데이션 색은 로고에만 쓴다. */
+const LOGO_GRAD = '<defs><linearGradient id="bstg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7B2FF7"/><stop offset=".6" stop-color="#B14CE6"/><stop offset="1" stop-color="#FF7FB5"/></linearGradient></defs>';
+function rankFacts(f) {
+  const d = DETAIL[f.id] || {};
+  const first = (d.ingr || [])[0];
+  const out = [];
+  if (first) out.push(`첫 원료 ${first.name.replace(/\s*\(.*$/, '').replace(/\(\d+%\)/, '').slice(0, 8)}`);
+  if (d.nutrient?.dmCarb != null) out.push(`탄수 ${Math.round(d.nutrient.dmCarb)}%`);
+  return out;
+}
+
+function rankRow(f, i) {
+  return `<button class="r-row press" data-go-detail="${f.id}">
+    <span class="r-no"><b>${i + 1}</b></span>
+    ${well(f, 92)}
+    <span class="r-b">
+      <span class="r-br">${esc(f.brand)}</span>
+      <span class="r-nm">${esc(f.name)}</span>
+      <span class="r-pr">${f.price?.pKg ? `<b>${won(per100g(f))}원</b> / 100g` : '<span style="color:var(--ink50)">가격 확인 중</span>'}</span>
+      <span class="r-tags">${cautionTag(f)}${f.rx ? '<span class="tag">수의사 처방식</span>' : ''}${rankFacts(f).map(t => `<span class="tag">${esc(t)}</span>`).join('')}</span>
+    </span>
   </button>`;
 }
 
 function renderHome() {
   const analyzed = FOODS.filter(f => analysisState(f) === 'analyzed');
-  const fresh = analyzed.slice(-8).reverse();
-  const value = analyzed.filter(f => f.price?.pKg).sort((a, b) => a.price.pKg - b.price.pKg).slice(0, 4);
-  const popular = ['오리젠', '지위픽', '뉴트리나'];
+  const chip = HOME_CHIPS.find(c => c[0] === state.homeChip) || HOME_CHIPS[0];
+  const ranked = analyzed.filter(chip[2])
+    .sort((a, b) => (a.rx ? 1 : 0) - (b.rx ? 1 : 0) || (b.score ?? 0) - (a.score ?? 0));
+  const shown = ranked.slice(0, 10);
+  const conc = HOME_CONCERNS.find(c => c[0] === state.homeConcern) || HOME_CONCERNS[0];
+  const forConc = analyzed.filter(f => !f.rx && conc[2].some(t => (f.func || []).includes(t) || (f.concerns || []).includes(t)))
+    .sort((a, b) => (b.score ?? 0) - (a.score ?? 0)).slice(0, 6);
+  const mine = state.pet ? analyzed.filter(f => !f.rx).map(f => ({ f, m: matchScore(f, state.pet) }))
+    .sort((a, b) => b.m - a.m).slice(0, 3).map(x => x.f) : [];
+  const updated = analyzed.map(f => f.src?.publishedAt).filter(Boolean).sort().pop();
+  const ymd = updated ? updated.slice(0, 10).replace(/-/g, '.') : '';
+  const fitLine = f => {
+    const d = DETAIL[f.id] || {};
+    const x = (d.fit || []).find(x => conc[2].includes(x.concernType)) || (d.fit || [])[0];
+    return x?.label || cardSub(f);
+  };
 
   return `
-  <div class="top">
-    <div class="logo">발<b>사탕</b></div>
-    <div style="flex:1"></div>
-    <div class="adfree">광고 0원 분석</div>
+  <div class="h-top">
+    <span class="h-logo" aria-label="발사탕"><svg width="22" height="26" viewBox="0 0 58 68" aria-hidden="true">${LOGO_GRAD}<rect x="25.5" y="42" width="7" height="24" rx="3.5" fill="#E3D4F7"/><circle cx="29" cy="27" r="25" fill="url(#bstg)"/><g fill="#fff"><circle cx="19.5" cy="21" r="3.6"/><circle cx="25.8" cy="16" r="3.8"/><circle cx="32.6" cy="16" r="3.8"/><circle cx="38.8" cy="21" r="3.6"/><path d="M29.2 24c6 0 10 5 10 9.5 0 3.5-3 5-5.5 4.2-2.2-.7-3-1.2-4.5-1.2s-2.3.5-4.5 1.2C22.2 38.5 19.2 37 19.2 33.5c0-4.5 4-9.5 10-9.5z"/></g></svg>발사탕</span>
+    <button class="h-search press" data-go="search">${icon('search', 18)}<span>사료 이름, 브랜드, 원료</span></button>
+    <button class="h-me press" data-go="compare" aria-label="비교">${icon('compare', 24, 'ui')}</button>
+  </div>
+  <nav class="h-menu">
+    <button class="on">추천 랭킹</button>
+    <button data-hsort="priceAsc">가성비</button>
+    <button data-go="custom">맞춤 추천</button>
+    <button data-go="content">읽을거리</button>
+  </nav>
+  <div class="chiprow" style="margin-top:14px;padding:0 16px">
+    ${HOME_CHIPS.map(([k, l]) => `<button class="chip press${chip[0] === k ? ' on' : ''}" data-hchip="${k}">${l}</button>`).join('')}
   </div>
 
-  <div style="padding:26px var(--screenX) 0">
-    <h1 class="t-hero">우리 아이 사료,<br><span style="color:var(--purple700)">진짜</span> 괜찮을까?</h1>
-    <p class="t-body c-sub" style="margin-top:10px">성분표만 보고 솔직하게 분석해요.<br>광고비는 1원도 받지 않아요.</p>
+  <div class="r-sec">
+    <div class="r-up">${ymd ? `${ymd} 업데이트 · ` : ''}라벨 기준</div>
+    <h2 class="r-h">발사탕 추천 랭킹</h2>
+    <div class="r-list">${shown.length ? shown.map(rankRow).join('')
+      : `<p class="t-bodySm c-sub" style="padding:30px 0;text-align:center">이 조건의 사료를 아직 분석하지 못했어요.</p>`}</div>
+    ${ranked.length > 10 ? `<button class="r-all press" data-hsort="recommend">전체 랭킹 보기 ›</button>` : ''}
   </div>
 
-  <div style="padding:20px var(--screenX) 0">
-    <button class="searchbox press" data-go="search">
-      ${icon('search', 20)}<span style="flex:1">사료 이름을 검색해보세요</span>
-    </button>
-  </div>
+  ${mine.length ? `<div class="h-sec"><div class="h-card">
+    <div class="k">우리 아이 맞춤</div>
+    <h3><b>${esc(state.pet.name || '우리 아이')}</b>에게 잘 맞는 사료 ${mine.length}개</h3>
+    <div class="h-list" style="padding:6px 0 0">${mine.map(f => `<button class="h-li press" data-go-detail="${f.id}">
+      ${well(f, 48)}<span class="t"><b>${esc(f.brand)} ${esc(f.name)}</b><span>${esc(cautionState(f).label)}${f.price?.pKg ? ` · 100g당 ${won(per100g(f))}원` : ''}</span></span>
+      ${icon('chevronRight', 16, 'chev')}</button>`).join('')}</div>
+  </div></div>` : `<button class="h-strip press" data-go="custom">
+    ${icon('paw', 34)}
+    <span class="tx"><b>우리 아이에게 맞는 순서로 다시 볼까요?</b><span>몸무게 · 나이 · 고민만, 1분이면 돼요</span></span>
+    <span class="go">시작하기</span>
+  </button>`}
 
-  <div class="chiprow" style="margin-top:12px">
-    ${popular.map(p => `<button class="chip press" data-search="${esc(p)}">${esc(p)}</button>`).join('')}
-  </div>
-
-  <div style="padding:26px var(--screenX) 0">
-    <button class="card dark press" data-go="custom" style="width:100%;text-align:left;display:flex;align-items:center;gap:14px;padding:20px">
-      <div style="flex:1;min-width:0">
-        <div class="t-tag" style="color:var(--purple300)">맞춤 추천</div>
-        <div style="margin-top:7px;font-size:19px;font-weight:800;letter-spacing:-.035em;line-height:1.36">몸무게·나이·고민만<br>알려주시면 돼요</div>
-        <span style="display:inline-flex;align-items:center;gap:4px;margin-top:13px;height:32px;padding:0 14px;border-radius:999px;background:#fff;color:var(--purple900);font-size:13px;font-weight:700">1분이면 끝나요 ›</span>
-      </div>
-      <!-- 팔레트에 없는 색을 임의로 만들지 않는다. purple900 위의 슬롯은 purple700 로 띄운다. -->
-      <div style="width:76px;height:76px;border-radius:var(--rThumbLg);background:var(--purple700);display:grid;place-items:center;color:var(--purple300);font-size:11px;font-weight:700;letter-spacing:-.02em;text-align:center;line-height:1.4">우리아이<br>사진</div>
-    </button>
-  </div>
-
-  <div class="sec">
-    <div class="sec-h"><h2 class="t-section">고민별로 찾기</h2></div>
-    <div class="concerns">
-      ${CONCERNS.map(c => `<button class="chip press" data-concern="${c.key}">${c.label}</button>`).join('')}
+  <div class="r-sec">
+    <h2 class="r-h"><em>${esc(conc[1])}</em> 고민이라면 이 사료</h2>
+    <div class="chiprow" style="margin:12px -16px 14px;padding:0 16px">
+      ${HOME_CONCERNS.map(([k, l]) => `<button class="chip press${conc[0] === k ? ' on' : ''}" data-hconc="${k}">${l}</button>`).join('')}
     </div>
   </div>
-
-  <div class="sec lg">
-    <div class="sec-h"><h2 class="t-section">이번 주 새로 분석한 사료</h2>
-      <button class="sec-more" data-go="search">전체보기</button></div>
-    <div style="display:flex;gap:14px;overflow-x:auto;margin:0 calc(var(--screenX) * -1);padding:0 var(--screenX)">
-      ${fresh.map(homeCard).join('')}
-    </div>
-  </div>
-
-  <div class="sec lg">
-    <div class="sec-h"><h2 class="t-section">가성비 좋은 사료</h2></div>
-    ${value.map(f => `<button class="row press" data-go-detail="${f.id}">
-      ${well(f, 56)}
-      <span class="row-b">
-        <span class="row-brand">${esc(f.brand)}</span>
-        <span class="row-name" style="display:block">${esc(f.name)}</span>
-        <span class="row-meta">100g당 ${won(per100g(f))}원 · ${cautionState(f).label}</span>
-      </span>
-      ${icon('chevronRight', 16, 'chev')}
-    </button>`).join('')}
-  </div>
+  ${forConc.length ? `<div class="r-cards">${forConc.map(f => `<button class="r-card press" data-go-detail="${f.id}">
+      <span class="r-cim">${/^https?:/.test(f.thumb || '') ? `<img src="${esc(f.thumb)}" alt="">` : ''}</span>
+      <span class="r-cbox"><span class="r-cn">${esc(f.brand)} ${esc(f.name)}</span>
+        <span class="r-cl">${esc(fitLine(f))}</span>
+        <span class="r-cp">${cautionTag(f)}${f.price?.pKg ? `<b>100g당 ${won(per100g(f))}원</b>` : ''}</span></span>
+    </button>`).join('')}</div>`
+    : `<p class="t-bodySm c-sub" style="padding:0 16px">이 고민에 맞는 원료가 든 사료를 아직 찾지 못했어요.</p>`}
+  <button class="r-all press" style="margin:16px" data-concern="${conc[0]}">${esc(conc[1])} 사료 모두 보기 ›</button>
 
   ${siteFooter()}`;
 }
@@ -667,40 +708,27 @@ function renderDetail() {
     f.price?.pKg ? `${won(per100g(f))}원/100g` : null
   ].filter(Boolean);
 
+  const src = /^https?:/.test(f.thumb || '') ? f.thumb : null;
   return `
-  <!-- 상태바 밑까지 색이 차야 자연스럽다. 위 여백만 safe-area 만큼 더 준다. -->
-  <div style="background:${pend ? 'var(--ink70)' : 'var(--purple900)'};color:#fff;
-       padding:calc(14px + env(safe-area-inset-top)) 18px 30px">
-    <!-- 상단 내비게이션 — 뒤로가기(좌) + 찜·공유(우). 예전엔 새로고침 아이콘 하나였다. -->
-    <div style="display:flex;align-items:center">
-      <button class="iconbtn press" data-back style="color:#fff">${icon('chevronRight', 24, 'ui')}</button>
-      <div style="flex:1"></div>
-      <div style="display:flex;gap:16px">
-        <button class="iconbtn press" style="color:#fff;margin:-10px 0" data-save="${f.id}"
-          aria-pressed="${isSaved(f.id)}" aria-label="찜">${heartIcon(isSaved(f.id))}</button>
-        <button class="iconbtn press" style="color:#fff;margin:-10px 0" data-share aria-label="공유">${icon('share', 22, 'ui')}</button>
-      </div>
-    </div>
-    <div style="display:flex;align-items:flex-end;gap:16px;margin-top:12px;padding:0 4px">
-      ${well(f, 64)}
-      <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:8px">
-        <!-- 분석 준비 중이면 헤더 배경이 회색(ink70)이다. 그 위에서 purple300 은
-             4.06:1 로 떨어진다(보라 배경에선 7.72:1). 배경만 바꾸고 글자색을 안 바꿔서
-             생긴 일이다. 회색 위에서는 line 을 쓴다 — 7.28:1. -->
-        <div style="font-size:13px;font-weight:600;letter-spacing:-.01em;color:var(--${pend ? 'line' : 'purple300'})">${esc(f.brand)} · ${esc(ageLabel(f))}</div>
-        <h1 class="t-product">${esc(f.name)}</h1>
-      </div>
-      ${cautionBadgeLg(f)}
-    </div>
-    <div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:18px;padding:0 4px">
-      ${attrs.map(a => `<span style="height:30px;padding:0 12px;border-radius:999px;background:rgba(255,255,255,.14);color:#fff;font-size:12px;font-weight:600;letter-spacing:-.02em;display:inline-flex;align-items:center">${esc(a)}</span>`).join('')}
-    </div>
+  <div class="d-bar">
+    <button class="iconbtn press" data-back aria-label="뒤로">${icon('chevronRight', 24, 'ui')}</button>
+    <div style="flex:1"></div>
+    <button class="iconbtn press" data-save="${f.id}" aria-pressed="${isSaved(f.id)}" aria-label="찜">${heartIcon(isSaved(f.id))}</button>
+    <button class="iconbtn press" data-share aria-label="공유">${icon('share', 22, 'ui')}</button>
+  </div>
+  <div class="d-hero${pend ? ' pending' : ''}">${src
+    ? `<img src="${esc(src)}" alt="" onerror="this.outerHTML='<span class=initial>${esc((f.brand || '?')[0])}</span>'">`
+    : `<span class="initial">${esc((f.brand || '?')[0])}</span>`}</div>
+  <div class="d-info">
+    <div class="d-brand">${esc(f.brand)} · ${esc(ageLabel(f))}</div>
+    <h1 class="d-name">${esc(f.name)}</h1>
+    <div class="d-tags">${cautionTag(f)}${attrs.map(a => `<span class="tag">${esc(a)}</span>`).join('')}</div>
   </div>
 
-  <div style="margin-top:-18px;border-radius:var(--rSheet) var(--rSheet) 0 0;background:#fff;position:relative;z-index:1;min-height:60dvh">
-    <div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:var(--divider)">
+  <div>
+    <div class="d-tabs">
       ${[['nutrition', '성분 분석'], ['feeding', '급여량 · 가격']].map(([k, l]) => `
-        <button class="press" data-dtab="${k}" style="height:52px;font-size:15px;font-weight:${state.detailTab === k ? 800 : 600};color:${state.detailTab === k ? 'var(--ink)' : 'var(--ink50)'};box-shadow:${state.detailTab === k ? 'inset 0 -2.5px 0 var(--purple700)' : 'none'};transition:box-shadow .22s ease-out">${l}</button>`).join('')}
+        <button class="press" data-dtab="${k}" style="height:50px;font-size:15.5px;font-weight:${state.detailTab === k ? 700 : 500};color:${state.detailTab === k ? 'var(--ink)' : 'var(--ink50)'};box-shadow:${state.detailTab === k ? 'inset 0 -2px 0 var(--ink)' : 'none'}">${l}</button>`).join('')}
     </div>
     ${pend ? renderPending(f) : state.detailTab === 'nutrition' ? renderNutritionTab(f, d) : renderFeedingTab(f, d)}
   </div>
@@ -1830,6 +1858,11 @@ function wire() {
     state.screen === 'search' ? repaintSearchResults() : render();
   });
   on('[data-sort]', 'click', () => openSortSheet());
+  /* 홈 메뉴 탭·배너 — 검색 결과로 데려가면서 정렬·필터를 미리 걸어 둔다 */
+  on('[data-hsort]', 'click', e => { state.query = ''; state.filters.clear(); state.sort = e.currentTarget.dataset.hsort; go('search'); });
+  on('[data-hfilter]', 'click', e => { state.query = ''; state.filters.clear(); state.filters.add(e.currentTarget.dataset.hfilter); state.sort = 'recommend'; go('search'); });
+  on('[data-hchip]', 'click', e => { state.homeChip = e.currentTarget.dataset.hchip; render(); });
+  on('[data-hconc]', 'click', e => { state.homeConcern = e.currentTarget.dataset.hconc; render(); });
   if (state.screen === 'search') wireSearchResults();
   on('[data-clear-search]', 'click', () => { state.query = ''; state.filters.clear(); render(); $('#q')?.focus(); });
   on('[data-add-compare]', 'click', e => addCompare(e.currentTarget.dataset.addCompare));

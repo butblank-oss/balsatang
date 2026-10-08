@@ -7,21 +7,28 @@
   --purple900:#2E0040; --purple700:#5F0080; --purple500:#8B2FB8;
   --purple300:#C79BE0; --purple100:#F3E8FA; --purple50:#FBF8FD;
   --blue700:#1D3A8A;  --blue100:#E6EDFB;  --blue50:#F5F8FE;
-  --ink:#17151A; --ink70:#4A4552; --ink50:#6B6470; --ink40:#8A8494;
-  --ink35:#9A93A3; --ink25:#B4AEBC; --ink20:#C6C0CE;
-  --line:#E7E2EC; --lineSoft:#F0EDF3; --lineHair:#EDEAF0;
-  --surface:#F7F5F9; --surfaceInput:#F5F2F7; --chipNeutral:#F3F1F6;
+  /* 2026-10 리뉴얼 — 무채색을 국내 주류 앱(토스·화해) 톤의 푸른 회색으로 바꿨다.
+     보라는 브랜드 색으로만 남기고, 글자·선·바탕은 이 회색 단계로 쓴다. */
+  --ink:#191F28; --ink70:#4E5968; --ink50:#626D7A; --ink40:#8B95A1;
+  --ink35:#9EA6B0; --ink25:#B0B8C1; --ink20:#D1D6DB;
+  --line:#E5E8EB; --lineSoft:#F2F4F6; --lineHair:#EBEEF1;
+  --surface:#F7F8FA; --surfaceInput:#F2F4F6; --chipNeutral:#F2F4F6;
+  /* 고민 바로가기 아이콘 색. 아이콘 선에만 쓴다 — 넓은 면에 칠하지 않는다. */
+  --icRed:#F04452; --icBlue:#3182F6; --icGreen:#12A26E; --icOrange:#E5830B;
+  --icIndigo:#5B5FEF; --icPink:#D6336C;
   --safe:#1FA97C; --safeBg:#F1FAF6; --safeText:#0F6B4E; --safeBody:#3E7A65; --safeOnDark:#7FE0BC;
   --caution:#E8A33D; --cautionBg:#FEF7EC; --cautionChip:#B87514;
   --cautionText:#8A5A14; --cautionBody:#8A7455;
   /* 빨강은 팔레트에 없다. 실패·에러·주의 전부 앰버로 표현한다. */
   /* 팔레트 밖이지만 핸드오프가 값을 못박아 둔 것들 —
      비교표 머리(compareTable.headerBackground), 빈 별 아웃라인, 각주 회색. */
-  --cmpHead:#FAF9FB; --starOff:#DDD7E3; --footnote:#A8A2B0;
+  --cmpHead:#F9FAFB; --starOff:#E5E8EB; --footnote:#8B95A1;
 
   /* shape */
-  --rChip:999px; --rThumbSm:13px; --rThumbMd:16px; --rThumbLg:20px;
-  --rCard:20px; --rCardLg:24px; --rSheet:28px; --rInput:18px; --rButton:16px; --rSegment:13px;
+  /* 리뉴얼에서 모서리를 줄였다 — 버튼·칩이 알약처럼 둥글면 장난감처럼 보였다(대표 피드백).
+     버튼·칩 8, 입력·썸네일 10~12, 카드 16. 동그라미가 필요한 곳은 50% 를 직접 쓴다. */
+  --rChip:8px; --rThumbSm:8px; --rThumbMd:10px; --rThumbLg:12px;
+  --rCard:16px; --rCardLg:16px; --rSheet:20px; --rInput:12px; --rButton:12px; --rSegment:8px;
 
   /* spacing */
   --screenX:22px;
@@ -124,15 +131,15 @@ img{display:block;max-width:100%}
 /* 16px 이다. 15px 로 두면 iOS 사파리가 포커스할 때 페이지를 통째로 확대해 버린다.
    확대되면 화면이 좌우로 밀리고, 고정된 시트·탭바까지 같이 어긋나 보인다.
    "화면이 자꾸 움직인다" 는 말이 여기서 나왔다. 본문 15px 과 1px 차이라 눈엔 같다. */
-.searchbox input{flex:1;min-width:0;color:var(--ink);font-size:16px;letter-spacing:-.02em;font-weight:500}
+.searchbox input{outline:none;flex:1;min-width:0;color:var(--ink);font-size:16px;letter-spacing:-.02em;font-weight:500}
 .searchbox input::placeholder{color:var(--ink50);font-weight:500}
 
 /* ── 칩 ─────────────────────────────────────────────── */
 .chiprow{display:flex;gap:7px;overflow-x:auto;padding:0 var(--screenX);scrollbar-width:none}
-.chip{display:inline-flex;align-items:center;gap:5px;height:34px;padding:0 14px;flex-shrink:0;
+.chip{display:inline-flex;align-items:center;gap:5px;height:34px;padding:0 13px;flex-shrink:0;
   border-radius:var(--rChip);background:#fff;box-shadow:inset 0 0 0 1px var(--line);
   font-size:13px;font-weight:700;letter-spacing:-.02em;color:var(--ink70)}
-.chip.on{background:var(--purple900);color:#fff;box-shadow:none}
+.chip.on{background:var(--ink);color:#fff;box-shadow:none}
 .chip.on em{font-style:normal;opacity:.6;margin-left:3px}
 .chip.neutral{background:var(--chipNeutral);box-shadow:none;color:var(--ink50)}
 
@@ -147,7 +154,7 @@ img{display:block;max-width:100%}
 /* ── 주의성분 배지 (3상태) ──────────────────────────────
    '없음' 상태에서도 반드시 표시한다. 배지를 숨기면 '확인 안 함'과 구분되지 않는다. */
 .cbadge{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px 0 6px;
-  border-radius:var(--rChip);background:#fff;box-shadow:0 1px 4px rgba(23,21,26,.08);
+  border-radius:6px;background:#fff;box-shadow:0 1px 4px rgba(23,21,26,.08);
   font-size:11px;font-weight:700;letter-spacing:-.02em;white-space:nowrap}
 .cbadge .dot{width:12px;height:12px;border-radius:50%;display:grid;place-items:center;flex-shrink:0}
 .cbadge .dot svg{width:9px;height:9px;stroke:#fff;stroke-width:3}
@@ -181,6 +188,7 @@ img{display:block;max-width:100%}
 .well-82{width:82px;height:82px;border-radius:var(--rThumbLg);padding:7px}
 .well-64{width:64px;height:64px;border-radius:var(--rInput);padding:5px}
 .well-56{width:56px;height:56px;border-radius:var(--rThumbMd);padding:5px}
+.well-48{width:48px;height:48px;border-radius:8px;padding:4px}
 .well-44{width:44px;height:44px;border-radius:var(--rThumbSm);padding:4px}
 
 /* 고민 칩 — 큰 박스 그리드는 화면을 너무 잡아먹었다.
@@ -191,7 +199,7 @@ img{display:block;max-width:100%}
    보라 배경에 회색 글자가 남아 아무것도 안 보였다. */
 .concerns .chip.on{color:#fff}
 .concerns .chip:active{background:var(--purple100);color:var(--purple700);box-shadow:none}
-.concerns .chip.on:active{background:var(--purple900);color:#fff}
+.concerns .chip.on:active{background:var(--ink);color:#fff}
 
 /* ── 섹션 ───────────────────────────────────────────── */
 .sec{margin-top:30px;padding:0 var(--screenX)}
@@ -220,7 +228,7 @@ img{display:block;max-width:100%}
 .btn.dark{background:var(--purple900);color:#fff}
 .btn.ghost{background:#fff;color:var(--ink70);box-shadow:var(--outline)}
 .btn.md{height:52px;font-size:15px}
-.btn:disabled{background:#EFEDF2;color:var(--ink25);transform:none}
+.btn:disabled{background:var(--surfaceInput);color:var(--ink25);transform:none}
 
 /* ── 하단 고정 액션 ─────────────────────────────────── */
 /* 독은 하단 탭 바로 위에 얹힌다. 탭이 없는 화면에선 --tabbarH 가 0 이라
@@ -245,7 +253,7 @@ img{display:block;max-width:100%}
 .tabbar button{display:flex;flex-direction:column;align-items:center;gap:4px;padding:4px 0;
   color:var(--ink50);font-size:11px;font-weight:600;letter-spacing:-.02em}
 .tabbar button .i{width:22px;height:22px}
-.tabbar button.on{color:var(--purple700);font-weight:700}
+.tabbar button.on{color:var(--ink);font-weight:700}
 
 /* ── 카드 ───────────────────────────────────────────── */
 .card{border-radius:var(--rCard);box-shadow:var(--outline);padding:16px}
@@ -360,7 +368,7 @@ img{display:block;max-width:100%}
 .factgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
 .factcard{border-radius:var(--rThumbMd);background:var(--surface);padding:14px 16px;
   display:flex;flex-direction:column;gap:4px;min-width:0}
-.factcard-k{font-size:12px;font-weight:600;color:var(--ink35);letter-spacing:-.01em}
+.factcard-k{font-size:12px;font-weight:600;color:var(--ink70);letter-spacing:-.01em}
 .factcard-v{font-size:15px;font-weight:700;color:var(--ink);letter-spacing:-.03em}
 
 /* 판정 목록 — 카드마다 색을 깔지 않고 테두리 하나로 묶는다.
@@ -439,3 +447,108 @@ img{display:block;max-width:100%}
 .foot-nav button,.foot-nav a{color:var(--ink70)}
 .foot-nav b{color:var(--purple700);font-weight:700}
 .foot-nav span{color:var(--ink20)}
+
+/* ══ 01 홈 (2026-10 리뉴얼) ═══════════════════════════════
+   오아시스·화해형 — 상단 검색, 메뉴 탭, 기획전 배너, 고민 바로가기,
+   가로로 넘기는 사료 카드, 가격 순위. 종합 점수는 보이지 않는다(정렬에만). */
+.h-top{display:flex;align-items:center;gap:12px;padding:calc(12px + env(safe-area-inset-top)) 16px 8px}
+.h-logo{display:flex;align-items:center;gap:5px;font-size:21px;font-weight:900;letter-spacing:-.06em;color:var(--ink);flex-shrink:0}
+.h-logo b{color:var(--purple700);font-weight:900}
+.h-search{flex:1;min-width:0;height:42px;border-radius:10px;background:var(--surfaceInput);display:flex;align-items:center;
+  gap:8px;padding:0 12px;color:var(--ink70);font-size:14.5px;font-weight:500;text-align:left}
+.h-search .i{width:18px;height:18px;color:var(--ink70)}
+.h-me{width:40px;height:40px;display:grid;place-items:center;margin-right:-8px;color:var(--ink)}
+.h-menu{display:flex;gap:22px;padding:4px 18px 0;border-bottom:var(--divider);overflow-x:auto;scrollbar-width:none}
+.h-menu button{flex-shrink:0;padding:8px 0 10px;font-size:16px;font-weight:500;color:var(--ink50);letter-spacing:-.02em}
+.h-menu button.on{color:var(--ink);font-weight:700;box-shadow:inset 0 -2px 0 var(--ink)}
+  background:var(--purple50);display:flex;text-align:left}
+  box-shadow:var(--imageWell);display:grid;place-items:center;padding:10px}
+  background:var(--purple700);display:grid;place-items:center;color:#fff}
+  background:rgba(25,31,40,.72);color:#fff;font-size:12px;font-weight:600;display:flex;align-items:center;letter-spacing:0}
+  color:var(--ink70);letter-spacing:-.03em;text-align:center;word-break:keep-all}
+.h-sec{margin-top:28px}
+.h-sech{display:flex;justify-content:space-between;align-items:center;padding:0 16px 12px}
+.h-sech h2{font-size:19px;font-weight:700;letter-spacing:-.035em}
+.h-sech button{font-size:14px;color:var(--ink50);font-weight:500;display:flex;align-items:center}
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.h-card{margin:0 16px;border-radius:var(--rCard);box-shadow:var(--outline);padding:18px 18px 6px}
+.h-card .k{font-size:13px;color:var(--ink50)}
+.h-card h3{font-size:18px;font-weight:700;line-height:1.4;margin-top:3px;letter-spacing:-.035em}
+.h-card h3 b{color:var(--purple700);font-weight:700}
+.h-strip{margin:26px 16px 0;padding:16px;border-radius:12px;background:var(--surface);display:flex;align-items:center;gap:12px;text-align:left;width:calc(100% - 32px)}
+.h-strip .i{width:34px;height:34px;color:var(--purple700)}
+.h-strip .tx b{display:block;color:var(--ink);font-size:15px;font-weight:700;letter-spacing:-.03em}
+.h-strip .tx span{display:block;font-size:12.5px;color:var(--ink70);margin-top:1px}
+.h-strip .go{margin-left:auto;height:34px;padding:0 12px;border-radius:8px;background:#fff;box-shadow:var(--outline);
+  font-size:13.5px;font-weight:600;display:flex;align-items:center;flex-shrink:0;color:var(--ink)}
+.h-list{padding:0 16px}
+.h-li{display:flex;align-items:center;gap:12px;padding:12px 0;width:100%;text-align:left}
+.h-li + .h-li{border-top:var(--divider)}
+.h-li .no{width:18px;font-size:16px;font-weight:700;text-align:center;flex-shrink:0}
+.h-li .well{border-radius:8px}
+.h-li .t{flex:1;min-width:0}
+.h-li .t b{display:block;font-size:15px;font-weight:600;letter-spacing:-.03em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.h-li .t span{display:block;font-size:13px;color:var(--ink50);margin-top:2px}
+.h-li .pr{font-size:15px;font-weight:700;flex-shrink:0;letter-spacing:-.03em}
+.h-li .pr small{display:block;font-size:11px;color:var(--ink50);font-weight:500;text-align:right}
+
+/* ══ 03 사료 상세 머리 (2026-10 리뉴얼) ══
+   보라 덩어리 대신 흰 바탕 + 큰 제품 사진. 커머스 상세처럼 사진이 먼저 보인다. */
+.d-bar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:16px;background:#fff;
+  padding:calc(8px + env(safe-area-inset-top)) 18px 8px}
+.d-bar .iconbtn{color:var(--ink);margin:-10px 0}
+.d-hero{margin:0 16px;height:268px;overflow:hidden;border-radius:12px;background:#fff;box-shadow:var(--imageWell);display:grid;place-items:center;padding:22px}
+.d-hero img{width:100%;height:100%;object-fit:contain;min-height:0}
+.d-hero.pending img{opacity:.4;filter:grayscale(1)}
+.d-hero .initial{font-size:64px;font-weight:800;color:var(--ink25)}
+.d-info{padding:18px 20px 0}
+.d-brand{font-size:14px;font-weight:600;color:var(--ink50);letter-spacing:-.02em}
+.d-name{font-size:23px;font-weight:700;letter-spacing:-.04em;line-height:1.35;margin-top:3px}
+.d-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px;align-items:center}
+.d-tags .tag{height:26px;font-size:12px;padding:0 9px;border-radius:6px;color:var(--ink70)}
+.d-tabs{display:grid;grid-template-columns:1fr 1fr;border-bottom:var(--divider);margin-top:22px;position:sticky;top:calc(52px + env(safe-area-inset-top));z-index:19;background:#fff}
+
+/* 랭킹 (홈 메인) */
+.r-sec{padding:24px 16px 0}
+.r-up{font-size:12.5px;color:var(--ink50)}
+.r-h{font-size:20px;font-weight:700;letter-spacing:-.035em;margin-top:3px}
+.r-h em{font-style:normal;color:var(--purple700)}
+.r-list{margin-top:4px}
+.r-row{display:flex;gap:14px;padding:16px 0;width:100%;text-align:left;align-items:flex-start}
+.r-row + .r-row{border-top:var(--divider)}
+.r-no{width:24px;flex-shrink:0;text-align:center;padding-top:2px}
+.r-no b{display:block;font-size:18px;font-weight:700}
+.r-no em{display:block;font-style:normal;font-size:10.5px;font-weight:700;color:var(--icRed);margin-top:2px}
+.r-row .well{border-radius:8px}
+.well-92{width:92px;height:92px;padding:8px}
+.r-b{flex:1;min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:3px}
+.r-br{font-size:13.5px;color:var(--ink50)}
+.r-nm{font-size:15.5px;font-weight:600;line-height:1.4;letter-spacing:-.03em}
+.r-rt{display:flex;gap:10px;font-size:12.5px;color:var(--ink70);margin-top:3px}
+.r-rt>span{display:flex;align-items:center;gap:4px}
+.r-st{display:inline-flex;gap:2px}
+.r-st i{width:10px;height:5px;border-radius:2px;background:var(--line)}
+.r-st i.on{background:var(--purple700)}
+.r-rx{font-size:12.5px;color:var(--ink70);margin-top:3px}
+.r-pr{font-size:14.5px;color:var(--ink50)}
+.r-pr b{color:var(--ink);font-weight:700}
+.r-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}
+.r-tags .tag{height:24px;font-size:12px;color:var(--ink70)}
+.r-tags .tag.safe{color:var(--safeText)}
+.r-tags .tag.caution{color:var(--cautionText)}
+.r-all{display:flex;align-items:center;justify-content:center;width:calc(100% - 0px);height:48px;margin-top:8px;
+  border-radius:8px;box-shadow:var(--outline);font-size:15px;font-weight:600;color:var(--ink)}
+.r-sec .r-all{width:100%}
+button.r-all[style]{width:calc(100% - 32px)}
+.r-cards{display:flex;gap:10px;overflow-x:auto;padding:0 16px;scrollbar-width:none}
+.r-card{flex:0 0 270px;height:300px;border-radius:12px;background:var(--purple50);position:relative;overflow:hidden;text-align:left}
+.r-card:nth-child(2n){background:var(--blue50)}
+.r-cim{position:absolute;left:50%;top:18px;transform:translateX(-50%);width:150px;height:150px;border-radius:10px;
+  background:#fff;box-shadow:var(--imageWell);display:grid;place-items:center;padding:12px}
+.r-cim img{width:100%;height:100%;object-fit:contain}
+.r-cbox{position:absolute;left:12px;right:12px;bottom:12px;background:#fff;border-radius:10px;padding:13px 14px;
+  display:flex;flex-direction:column;gap:5px}
+.r-cn{font-size:14.5px;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.r-cl{font-size:12.5px;color:var(--ink70);line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.r-cp{display:flex;align-items:center;gap:8px;font-size:13px}
+.r-cp b{font-weight:700}
