@@ -1616,6 +1616,7 @@ function mdEmbed(kind, args) {
   const list = embedFoods(args);
   if (!list.length) return '';
   if (kind === '비교' && list.length >= 2) return embedCompare(list.slice(0, 3));
+  if (kind === '대결' && list.length >= 2) return embedVs(list.slice(0, 2));
   return `<div class="md-foods">${list.map(f => `<button class="md-food press" data-go-detail="${f.id}">
     ${well(f, 64)}
     <span class="md-food-b">
@@ -1625,6 +1626,15 @@ function mdEmbed(kind, args) {
     </span>
     <span class="md-food-p">${f.price?.pKg ? `<b>${won(per100g(f))}원</b><small>100g</small>` : '<small>가격 확인 중</small>'}</span>
   </button>`).join('')}</div>`;
+}
+/* [[대결 A, B]] — 두 사료를 비교함에 담고 비교 화면(상황별 판단)으로 바로 보낸다.
+   비교함에 있던 사료는 이 둘로 바뀐다. 누르기 전엔 아무것도 담지 않는다. */
+function embedVs([a, b]) {
+  const side = (f, k) => `<span class="md-vs-s">${well(f, 56)}<small>${k} · ${esc(f.brand)}</small><b>${esc(f.name)}</b></span>`;
+  return `<button class="md-vs press" data-go-vs="${a.id},${b.id}">
+    <span class="md-vs-h">${side(a, 'A')}<span class="md-vs-x">VS</span>${side(b, 'B')}</span>
+    <span class="md-vs-cta">비교 화면에서 상황별로 보기 ${icon('chevronRight', 16)}</span>
+  </button>`;
 }
 function embedCompare(list) {
   const D = f => DETAIL[f.id] || {};
@@ -1680,7 +1690,7 @@ function mdToHtml(src) {
 
     /* 글 속 사료 — [[사료 이름 또는 id, …]] 카드 / [[비교 A, B(, C)]] 비교표. 한 줄을 통째로 차지한다.
        화면은 mdEmbed(아래)로 카드를 그리고, 검색용 페이지(build-pages)는 같은 문법을 링크 목록으로 바꾼다. */
-    const em = line.match(/^\[\[(사료|비교)\s+(.+?)\]\]$/);
+    const em = line.match(/^\[\[(사료|비교|대결)\s+(.+?)\]\]$/);
     if (em) { closeList(); out.push(typeof mdEmbed === 'function' ? mdEmbed(em[1], em[2]) : ''); continue; }
 
     const h = line.match(/^#{2,4}\s+(.*)$/);
@@ -1892,6 +1902,11 @@ function wire() {
     go(t);
   });
   on('[data-go-detail]', 'click', e => go('detail', { id: e.currentTarget.dataset.goDetail }));
+  on('[data-go-vs]', 'click', e => {
+    const ids = e.currentTarget.dataset.goVs.split(',').filter(id => FOODS.some(f => f.id === id));
+    if (ids.length !== 2) return;
+    state.compare = ids; save(); go('compare');
+  });
   on('[data-edit-pet]', 'click', () => { state.wizard = { step: 0, data: { ...(state.pet || {}) } }; go('wizard'); });
   on('[data-back]', 'click', () => history.back());
   on('[data-article]', 'click', e => go('article', { articleId: e.currentTarget.dataset.article }));
