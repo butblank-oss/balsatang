@@ -668,3 +668,15 @@ mark.hl{background:var(--hlMint);color:inherit;padding:1px 2px;border-radius:2px
   display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .md-vs-x{width:32px;height:32px;border-radius:50%;background:var(--purple900);color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;justify-self:center}
 .md-vs-cta{display:flex;align-items:center;justify-content:center;gap:4px;height:48px;border-top:var(--divider);color:var(--purple700);font-size:14px;font-weight:700}
+
+/* 당겨서 새로고침 (ptr.js) */
+html{overscroll-behavior-y:none}
+.ptr{position:fixed;top:0;left:50%;z-index:90;width:40px;height:40px;border-radius:50%;
+  background:#fff;box-shadow:0 2px 10px rgba(25,31,40,.14);display:grid;place-items:center;
+  opacity:0;transform:translate(-50%,-52px);pointer-events:none;margin-top:env(safe-area-inset-top)}
+.ptr .ptr-c{stroke:var(--purple300);stroke-dasharray:57;stroke-dashoffset:calc(57 - 47 * var(--ptrP,0));transition:stroke .15s}
+.ptr.ready .ptr-c{stroke:var(--purple700)}
+.ptr.spin svg{animation:ptrSpin .7s linear infinite}
+.ptr.spin .ptr-c{stroke:var(--purple700);stroke-dashoffset:16}
+@keyframes ptrSpin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.ptr.spin svg{animation-duration:1.6s}}
