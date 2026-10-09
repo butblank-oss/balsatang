@@ -1584,7 +1584,7 @@ const COVER_TONE = {
 /* AI 일러스트 표지(Higgsfield, 토스식 미니멀 — 대표 결정 2026-10-08). 글 id → 그림. 없으면 아이콘 표지. */
 const COVER_IMG = { 'label-read': 1, 'allergy': 1, 'tear-stain': 1, 'food-types': 1, 'price-gap': 1,
   'senior-vs': 1, 'additives': 1, 'carb-grainfree': 1, 'life-stage': 1, 'price-per-kg': 1, 'weight-manage': 1, 'rx-when': 1,
-  'label-anatomy-1': 1 };
+  'label-anatomy-1': 1, 'label-anatomy-2': 1 };
 /* 표지가 아직 없는 새 글은 분류 기본 그림을 쓴다 — 아이콘 상자가 다시 보이지 않게(대표 피드백 2026-10-08) */
 const COVER_CAT = { '성분 가이드': 'cat-guide', '생애주기': 'cat-life', '영양': 'cat-nutri', '건강 고민': 'cat-health', '사료 종류': 'cat-types', '구매 팁': 'cat-buy' };
 function articleCover(a, cls = '') {
