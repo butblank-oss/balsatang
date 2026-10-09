@@ -49,7 +49,7 @@
           "buyUrl": "https://link.coupang.com/a/EXAMPLE"
         },
         "facts": {
-          "dmCarb": 40,
+          "dmCarb": 31.1,
           "protein": 35,
           "firstIngrCat": "meat",
           "cautionN": 2,
@@ -94,7 +94,7 @@
         },
         "facts.dmCarb": {
           "src": 0,
-          "quote": "보장성분표 기준 건물기준 탄수 30% (조단백35+조지방16+조섬유3+조회분8, 수분10 환산)"
+          "quote": "조단백 35 / 조지방 15 / 조섬유 4 / 수분 10 / 조회분 8 → 건물기준 탄수 31.1%"
         },
         "facts.firstIngrCat": {
           "src": 0,
@@ -145,7 +145,7 @@
         "method": "blind-recollect",
         "independent": {
           "facts": {
-            "dmCarb": 30,
+            "dmCarb": 31.1,
             "protein": 35,
             "firstIngrCat": "meat",
             "cautionN": 2,
