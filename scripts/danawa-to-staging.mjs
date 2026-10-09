@@ -88,10 +88,10 @@ for (const r of rows) {
   if (known.has(norm(BRAND + name))) { skipped++; continue; }
   known.add(norm(BRAND + name));
 
-  /* 조단백·조지방·조섬유·수분이 다 있으면 건물기준 탄수를 낼 수 있다.
-     조회분은 기존 사료들과 같은 방식으로 빼지 않는다. */
-  const dmCarb = [r.protein, r.fat, r.fiber, r.moisture].every(v => v != null)
-    ? Math.round(((100 - (r.protein + r.fat + r.fiber + r.moisture)) / (100 - r.moisture)) * 1000) / 10
+  /* 조단백·조지방·조섬유·수분·조회분이 다 있으면 건물기준 탄수를 낼 수 있다(engine computeDmCarb 와 같은 식).
+     조회분이 없으면 추측하지 않고 비운다 — DATA-POLICY 4.1. */
+  const dmCarb = [r.protein, r.fat, r.fiber, r.moisture, r.ash].every(v => v != null)
+    ? Math.round(((100 - (r.protein + r.fat + r.fiber + r.moisture + r.ash)) / (100 - r.moisture)) * 1000) / 10
     : null;
 
   items.push({

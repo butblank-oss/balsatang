@@ -40,7 +40,7 @@
         "concerns": [],
         "facts": {
           "protein": 38,
-          "dmCarb": 28.4,
+          "dmCarb": 19.3,
           "firstIngrCat": "meat",
           "cautionN": 7,
           "dangerN": 0,
@@ -240,7 +240,7 @@
         "concerns": [],
         "facts": {
           "protein": 38,
-          "dmCarb": 31.8,
+          "dmCarb": 22.7,
           "firstIngrCat": "meat",
           "cautionN": 7,
           "dangerN": 0,
@@ -445,7 +445,7 @@
         "concerns": [],
         "facts": {
           "protein": 38,
-          "dmCarb": 30.7,
+          "dmCarb": 21,
           "firstIngrCat": "fish",
           "cautionN": 6,
           "dangerN": 0,
@@ -647,7 +647,7 @@
         "concerns": [],
         "facts": {
           "protein": 39,
-          "dmCarb": 30.7,
+          "dmCarb": 20.5,
           "firstIngrCat": "meat",
           "cautionN": 8,
           "dangerN": 0,
@@ -848,7 +848,7 @@
         "concerns": [],
         "facts": {
           "protein": 40,
-          "dmCarb": 30.7,
+          "dmCarb": 21.6,
           "firstIngrCat": "meat",
           "cautionN": 7,
           "dangerN": 0,
@@ -1061,7 +1061,7 @@
         "concerns": [],
         "facts": {
           "protein": 38,
-          "dmCarb": 33,
+          "dmCarb": 23.9,
           "firstIngrCat": "meat",
           "cautionN": 7,
           "dangerN": 0,

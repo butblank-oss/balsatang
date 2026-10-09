@@ -15,10 +15,10 @@
 /* 탄수화물 — 건물기준 탄수(%). 낮을수록 좋다. */
 function rateCarb(dmCarb) {
   if (dmCarb == null) return null;
-  if (dmCarb <= 25) return 5;
-  if (dmCarb <= 35) return 4;
-  if (dmCarb <= 44) return 3;
-  if (dmCarb <= 56) return 2;
+  if (dmCarb <= 16) return 5;
+  if (dmCarb <= 26) return 4;
+  if (dmCarb <= 35) return 3;
+  if (dmCarb <= 47) return 2;
   return 1;
 }
 
@@ -64,7 +64,7 @@ function rateAll(facts) {
 /* 게이트가 쓰는 설명문 — 왜 이 점수인지 사람에게 보여준다. */
 const RUBRIC_TEXT = {
   quality: '조단백 32%↑=5, 25%↑=4, 16%↑=3, 그 미만=2. 1번 원료가 곡물이면 최대 3점',
-  carb: '건물기준 탄수 25%↓=5, 35%↓=4, 44%↓=3, 56%↓=2, 초과=1',
+  carb: '건물기준 탄수 16%↓=5, 26%↓=4, 35%↓=3, 47%↓=2, 초과=1',
   additive: '주의 성분 0개=5, 1~2개=4, 3~4개=3, 5개↑=2. 위험 성분 있으면 최대 3점',
   value: 'kg당 1만원↓=5, 1.6만원↓=4, 3.2만원↓=3, 4.5만원↓=2, 초과=1'
 };
@@ -72,17 +72,19 @@ const RUBRIC_TEXT = {
 /* 사실 항목의 필수 키 — 이게 없으면 채점을 검증할 수 없다. */
 const REQUIRED_FACT_KEYS = ['dmCarb', 'protein', 'firstIngrCat', 'cautionN', 'dangerN'];
 
-/* 건물기준 탄수 계산. 기존 41종이 쓰는 방식과 동일하게 조회분은 제외한다
-   (41종 중 34종이 조회분 미표기이고, 표기된 건도 계산에 반영되지 않았다).
-   조회분을 빼면 dmCarb 가 약 9%p 낮아져 루브릭 경계가 어긋난다. */
+/* 건물기준 탄수 계산 — 100 − (조단백 + 조지방 + 조섬유 + 수분 + 조회분), 수분을 뺀 기준으로 환산.
+   2026-10-09 대표 결정: 예전엔 원본 41종(34종이 조회분 미표기)에 맞추느라 조회분을 빼지 않아
+   탄수가 조회분만큼(평균 약 9%p) 높게 나왔다. 일반적인 계산(NFE)대로 조회분까지 빼고,
+   루브릭 경계도 같은 폭(9%p)만큼 낮춰 별점·총점은 그대로 두었다(DATA-POLICY 4.1).
+   조회분이 표기되지 않으면 추측하지 않고 null — 탄수 별점을 매길 수 없어 게이트에서 멈춘다. */
 function computeDmCarb(ga = {}) {
   /* 입력칸에서 곧장 넘어오면 값이 문자열이다. 그대로 더하면 "22"+"9"+"5"+"11" 이
      "229511" 로 이어붙어 -257765% 같은 값이 조용히 나온다. 실제로 심사 화면의
      '탄수 채우기' 가 그래서 쓸 수 없는 상태였다. 여기서 한 번 숫자로 만든다. */
   const n = v => (v === '' || v == null ? null : Number(v));
-  const protein = n(ga.protein), fat = n(ga.fat), fiber = n(ga.fiber), moisture = n(ga.moisture);
-  if ([protein, fat, fiber, moisture].some(v => v == null || Number.isNaN(v))) return null;
-  const carb = 100 - (protein + fat + fiber + moisture);
+  const protein = n(ga.protein), fat = n(ga.fat), fiber = n(ga.fiber), moisture = n(ga.moisture), ash = n(ga.ash);
+  if ([protein, fat, fiber, moisture, ash].some(v => v == null || Number.isNaN(v))) return null;
+  const carb = 100 - (protein + fat + fiber + moisture + ash);
   return Math.round((carb / (100 - moisture)) * 1000) / 10;
 }
 
@@ -191,9 +193,9 @@ function deriveNutrient(ga = {}, opts = {}) {
   const protein = num(ga.protein), fat = num(ga.fat), fiber = num(ga.fiber);
   const ash = num(ga.ash), moisture = num(ga.moisture);
   let carb = null, dmCarb = null;
-  if ([protein, fat, fiber, moisture].every(v => v != null)) {
-    carb = Math.round((100 - (protein + fat + fiber + moisture)) * 10) / 10;
-    dmCarb = computeDmCarb({ protein, fat, fiber, moisture });
+  if ([protein, fat, fiber, moisture, ash].every(v => v != null)) {
+    carb = Math.round((100 - (protein + fat + fiber + moisture + ash)) * 10) / 10;
+    dmCarb = computeDmCarb({ protein, fat, fiber, moisture, ash });
   }
   return {
     protein, fat, fiber, moisture, ash, carb, dmCarb,
@@ -294,16 +296,16 @@ function deriveVerdict({ nutrient, ingr, dist, funcIngr, price, facts }) {
   /* 탄수화물 */
   const c = nutrient.dmCarb;
   if (c != null) {
-    if (c <= 25) pos.push({ icon: '📉', category: 'carb_level',
-      title: `탄수화물이 낮아요 (${pct(c)} 추정)`, body: '건물기준 25% 이하로 낮은 편이에요.' });
-    else if (c <= 35) pos.push({ icon: '📊', category: 'carb_level',
-      title: `탄수화물이 적당해요 (${pct(c)} 추정)`, body: '건물기준 25~35% 수준이에요.' });
-    else if (c <= 44) cau.push({ icon: '📊', category: 'carb_level',
-      title: `탄수화물이 조금 높아요 (${pct(c)} 추정)`, body: '건물기준 35~44% 수준이에요.' });
-    else if (c <= 56) cau.push({ icon: '📊', category: 'carb_level',
-      title: `탄수화물이 높아요 (${pct(c)} 추정)`, body: '건물기준 44~56% 수준이에요. 체중 관리가 필요한 아이는 주의하세요.' });
+    if (c <= 16) pos.push({ icon: '📉', category: 'carb_level',
+      title: `탄수화물이 낮아요 (${pct(c)} 추정)`, body: '건물기준 16% 이하로 낮은 편이에요.' });
+    else if (c <= 26) pos.push({ icon: '📊', category: 'carb_level',
+      title: `탄수화물이 적당해요 (${pct(c)} 추정)`, body: '건물기준 16~26% 수준이에요.' });
+    else if (c <= 35) cau.push({ icon: '📊', category: 'carb_level',
+      title: `탄수화물이 조금 높아요 (${pct(c)} 추정)`, body: '건물기준 26~35% 수준이에요.' });
+    else if (c <= 47) cau.push({ icon: '📊', category: 'carb_level',
+      title: `탄수화물이 높아요 (${pct(c)} 추정)`, body: '건물기준 35~47% 수준이에요. 체중 관리가 필요한 아이는 주의하세요.' });
     else cau.push({ icon: '⚠️', category: 'carb_level',
-      title: `탄수화물이 매우 높아요 (${pct(c)} 추정)`, body: '건물기준 56%를 넘어요. 곡물 비중이 큰 사료예요.' });
+      title: `탄수화물이 매우 높아요 (${pct(c)} 추정)`, body: '건물기준 47%를 넘어요. 곡물 비중이 큰 사료예요.' });
   }
 
   /* 단백질 */
@@ -375,12 +377,12 @@ function deriveFit({ nutrient, ingr, dist, funcIngr }) {
   if (has('kidney')) fit.push({ concernType: 'kidney', label: '신장 케어에 쓰이는 원료가 들어있어요' });
   if (has('liver')) fit.push({ concernType: 'liver', label: '간 건강에 쓰이는 원료가 들어있어요' });
 
-  if (c != null && c <= 30 && dist.danger === 0)
+  if (c != null && c <= 21 && dist.danger === 0)
     fit.push({ concernType: 'healthy', label: '탄수화물이 낮고 위험 성분이 없어요' });
   if (pr != null && pr >= 28)
     fit.push({ concernType: 'post_surgery', label: '단백질이 높아 회복기에 도움이 될 수 있어요' });
 
-  if (c != null && c >= 45)
+  if (c != null && c > 35)
     cau.push({ concernType: 'weight', label: '탄수화물이 높아 체중 관리가 필요한 아이는 주의가 필요해요' });
   else if (fatV != null && fatV >= 18)
     cau.push({ concernType: 'weight', label: '지방이 높아 체중 관리가 필요한 아이는 주의가 필요해요' });
