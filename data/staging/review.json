@@ -1,5 +1,5 @@
 {
-  "builtAt": "2026-10-09T04:41:41.197Z",
+  "builtAt": "2026-10-10T03:00:23.608Z",
   "live": true,
   "batches": [
     {
@@ -753,13 +753,8 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "fail",
-            "g1fail": [
-              {
-                "code": "E_URL_FETCH",
-                "msg": "sources[1] 접속 실패 (TypeError): https://prod.danawa.com/info/?pcode=4266771"
-              }
-            ],
+            "g1": "pending",
+            "g1fail": [],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -937,13 +932,8 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "fail",
-            "g1fail": [
-              {
-                "code": "E_URL_FETCH",
-                "msg": "sources[1] 접속 실패 (TypeError): https://prod.danawa.com/info/?pcode=99805562"
-              }
-            ],
+            "g1": "pending",
+            "g1fail": [],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -1150,13 +1140,8 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "fail",
-            "g1fail": [
-              {
-                "code": "E_URL_FETCH",
-                "msg": "sources[2] 접속 실패 (TypeError): https://prod.danawa.com/info/?pcode=4905882"
-              }
-            ],
+            "g1": "pending",
+            "g1fail": [],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -1341,13 +1326,8 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "fail",
-            "g1fail": [
-              {
-                "code": "E_URL_FETCH",
-                "msg": "sources[1] 접속 실패 (TypeError): https://prod.danawa.com/info/?pcode=14728352"
-              }
-            ],
+            "g1": "pending",
+            "g1fail": [],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -1797,13 +1777,8 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "fail",
-            "g1fail": [
-              {
-                "code": "E_URL_FETCH",
-                "msg": "sources[1] 접속 실패 (TypeError): https://prod.danawa.com/info/?pcode=99804548"
-              }
-            ],
+            "g1": "pending",
+            "g1fail": [],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -2014,13 +1989,8 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "fail",
-            "g1fail": [
-              {
-                "code": "E_URL_FETCH",
-                "msg": "sources[1] 접속 실패 (TypeError): https://prod.danawa.com/info/?pcode=5195134"
-              }
-            ],
+            "g1": "pending",
+            "g1fail": [],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -2234,13 +2204,8 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "fail",
-            "g1fail": [
-              {
-                "code": "E_URL_FETCH",
-                "msg": "sources[1] 접속 실패 (TypeError): https://prod.danawa.com/info/?pcode=15418451"
-              }
-            ],
+            "g1": "pending",
+            "g1fail": [],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -2451,13 +2416,8 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "fail",
-            "g1fail": [
-              {
-                "code": "E_URL_FETCH",
-                "msg": "sources[1] 접속 실패 (TypeError): https://prod.danawa.com/info/?pcode=17095823"
-              }
-            ],
+            "g1": "pending",
+            "g1fail": [],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -2680,13 +2640,8 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "fail",
-            "g1fail": [
-              {
-                "code": "E_URL_FETCH",
-                "msg": "sources[1] 접속 실패 (TypeError): https://prod.danawa.com/info/?pcode=13068368"
-              }
-            ],
+            "g1": "pending",
+            "g1fail": [],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -2901,13 +2856,8 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "fail",
-            "g1fail": [
-              {
-                "code": "E_URL_FETCH",
-                "msg": "sources[1] 접속 실패 (TypeError): https://prod.danawa.com/info/?pcode=5195074"
-              }
-            ],
+            "g1": "pending",
+            "g1fail": [],
             "g1warn": [],
             "todo": [],
             "g2": "none",
