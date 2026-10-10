@@ -1,6 +1,6 @@
 {
-  "builtAt": "2026-10-10T08:38:25.766Z",
-  "live": false,
+  "builtAt": "2026-10-10T08:41:54.181Z",
+  "live": true,
   "batches": [
     {
       "file": "danawa-top-2026-w41a.json",
@@ -1752,8 +1752,17 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_BRAND",
+                "msg": "sources[0] 페이지에 브랜드명(고!솔루션 / gosolutions)이 없습니다: https://haruwell.com/goods/goods_view.php?goodsNo=1000000133"
+              },
+              {
+                "code": "E_URL_BRAND",
+                "msg": "sources[1] 페이지에 브랜드명(고!솔루션 / gosolutions)이 없습니다: https://prod.danawa.com/info/?pcode=11223654"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -1915,8 +1924,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_BRAND",
+                "msg": "sources[0] 페이지에 브랜드명(고!솔루션 / gosolutions)이 없습니다: https://haruwell.com/goods/goods_view.php?goodsNo=1000000678"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -2106,8 +2120,17 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_BRAND",
+                "msg": "sources[0] 페이지에 브랜드명(고!솔루션 / gosolutions)이 없습니다: https://haruwell.com/goods/goods_view.php?goodsNo=1000000130"
+              },
+              {
+                "code": "E_URL_BRAND",
+                "msg": "sources[1] 페이지에 브랜드명(고!솔루션 / gosolutions)이 없습니다: https://prod.danawa.com/info/?pcode=5582817"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -2297,8 +2320,17 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_BRAND",
+                "msg": "sources[0] 페이지에 브랜드명(고!솔루션 / gosolutions)이 없습니다: https://haruwell.com/goods/goods_view.php?goodsNo=1000000223"
+              },
+              {
+                "code": "E_URL_BRAND",
+                "msg": "sources[1] 페이지에 브랜드명(고!솔루션 / gosolutions)이 없습니다: https://prod.danawa.com/info/?pcode=101727095"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -2486,8 +2518,17 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_BRAND",
+                "msg": "sources[0] 페이지에 브랜드명(고!솔루션 / gosolutions)이 없습니다: https://haruwell.com/goods/goods_view.php?goodsNo=1000000119"
+              },
+              {
+                "code": "E_URL_BRAND",
+                "msg": "sources[1] 페이지에 브랜드명(고!솔루션 / gosolutions)이 없습니다: https://prod.danawa.com/info/?pcode=99815426"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -2881,8 +2922,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_BRAND",
+                "msg": "sources[1] 페이지에 브랜드명(나우프레쉬 / nowfresh)이 없습니다: https://prod.danawa.com/info/?pcode=99806315"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -3096,8 +3142,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_BRAND",
+                "msg": "sources[1] 페이지에 브랜드명(나우프레쉬 / nowfresh)이 없습니다: https://prod.danawa.com/info/?pcode=14533913"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -3311,8 +3362,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_BRAND",
+                "msg": "sources[1] 페이지에 브랜드명(나우프레쉬 / nowfresh)이 없습니다: https://prod.danawa.com/info/?pcode=13745309"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -3523,8 +3579,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_BRAND",
+                "msg": "sources[1] 페이지에 브랜드명(나우프레쉬 / nowfresh)이 없습니다: https://prod.danawa.com/info/?pcode=12939512"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -3736,8 +3797,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_BRAND",
+                "msg": "sources[1] 페이지에 브랜드명(나우프레쉬 / nowfresh)이 없습니다: https://prod.danawa.com/info/?pcode=9817941"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -3945,8 +4011,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_BRAND",
+                "msg": "sources[1] 페이지에 브랜드명(나우프레쉬 / nowfresh)이 없습니다: https://prod.danawa.com/info/?pcode=99813215"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -4160,8 +4231,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_BRAND",
+                "msg": "sources[1] 페이지에 브랜드명(나우프레쉬 / nowfresh)이 없습니다: https://prod.danawa.com/info/?pcode=98580404"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -4376,8 +4452,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_BRAND",
+                "msg": "sources[1] 페이지에 브랜드명(나우프레쉬 / nowfresh)이 없습니다: https://prod.danawa.com/info/?pcode=124362783"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
