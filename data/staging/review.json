@@ -1,5 +1,5 @@
 {
-  "builtAt": "2026-10-10T08:41:54.181Z",
+  "builtAt": "2026-10-11T02:31:00.848Z",
   "live": true,
   "batches": [
     {
@@ -2322,10 +2322,6 @@
           "gates": {
             "g1": "fail",
             "g1fail": [
-              {
-                "code": "E_URL_BRAND",
-                "msg": "sources[0] 페이지에 브랜드명(고!솔루션 / gosolutions)이 없습니다: https://haruwell.com/goods/goods_view.php?goodsNo=1000000223"
-              },
               {
                 "code": "E_URL_BRAND",
                 "msg": "sources[1] 페이지에 브랜드명(고!솔루션 / gosolutions)이 없습니다: https://prod.danawa.com/info/?pcode=101727095"
