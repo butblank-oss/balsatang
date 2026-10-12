@@ -190,6 +190,22 @@ function iyeyo(word) {
 /* ── 영양 프로파일 ─────────────────────────────────────── */
 function deriveNutrient(ga = {}, opts = {}) {
   const num = v => (v == null || v === '' ? null : Number(v));
+  /* 건물기준(DM) 값만 공개된 처방식 — 힐스 한국 공식은 봉투 기준 등록성분 없이 수분을 뺀
+     평균값(단백질·지방·탄수화물·조섬유)만 싣는다. 수분·조회분이 없으니 봉투 기준으로
+     되돌릴 수 없고, 되돌리려고 수분을 짐작하면 없는 값을 만드는 것이 된다(2026-10-12 대표 결정:
+     건물기준 값을 그대로 싣고 기준을 밝힌다). 그래서 기준(basis)을 함께 넘기고, 화면은
+     basis 가 'dm' 이면 '건물기준' 이라고 적는다. 탄수는 제조사가 밝힌 값을 그대로 쓴다. */
+  const dm = opts.gaDm;
+  if (!ga?.protein && dm && typeof dm === 'object') {
+    return {
+      protein: num(dm.protein), fat: num(dm.fat), fiber: num(dm.fiber),
+      moisture: null, ash: null, carb: null, dmCarb: num(dm.carb),
+      meat: opts.meatRatio ?? null,
+      calKg: num(ga?.kcalPerKg ?? ga?.calKg),
+      src: opts.src ?? 'label',
+      basis: 'dm'
+    };
+  }
   const protein = num(ga.protein), fat = num(ga.fat), fiber = num(ga.fiber);
   const ash = num(ga.ash), moisture = num(ga.moisture);
   let carb = null, dmCarb = null;
@@ -403,12 +419,12 @@ function deriveFit({ nutrient, ingr, dist, funcIngr }) {
 }
 
 /* ── 한 번에 ───────────────────────────────────────────── */
-function deriveDetail({ ga, ingredients, facts, price, weightOptions, rxInfo,
+function deriveDetail({ ga, gaDm, ingredients, facts, price, weightOptions, rxInfo,
                        kcalPerKg, meatRatio, prices }) {
   /* 라벨에 칼로리가 적혀 있으면 그 값을 쓴다. 없을 때만 화면이 영양성분으로 추정하는데,
      지방이 높은 사료일수록 추정이 벌어져 급여량이 그만큼 어긋난다. */
   const nutrient = deriveNutrient({ ...(ga ?? {}), kcalPerKg: kcalPerKg ?? ga?.kcalPerKg ?? null },
-                                  { meatRatio: meatRatio ?? null });
+                                  { meatRatio: meatRatio ?? null, gaDm: gaDm ?? null });
   const ingr = deriveIngredients(ingredients ?? []);
   const dist = deriveDist(ingr);
   const funcIngr = deriveFuncIngr(ingredients ?? []);
@@ -486,9 +502,9 @@ function strengthMap(funcIngr) {
    다시 계산한다 — 사람이든 AI 든 점수를 직접 써넣는 경로는 없다. */
 function publishRecord(item, uuid, now) {
   const p = item.proposed;
-  const detail = (p.ga || p.ingredients)
+  const detail = (p.ga || p.gaDm || p.ingredients)
     ? deriveDetail({
-        ga: p.ga, ingredients: p.ingredients, facts: p.facts,
+        ga: p.ga, gaDm: p.gaDm ?? null, ingredients: p.ingredients, facts: p.facts,
         price: p.price, weightOptions: p.price?.wgOptions, rxInfo: p.rxInfo ?? null,
         /* 등록 폼이 라벨에서 받아 온 값들. 여기서 안 넘기면 발행할 때 조용히 사라진다. */
         kcalPerKg: p.kcalPerKg ?? null, meatRatio: p.meatRatio ?? null, prices: p.prices ?? null

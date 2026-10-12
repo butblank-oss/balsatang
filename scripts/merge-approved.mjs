@@ -80,10 +80,10 @@ for (const file of files) {
 
     /* 상세 화면 데이터. 라벨에서 뽑은 보장성분표와 원재료 목록으로 규칙이 만든다.
        ga·ingredients 가 없으면 만들지 않는다 — 없는 걸 지어내지 않는다. */
-    const detail = (p.ga || p.ingredients)
-      ? deriveDetail({ ga: p.ga, ingredients: p.ingredients, facts: p.facts,
+    const detail = (p.ga || p.gaDm || p.ingredients)
+      ? deriveDetail({ ga: p.ga, gaDm: p.gaDm ?? null, ingredients: p.ingredients, facts: p.facts,
                        price: p.price, weightOptions: p.price?.wgOptions,
-                       rxInfo: p.rxInfo ?? null })
+                       rxInfo: p.rxInfo ?? null, kcalPerKg: p.kcalPerKg ?? null })
       : null;
     if (detail) details[uuid] = detail;
 

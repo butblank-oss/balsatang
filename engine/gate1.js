@@ -58,6 +58,8 @@ function checkItem(item, published, seen) {
 
   /* --- 1. 필수 필드 --- */
   for (const k of REQUIRED_FOOD_FIELDS) {
+    /* 건물기준만 공개된 처방식은 ga 대신 gaDm 을 싣는다 — 아래 3.7 에서 따로 검사한다. */
+    if (k === 'ga' && p.ga == null && p.gaDm != null) continue;
     if (p[k] == null) F('E_FIELD', `사료 필드 누락: ${k}`);
   }
 
@@ -138,7 +140,37 @@ function checkItem(item, published, seen) {
      상세 화면(판정 카드·영양 프로파일·주원료)이 전부 여기서 만들어진다.
      없으면 사용자에게 빈 화면이 나가므로 등록을 막는다. --- */
   const ga = p.ga;
-  if (ga == null) {
+  const gaDm = p.gaDm;
+  if (ga != null && gaDm != null) {
+    F('E_GA_BOTH', 'ga(봉투 기준)와 gaDm(건물기준)이 둘 다 있습니다 — 출처에 적힌 기준 하나만 남기세요');
+  }
+  if (ga == null && gaDm != null) {
+    /* 건물기준(DM) 값만 공개한 처방식 — engine.js deriveNutrient 머리말 참고(2026-10-12 대표 결정).
+       처방식만 허용한다. 일반식은 탄수·단백 별점이 화면에 나가는데 그 루브릭은 봉투 기준이라
+       건물기준 값을 넣으면 점수가 틀어진다. 처방식은 별점·판정을 화면에 내지 않는다. */
+    if (p.rx !== true) F('E_GA_DM_NONRX', 'gaDm(건물기준)은 처방식에만 쓸 수 있습니다 — 일반식은 봉투 기준 ga 가 필요합니다');
+    for (const k of ['protein', 'fat', 'fiber', 'carb']) {
+      if (!(Number(gaDm[k]) >= 0)) F('E_GA_DM', `gaDm.${k} 가 숫자가 아닙니다: ${gaDm[k]}`);
+    }
+    if (facts && Number(gaDm.protein) !== Number(facts.protein)) {
+      F('E_GA_PROTEIN', `gaDm.protein(${gaDm.protein}) 과 facts.protein(${facts.protein}) 이 다릅니다`);
+    }
+    if (facts && facts.dmCarb != null && Math.abs(Number(gaDm.carb) - facts.dmCarb) > 0.05) {
+      F('E_GA_DMCARB', `gaDm.carb(${gaDm.carb})와 facts.dmCarb(${facts.dmCarb})가 다릅니다 — 제조사가 밝힌 건물기준 탄수를 그대로 씁니다`);
+    }
+    /* 값마다 근거, 한 출처(한 라벨)에서. 건물기준은 제조사 발표값이라 A등급만 받는다. */
+    const dmSrcs = new Set();
+    for (const k of Object.keys(gaDm)) {
+      if (gaDm[k] == null) continue;
+      const e = ev?.[`gaDm.${k}`];
+      if (!e) { F('E_EV_NONE', `근거 누락: gaDm.${k}`); continue; }
+      if (!Number.isInteger(e.src) || !srcs?.[e.src]) { F('E_EV_SRC', `gaDm.${k} 의 출처 번호가 잘못됨: ${e.src}`); continue; }
+      if (!e.quote || String(e.quote).trim().length < 2) F('E_EV_QUOTE', `gaDm.${k} 의 인용문이 비어 있습니다`);
+      if (SOURCE_GRADE[srcs[e.src].role] !== 'A') F('E_GA_DM_GRADE', `gaDm.${k} 는 제조사(A등급) 출처여야 합니다`);
+      dmSrcs.add(e.src);
+    }
+    if (dmSrcs.size > 1) F('E_GA_SRC_MIX', `건물기준(gaDm) 인용이 서로 다른 출처를 가리킵니다: src ${[...dmSrcs].join(', ')}`);
+  } else if (ga == null) {
     F('E_GA_NONE', 'ga 가 없습니다 — 보장성분표(조단백·조지방·조섬유·수분)를 적어야 합니다');
   } else {
     for (const k of REQUIRED_GA_KEYS) {

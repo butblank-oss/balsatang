@@ -71,4 +71,31 @@ assert.ok(gaSrcMix(mk2({ protein: 20, fat: 5 }, { 'ga.protein': q(0), 'ga.fat': 
 assert.ok(!gaSrcMix(mk2({ protein: 20 }, { 'ga.protein': q(0) })),
   'ga 인용이 하나뿐이면 섞임 검사에 걸리지 않아야 합니다');
 
-console.log('✅ 게이트1 ga 근거 검사 회귀 통과 — 값 있으면 근거 요구 / 없으면 면제 / 인용 출처 동일, 8케이스');
+/* --- 건물기준(gaDm) — 힐스처럼 제조사가 건물기준 평균값만 공개한 처방식 (2026-10-12) --- */
+const mkDm = (rx, gaDm, ev, role = 'official') => ({
+  stagingId: 'test_ga_dm',
+  sources: [{ role, url: 'https://www.hillspet.co.kr/a', fetchedAt: '2026-10-12' }],
+  proposed: { rx, ga: null, gaDm }, evidence: ev
+});
+const codes = item => checkItem(item, [], new Set()).fail.map(f => f.code + ' ' + f.msg);
+const dmEv = { 'gaDm.protein': quote, 'gaDm.fat': quote, 'gaDm.fiber': quote, 'gaDm.carb': quote };
+const dmVal = { protein: 20.1, fat: 14.5, fiber: 6.4, carb: 53.4 };
+
+/* 9. 처방식 + 건물기준 + 근거 → ga 누락으로 떨어지지 않는다 */
+let c = codes(mkDm(true, dmVal, dmEv));
+assert.ok(!c.some(x => /E_GA_NONE|사료 필드 누락: ga$/.test(x)), '처방식 gaDm 이면 ga 누락으로 탈락하면 안 됩니다: ' + c.join(' | '));
+assert.ok(!c.some(x => x.startsWith('E_GA_DM')), '정상 gaDm 은 E_GA_DM* 이 없어야 합니다: ' + c.join(' | '));
+
+/* 10. 일반식은 gaDm 을 쓸 수 없다 — 별점 루브릭이 봉투 기준이다 */
+assert.ok(codes(mkDm(false, dmVal, dmEv)).some(x => x.startsWith('E_GA_DM_NONRX')), '일반식 gaDm 은 탈락해야 합니다');
+
+/* 11. 건물기준 값에 근거가 없으면 탈락 */
+assert.ok(codes(mkDm(true, dmVal, {})).some(x => x.startsWith('E_EV_NONE') && x.includes('gaDm.carb')), 'gaDm 근거 누락은 탈락해야 합니다');
+
+/* 12. 건물기준은 제조사(A등급) 출처만 — 다나와(catalog) 는 안 된다 */
+assert.ok(codes(mkDm(true, dmVal, dmEv, 'catalog')).some(x => x.startsWith('E_GA_DM_GRADE')), 'catalog 출처 gaDm 은 탈락해야 합니다');
+
+/* 13. ga 와 gaDm 둘 다 있으면 탈락 */
+assert.ok(codes({ ...mkDm(true, dmVal, dmEv), proposed: { rx: true, ga: { protein: 18 }, gaDm: dmVal } }).some(x => x.startsWith('E_GA_BOTH')), 'ga·gaDm 동시 기재는 탈락해야 합니다');
+
+console.log('✅ 게이트1 ga 근거 검사 회귀 통과 — 값 있으면 근거 요구 / 없으면 면제 / 인용 출처 동일 / 건물기준 처방식, 13케이스');
