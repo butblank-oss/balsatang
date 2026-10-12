@@ -84,7 +84,7 @@ function foodTags(f) {
   const out = [];
   const names = (d.ingr || []).map(i => i.name);
   if (names.length && !names.some(x => GRAIN_WORDS.test(x))) out.push('그레인프리');
-  if (n.protein >= 30) out.push(`조단백 ${n.protein}%`);
+  if (n.protein >= 30 && n.basis !== 'dm') out.push(`조단백 ${n.protein}%`);
   /* 첫 원료는 고기든 곡물이든 사실이다. 예전엔 고기일 때만 적어서, 곡물로 시작하는
      사료는 태그가 하나도 없이 남았다 — 자랑거리가 없다고 사실을 감추면 안 된다. */
   const first = (d.ingr || [])[0];
@@ -106,7 +106,7 @@ function cardSub(f) {
   const t = foodTags(f)[0];
   if (t) return t;
   const n = (DETAIL[f.id] || {}).nutrient || {};
-  if (n.protein != null) return `조단백 ${n.protein}%`;
+  if (n.protein != null) return n.basis === 'dm' ? `단백질 ${n.protein}% (건물기준)` : `조단백 ${n.protein}%`;
   return [typeKo(f.type), COUNTRY_KO[f.country]].filter(Boolean).join(' · ') || '성분 분석 완료';
 }
 function tagRow(f) {
@@ -668,7 +668,7 @@ function searchSummary(f) {
   const bits = [];
   const first = (d.ingr || [])[0];
   if (first) bits.push(`첫 원료가 ${first.name}`);
-  if (n.protein) bits.push(`조단백 ${n.protein}%`);
+  if (n.protein) bits.push(n.basis === 'dm' ? `단백질 ${n.protein}% (건물기준)` : `조단백 ${n.protein}%`);
   if (!bits.length && f.price?.pKg) bits.push(`100g당 ${won(per100g(f))}원`);
   if (!bits.length) return '원료표를 확보하는 중이에요';
   return bits.join(' · ');
@@ -756,17 +756,36 @@ function renderDetail() {
    쿠팡에서 파는 국내 제품 봉투와 숫자가 다를 수 있어, 성분 분석 탭의 기본 정보(숫자)
    바로 아래에 띄운다 — 그 숫자에 대한 안내라서다. 어드민에서 사료마다 문구를
    고쳐 쓸 수 있고(specNote), 비우면 브랜드 이름으로 기본 문구를 만든다. */
+/* 성분값이 어디서 왔는지 — 보장성분 인용(ga.protein)이 가리키는 출처의 종류.
+   제조사가 성분 수치를 공개하지 않은 처방식은 다나와 상품 정보로 싣기로 했다(2026-10-12 대표 결정).
+   그 경우 사용자가 제조사 발표값으로 오해하지 않게 출처를 밝힌다. */
+function gaFromDanawa(f) {
+  const e = f.src?.evidence?.['ga.protein'];
+  const s = e ? f.src?.sources?.[e.src] : null;
+  /* 수집 때 다나와 스펙(catalog)을 바로 쓴 경우와, 심사 화면에서 대표가 '다나와 값으로 채우기'로
+     확인해 넣은 경우(role label · 주소가 다나와) 둘 다 다나와 값이다. */
+  return !!s && (s.role === 'catalog' || /(^|\.)danawa\.com\//.test(String(s.url || '').replace(/^https?:\/\//, '')));
+}
 function specNoteText(f) {
-  if (f.specOrigin !== 'overseas') return '';
-  return String(f.specNote || '').trim()
-    || `※ ${f.brand} 글로벌에서 제시되는 기본 정보로서, 국내 사료관리법에 따른 제품 표시사항과 일부 다를 수 있습니다.`;
+  const notes = [];
+  if (f.specOrigin === 'overseas') {
+    notes.push(String(f.specNote || '').trim()
+      || `※ ${f.brand} 글로벌에서 제시되는 기본 정보로서, 국내 사료관리법에 따른 제품 표시사항과 일부 다를 수 있습니다.`);
+  }
+  if ((DETAIL[f.id] || {}).nutrient?.basis === 'dm') {
+    notes.push('※ 제조사가 수분을 뺀 기준(건물기준) 평균값만 공개해요. 봉투에 적힌 등록성분과 숫자가 달라요.');
+  }
+  if (gaFromDanawa(f)) {
+    notes.push('※ 제조사 공식 페이지에 성분 수치가 없어 다나와 상품 정보의 등록성분을 옮겼어요. 실제 봉투 표기와 다를 수 있어요.');
+  }
+  return notes.join('\n');
 }
 function specNotice(f) {
   const t = specNoteText(f);
   if (!t) return '';
   return `<div style="margin-top:12px;padding:12px 14px;border-radius:var(--rThumbMd);background:var(--surface)">
     <div style="font-size:12px;font-weight:700;letter-spacing:-.02em;color:var(--ink)">${esc(f.brand)} ${esc(f.name)}</div>
-    <p class="t-bodySm c-sub" style="margin-top:4px">${esc(t)}</p>
+    <p class="t-bodySm c-sub" style="margin-top:4px;white-space:pre-line">${esc(t)}</p>
   </div>`;
 }
 
@@ -912,13 +931,16 @@ function renderNutritionTab(f, d) {
   const ingr = (d.ingr || []).slice().sort((a, b) => (a.rank || 99) - (b.rank || 99));
 
   /* 기본 정보는 이 탭의 것이다. 성분을 보러 온 사람이 제일 먼저 확인하는 값이다. */
+  /* 건물기준(dm) 값만 있는 처방식은 칸 이름에 기준을 붙인다 — 같은 '18%' 라도 봉투 기준과
+     건물기준은 다른 숫자다. 수분은 제조사가 밝히지 않았으니 비워 둔다(짐작하지 않는다). */
+  const dm = n.basis === 'dm';
   const basic = [
     ['분류', (f.rx ? '처방식' : '일반식') + ' · ' + typeKo(f.type)],
     ['원산지', COUNTRY_KO[f.country] || f.country],
-    ['단백질ㅣ지방', `${n.protein ?? '—'}% ㅣ ${n.fat ?? '—'}%`],
-    ['탄수화물 (추정)', n.dmCarb != null ? n.dmCarb + '%' : '—'],
-    ['조섬유', n.fiber != null ? n.fiber + '%' : '—'],
-    ['수분', n.moisture != null ? n.moisture + '%' : '—']
+    [dm ? '단백질ㅣ지방 (건물기준)' : '단백질ㅣ지방', `${n.protein ?? '—'}% ㅣ ${n.fat ?? '—'}%`],
+    [dm ? '탄수화물 (건물기준)' : '탄수화물 (추정)', n.dmCarb != null ? n.dmCarb + '%' : '—'],
+    [dm ? '조섬유 (건물기준)' : '조섬유', n.fiber != null ? n.fiber + '%' : '—'],
+    ['수분', n.moisture != null ? n.moisture + '%' : (dm ? '공개 안 됨' : '—')]
   ];
 
   return `<div style="padding:28px var(--screenX) 0">
