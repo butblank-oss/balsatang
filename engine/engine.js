@@ -49,12 +49,26 @@ function rateValue(pKg) {
   return 1;
 }
 
+/* 원료 별점에 쓰는 단백질 — 수분이 많은 사료(화식·습식·생식)는 건식 수준(수분 10%)으로 맞춘다.
+   등록성분의 조단백은 봉투 그대로(수분 포함) 값이라, 수분 70%대 화식은 단백질이 10% 안팎으로 적혀
+   실제보다 별점이 크게 낮게 나온다. 루브릭 경계(32·25·16%)는 수분 10%대 건식에 맞춘 것이므로
+   같은 기준(수분 10%)으로 환산한다. 수분 20% 이하인 건식은 그대로 둔다 — 기존 점수가 움직이지 않는다.
+   2026-10-12 대표 결정. 화면·facts.protein 은 라벨 값 그대로 두고 채점에만 쓴다. */
+const MOIST_HIGH = 20, MOIST_BASE = 10;
+function qualityProtein(protein, moisture) {
+  if (protein == null) return null;
+  const m = moisture == null || moisture === '' ? null : Number(moisture);
+  if (m == null || Number.isNaN(m) || m <= MOIST_HIGH || m >= 100) return Number(protein);
+  return Math.round(Number(protein) * (100 - MOIST_BASE) / (100 - m) * 10) / 10;
+}
+
 /* 사실(facts)에서 ratings 전체를 계산한다.
-   facts = { dmCarb, protein, firstIngrCat, cautionN, dangerN, pKg } */
+   facts = { dmCarb, protein, firstIngrCat, cautionN, dangerN, pKg, moisture? }
+   moisture 는 보장성분표(ga.moisture)에서 넘긴다 — 저장하는 사실값이 아니라 채점 보조값이다. */
 function rateAll(facts) {
   /* pKg 가 없으면 value 는 null 이 된다. 가격 확보 전에도 나머지 3개는 채점된다. */
   return {
-    quality: rateQuality(facts.protein, facts.firstIngrCat),
+    quality: rateQuality(qualityProtein(facts.protein, facts.moisture), facts.firstIngrCat),
     carb: rateCarb(facts.dmCarb),
     additive: rateAdditive(facts.cautionN, facts.dangerN),
     value: rateValue(facts.pKg)
@@ -63,7 +77,7 @@ function rateAll(facts) {
 
 /* 게이트가 쓰는 설명문 — 왜 이 점수인지 사람에게 보여준다. */
 const RUBRIC_TEXT = {
-  quality: '조단백 32%↑=5, 25%↑=4, 16%↑=3, 그 미만=2. 1번 원료가 곡물이면 최대 3점',
+  quality: '조단백 32%↑=5, 25%↑=4, 16%↑=3, 그 미만=2. 1번 원료가 곡물이면 최대 3점. 수분 20% 넘는 사료(화식·습식)는 수분 10% 기준으로 환산',
   carb: '건물기준 탄수 16%↓=5, 26%↓=4, 35%↓=3, 47%↓=2, 초과=1',
   additive: '주의 성분 0개=5, 1~2개=4, 3~4개=3, 5개↑=2. 위험 성분 있으면 최대 3점',
   value: 'kg당 1만원↓=5, 1.6만원↓=4, 3.2만원↓=3, 4.5만원↓=2, 초과=1'
@@ -539,7 +553,7 @@ function publishRecord(item, uuid, now) {
 
 globalThis.ENGINE = {
   normalizeIngredient, lookupIngredient,
-  rateCarb, rateQuality, rateAdditive, rateValue, rateAll, computeDmCarb,
+  rateCarb, rateQuality, rateAdditive, rateValue, rateAll, qualityProtein, computeDmCarb,
   computeScore, SCORE_WEIGHT, RUBRIC_TEXT, REQUIRED_FACT_KEYS,
   deriveNutrient, deriveIngredients, deriveDist, deriveFuncIngr,
   deriveVerdict, deriveFit, deriveDetail,
