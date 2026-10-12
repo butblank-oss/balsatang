@@ -38,13 +38,37 @@ jobs:
         run: |
           git config user.name  'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
-          git add -A food content sitemap.xml
+          git add -A food content sitemap.xml rss.xml
           if git diff --cached --quiet; then
             echo '검색용 페이지에 바뀐 내용이 없습니다.'
             exit 0
           fi
+          # 바뀐 사료·글 주소 — 아래 IndexNow 알림에 쓴다
+          git diff --cached --name-only -- food content | grep '/index.html$' | sed 's#/index.html$#/#; s#^#https://balsatang.com/#' | sort -u > /tmp/changed-urls.txt || true
           git commit -m '검색용 페이지 갱신' -m '자동 실행입니다. scripts/build-pages.mjs'
           for i in 1 2 3; do
             git push && break
             git pull --rebase origin main || exit 1
+          done
+
+      # 네이버·빙에 '이 주소가 새로 생겼거나 바뀌었다' 고 바로 알린다 (IndexNow).
+      # 키 파일은 사이트 루트의 <키>.txt — 공개용 값이라 비밀이 아니다. 알림이 실패해도 배포는 막지 않는다.
+      - name: 네이버에 새 글 알리기 (IndexNow)
+        if: always()
+        continue-on-error: true
+        run: |
+          [ -s /tmp/changed-urls.txt ] || { echo '알릴 주소가 없습니다.'; exit 0; }
+          KEY=622bea4664d7766fa9440a3f6dda71b2
+          BODY=$(node -e 'const u=require("fs").readFileSync("/tmp/changed-urls.txt","utf8").trim().split("\n").slice(0,1000);console.log(JSON.stringify({host:"balsatang.com",key:process.argv[1],keyLocation:"https://balsatang.com/"+process.argv[1]+".txt",urlList:u}))' "$KEY")
+          echo "알릴 주소 $(wc -l < /tmp/changed-urls.txt)개"
+          # GitHub Pages 배포가 끝나 키 파일과 첫 주소가 실제로 열릴 때까지 기다린다 (최대 10분)
+          FIRST=$(head -1 /tmp/changed-urls.txt)
+          for i in $(seq 1 40); do
+            K=$(curl -s -o /dev/null -w '%{http_code}' "https://balsatang.com/$KEY.txt")
+            F=$(curl -s -o /dev/null -w '%{http_code}' "$FIRST")
+            [ "$K" = 200 ] && [ "$F" = 200 ] && break
+            sleep 15
+          done
+          for EP in https://searchadvisor.naver.com/indexnow https://api.indexnow.org/indexnow; do
+            curl -s -o /dev/null -w "$EP → %{http_code}\n" -X POST "$EP" -H 'Content-Type: application/json; charset=utf-8' -d "$BODY"
           done
