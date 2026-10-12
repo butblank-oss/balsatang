@@ -14,7 +14,12 @@
    ── 키가 공개돼도 되는 이유 ──
    anon 키는 원래 브라우저에 실리는 값이다. DB 쪽 RLS 가 anon 에게 '넣기' 만
    허락하고 '읽기' 는 막는다. 어드민은 운영자 계정으로 로그인해야 읽는다.
-   (설치 방법: balsatang-admin 저장소 analytics/README.md) */
+   (설치 방법: balsatang-admin 저장소 analytics/README.md)
+
+   ── 구글 애널리틱스(GA4) ──
+   GA_ID 를 넣으면 같은 이벤트를 GA 에도 보낸다. 꺼지는 조건은 위와 똑같다
+   (기록 끄기 · 추적 안 함). 검색 로봇·자동화 도구·운영자 기기는 GA 에 보내지 않는다.
+   광고 기능(구글 시그널·광고 개인화)은 끈다. GA 는 쿠키(_ga)를 쓴다 — 방침 4·6·7항. */
 (function (global) {
   'use strict';
 
@@ -22,6 +27,8 @@
     url: 'https://lcynjpiclpedxflfvhns.supabase.co',
     key: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxjeW5qcGljbHBlZHhmbGZ2aG5zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEzMTE4MTUsImV4cCI6MjEwNjg4NzgxNX0.NHEB02OtA0zYevKMeWnIDQaT7nl-toqn7Nka---8tZE'   /* anon(public) — 넣기만 된다 */
   };
+
+  const GA_ID = 'G-8Q9DW8FVJS';   /* 'G-XXXXXXXXXX' — 비어 있으면 GA 를 아예 불러오지 않는다 */
 
   const K_DEVICE = 'balsatang.did';
   const K_SESSION = 'balsatang.sid';
@@ -185,6 +192,56 @@
       });
       if (queue.length >= MAX_BATCH) flush();
       else if (!timer) timer = setTimeout(flush, FLUSH_MS);
+      gaSend(name, props || {});
+    } catch { }
+  }
+
+  /* ── GA4 ──
+     해시 라우팅(#/detail/…)이라 GA 가 화면 이동을 스스로 못 본다. screen_view 를 page_view 로 바꿔 보낸다.
+     주소는 '#/' 를 뺀 경로로 적는다(#/detail/abc → /detail/abc). 첫 화면의 utm 은 GA 가 주소에서 읽는다.
+     GA 가 스스로 만드는 이름(first_visit·session_start)과 내부용 이벤트는 보내지 않는다. */
+  const GA_SKIP = new Set(['first_visit', 'session_start', 'leave', 'owner_mark', 'tracking_on', 'tracking_off']);
+  let gaOn = null, gaFirst = true;
+  function gaReady() {
+    if (gaOn !== null) return gaOn && enabled();
+    gaOn = false;
+    if (!GA_ID || !enabled() || agent().agent !== 'human') return false;
+    global.dataLayer = global.dataLayer || [];
+    global.gtag = function () { global.dataLayer.push(arguments); };
+    global.gtag('js', new Date());
+    global.gtag('config', GA_ID, {
+      send_page_view: false,
+      allow_google_signals: false,
+      allow_ad_personalization_signals: false
+    });
+    const el = document.createElement('script');
+    el.async = true;
+    el.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(GA_ID);
+    document.head.appendChild(el);
+    gaOn = true;
+    return true;
+  }
+  function gaPath() {
+    const h = (location.hash || '').replace(/^#/, '');
+    return (h.startsWith('/') ? h : '/' + h).replace(/\/+$/, '') || '/';
+  }
+  function gaSend(name, props) {
+    if (GA_SKIP.has(name) || !gaReady()) return;
+    try {
+      if (name === 'screen_view') {
+        global.gtag('event', 'page_view', {
+          page_location: location.origin + gaPath() + (gaFirst ? location.search : ''),  /* utm 은 첫 화면에만 */
+          page_title: document.title,
+          screen: cut(props.screen, 100)
+        });
+        gaFirst = false;
+        return;
+      }
+      if (name === 'search') { global.gtag('event', 'search', { search_term: cut(props.q, 100), results: props.n }); return; }
+      const p = {};
+      for (const [k, v] of Object.entries(props).slice(0, 20))
+        if (v != null && typeof v !== 'object') p[k.slice(0, 40)] = typeof v === 'string' ? v.slice(0, 100) : v;
+      global.gtag('event', String(name).slice(0, 40), p);
     } catch { }
   }
 
@@ -258,6 +315,7 @@
     track, screenView, search,
     isOn: () => !optedOut(),
     setOn(on) {
+      if (GA_ID) global['ga-disable-' + GA_ID] = !on;
       if (on) { ls.del(K_OFF); track('tracking_on'); }
       else { track('tracking_off'); flush(true); ls.set(K_OFF, '1'); ls.del(K_DEVICE); ls.del(K_SESSION); base = null; }
     }
