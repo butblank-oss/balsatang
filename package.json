@@ -29,7 +29,8 @@
     "pages": "node scripts/build-pages.mjs",
     "rxfor": "node scripts/publish-rxfor.test.mjs",
     "warnn-rxfor": "node scripts/gate1-warnn-rxfor.test.mjs",
-    "srcorigin": "node scripts/source-origin.test.mjs"
+    "srcorigin": "node scripts/source-origin.test.mjs",
+    "keywords": "node scripts/keywords.mjs"
   },
   "devDependencies": {
     "playwright": "^1.49.0"
