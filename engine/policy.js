@@ -13,7 +13,9 @@
 
 
 const ENUM = {
-  type: ['dry', 'wet', 'air_dried', 'freeze_dried', 'raw'],
+  /* cooked — 화식(익혀서 냉장·냉동으로 파는 사료, 예: 듀먼). raw 는 생식이다.
+     예전 화면들이 raw 를 '화식' 으로 적어서 둘이 섞여 있었다(2026-10-12 바로잡음). */
+  type: ['dry', 'wet', 'cooked', 'air_dried', 'freeze_dried', 'raw'],
   country: ['KR', 'CA', 'US', 'FR', 'NZ', 'AU', 'DE', 'IT', 'NL', 'BE', 'GB', 'JP', 'TH'],
   ages: ['all', 'puppy', 'adult', 'senior'],
   sizes: ['all', 'small', 'medium', 'large'],

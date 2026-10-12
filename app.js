@@ -150,8 +150,9 @@ function kcalPerKg(f) {
 }
 
 /* ═══ 검색 ═══ */
-const TYPE_KO = { dry: '건식', wet: '습식', freeze_dried: '동결건조',
-  air_dried: '에어드라이', raw: '화식', topping: '토핑' };
+/* cooked = 화식(익힌 사료), raw = 생식. 예전엔 raw 를 '화식' 으로 적었다. */
+const TYPE_KO = { dry: '건식', wet: '습식', cooked: '화식', freeze_dried: '동결건조',
+  air_dried: '에어드라이', raw: '생식', topping: '토핑' };
 const typeKo = t => TYPE_KO[t] || t;
 
 const SEARCH_SYNONYM = [
@@ -226,7 +227,7 @@ function matchQuery(f, q) {
   if (!q) return true;
   /* 처방식을 검색거리에 넣는다. 홈의 '처방식' 고민 칩이 state.query='처방식' 을 넣는데,
      제품명에 그 글자가 든 사료는 없어서 칩이 늘 빈 결과를 냈다. */
-  const hay = `${f.brand} ${f.name}${f.rx ? ' 처방식' : ''}`.toLowerCase().replace(/\s/g, '');
+  const hay = `${f.brand} ${f.name}${f.rx ? ' 처방식' : ''} ${TYPE_KO[f.type] || ''}`.toLowerCase().replace(/\s/g, '');
   const nq = q.toLowerCase().replace(/\s/g, '');
   if (hay.includes(nq)) return true;
   const tags = synonymTags(q);
@@ -489,6 +490,7 @@ const HOME_CHIPS = [
   ['all', '전체', () => true],
   ['dry', '건식', f => f.type === 'dry'],
   ['air', '에어드라이', f => f.type === 'air_dried' || f.type === 'freeze_dried'],
+  ['wet', '화식·습식', f => ['cooked', 'wet', 'raw'].includes(f.type)],
   ['small', '소형견', f => (f.sizes || []).some(x => x === 'small' || x === 'all')],
   ['senior', '시니어', f => (f.ages || []).some(x => x === 'senior' || x === 'all')],
   ['rx', '처방식', f => !!f.rx]

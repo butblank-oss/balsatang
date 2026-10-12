@@ -61,7 +61,7 @@ ctx.mdEmbed = (kind, args) => {
 };
 const { esc, mdToHtml } = ctx;
 
-const TYPE_KO = { dry: '건식', wet: '습식', freeze_dried: '동결건조', air_dried: '에어드라이', raw: '화식', topping: '토핑' };
+const TYPE_KO = { dry: '건식', wet: '습식', freeze_dried: '동결건조', air_dried: '에어드라이', cooked: '화식', raw: '생식', topping: '토핑' };
 const AGE_KO = { all: '전연령', puppy: '퍼피', adult: '성견', senior: '시니어' };
 const NUT = [['protein', '조단백'], ['fat', '조지방'], ['fiber', '조섬유'], ['moisture', '수분'], ['ash', '조회분'], ['carb', '탄수화물(추정)']];
 const cut = (s, n) => { s = String(s || '').replace(/\s+/g, ' ').trim(); return s.length > n ? s.slice(0, n - 1) + '…' : s; };
