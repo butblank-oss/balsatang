@@ -759,9 +759,12 @@ function renderDetail() {
 /* 성분값이 어디서 왔는지 — 보장성분 인용(ga.protein)이 가리키는 출처의 종류.
    제조사가 성분 수치를 공개하지 않은 처방식은 다나와 상품 정보로 싣기로 했다(2026-10-12 대표 결정).
    그 경우 사용자가 제조사 발표값으로 오해하지 않게 출처를 밝힌다. */
-function gaSourceRole(f) {
+function gaFromDanawa(f) {
   const e = f.src?.evidence?.['ga.protein'];
-  return e ? (f.src?.sources?.[e.src]?.role ?? null) : null;
+  const s = e ? f.src?.sources?.[e.src] : null;
+  /* 수집 때 다나와 스펙(catalog)을 바로 쓴 경우와, 심사 화면에서 대표가 '다나와 값으로 채우기'로
+     확인해 넣은 경우(role label · 주소가 다나와) 둘 다 다나와 값이다. */
+  return !!s && (s.role === 'catalog' || /(^|\.)danawa\.com\//.test(String(s.url || '').replace(/^https?:\/\//, '')));
 }
 function specNoteText(f) {
   const notes = [];
@@ -772,7 +775,7 @@ function specNoteText(f) {
   if ((DETAIL[f.id] || {}).nutrient?.basis === 'dm') {
     notes.push('※ 제조사가 수분을 뺀 기준(건물기준) 평균값만 공개해요. 봉투에 적힌 등록성분과 숫자가 달라요.');
   }
-  if (gaSourceRole(f) === 'catalog') {
+  if (gaFromDanawa(f)) {
     notes.push('※ 제조사 공식 페이지에 성분 수치가 없어 다나와 상품 정보의 등록성분을 옮겼어요. 실제 봉투 표기와 다를 수 있어요.');
   }
   return notes.join('\n');

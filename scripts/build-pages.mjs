@@ -15,7 +15,8 @@
    ── 무엇을 만드나 ──
    · 분석이 끝난 사료만 (DETAIL 에 원료가 있는 것). '분석 준비 중' 은 내용이 없어 뺀다
    · 모든 콘텐츠 글
-   · sitemap.xml — 위 페이지 전부 + 홈
+   · sitemap.xml — 위 페이지 전부 + 홈 (글은 발행일을 lastmod 로)
+   · rss.xml — 발행일이 있는 글, 최신순 (네이버 서치어드바이저 RSS 제출용)
    food/ · content/ 는 이 스크립트가 통째로 지우고 다시 만든다. 손으로 고치지 않는다.
 
    실행: node scripts/build-pages.mjs   (main 에 data.js·articles.js 가 바뀌면 Actions 가 돌린다) */
@@ -35,6 +36,14 @@ const { FOODS, DETAIL, ARTICLES } = ctx;
 
 /* 본문 마크다운은 화면의 mdToHtml 을 그대로 빌려 쓴다. 옮겨 적으면 두 벌이 된다. */
 const appSrc = read('app.js');
+/* 글 표지 — 화면(app.js articleCover)과 같은 규칙. 글 전용 그림이 없으면 분류 기본 그림. */
+const grabObj = name => { const m = appSrc.match(new RegExp('^const ' + name + ' = (\\{[^;]*\\});', 'm'));
+  if (!m) throw new Error('app.js 에서 찾지 못함: ' + name); return vm.runInNewContext('(' + m[1] + ')'); };
+const COVER_IMG = grabObj('COVER_IMG'), COVER_CAT = grabObj('COVER_CAT');
+const coverUrl = a => a.cover || `${SITE_URL}/assets/covers/${COVER_IMG[a.id] ? a.id : (COVER_CAT[a.cat] || 'cat-guide')}.webp`;
+/* 검색 결과 제목 — 화면 제목(훅) 뒤에 검색어 덩어리(seoTitle). 콘텐츠-가이드 3장 '검색용 제목·설명·발행일'. */
+const seoTitleOf = a => a.seoTitle ? `${a.title} | ${a.seoTitle}` : a.title;
+const seoDescOf = a => cut(a.seoDesc || a.excerpt || a.body, 150);
 const grab = re => { const m = appSrc.match(re); if (!m) throw new Error('app.js 에서 찾지 못함: ' + re); return m[0]; };
 vm.runInContext(
   grab(/^const esc = .*$/m).replace(/^const /, 'var ') + '\n' +
@@ -114,6 +123,7 @@ const write = (rel, html) => {
 };
 
 const urls = [`${SITE_URL}/`];
+const lastmod = {};   /* 주소 → YYYY-MM-DD. 아는 것만 적는다 */
 const foods = FOODS.filter(f => f.status === 'published' && (DETAIL[f.id]?.ingr || []).length);
 for (const f of foods) {
   const d = DETAIL[f.id];
@@ -131,20 +141,48 @@ for (const f of foods) {
 for (const a of ARTICLES) {
   if (!/^[a-z0-9-]+$/i.test(a.id)) throw new Error(`글 id 를 주소로 쓸 수 없습니다: ${a.id}`);
   const url = `${SITE_URL}/content/${a.id}/`;
+  const image = coverUrl(a);
   write(`content/${a.id}`, page({
     url, type: 'article', hash: `#/글/${encodeURIComponent(a.id)}`,
-    title: `${a.title} — 발사탕`,
-    desc: cut(a.excerpt || a.body, 150),
-    body: `<p>${esc(a.cat || '')}</p><h1>${esc(a.title)}</h1>${mdToHtml(a.body)}`,
+    title: `${seoTitleOf(a)} — 발사탕`,
+    desc: seoDescOf(a),
+    image,
+    body: `<p>${esc(a.cat || '')}</p><h1>${esc(a.title)}</h1>${a.date ? `<p><time datetime="${esc(a.date)}">${esc(a.date.replace(/-/g, '.'))}</time></p>` : ''}${a.excerpt ? `<p><b>${esc(a.excerpt)}</b></p>` : ''}${mdToHtml(a.body)}`,
     jsonld: { '@context': 'https://schema.org', '@type': 'Article', headline: a.title,
-      description: cut(a.excerpt || a.body, 150), inLanguage: 'ko-KR', mainEntityOfPage: url,
+      description: seoDescOf(a), inLanguage: 'ko-KR', mainEntityOfPage: url, image: [image],
+      ...(a.date ? { datePublished: `${a.date}T09:00:00+09:00`, dateModified: `${a.date}T09:00:00+09:00` } : {}),
+      author: { '@type': 'Organization', name: '발사탕 에디터', url: `${SITE_URL}/` },
       publisher: { '@type': 'Organization', name: '발사탕', url: `${SITE_URL}/` } }
   }));
+  if (a.date) lastmod[url] = a.date;
   urls.push(url);
 }
 
 fs.writeFileSync(path.join(ROOT, 'sitemap.xml'),
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
-  urls.map(u => `  <url><loc>${u}</loc></url>`).join('\n') + '\n</urlset>\n');
+  urls.map(u => `  <url><loc>${u}</loc>${lastmod[u] ? `<lastmod>${lastmod[u]}</lastmod>` : ''}</url>`).join('\n') + '\n</urlset>\n');
+
+/* RSS — 새 글을 네이버 서치어드바이저·구글이 빨리 알아채게. 발행일(date) 있는 글만, 최신순. */
+const rfc822 = d => new Date(`${d}T09:00:00+09:00`).toUTCString();
+const feed = ARTICLES.filter(a => a.date).sort((a, b) => b.date.localeCompare(a.date));
+fs.writeFileSync(path.join(ROOT, 'rss.xml'), `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+<title>발사탕 콘텐츠</title>
+<link>${SITE_URL}/</link>
+<description>강아지 사료 라벨을 쉽게 읽어 드려요. 성분·탄수화물·첨가물·가성비를 데이터로 풀어요.</description>
+<language>ko</language>
+<atom:link href="${SITE_URL}/rss.xml" rel="self" type="application/rss+xml"/>
+${feed.length ? `<lastBuildDate>${rfc822(feed[0].date)}</lastBuildDate>\n` : ''}${feed.map(a => `<item>
+<title>${esc(seoTitleOf(a))}</title>
+<link>${SITE_URL}/content/${a.id}/</link>
+<guid isPermaLink="true">${SITE_URL}/content/${a.id}/</guid>
+<description>${esc(seoDescOf(a))}</description>
+<category>${esc(a.cat || '')}</category>
+<pubDate>${rfc822(a.date)}</pubDate>
+</item>`).join('\n')}
+</channel>
+</rss>
+`);
 
 console.log(`검색용 페이지 — 사료 ${foods.length}종 (분석 준비 중 ${FOODS.length - foods.length}종 제외) · 글 ${ARTICLES.length}편 · sitemap ${urls.length}개 주소`);
