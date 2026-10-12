@@ -87,7 +87,7 @@ for (const file of files) {
       p.price.pKg = Math.round(p.price.p / (p.price.wg / 1000));
     }
     /* 점수는 사람이 못 고친다. 항상 루브릭이 다시 낸다. */
-    const ratings = rateAll({ ...p.facts, pKg: p.pricePending ? null : p.price?.pKg });
+    const ratings = rateAll({ ...p.facts, moisture: p.ga?.moisture ?? null, pKg: p.pricePending ? null : p.price?.pKg });
     if (p.pricePending) ratings.value = null;
     p.ratings = ratings;
     p.score = p.pricePending ? null : computeScore(ratings);

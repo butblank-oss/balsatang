@@ -125,7 +125,7 @@ function checkItem(item, published, seen) {
         F('E_WARN_N', `warnN(${p.warnN ?? 0})이 사실값과 다릅니다 — 주의 ${facts.cautionN} + 위험 ${facts.dangerN ?? 0} = ${wantWarn}`);
       }
     }
-    const expect = rateAll({ ...facts, pKg: p.price?.pKg });
+    const expect = rateAll({ ...facts, moisture: p.ga?.moisture ?? null, pKg: p.price?.pKg });
     for (const k of REQUIRED_RATING_KEYS) {
       if (pending && k === 'value') continue;
       if (expect[k] == null) continue;
