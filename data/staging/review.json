@@ -1,6 +1,6 @@
 {
-  "builtAt": "2026-10-12T02:01:20.585Z",
-  "live": false,
+  "builtAt": "2026-10-12T02:04:00.240Z",
+  "live": true,
   "batches": [
     {
       "file": "danawa-top-2026-w41a.json",
@@ -1752,8 +1752,17 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_BRAND",
+                "msg": "sources[0] 페이지에 브랜드명(고!솔루션 / gosolutions)이 없습니다: https://haruwell.com/goods/goods_view.php?goodsNo=1000000133"
+              },
+              {
+                "code": "E_URL_BRAND",
+                "msg": "sources[1] 페이지에 브랜드명(고!솔루션 / gosolutions)이 없습니다: https://prod.danawa.com/info/?pcode=11223654"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -1915,8 +1924,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_BRAND",
+                "msg": "sources[0] 페이지에 브랜드명(고!솔루션 / gosolutions)이 없습니다: https://haruwell.com/goods/goods_view.php?goodsNo=1000000678"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -2106,8 +2120,17 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_BRAND",
+                "msg": "sources[0] 페이지에 브랜드명(고!솔루션 / gosolutions)이 없습니다: https://haruwell.com/goods/goods_view.php?goodsNo=1000000130"
+              },
+              {
+                "code": "E_URL_BRAND",
+                "msg": "sources[1] 페이지에 브랜드명(고!솔루션 / gosolutions)이 없습니다: https://prod.danawa.com/info/?pcode=5582817"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -2297,8 +2320,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_BRAND",
+                "msg": "sources[1] 페이지에 브랜드명(고!솔루션 / gosolutions)이 없습니다: https://prod.danawa.com/info/?pcode=101727095"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -2486,8 +2514,17 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_BRAND",
+                "msg": "sources[0] 페이지에 브랜드명(고!솔루션 / gosolutions)이 없습니다: https://haruwell.com/goods/goods_view.php?goodsNo=1000000119"
+              },
+              {
+                "code": "E_URL_BRAND",
+                "msg": "sources[1] 페이지에 브랜드명(고!솔루션 / gosolutions)이 없습니다: https://prod.danawa.com/info/?pcode=99815426"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -2851,8 +2888,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[0] HTTP 403: https://www.hillspet.co.kr/dog-food/prescription-diet-cd-multicare-urinary-care-dry"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -3043,8 +3085,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[0] HTTP 403: https://www.hillspet.co.kr/dog-food/prescription-diet-gastrointestinal-biome-small-bites-digestive-care-dry"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -3221,8 +3268,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[0] HTTP 403: https://www.hillspet.co.kr/dog-food/prescription-diet-hd-heart-care-dry"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -3413,8 +3465,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[0] HTTP 403: https://www.hillspet.co.kr/dog-food/prescription-diet-id-digestive-care-dry"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -3599,8 +3656,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[0] HTTP 403: https://www.hillspet.co.kr/dog-food/prescription-diet-id-low-fat-digestive-care-dry"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -3789,8 +3851,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[0] HTTP 403: https://www.hillspet.co.kr/dog-food/prescription-diet-id-small-bites-digestive-care-dry"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -3960,8 +4027,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[0] HTTP 403: https://www.hillspet.co.kr/dog-food/prescription-diet-jd-small-bites-joint-care-dry"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -4146,8 +4218,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[0] HTTP 403: https://www.hillspet.co.kr/dog-food/prescription-diet-kd-kidney-care-dry"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -4334,8 +4411,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[0] HTTP 403: https://www.hillspet.co.kr/dog-food/prescription-diet-ld-liver-care-dry"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -4518,8 +4600,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[0] HTTP 403: https://www.hillspet.co.kr/dog-food/prescription-diet-metabolic-mini-chicken-weight-management-dry"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -4691,8 +4778,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[0] HTTP 403: https://www.hillspet.co.kr/dog-food/prescription-diet-onc-on-care-chicken-restorative-care-dry"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -4875,8 +4967,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[0] HTTP 403: https://www.hillspet.co.kr/dog-food/prescription-diet-rd-weight-management-dry"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -5052,8 +5149,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[0] HTTP 403: https://www.hillspet.co.kr/dog-food/prescription-diet-td-small-bites-dental-care-dry"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -5242,8 +5344,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[0] HTTP 403: https://www.hillspet.co.kr/dog-food/prescription-diet-wd-glucose-management-dry"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -5426,8 +5533,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[0] HTTP 403: https://www.hillspet.co.kr/dog-food/prescription-diet-zd-food-sensitivities-dry"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -5598,8 +5710,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[0] HTTP 403: https://www.hillspet.co.kr/dog-food/prescription-diet-zd-low-fat-small-bites-hydrolysed-soy-food-sensitivities-dry"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -5783,8 +5900,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[0] HTTP 403: https://www.hillspet.co.kr/dog-food/prescription-diet-zd-small-bites-food-sensitivities-dry"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -6001,8 +6123,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_BRAND",
+                "msg": "sources[1] 페이지에 브랜드명(나우프레쉬 / nowfresh)이 없습니다: https://prod.danawa.com/info/?pcode=99806315"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -6216,8 +6343,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_BRAND",
+                "msg": "sources[1] 페이지에 브랜드명(나우프레쉬 / nowfresh)이 없습니다: https://prod.danawa.com/info/?pcode=14533913"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -6431,8 +6563,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_BRAND",
+                "msg": "sources[1] 페이지에 브랜드명(나우프레쉬 / nowfresh)이 없습니다: https://prod.danawa.com/info/?pcode=13745309"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -6643,8 +6780,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_BRAND",
+                "msg": "sources[1] 페이지에 브랜드명(나우프레쉬 / nowfresh)이 없습니다: https://prod.danawa.com/info/?pcode=12939512"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -6856,8 +6998,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_BRAND",
+                "msg": "sources[1] 페이지에 브랜드명(나우프레쉬 / nowfresh)이 없습니다: https://prod.danawa.com/info/?pcode=9817941"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -7065,8 +7212,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_BRAND",
+                "msg": "sources[1] 페이지에 브랜드명(나우프레쉬 / nowfresh)이 없습니다: https://prod.danawa.com/info/?pcode=99813215"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -7280,8 +7432,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_BRAND",
+                "msg": "sources[1] 페이지에 브랜드명(나우프레쉬 / nowfresh)이 없습니다: https://prod.danawa.com/info/?pcode=98580404"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -7496,8 +7653,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_BRAND",
+                "msg": "sources[1] 페이지에 브랜드명(나우프레쉬 / nowfresh)이 없습니다: https://prod.danawa.com/info/?pcode=124362783"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
