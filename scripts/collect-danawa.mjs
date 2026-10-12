@@ -88,7 +88,7 @@ async function detail(pcode) {
   return {
     pcode, title, img,
     lowPrice: low ? Number(low[1].replace(/,/g, '')) : null,
-    type: /건식/.test(spec) ? 'dry' : /습식/.test(spec) ? 'wet' : /동결건조/.test(spec) ? 'freeze_dried' : null,
+    type: /건식/.test(spec) ? 'dry' : /화식/.test(spec) ? 'cooked' : /습식/.test(spec) ? 'wet' : /동결건조/.test(spec) ? 'freeze_dried' : null,
     age: /전연령/.test(spec) ? 'all' : /퍼피|자견/.test(spec) ? 'puppy'
       : /시니어|노령/.test(spec) ? 'senior' : /성견/.test(spec) ? 'adult' : null,
     protein: num('조단백'), fat: num('조지방'),

@@ -502,7 +502,7 @@ img{display:block;max-width:100%}
 .d-hero{margin:0 16px;height:268px;overflow:hidden;border-radius:12px;background:#fff;box-shadow:var(--imageWell);display:grid;place-items:center;padding:22px}
 .d-hero img{width:100%;height:100%;object-fit:contain;min-height:0}
 .d-hero.pending img{opacity:.4;filter:grayscale(1)}
-.d-hero .initial{font-size:64px;font-weight:800;color:var(--ink25)}
+.d-hero .initial{font-size:64px;font-weight:800;color:var(--ink50)}
 .d-info{padding:20px 16px 0}
 .d-brand{font-size:14px;font-weight:600;color:var(--ink50);letter-spacing:-.02em}
 .d-name{font-size:23px;font-weight:700;letter-spacing:-.04em;line-height:1.35;margin-top:3px}
