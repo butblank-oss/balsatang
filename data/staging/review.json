@@ -1,5 +1,5 @@
 {
-  "builtAt": "2026-10-16T01:56:00.228Z",
+  "builtAt": "2026-10-17T01:50:53.105Z",
   "live": true,
   "batches": [
     {
@@ -1140,13 +1140,8 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "fail",
-            "g1fail": [
-              {
-                "code": "E_URL_BRAND",
-                "msg": "sources[0] 페이지에 브랜드명(커클랜드 / kirkland)이 없습니다: https://www.costco.co.kr/Pet-Supplies/Kirkland-Signature-Premium-Dog-Food-1587kg-x-32ea/p/643115"
-              }
-            ],
+            "g1": "pending",
+            "g1fail": [],
             "g1warn": [],
             "todo": [],
             "g2": "none",
