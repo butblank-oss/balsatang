@@ -62,22 +62,47 @@ try {
   pg.on('dialog', d => d.accept());
   await pg.goto(U); await pg.waitForTimeout(900);
 
-  /* TC-R02 카드 렌더 */
+  /* 심사 화면은 목록 + 상세다(2026-10 개편). 상세는 #/<stagingId> 한 건만 열린다.
+     그래서 고치는 칸을 보려면 먼저 그 건을 열어야 한다. 줄을 클릭해도 되지만 정렬·필터가
+     바뀌면 줄 위치가 흔들려 시험이 깨진다 — 주소를 바꿔 여는 쪽이 같은 길을 타면서 안 흔들린다.
+     옛 시험은 카드 2장이 한 화면에 펼쳐져 있다고 보고 .card[data-id] 를 바로 찾다가
+     30초를 기다리고 멈췄다. */
+  const open = async id => {
+    await pg.evaluate(x => { location.hash = '#/' + encodeURIComponent(x); }, id);
+    await pg.locator(`.card[data-id="${id}"]`).first().waitFor({ timeout: 5000 });
+    await pg.waitForTimeout(200);
+  };
+  const toList = async () => {
+    await pg.evaluate(() => { location.hash = ''; });
+    await pg.locator('table.ltbl').first().waitFor({ timeout: 5000 });
+    await pg.waitForTimeout(150);
+  };
+
+  /* TC-R02 목록 렌더 */
   {
-    const cards = await pg.locator('.card[data-id]').count();
-    if (cards !== 2) bug('review', 'TC-R02', 'P1', `심사 카드 ${cards}장 (2장이어야 함)`);
-    else pass('TC-R02', '심사 카드 2장 렌더');
+    const rows = await pg.locator('tr[data-open]').count();
+    if (rows !== 2) bug('review', 'TC-R02', 'P1', `심사 목록 ${rows}줄 (2줄이어야 함)`);
+    else pass('TC-R02', '심사 목록 2줄 렌더');
     const txt = (await pg.textContent('body'));
-    if (!txt.includes('QA 통과 사료')) bug('review', 'TC-R02', 'P1', '사료 이름이 화면에 없음');
-    if (!/불일치|mismatch|대조/.test(txt)) bug('review', 'TC-R02', 'P1', '심사 AI 대조 불일치 사유가 화면에 안 보임');
+    if (!txt.includes('QA 통과 사료')) bug('review', 'TC-R02', 'P1', '사료 이름이 목록에 없음');
+    else pass('TC-R02', '목록에 사료 이름 표시');
+    await pg.screenshot({ path: `${OUT}/shot-review-02-list.png`, fullPage: true });
+  }
+
+  /* TC-R02b 대조 불일치 사유는 상세에 떠야 한다 — 수집값과 재조사값이 어긋난 걸
+     사람이 보고 판단하는 자리다. 목록엔 자리가 없으니 상세에서 본다. */
+  {
+    await open('stg_qa_ok');
+    const txt = await pg.textContent('.card[data-id="stg_qa_ok"]');
+    if (!/불일치|mismatch|대조/.test(txt)) bug('review', 'TC-R02', 'P1', '심사 AI 대조 불일치 사유가 상세에 안 보임');
     else pass('TC-R02', '대조 불일치 사유 표시');
-    await pg.screenshot({ path: `${OUT}/shot-review-02-cards.png`, fullPage: true });
+    await pg.screenshot({ path: `${OUT}/shot-review-02-detail.png`, fullPage: true });
   }
 
   /* TC-R03 탈락한 건은 승인할 수 없어야 한다 */
   {
-    const blocked = pg.locator('.card[data-id="stg_qa_blocked"]');
-    const approve = blocked.locator('[data-act="publish"]');
+    await open('stg_qa_blocked');
+    const approve = pg.locator('.card[data-id="stg_qa_blocked"] [data-act="publish"]');
     if (!await approve.count()) pass('TC-R03', '탈락 건에 승인 버튼 없음');
     else {
       const dis = await approve.first().isDisabled().catch(() => false);
@@ -86,11 +111,7 @@ try {
     }
   }
 
-  /* 카드는 접혀 있다 — 펼쳐야 고치기가 보인다 */
-  for (const id of ['stg_qa_ok', 'stg_qa_blocked']) {
-    await pg.locator(`.card[data-id="${id}"] .hd, .card[data-id="${id}"] .head, .card[data-id="${id}"]`).first().click();
-    await pg.waitForTimeout(200);
-  }
+  await open('stg_qa_ok');
 
   /* TC-R04 값 고치기 → 발행 명령에 실리는지 */
   {
@@ -141,18 +162,28 @@ try {
   /* TC-R07 새로고침 후 편집 유지 */
   {
     await pg.reload(); await pg.waitForTimeout(900);
+    /* 주소에 #/stg_qa_ok 가 남아 있어도, 자료를 읽은 뒤 다시 그려질 때까지는 칸이 없다 */
+    await open('stg_qa_ok');
     const v = await pg.locator('.card[data-id="stg_qa_ok"] [data-edit]').first().inputValue().catch(() => '');
     if (v !== '30') bug('review', 'TC-R07', 'P2', `새로고침하면 고친 값이 사라짐 (${v})`);
     else pass('TC-R07', '새로고침 후 편집 유지');
   }
 
-  /* TC-R08 레이아웃 */
+  /* TC-R08 레이아웃 — 목록과 상세 둘 다 본다. 목록은 8칸 표라 넘치기 쉽고,
+     상세는 입력칸이 많아 글자 대비가 깨지기 쉽다. 한쪽만 보면 반만 보는 것이다. */
   {
-    const ov = await overflowX(pg);
-    if (ov > 0) bug('review', 'TC-R08', 'P3', `가로 스크롤 ${ov}px`);
-    const lc = await lowContrast(pg);
-    if (lc.length) bug('review', 'TC-R08', 'P2', `저대비 ${lc.length}건: ${lc.slice(0, 3).map(x => `"${x.text}" ${x.ratio}:1`).join(' / ')}`);
-    else pass('TC-R08', '레이아웃·대비 정상');
+    let clean = true;
+    for (const [where, go] of [['목록', toList], ['상세', () => open('stg_qa_ok')]]) {
+      await go();
+      const ov = await overflowX(pg);
+      if (ov > 0) { bug('review', 'TC-R08', 'P3', `${where} 가로 스크롤 ${ov}px`); clean = false; }
+      const lc = await lowContrast(pg);
+      if (lc.length) {
+        bug('review', 'TC-R08', 'P2', `${where} 저대비 ${lc.length}건: ${lc.slice(0, 3).map(x => `"${x.text}" ${x.ratio}:1`).join(' / ')}`);
+        clean = false;
+      }
+    }
+    if (clean) pass('TC-R08', '목록·상세 레이아웃·대비 정상');
   }
 
   /* TC-R09 A등급 출처 제목 ↔ 제품명 나란히 — 엉뚱한 제품에서 성분 떠옴을 사람이 잡게
