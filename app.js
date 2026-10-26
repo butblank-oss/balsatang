@@ -698,6 +698,33 @@ function renderEmptySearch() {
   </div>`;
 }
 
+/* ═══ 대가성 고지 ═══
+
+   쿠팡 파트너스가 최종 승인을 반려했다. 사유: "대가성 문구는 활동 게시물
+   최상단 혹은 제목에 기재하셔야 합니다." 지적된 주소는 사료 상세 화면이다.
+
+   내가 잘못 짚었다. 푸터에 상시 노출하면 된다고 봤는데 푸터는 최상단이 아니고,
+   게다가 사료 상세에는 독이 있어서 푸터를 아예 안 붙였다. 그래서 이 화면의
+   고지는 급여량·가격 탭 안쪽에만 있었다 — 구매 버튼이 바로 거기 있는데도
+   사람이 탭을 옮겨야 보이는 자리였다.
+
+   파트너스 가이드가 요구하는 세 가지를 그대로 맞춘다.
+     (1) 제목 또는 첫 부분에 본문과 구별되게  → 본문 맨 앞(뒤로가기 줄 바로 아래).
+         쿠팡이 든 통과 예시도 블로그 내비 아래 첫 줄이다.
+     (2) 본문보다 크게 하거나 눈에 띄는 색    → 앰버 띠 + '광고' 배지
+     (3) 조건부·불확정 표현 없이             → '제공받습니다' (받을 수 있습니다 ✗)
+
+   구매 링크는 사료 상세에만 있다(독 CTA, 급여량·가격 탭의 판매처 행).
+   그래서 이 화면에만 붙인다 — 링크가 없는 화면에 광고 딱지를 붙이면
+   그것도 사실과 다르다. */
+function adBanner() {
+  return `<aside class="adband">
+    <span class="adband-tag">광고</span>
+    <p>이 페이지의 구매 링크는 쿠팡 파트너스 활동의 일환으로,
+      이에 따라 <b>일정액의 수수료를 제공받습니다.</b></p>
+  </aside>`;
+}
+
 /* ═══════════════════════════════════════════════════════
    03 / 07 사료 상세 — 성분 분석 · 급여량·가격
    ═══════════════════════════════════════════════════════ */
@@ -722,6 +749,7 @@ function renderDetail() {
     <button class="iconbtn press" data-save="${f.id}" aria-pressed="${isSaved(f.id)}" aria-label="찜">${heartIcon(isSaved(f.id))}</button>
     <button class="iconbtn press" data-share aria-label="공유">${icon('share', 22, 'ui')}</button>
   </div>
+  ${adBanner()}
   <div class="d-hero${pend ? ' pending' : ''}">${src
     ? `<img src="${esc(src)}" alt="" onerror="this.outerHTML='<span class=initial>${esc((f.brand || '?')[0])}</span>'">`
     : `<span class="initial">${esc((f.brand || '?')[0])}</span>`}</div>

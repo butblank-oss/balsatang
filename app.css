@@ -680,3 +680,22 @@ html{overscroll-behavior-y:none}
 .ptr.spin .ptr-c{stroke:var(--purple700);stroke-dashoffset:16}
 @keyframes ptrSpin{to{transform:rotate(360deg)}}
 @media (prefers-reduced-motion:reduce){.ptr.spin svg{animation-duration:1.6s}}
+
+/* ── 대가성 고지 띠 ─────────────────────────────────────
+   쿠팡 파트너스 가이드: 제목 또는 첫 부분에, 본문과 구별되게, 눈에 띄는 색으로.
+   화면 맨 위 — 상세 헤더보다도 앞에 둔다. 스크롤하지 않아도 보여야 한다.
+   팔레트에 빨강이 없으므로 주의색(앰버)을 쓴다. */
+.adband{display:flex;align-items:flex-start;gap:9px;margin:4px 16px 0;
+  padding:11px 13px;border-radius:var(--rThumbMd);
+  background:var(--cautionBg);box-shadow:inset 0 0 0 1px var(--caution)}
+/* cautionChip(#B87514) 위의 흰 글자는 3.76:1 이라 본문 기준(4.5:1)에 못 미친다.
+   하필 '광고' — 이 페이지에서 제일 읽혀야 하는 두 글자다. cautionText 로 내린다(5.92:1). */
+.adband-tag{flex:none;height:21px;padding:0 8px;border-radius:5px;background:var(--cautionText);
+  color:#fff;font-size:12px;font-weight:800;letter-spacing:-.02em;
+  display:inline-flex;align-items:center}
+/* 가이드는 '본문보다 크게 하거나 눈에 띄는 색' 중 하나면 된다고 하지만, 반려를
+   한 번 받은 뒤라 둘 다 맞춘다. 본문 15px 와 같은 크기에 굵기를 올리고,
+   앰버 띠와 '광고' 배지로 색까지 구별한다. 더 작게 두면 트집 잡힐 자리가 된다. */
+.adband p{font-size:15px;font-weight:700;color:var(--cautionText);
+  letter-spacing:-.02em;line-height:1.5}
+.adband b{font-weight:800}

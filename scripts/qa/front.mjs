@@ -233,6 +233,50 @@ await pg.waitForSelector('.app');
   else pass('TC-F00b', '충돌 마커 없음 · 스크립트 중복 없음');
 }
 
+/* TC-F15 대가성 고지 — 구매 링크가 있는 화면 최상단에 있는가.
+
+   쿠팡 파트너스가 이것 때문에 최종 승인을 반려했다("대가성 문구는 활동 게시물
+   최상단 혹은 제목에 기재"). 가이드 세 가지를 그대로 검사한다:
+   본문 맨 앞 · 본문보다 작지 않은 글자 · 조건부 표현 없음. */
+{
+  const bad = [];
+  const id = await pg.evaluate(() => FOODS.find(f => DETAIL[f.id]?.ingr?.length)?.id ?? FOODS[0].id);
+  for (const tab of ['nutrition', 'feeding']) {
+    await pg.evaluate(x => { location.hash = '#/food/' + encodeURIComponent(x); }, id);
+    await pg.waitForTimeout(350);
+    if (tab === 'feeding') { await pg.click('[data-dtab="feeding"]'); await pg.waitForTimeout(350); }
+    const r = await pg.evaluate(() => {
+      const a = document.querySelector('.adband');
+      if (!a) return null;
+      const p = a.querySelector('p');
+      const kids = [...document.querySelector('#view').children];
+      return {
+        text: a.innerText.replace(/\s+/g, ' ').trim(),
+        top: a.getBoundingClientRect().top,
+        /* 본문 맨 앞이어야 한다 — 뒤로가기 줄 다음 자리 */
+        idx: kids.indexOf(a),
+        size: parseFloat(getComputedStyle(p).fontSize),
+        body: parseFloat(getComputedStyle(document.body).fontSize),
+        buys: document.querySelectorAll('[data-buy]').length
+      };
+    });
+    if (!r) { bad.push(`${tab} 탭에 대가성 고지 없음`); continue; }
+    if (r.idx > 1) bad.push(`${tab} 고지가 ${r.idx}번째 — 본문 맨 앞이 아님`);
+    if (r.top > 200) bad.push(`${tab} 고지가 ${Math.round(r.top)}px 아래 — 첫 화면에서 안 보임`);
+    if (r.size < r.body) bad.push(`${tab} 고지 글자 ${r.size}px < 본문 ${r.body}px`);
+    /* '받을 수 있습니다' 같은 조건부 표현은 가이드가 명시적으로 금지한다 */
+    if (/수 있습니다|수도 있|일 수 있/.test(r.text)) bad.push(`${tab} 고지에 조건부 표현`);
+    if (!/쿠팡 파트너스/.test(r.text)) bad.push(`${tab} 고지에 '쿠팡 파트너스' 없음`);
+    if (!/제공받습니다|받습니다/.test(r.text)) bad.push(`${tab} 고지에 수수료 수취 명시 없음`);
+  }
+  /* 구매 링크가 없는 화면에는 광고 딱지를 붙이지 않는다 — 그것도 사실과 다르다 */
+  await pg.evaluate(() => { location.hash = '#/'; }); await pg.waitForTimeout(300);
+  const onHome = await pg.evaluate(() => !!document.querySelector('.adband'));
+  if (onHome) bad.push('구매 링크가 없는 홈에도 광고 고지가 붙음');
+  if (bad.length) bug('front', 'TC-F15', 'P1', bad.join(' / '));
+  else pass('TC-F15', '대가성 고지 · 상세 두 탭 최상단');
+}
+
 /* TC-F13 푸터 — 파트너스 고지가 상시로 보이는가 */
 {
   const bad = [];
