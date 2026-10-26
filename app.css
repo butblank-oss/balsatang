@@ -73,7 +73,9 @@ img{display:block;max-width:100%}
 /* 고정 바 높이는 render 가 재서 --tabbarH / --dockH 로 넘긴다.
    숫자를 여기 박아 두면 라벨이나 글꼴이 바뀌는 순간 본문 끝이 바 아래로 숨는다. */
 #view.has-tabbar{padding-bottom:calc(var(--tabbarH,84px) + 12px)}
-#view.has-dock{padding-bottom:calc(var(--tabbarH,0px) + var(--dockH,76px) + 12px)}
+/* 독은 이제 탭까지 덮는 높이다(.dock 설명 참고). --dockH 안에 탭 높이가 이미 들어
+   있으므로 여기서 또 더하면 화면 끝에 빈 칸이 한 바 높이만큼 남는다. */
+#view.has-dock{padding-bottom:calc(var(--dockH,160px) + 12px)}
 
 /* ── 타이포 ─────────────────────────────────────────── */
 .t-hero{font-size:29px;font-weight:800;letter-spacing:-.045em;line-height:1.32;text-wrap:pretty}
@@ -233,11 +235,21 @@ img{display:block;max-width:100%}
 .btn:disabled{background:var(--surfaceInput);color:var(--ink25);transform:none}
 
 /* ── 하단 고정 액션 ─────────────────────────────────── */
-/* 독은 하단 탭 바로 위에 얹힌다. 탭이 없는 화면에선 --tabbarH 가 0 이라
-   예전과 똑같이 바닥에 붙는다. */
-.dock{position:fixed;left:0;right:0;bottom:var(--tabbarH,0px);z-index:40;max-width:480px;margin:0 auto;
+/* 독은 하단 탭 바로 위에 얹힌다.
+
+   ⚠ 예전엔 bottom:var(--tabbarH) 로 탭 '위에' 띄웠다. 그러면 독과 탭이 서로 안 닿는
+   두 개의 바가 되고, 잰 값이 1px 이라도 어긋나는 순간 그 사이로 본문이 비쳐 두 덩이로
+   갈라져 보였다. 스크롤 중에는 더 심했다 — 아이폰 사파리는 스크롤하면서 주소창을
+   접었다 폈다 하는데 그때마다 탭 높이가 달라지는데 다시 재는 사람이 없었다.
+
+   그래서 독은 바닥까지 내려 깔고(bottom:0), 탭 높이만큼 아래 여백을 줘서 버튼만 위로
+   올린다. 흰 바탕이 화면 바닥까지 이어지므로 틈이 생길 자리가 아예 없다. 탭은
+   z-index 가 위라 그 위에 그대로 얹힌다. 잰 값이 조금 틀려도 버튼 위치가 몇 px
+   오르내릴 뿐, 갈라지지는 않는다. */
+.dock{position:fixed;left:0;right:0;bottom:0;z-index:40;max-width:480px;margin:0 auto;
   background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-top:var(--divider);
-  padding:10px var(--screenX) calc(12px + var(--dockSafe,env(safe-area-inset-bottom)));display:flex;gap:8px}
+  padding:10px var(--screenX) calc(12px + var(--dockSafe,env(safe-area-inset-bottom)) + var(--tabbarH,0px));
+  display:flex;gap:8px}
 .dock .btn{flex:1}
 /* 세로로 쌓는 독. flex-direction 만 바꾸면 .dock .btn 의 flex:1 이 이번엔
    '높이'를 나눠 갖는 뜻이 돼서 버튼이 21px 로 찌그러진다. */
@@ -508,7 +520,13 @@ img{display:block;max-width:100%}
 .d-name{font-size:23px;font-weight:700;letter-spacing:-.04em;line-height:1.35;margin-top:3px}
 .d-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px;align-items:center}
 .d-tags .tag{height:26px;font-size:12px;padding:0 9px;border-radius:6px;color:var(--ink70)}
-.d-tabs{display:grid;grid-template-columns:1fr 1fr;border-bottom:var(--divider);margin-top:24px;position:sticky;top:calc(52px + env(safe-area-inset-top));z-index:19;background:#fff}
+/* 탭은 위의 .d-bar 바로 밑에 붙어 멈춰야 한다.
+   ⚠ 예전엔 top:calc(52px + safe-area) 였는데 .d-bar 실제 높이는 40px + safe-area 다.
+   12px 이 늘 비어서, 스크롤하면 그 틈으로 본문이 지나가는 게 보였다 — 윗바가 두 쪽으로
+   갈라져 보이던 게 이것이다. 숫자를 박아 두면 글꼴이나 아이콘이 바뀔 때 또 어긋나므로
+   render 가 .d-bar 를 재서 --dbarH 로 넘긴다(syncBars). */
+.d-tabs{display:grid;grid-template-columns:1fr 1fr;border-bottom:var(--divider);margin-top:24px;
+  position:sticky;top:var(--dbarH,40px);z-index:19;background:#fff}
 
 /* 랭킹 (홈 메인) */
 .r-sec{padding:28px 16px 0}

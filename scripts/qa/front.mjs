@@ -322,6 +322,63 @@ await pg.waitForSelector('.app');
   else pass('TC-F14', '약관·방침 화면 · 푸터 링크');
 }
 
+/* TC-F16 고정 바가 스크롤 중에 갈라지지 않는가.
+
+   상세 화면 위아래가 각각 두 겹이다 — 위는 뒤로가기 줄(.d-bar) + 탭(.d-tabs),
+   아래는 독(.dock) + 하단 탭(.tabbar). 둘 다 붙어 한 덩이로 보여야 하는데,
+   예전엔 사이가 벌어져 그 틈으로 본문이 지나가는 게 보였다. 위는 .d-tabs 의
+   top 에 52px 이 박혀 있는데 .d-bar 는 40px 이라 12px 이 늘 비었고, 아래는
+   독을 bottom:var(--tabbarH) 로 띄워 둬서 잰 값이 어긋나는 만큼 틈이 났다.
+
+   눈으로는 '스크롤할 때만' 보이므로 멈춰 세운 여러 지점에서 재고, 창 크기까지
+   바꿔 본다 — 아이폰 사파리가 스크롤 중에 주소창을 접으면 이것과 같은 일이 난다. */
+{
+  const bad = [];
+  /* ⚠ FOODS[0] 로 집으면 안 된다 — 첫 사료는 '자료 수집 중' 이라 독이 아예 없고,
+     그러면 아래쪽 검사가 전부 빈손으로 통과한다(실제로 그랬다). 독이 뜨는 건을 고른다. */
+  const id = await pg.evaluate(() => FOODS.find(f => DETAIL[f.id]?.ingr?.length)?.id ?? FOODS[0].id);
+  await pg.evaluate(x => { location.hash = `#/food/${x}`; }, id);
+  await pg.waitForSelector('.d-tabs'); await pg.waitForTimeout(400);
+  if (!await pg.locator('.dock').count()) bad.push('고른 사료에 독이 없어 아래쪽을 못 쟀다');
+
+  const gaps = () => pg.evaluate(() => {
+    const r = s => document.querySelector(s)?.getBoundingClientRect();
+    const bar = r('.d-bar'), tabs = r('.d-tabs'), dock = r('.dock'), tb = r('.tabbar');
+    /* ⚠ '멈춰 섰다' 를 tabs.top <= bar.bottom 으로 판단하면 안 된다 — 그게 바로 고치려는
+       증상이라, 틈이 벌어져 있을 때마다 '아직 안 멈췄다' 가 되어 검사가 통과해 버린다.
+       sticky 가 실제로 물린 자리는 그 요소의 계산된 top 이다(var·calc 가 px 로 풀려 나온다).
+       거기 붙어 있으면 멈춘 것이고, 그때 바 밑과 딱 맞물리는지를 본다. */
+    const tabsEl = document.querySelector('.d-tabs');
+    const stickyTop = tabsEl ? parseFloat(getComputedStyle(tabsEl).top) : NaN;
+    const out = { stuck: tabs && Math.abs(tabs.top - stickyTop) < 1 };
+    /* 위: 탭이 멈춰 선 뒤에도 바 밑이 비어 있나 */
+    out.top = bar && tabs ? +(tabs.top - bar.bottom).toFixed(1) : 0;
+    /* 아래: 독 바탕이 화면 바닥까지 이어지나 — 안 이어지면 그 틈으로 본문이 비친다 */
+    out.bottom = dock ? +(innerHeight - dock.bottom).toFixed(1) : 0;
+    /* 독 버튼이 하단 탭에 가려지지 않나 */
+    const btn = document.querySelector('.dock .btn');
+    out.covered = btn && tb ? +(btn.getBoundingClientRect().bottom - tb.top).toFixed(1) : -1;
+    return out;
+  });
+
+  for (const y of [0, 200, 400, 700, 1100, 99999]) {
+    await pg.evaluate(v => scrollTo(0, v), y); await pg.waitForTimeout(250);
+    const g = await gaps();
+    if (g.stuck && g.top > 0.6) bad.push(`${y}px 에서 뒤로가기 줄과 탭 사이 ${g.top}px 틈`);
+    if (g.bottom > 0.6) bad.push(`${y}px 에서 독과 화면 바닥 사이 ${g.bottom}px 틈`);
+    if (g.covered > 0.6) bad.push(`${y}px 에서 독 버튼이 하단 탭에 ${g.covered}px 가림`);
+  }
+  /* 창이 바뀌면 다시 재는가 — 예전엔 다시 재는 데가 한 곳도 없었다 */
+  await pg.setViewportSize({ width: 390, height: 700 }); await pg.waitForTimeout(400);
+  const g = await gaps();
+  if (g.bottom > 0.6) bad.push(`창을 줄이면 독과 바닥 사이 ${g.bottom}px 틈 — 다시 재지 않음`);
+  if (g.covered > 0.6) bad.push(`창을 줄이면 독 버튼이 ${g.covered}px 가림 — 다시 재지 않음`);
+  await pg.setViewportSize({ width: 390, height: 844 }); await pg.waitForTimeout(300);
+
+  if (bad.length) bug('front', 'TC-F16', 'P2', [...new Set(bad)].slice(0, 4).join(' / '));
+  else pass('TC-F16', '고정 바 · 스크롤·창 변화에도 안 갈라짐');
+}
+
 /* 종합 */
 if (log.errors.length) bug('front', 'TC-F00', 'P1', `JS 오류 ${log.errors.length}건: ${[...new Set(log.errors)].slice(0, 3).join(' | ')}`);
 if (log.missing.length) bug('front', 'TC-F00', 'P2', `404 ${log.missing.length}건: ${[...new Set(log.missing)].slice(0, 3).join(' | ')}`);

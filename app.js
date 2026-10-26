@@ -2011,8 +2011,24 @@ function syncBars(dock) {
   root.setProperty('--tabbarH', h + 'px');
   /* 탭이 아래를 막고 있으면 독은 홈 인디케이터 여백을 또 줄 필요가 없다. */
   root.setProperty('--dockSafe', bar.hidden ? 'env(safe-area-inset-bottom)' : '0px');
+  /* 상세 탭(성분 분석 / 급여량·가격)이 멈춰 설 자리. 위의 .d-bar 바로 밑이어야 하는데
+     CSS 에 52px 로 박혀 있었고 실제 높이는 40px 이라 12px 이 늘 비었다. */
+  const db = $('.d-bar');
+  root.setProperty('--dbarH', db ? Math.round(db.getBoundingClientRect().height) + 'px' : '0px');
+  /* ⚠ --dockH 는 반드시 --tabbarH 를 넣은 뒤에 잰다. 독의 아래 여백이 탭 높이를 쓰므로
+     순서를 바꾸면 한 박자 전 높이를 재게 된다. */
   root.setProperty('--dockH', dock ? Math.round(dock.getBoundingClientRect().height) + 'px' : '0px');
 }
+
+/* 높이는 한 번 재고 끝낼 수 있는 값이 아니다. 아이폰 사파리는 스크롤하면서 주소창을
+   접었다 폈다 하고, 그때마다 화면이 다시 잡히는데 예전엔 다시 재는 데가 한 곳도 없었다.
+   그래서 스크롤 도중에 독과 탭이 어긋나 두 덩이로 갈라져 보였다. 글꼴이 늦게 뜰 때도
+   바 높이가 몇 px 달라진다. 화면을 다시 그리지 않고 높이만 다시 넘긴다. */
+function resyncBars() { syncBars($('.dock')); }
+addEventListener('resize', resyncBars);
+addEventListener('orientationchange', resyncBars);
+visualViewport?.addEventListener('resize', resyncBars);
+document.fonts?.ready.then(resyncBars);
 
 function wire() {
   const v = $('#view');
