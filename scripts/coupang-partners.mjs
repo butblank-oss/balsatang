@@ -64,7 +64,7 @@ async function call(method, pathWithQuery, body) {
       '  COUPANG_ACCESS_KEY=... COUPANG_SECRET_KEY=... node scripts/coupang-partners.mjs ...');
   }
   const args = ['-sS', '-m', '30', '-X', method,
-    '-H', `Authorization: ${authHeader(method, pathWithQuery)}`,
+    '-H', `Authorization: ${authHeader(method, BASE + pathWithQuery)}`,
     '-H', 'Content-Type: application/json;charset=UTF-8'];
   if (body) args.push('-d', JSON.stringify(body));
   const { stdout } = await run('curl', [...args, HOST + BASE + pathWithQuery],
