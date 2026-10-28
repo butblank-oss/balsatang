@@ -1,0 +1,11 @@
+{
+  "note": "사람이 미리 골라 둔 쿠팡 상품. coupang-candidates.mjs 가 이 상품을 '선택됨'으로 심사 화면에 붙인다. 용량을 확인했으면 wg(그램)를 같이 적는다.",
+  "items": {
+    "stg_orijen_4266771":      { "url": "https://www.coupang.com/vp/products/8595735313?itemId=19516369218&vendorItemId=95066558270", "by": "사람 (2026-10-28)", "memo": "오리젠 오리지널 독" },
+    "stg_orijen_15418451":     { "url": "https://www.coupang.com/vp/products/9341718787?itemId=11869240849&vendorItemId=95066585452", "by": "사람 (2026-10-28)", "memo": "오리젠 식스 피쉬" },
+    "stg_orijen_13068368":     { "url": "https://www.coupang.com/vp/products/9126058082?itemId=29284737163&vendorItemId=96196101602", "by": "사람 (2026-10-28)", "memo": "오리젠 핏 앤 트림" },
+    "stg_orijen_5195074":      { "url": "https://www.coupang.com/vp/products/159517016?itemId=12323978380&vendorItemId=96185843574", "by": "사람 (2026-10-28)", "memo": "오리젠 시니어" },
+    "stg_orijen_5195134":      { "url": "https://www.coupang.com/vp/products/5740596148?itemId=12323978322&vendorItemId=96201446914", "by": "사람 (2026-10-28)", "memo": "오리젠 퍼피 라지" },
+    "stg_royalcanin_12588677": { "url": "https://www.coupang.com/vp/products/8774060978?itemId=28489466562&vendorItemId=90272858973", "by": "사람 (2026-10-28)", "memo": "로얄캐닌 푸들 어덜트" }
+  }
+}

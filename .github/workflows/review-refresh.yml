@@ -11,6 +11,7 @@ on:
     branches: [main]
     paths:
       - 'data/staging/**'
+      - 'data/queue/coupang-picks.json'
       - 'scripts/**'
       - 'engine/dict.js'
       - 'engine/engine.js'
@@ -42,6 +43,14 @@ jobs:
       - name: 게이트 3 · 정합성 검사
         run: node scripts/gate3-consistency.mjs || true
 
+      # 키는 저장소 Settings → Secrets and variables → Actions 에 등록한다.
+      # 등록 전이면 스크립트가 건너뛰고 0 으로 끝난다 — 심사 목록 갱신은 그대로 돈다.
+      - name: 쿠팡 후보 찾기
+        env:
+          COUPANG_ACCESS_KEY: ${{ secrets.COUPANG_ACCESS_KEY }}
+          COUPANG_SECRET_KEY: ${{ secrets.COUPANG_SECRET_KEY }}
+        run: node scripts/coupang-candidates.mjs || true
+
       - name: 심사 데이터 생성
         run: node scripts/build-review.mjs --live
 
@@ -50,7 +59,7 @@ jobs:
           git config user.name  'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
           # _review.json 은 .gitignore 에 있다(로컬 스크립트용 원본). 배포본만 올린다.
-          git add data/staging/review.json
+          git add data/staging/review.json data/queue/coupang-candidates.json
           if git diff --cached --quiet; then
             echo '심사 목록에 바뀐 내용이 없습니다.'
             exit 0

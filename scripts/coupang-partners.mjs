@@ -37,6 +37,7 @@ import { createHmac } from 'node:crypto';
 import { readFile, writeFile } from 'node:fs/promises';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
+import { pathToFileURL } from 'node:url';
 import { loadFoods } from './lib/schema.mjs';
 
 const run = promisify(execFile);
@@ -96,8 +97,9 @@ export async function search(keyword, limit = 10) {
   }));
 }
 
-/* --- CLI --- */
-const [cmd, ...rest] = process.argv.slice(2);
+/* --- CLI --- (다른 스크립트가 import 할 때는 돌지 않는다) */
+const isMain = import.meta.url === pathToFileURL(process.argv[1] ?? '').href;
+const [cmd, ...rest] = isMain ? process.argv.slice(2) : ['__lib__'];
 const line = '─'.repeat(60);
 
 try {
@@ -168,7 +170,7 @@ try {
     }
     console.log();
 
-  } else {
+  } else if (cmd !== '__lib__') {
     console.log(`
 쿠팡 파트너스 Open API
 

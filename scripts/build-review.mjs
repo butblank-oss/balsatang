@@ -35,6 +35,10 @@ await rm(tmp3, { force: true });
 const g1By = {};
 for (const b of g1.batches) for (const it of b.items) g1By[it.stagingId] = it;
 
+/* 쿠팡 후보 — coupang-candidates.mjs 가 매일 찾아 둔다. 없으면(키 미등록) 빈 채로 간다. */
+let coupang = {};
+try { coupang = JSON.parse(await readFile(join(ROOT, 'data/queue/coupang-candidates.json'), 'utf-8')).items ?? {}; } catch {}
+
 let files = [];
 try { files = (await readdir(STAGING)).filter(f => f.endsWith('.json') && !f.startsWith('_') && f !== 'review.json'); } catch {}
 
@@ -76,6 +80,8 @@ for (const file of files) {
       note: item.note ?? null,
       priceTodo: item.priceTodo ?? null,
       danawaRef: item.danawaRef ?? null,
+      /* 쿠팡 검색 후보 3개(+ 미리 골라 둔 상품). 심사 화면에서 사람이 고른다 */
+      coupang: coupang[item.stagingId] ?? null,
       pricePending: g1r.pricePending === true,
       draft,
       gates: {
