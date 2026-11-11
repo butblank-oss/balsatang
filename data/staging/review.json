@@ -1,5 +1,5 @@
 {
-  "builtAt": "2026-11-10T04:58:02.293Z",
+  "builtAt": "2026-11-11T03:27:19.699Z",
   "live": true,
   "batches": [
     {
@@ -6123,13 +6123,8 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "fail",
-            "g1fail": [
-              {
-                "code": "E_URL_BRAND",
-                "msg": "sources[1] 페이지에 브랜드명(나우프레쉬 / nowfresh)이 없습니다: https://prod.danawa.com/info/?pcode=99806315"
-              }
-            ],
+            "g1": "pending",
+            "g1fail": [],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -6343,13 +6338,8 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "fail",
-            "g1fail": [
-              {
-                "code": "E_URL_BRAND",
-                "msg": "sources[1] 페이지에 브랜드명(나우프레쉬 / nowfresh)이 없습니다: https://prod.danawa.com/info/?pcode=14533913"
-              }
-            ],
+            "g1": "pending",
+            "g1fail": [],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -6563,13 +6553,8 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "fail",
-            "g1fail": [
-              {
-                "code": "E_URL_BRAND",
-                "msg": "sources[1] 페이지에 브랜드명(나우프레쉬 / nowfresh)이 없습니다: https://prod.danawa.com/info/?pcode=13745309"
-              }
-            ],
+            "g1": "pending",
+            "g1fail": [],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -6780,13 +6765,8 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "fail",
-            "g1fail": [
-              {
-                "code": "E_URL_BRAND",
-                "msg": "sources[1] 페이지에 브랜드명(나우프레쉬 / nowfresh)이 없습니다: https://prod.danawa.com/info/?pcode=12939512"
-              }
-            ],
+            "g1": "pending",
+            "g1fail": [],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -6998,13 +6978,8 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "fail",
-            "g1fail": [
-              {
-                "code": "E_URL_BRAND",
-                "msg": "sources[1] 페이지에 브랜드명(나우프레쉬 / nowfresh)이 없습니다: https://prod.danawa.com/info/?pcode=9817941"
-              }
-            ],
+            "g1": "pending",
+            "g1fail": [],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -7212,13 +7187,8 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "fail",
-            "g1fail": [
-              {
-                "code": "E_URL_BRAND",
-                "msg": "sources[1] 페이지에 브랜드명(나우프레쉬 / nowfresh)이 없습니다: https://prod.danawa.com/info/?pcode=99813215"
-              }
-            ],
+            "g1": "pending",
+            "g1fail": [],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -7432,13 +7402,8 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "fail",
-            "g1fail": [
-              {
-                "code": "E_URL_BRAND",
-                "msg": "sources[1] 페이지에 브랜드명(나우프레쉬 / nowfresh)이 없습니다: https://prod.danawa.com/info/?pcode=98580404"
-              }
-            ],
+            "g1": "pending",
+            "g1fail": [],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -7653,13 +7618,8 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "fail",
-            "g1fail": [
-              {
-                "code": "E_URL_BRAND",
-                "msg": "sources[1] 페이지에 브랜드명(나우프레쉬 / nowfresh)이 없습니다: https://prod.danawa.com/info/?pcode=124362783"
-              }
-            ],
+            "g1": "pending",
+            "g1fail": [],
             "g1warn": [],
             "todo": [],
             "g2": "none",
