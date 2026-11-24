@@ -1,5 +1,5 @@
 {
-  "builtAt": "2026-11-23T04:23:05.486Z",
+  "builtAt": "2026-11-24T07:18:28.646Z",
   "live": true,
   "batches": [
     {
@@ -753,8 +753,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[1] HTTP 403: https://prod.danawa.com/info/?pcode=4266771"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -932,8 +937,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[1] HTTP 403: https://prod.danawa.com/info/?pcode=99805562"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -1140,8 +1150,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[2] HTTP 403: https://prod.danawa.com/info/?pcode=4905882"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -1326,8 +1341,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[1] HTTP 403: https://prod.danawa.com/info/?pcode=14728352"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -1759,8 +1779,8 @@
                 "msg": "sources[0] 페이지에 브랜드명(고!솔루션 / gosolutions)이 없습니다: https://haruwell.com/goods/goods_view.php?goodsNo=1000000133"
               },
               {
-                "code": "E_URL_BRAND",
-                "msg": "sources[1] 페이지에 브랜드명(고!솔루션 / gosolutions)이 없습니다: https://prod.danawa.com/info/?pcode=11223654"
+                "code": "E_URL_DEAD",
+                "msg": "sources[1] HTTP 403: https://prod.danawa.com/info/?pcode=11223654"
               }
             ],
             "g1warn": [],
@@ -2127,8 +2147,8 @@
                 "msg": "sources[0] 페이지에 브랜드명(고!솔루션 / gosolutions)이 없습니다: https://haruwell.com/goods/goods_view.php?goodsNo=1000000130"
               },
               {
-                "code": "E_URL_BRAND",
-                "msg": "sources[1] 페이지에 브랜드명(고!솔루션 / gosolutions)이 없습니다: https://prod.danawa.com/info/?pcode=5582817"
+                "code": "E_URL_DEAD",
+                "msg": "sources[1] HTTP 403: https://prod.danawa.com/info/?pcode=5582817"
               }
             ],
             "g1warn": [],
@@ -2323,8 +2343,8 @@
             "g1": "fail",
             "g1fail": [
               {
-                "code": "E_URL_BRAND",
-                "msg": "sources[1] 페이지에 브랜드명(고!솔루션 / gosolutions)이 없습니다: https://prod.danawa.com/info/?pcode=101727095"
+                "code": "E_URL_DEAD",
+                "msg": "sources[1] HTTP 403: https://prod.danawa.com/info/?pcode=101727095"
               }
             ],
             "g1warn": [],
@@ -2521,8 +2541,8 @@
                 "msg": "sources[0] 페이지에 브랜드명(고!솔루션 / gosolutions)이 없습니다: https://haruwell.com/goods/goods_view.php?goodsNo=1000000119"
               },
               {
-                "code": "E_URL_BRAND",
-                "msg": "sources[1] 페이지에 브랜드명(고!솔루션 / gosolutions)이 없습니다: https://prod.danawa.com/info/?pcode=99815426"
+                "code": "E_URL_DEAD",
+                "msg": "sources[1] HTTP 403: https://prod.danawa.com/info/?pcode=99815426"
               }
             ],
             "g1warn": [],
@@ -2893,6 +2913,10 @@
               {
                 "code": "E_URL_DEAD",
                 "msg": "sources[0] HTTP 403: https://www.hillspet.co.kr/dog-food/prescription-diet-cd-multicare-urinary-care-dry"
+              },
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[1] HTTP 403: https://prod.danawa.com/info/?pcode=40638296"
               }
             ],
             "g1warn": [],
@@ -3090,6 +3114,10 @@
               {
                 "code": "E_URL_DEAD",
                 "msg": "sources[0] HTTP 403: https://www.hillspet.co.kr/dog-food/prescription-diet-gastrointestinal-biome-small-bites-digestive-care-dry"
+              },
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[1] HTTP 403: https://prod.danawa.com/info/?pcode=96822899"
               }
             ],
             "g1warn": [],
@@ -3273,6 +3301,10 @@
               {
                 "code": "E_URL_DEAD",
                 "msg": "sources[0] HTTP 403: https://www.hillspet.co.kr/dog-food/prescription-diet-hd-heart-care-dry"
+              },
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[1] HTTP 403: https://prod.danawa.com/info/?pcode=124057358"
               }
             ],
             "g1warn": [],
@@ -3470,6 +3502,10 @@
               {
                 "code": "E_URL_DEAD",
                 "msg": "sources[0] HTTP 403: https://www.hillspet.co.kr/dog-food/prescription-diet-id-digestive-care-dry"
+              },
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[1] HTTP 403: https://prod.danawa.com/info/?pcode=124057396"
               }
             ],
             "g1warn": [],
@@ -3661,6 +3697,10 @@
               {
                 "code": "E_URL_DEAD",
                 "msg": "sources[0] HTTP 403: https://www.hillspet.co.kr/dog-food/prescription-diet-id-low-fat-digestive-care-dry"
+              },
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[1] HTTP 403: https://prod.danawa.com/info/?pcode=114973907"
               }
             ],
             "g1warn": [],
@@ -3856,6 +3896,10 @@
               {
                 "code": "E_URL_DEAD",
                 "msg": "sources[0] HTTP 403: https://www.hillspet.co.kr/dog-food/prescription-diet-id-small-bites-digestive-care-dry"
+              },
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[1] HTTP 403: https://prod.danawa.com/info/?pcode=124057402"
               }
             ],
             "g1warn": [],
@@ -4223,6 +4267,10 @@
               {
                 "code": "E_URL_DEAD",
                 "msg": "sources[0] HTTP 403: https://www.hillspet.co.kr/dog-food/prescription-diet-kd-kidney-care-dry"
+              },
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[1] HTTP 403: https://prod.danawa.com/info/?pcode=124057719"
               }
             ],
             "g1warn": [],
@@ -4416,6 +4464,10 @@
               {
                 "code": "E_URL_DEAD",
                 "msg": "sources[0] HTTP 403: https://www.hillspet.co.kr/dog-food/prescription-diet-ld-liver-care-dry"
+              },
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[1] HTTP 403: https://prod.danawa.com/info/?pcode=124057735"
               }
             ],
             "g1warn": [],
@@ -4605,6 +4657,10 @@
               {
                 "code": "E_URL_DEAD",
                 "msg": "sources[0] HTTP 403: https://www.hillspet.co.kr/dog-food/prescription-diet-metabolic-mini-chicken-weight-management-dry"
+              },
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[1] HTTP 403: https://prod.danawa.com/info/?pcode=16831073"
               }
             ],
             "g1warn": [],
@@ -4972,6 +5028,10 @@
               {
                 "code": "E_URL_DEAD",
                 "msg": "sources[0] HTTP 403: https://www.hillspet.co.kr/dog-food/prescription-diet-rd-weight-management-dry"
+              },
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[1] HTTP 403: https://prod.danawa.com/info/?pcode=104050514"
               }
             ],
             "g1warn": [],
@@ -5154,6 +5214,10 @@
               {
                 "code": "E_URL_DEAD",
                 "msg": "sources[0] HTTP 403: https://www.hillspet.co.kr/dog-food/prescription-diet-td-small-bites-dental-care-dry"
+              },
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[1] HTTP 403: https://prod.danawa.com/info/?pcode=117607383"
               }
             ],
             "g1warn": [],
@@ -5349,6 +5413,10 @@
               {
                 "code": "E_URL_DEAD",
                 "msg": "sources[0] HTTP 403: https://www.hillspet.co.kr/dog-food/prescription-diet-wd-glucose-management-dry"
+              },
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[1] HTTP 403: https://prod.danawa.com/info/?pcode=103889387"
               }
             ],
             "g1warn": [],
@@ -5538,6 +5606,10 @@
               {
                 "code": "E_URL_DEAD",
                 "msg": "sources[0] HTTP 403: https://www.hillspet.co.kr/dog-food/prescription-diet-zd-food-sensitivities-dry"
+              },
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[1] HTTP 403: https://prod.danawa.com/info/?pcode=69692417"
               }
             ],
             "g1warn": [],
@@ -5905,6 +5977,10 @@
               {
                 "code": "E_URL_DEAD",
                 "msg": "sources[0] HTTP 403: https://www.hillspet.co.kr/dog-food/prescription-diet-zd-small-bites-food-sensitivities-dry"
+              },
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[1] HTTP 403: https://prod.danawa.com/info/?pcode=124057766"
               }
             ],
             "g1warn": [],
@@ -6123,8 +6199,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[1] HTTP 403: https://prod.danawa.com/info/?pcode=99806315"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -6338,8 +6419,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[1] HTTP 403: https://prod.danawa.com/info/?pcode=14533913"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -6553,8 +6639,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[1] HTTP 403: https://prod.danawa.com/info/?pcode=13745309"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -6765,8 +6856,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[1] HTTP 403: https://prod.danawa.com/info/?pcode=12939512"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -6978,8 +7074,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[1] HTTP 403: https://prod.danawa.com/info/?pcode=9817941"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -7187,8 +7288,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[1] HTTP 403: https://prod.danawa.com/info/?pcode=99813215"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -7402,8 +7508,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[1] HTTP 403: https://prod.danawa.com/info/?pcode=98580404"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -7618,8 +7729,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[1] HTTP 403: https://prod.danawa.com/info/?pcode=124362783"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -7838,8 +7954,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[1] HTTP 403: https://prod.danawa.com/info/?pcode=99804548"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -8050,8 +8171,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[1] HTTP 403: https://prod.danawa.com/info/?pcode=5195134"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -8265,8 +8391,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[1] HTTP 403: https://prod.danawa.com/info/?pcode=15418451"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -8477,8 +8608,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[1] HTTP 403: https://prod.danawa.com/info/?pcode=17095823"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -8701,8 +8837,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[1] HTTP 403: https://prod.danawa.com/info/?pcode=13068368"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
@@ -8917,8 +9058,13 @@
           "pricePending": true,
           "draft": false,
           "gates": {
-            "g1": "pending",
-            "g1fail": [],
+            "g1": "fail",
+            "g1fail": [
+              {
+                "code": "E_URL_DEAD",
+                "msg": "sources[1] HTTP 403: https://prod.danawa.com/info/?pcode=5195074"
+              }
+            ],
             "g1warn": [],
             "todo": [],
             "g2": "none",
